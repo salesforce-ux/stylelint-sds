@@ -1,0 +1,91 @@
+.test-cls2 {
+	visibility: 'hidden';
+	height: 1px;
+}
+
+.slds-button--last{
+	border-start-start-radius: 0;
+}
+
+/* slds-css/lwc-to-slds-token */
+.test-cls {
+	font-size: t(--lwc-borderRadiusMedium);
+}
+
+/* slds-css/no-aura-tokens */
+.test-cls {
+	font-size: t(--lwc-borderRadiusMedium);
+}
+
+/* slds-css/no-bem-usage */
+/* sf-sds/no-slds-class-overrides */
+.slds-button--last{
+	border-start-start-radius: 0;
+}
+
+
+/* slds-css/no-deprecated-slds-classes */
+.slds-box_border{
+	visibility: hidden;
+}
+
+/* slds-css/no-deprecated-slds-hooks */
+.div-modal-cls {
+	color: t(--slds-c-accordion-heading-text-color);
+}
+
+/* slds-css/no-lwc-custom-properties */
+:where(html){
+    --lwc-brandPrimary: var(--slds-g-color-brand-base-60) !important;
+}
+
+/* slds-css/no-sds-custom-properties */
+:where(html){
+    --sds-g-spacing-1: var(--slds-g-spacing-1);
+    --slds-g-spacing-1: 0.25rem;
+}
+/* slds-css/no-slds-private-var */
+:where(html){
+    --_slds-c-path-item-color-background-active: var(--slds-g-color-surface-container-inverse-1);
+}
+
+.combobox-wrapper {
+	position: absolute;
+	width: 25% !important;
+	margin: slds-align_absolute-center;
+}
+
+/* 
+.cls-everything-good {
+	height: 1rem;
+}
+
+.slds-test-cls {
+	font-size: t(--lwc-abc);
+}
+
+.test-cls {
+	height: auto;
+	background-color: white;
+	color:white;
+	fill:white;
+	background:white;
+}
+
+.unused-class-example {
+	margin-block-end: 12rem;
+}
+
+.test-utility-class {
+	margin: 0px !important;
+}
+
+.test-cls2 {
+	visibility: 'hidden'
+}
+
+
+.testing123 {
+	margin: 50px;
+	height: 1px !important;
+} */

@@ -1,0 +1,46 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+          {
+            "name": "Run Stylelint on CSS",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "/Users/lnemalipuri/.volta/bin/npx",
+            "runtimeArgs": [
+              "stylelint",
+              "force-app/main/default/lwc/myComponent/test.css",
+              "--config=packages/example-repository/.stylelintrc.yml"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+          },
+          {
+            "name": "Run Eslint on HTML",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "/Users/lnemalipuri/.volta/bin/npx",
+            "runtimeArgs": [
+              "eslint",
+              "force-app/main/default/lwc/myComponent/myComponent.html"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+          },
+          {
+            "name": "Auto fix using Stylelint",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "/Users/lnemalipuri/.volta/bin/npx",
+            "runtimeArgs": [
+              "stylelint",
+              "force-app/main/default/lwc/myComponent/test.css",
+              "--fix"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+          },
+    ]
+  }

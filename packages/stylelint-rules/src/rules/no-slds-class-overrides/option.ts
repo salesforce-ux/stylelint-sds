@@ -1,0 +1,74 @@
+import { Options } from './option.interface';
+
+export const defaultOptions : Options =
+{
+	step: 0.125,
+	units:
+	[
+		'ch',
+		'em',
+		'ex',
+		'rem',
+		'vh',
+		'vw',
+		'vmin',
+		'vmax'
+	],
+	atRules:
+	[
+		'media'
+	],
+	properties:
+	[
+		'border',
+		'border-bottom',
+		'border-bottom-left-radius',
+		'border-bottom-right-radius',
+		'border-bottom-width',
+		'border-left',
+		'border-left-width',
+		'border-radius',
+		'border-right',
+		'border-right-width',
+		'border-top',
+		'border-top-left-radius',
+		'border-top-right-radius',
+		'border-top-width',
+		'bottom',
+		'box-shadow',
+		'columns',
+		'column-gap',
+		'column-width',
+		'flex-basis',
+		'font',
+		'font-size',
+		'gap',
+		'height',
+		'inset',
+		'left',
+		'letter-spacing',
+		'line-height',
+		'margin',
+		'margin-bottom',
+		'margin-left',
+		'margin-right',
+		'margin-top',
+		'max-height',
+		'max-width',
+		'min-height',
+		'min-width',
+		'outline',
+		'outline-offset',
+		'outline-width',
+		'padding',
+		'padding-bottom',
+		'padding-left',
+		'padding-right',
+		'padding-top',
+		'right',
+		'row-gap',
+		'text-indent',
+		'top',
+		'width'
+	]
+};

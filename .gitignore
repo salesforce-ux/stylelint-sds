@@ -1,0 +1,4 @@
+package-lock.json
+scripts/reports/
+node_modules/
+*.sarif

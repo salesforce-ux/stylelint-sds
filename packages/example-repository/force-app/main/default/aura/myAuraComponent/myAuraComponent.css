@@ -1,0 +1,26 @@
+.my-component {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.header {
+    color: #333;
+    font-size: 24px;
+}
+
+.description {
+    color: #666;
+    font-size: 16px;
+}
+
+.slds-button {  /* This should trigger the Stylelint rule */
+    margin-top: 10px;
+}
+
+
+/* From Core application */
+
+.THIS .slds-card {
+    margin-bottom: t(spacingMedium);
+}

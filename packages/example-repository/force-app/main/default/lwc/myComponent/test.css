@@ -1,0 +1,8 @@
+.combobox-wrapper {
+	position: absolute;
+	width: 25% !important;
+	margin: slds-align_absolute-center;
+	height: calc(100px - 10px);
+}
+
+
