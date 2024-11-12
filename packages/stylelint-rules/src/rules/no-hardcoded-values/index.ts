@@ -92,7 +92,7 @@ class NoHardcodedValuesRule extends AbstractStylelintRule {
       root.walkDecls((decl) => {
         const cssProperty = decl.prop.toLowerCase();
         const colorProperties = ["color", "fill", "background", "background-color", "stroke", "border-*-color", "outline-color"];
-        const densificationProperties = ["font-size", "border*", "margin*", "padding*", "width", "height"];
+        const densificationProperties = ["font-size", "border*", "margin*", "padding*", "width", "height", "top", "right", "left"];
         
         const value = decl.value;
         const index = decl.toString().indexOf(decl.value); // Start index of the value

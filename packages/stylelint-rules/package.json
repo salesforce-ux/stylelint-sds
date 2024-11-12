@@ -10,10 +10,10 @@
     "test": "mocha"
   },
   "dependencies": {
+    "@rollup/plugin-typescript": "^12.1.1",
     "@types/postcss-html": "^1.5.3",
     "chroma-js": "^3.1.2",
     "csv-parse": "^5.5.6",
-    "fs": "^0.0.1-security",
     "postcss": "^8.4.47",
     "postcss-html": "^1.7.0",
     "yaml": "^2.6.0"

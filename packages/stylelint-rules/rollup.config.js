@@ -1,5 +1,5 @@
 import del from 'rollup-plugin-delete';
-import ts from 'rollup-plugin-ts';
+import ts from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 
 export default
