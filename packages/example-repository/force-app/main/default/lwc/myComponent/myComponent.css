@@ -3,19 +3,35 @@
 	height: 1px;
 }
 
-.slds-button--last{
+.slds-button--last {
 	border-start-start-radius: 0;
 }
 
 /* slds-css/lwc-to-slds-token */
 .test-cls {
-	font-size: t(--lwc-borderRadiusMedium);
+	border: var(--slds-g-radius-border-2);
 }
 
 /* slds-css/no-aura-tokens */
 .test-cls {
-	font-size: t(--lwc-borderRadiusMedium);
+	border: t(--lwc-borderRadiusMedium);
 }
+
+.THIS {
+	color: t(--lwc-brandPrimary);
+	background: t(--lwc-brandPrimary);
+	border-color: t(--lwc-brandPrimary);
+	background: token(brandBackgroundPrimary);
+}
+	
+ 
+
+
+.dotted-line {
+	border-bottom: 1px dotted; /* 1px shouldn't be allowed */
+	background-color: white;/*white value shouldn't allowed */
+}
+
 
 /* slds-css/no-bem-usage */
 /* sf-sds/no-slds-class-overrides */

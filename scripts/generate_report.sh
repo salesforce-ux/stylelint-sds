@@ -4,10 +4,7 @@
 TARGET_DIR="$1"
 # Stylelint configuration file
 CONFIG_FILE="packages/example-repository/.stylelintrc.yml"
-# Custom formatter for SARIF
-CUSTOM_FORMATTER="node_modules/stylelint-sarif-formatter/index.js"
-# Folder to store SARIF reports for each batch
-
+x
 # Get the directory of the script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FOLDER_NAME="reports"
@@ -56,8 +53,6 @@ for (( i=0; i<${#FILES[@]}; i+=BATCH_SIZE )); do
 
   # Run stylelint on the batch and save output to the SARIF file for the batch
   npx stylelint "${BATCH[@]}" --config="$CONFIG_FILE" --formatter="json" --output-file="$BATCH_SARIF_FILE" > /dev/null 2>&1
-  #--custom-formatter="$CUSTOM_FORMATTER" --output-file="$BATCH_SARIF_FILE" > /dev/null 2>&1
-
 
   # Check if the stylelint command ran successfully
   # if [[ $? -eq 0 ]]; then
@@ -72,4 +67,3 @@ echo "All batch .sarifs are generated"
 
 echo "Consolidated file report generation ..."
 
-"$SCRIPT_DIR/consolidate_sarifs.sh"
