@@ -3,7 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "workspaces": [
+"workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "install-all": "npm install",
+    "build-all": "npm run build --workspaces",
+    "test-all": "npm run test --workspaces",
+    "clean-all": "npm run clean --workspaces", 
+    "run-all": "npm run all --workspaces",
+    "report": "stylelint 'packages/example-repository/**/*.css' --config=packages/stylelint-rules/.stylelintrc.yml"
+  }
 }

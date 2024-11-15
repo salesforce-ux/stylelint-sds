@@ -4,9 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "build": "echo 'not implemented'",
     "lint:css": "stylelint **/*.css",
     "fix": "stylelint force-app/main/default/lwc/myComponent/test.css --fix",
-    "sarif": "stylelint **/*.css --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif",
     "lint:content": "stylelint '/Users/lnemalipuri/app_code/uxf/_github/SLDS-Stylelint-Example/**/*.css' --config=.stylelintrc.yml --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif",
     "lint:core": "stylelint '/Users/lnemalipuri/app_code/uxf/core_projects/core-public/core' --config=.stylelintrc.yml --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif"
   },
