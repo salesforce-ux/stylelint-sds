@@ -9,7 +9,7 @@ const ruleName = 'no-aura-tokens';
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   deprecated: 'Aura tokens are deprecated. Please migrate to SLDS Design Tokens.',
-  replaced: (oldValue: string, newValue: string) => `Replace '${oldValue}' with '${newValue}'`,
+  replaced: (oldValue: string, newValue: string) => `The '${oldValue}' design token is deprecated. To avoid breaking changes, we recommend that you replace it with the '${newValue}' styling hook even though it has noticeable changes. Set the fallback to '${oldValue}'. See the New Global Styling Hooks Guidance on lightningdesignsystem.com for more info.`,
 });
 
 // Read the token mapping file
