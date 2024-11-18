@@ -1,5 +1,5 @@
 plugins:
-  # - "@salesforcedevs/stylelint-slds" # This is when we use it as npm package.
+  # - "@salesforce-ux/stylelint-slds" # This is when we use it as npm package.
   - "../stylelint-rules/build"
 
 overrides:

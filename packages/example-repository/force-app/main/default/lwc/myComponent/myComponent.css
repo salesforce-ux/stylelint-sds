@@ -1,7 +1,142 @@
+/*
+	Currently: Stylelint(sf-sds/lwc-to-slds-token)
+	name: 				 sf-sds/slds2-lwc-token-to-hook
+*/
+
+.testLWC {
+    background-color: var(--lwc-brandPrimary);
+}
+/*
+	Original: var(--lwc-brandPrimary)
+	Replacement: var(--slds-some-token, var(--lwc-brandPrimary))
+*/
+
+.testLWC {
+    background-color: var(--lwc-brandPrimaryTransparent10);
+}
+
+
+.testLWC {
+    padding: var(--lwc-cardFooterPadding);
+	/*
+		Replacement: var(var(--slds-g-spacing-4) var(--slds-g-spacing-3), var(--lwc-cardFooterPadding))
+	*/
+    margin: var(--lwc-cardHeaderMargin);
+	/*
+		Replacemet: var(0 0 var(--slds-g-spacing-3))
+	*/
+}
+
+.testLWC {
+    /*
+		Change the message:display: 
+		The "var(--lwc-cardFooterTextAlign)" is currently deprecated. 
+	*/
+	text-align: var(--lwc-cardFooterTextAlign);
+
+    border-width: var(--lwc-borderWidthThin);
+}
+
+
+.testLWC {
+	/*
+	Change the message only.
+	*/
+    background-color: var(--lwc-brandBackgroundDark);
+}
+
+
+:host{
+	--lwc-brandPrimary: red;
+	--sds-g-sizing-border: 16px;
+}
+.myCustomClass{
+	--lwc-brandPrimary: blue;
+	background-color: var(--lwc-brandPrimary);
+}
+
+
+
+
+.myCustomClass{
+	/*
+		Why are we not throwing error here??
+	*/
+    border-radius: var(--sds-g-sizing-border-1);
+}
+
+.myCustomClass{
+    border-radius: var(--sds-g-sizing-border-100);
+}
+
+.myCustomClass{
+	--sds-c-button-brand-color-background: var(--slds-g-color-brand-base-30);
+}
+
+
+.myCustomClass{
+   --sds-g-sizing-border-1: var(--slds-c-button-brand-color-background-active);
+}
+
+
+.myCustomClass{
+	--sds-c-some-hook: 15px;
+	
+	/*
+		--sds-c or --slds-c shouldn't be there in RHS.
+	*/
+	/*
+		component hook should never be utilized. Its an anti pattern.
+	*/
+	border-radius: var(--sds-c-some-hook);
+	padding: var(--sds-g-sizing-1);
+	background-color: var(--slds-g-color-surface-1);
+ }
+
+ .myCustomClass{
+	padding: var(--sds-g-color-palette-neutral-30);
+ }
+
+.testLWC {
+	/*
+		Message: The t(brandPrimary) design token is deprecated. To avoid breaking changes, we recommend that you replace it with the "--slds-g-color-accent-1" styling hook even though it has noticeable changes. Set the fallback to "t(brandPrimary)" . See the New Global Styling Hooks Guidance on lightningdesignsystem.com for more info.
+	*/
+    color: t(brandPrimary);
+	color: var(--lwc-brandPrimary);
+    color: token(brandPrimaryTransparent10);
+ }
+
+
+
+
+
 .test-cls2 {
 	visibility: 'hidden';
 	height: 1px;
 }
+
+.testLWC {
+    background-color: var(--lwc-brandPrimary);
+}
+
+.testLWC {
+    background-color: var(--lwc-brandPrimaryTransparent10);
+}
+
+.testLWC {
+    padding: var(--lwc-cardFooterPadding);
+    margin: var(--lwc-cardHeaderMargin);
+}
+
+.testLWC {
+    text-align: var(--lwc-cardFooterTextAlign);
+    border-width: var(--lwc-borderWidthThin);
+}
+
+.testLWC {
+    background-color: var(--lwc-brandBackgroundDark);
+}
+
 
 .slds-button--last{
 	border-start-start-radius: 0;
