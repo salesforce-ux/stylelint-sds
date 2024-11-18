@@ -1,6 +1,6 @@
 {
   "name": "@salesforcedevs/stylelint-sds",
-  "version": "1.0.0-alpha3",
+  "version": "1.0.0-alpha4",
   "main": "index.js",
   "type": "module",
   "files": [
