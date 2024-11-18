@@ -7,11 +7,10 @@
     "packages/*"
   ],
   "scripts": {
-    "install-all": "npm install",
-    "build-all": "npm run build --workspaces",
-    "test-all": "npm run test --workspaces",
-    "clean-all": "npm run clean --workspaces", 
-    "run-all": "npm run all --workspaces",
-    "report": "stylelint 'packages/example-repository/**/*.css' --config=packages/stylelint-rules/.stylelintrc.yml"
+    "install": "npm install",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "clean": "npm run clean --workspaces", 
+    "report": "node packages/stylelint-rules/build/generate-report.js "
   }
 }
