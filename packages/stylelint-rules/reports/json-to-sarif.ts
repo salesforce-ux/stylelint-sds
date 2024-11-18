@@ -99,43 +99,49 @@ async function convertJsonToSarif(): Promise<void> {
         jsonData.forEach((entry) => {
             if (!entry.warnings || entry.warnings.length === 0) return;
 
-            const warning = entry.warnings[0];
-            // Extract relevant fields
-            const id = warning.rule || 'unknown_rule';
-            const severity = warning.severity || 'warning';
-            const message = warning.text || 'No message provided';
-            const filePath = entry.source || 'unknown_file';
-            const startLine = warning.line || 1;
-            const endLine = warning.endLine || startLine;
-            const startColumn = warning.column || 1;
-            const endColumn = warning.endColumn || startColumn;
+            // Process all warnings in the array
+            entry.warnings.forEach((warning) => {
+                // Extract relevant fields
+                const id = warning.rule || 'unknown_rule';
+                const severity = warning.severity || 'warning';
+                const message = warning.text || 'No message provided';
+                const filePath = entry.source || 'unknown_file';
+                const startLine = warning.line || 1;
+                const endLine = warning.endLine || startLine;
+                const startColumn = warning.column || 1;
+                const endColumn = warning.endColumn || startColumn;
 
-            // Add rule to SARIF `rules` array
-            sarifOutput.runs[0].tool.driver.rules.push({
-                id,
-                shortDescription: { text: message },
-                fullDescription: { text: message },
-                defaultConfiguration: { level: severity }
-            });
+                // Check if the rule already exists in the `rules` array
+                const ruleExists = sarifOutput.runs[0].tool.driver.rules.some(rule => rule.id === id);
 
-            // Add result to SARIF `results` array
-            sarifOutput.runs[0].results.push({
-                ruleId: id,
-                level: severity,
-                message: { text: message },
-                locations: [
-                    {
-                        physicalLocation: {
-                            artifactLocation: { uri: filePath },
-                            region: {
-                                startLine,
-                                endLine,
-                                startColumn,
-                                endColumn
+                if (!ruleExists) {
+                    sarifOutput.runs[0].tool.driver.rules.push({
+                        id,
+                        shortDescription: { text: message },
+                        fullDescription: { text: message },
+                        defaultConfiguration: { level: severity }
+                    });
+                }
+
+                // Add result to SARIF `results` array
+                sarifOutput.runs[0].results.push({
+                    ruleId: id,
+                    level: severity,
+                    message: { text: message },
+                    locations: [
+                        {
+                            physicalLocation: {
+                                artifactLocation: { uri: filePath },
+                                region: {
+                                    startLine,
+                                    endLine,
+                                    startColumn,
+                                    endColumn
+                                }
                             }
                         }
-                    }
-                ]
+                    ]
+                });
             });
         });
 
