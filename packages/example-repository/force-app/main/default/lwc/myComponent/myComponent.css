@@ -15,6 +15,11 @@
     background-color: var(--lwc-brandPrimaryTransparent10);
 }
 
+.myCustomClass{
+	/*TODO: Kishore to fix*/
+    border-radius: var(--sds-g-sizing-border-100);
+}
+
 
 .testLWC {
     padding: var(--lwc-cardFooterPadding);
@@ -60,13 +65,9 @@
 
 .myCustomClass{
 	/*
-		Why are we not throwing error here??
+		Why are we not throwing error here?? This is still metadata issue. In validator we are throwing blanket error for all `--sds` props to move into `--slds-`
 	*/
     border-radius: var(--sds-g-sizing-border-1);
-}
-
-.myCustomClass{
-    border-radius: var(--sds-g-sizing-border-100);
 }
 
 .myCustomClass{
@@ -78,6 +79,14 @@
    --sds-g-sizing-border-1: var(--slds-c-button-brand-color-background-active);
 }
 
+.myCustomClass{
+	border-radius: var(--sds-g-sizing-border-1);
+	padding: var(--sds-g-sizing-1);
+ }
+
+ .myCustomClass{
+	padding: var(--sds-g-color-palette-neutral-30);
+ }
 
 .myCustomClass{
 	--sds-c-some-hook: 15px;
@@ -188,6 +197,9 @@
 	position: absolute;
 	width: 25% !important;
 	margin: slds-align_absolute-center;
+}
+.hardcode-values {
+	border-radius: 16px;
 }
 
 /* 
