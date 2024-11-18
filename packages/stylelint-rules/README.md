@@ -1,5 +1,8 @@
 # Stylelint for SLDS
 
+This is just temporary folder created by Kishore Nemalipuri (Kishore informed Jason before using the @salesforcedevs space )
+
+
 ## Overview
 This repository provides custom Stylelint rules for Salesforce Lightning Design System (SLDS) styling. Follow the setup instructions to contribute or integrate these rules into your project.
 
@@ -42,7 +45,7 @@ After linking the package, you can use it in your project:
 
 1.	Link the package in your project directory:
   ```
-  npm link @salesforce-ux/sf-sds-linter
+  npm link @salesforcedevs/sf-sds-linter
   ```
 2.	Verify the link by checking the node_modules directory.
 3.	Install the required dependencies:
@@ -54,7 +57,7 @@ npm install stylelint postcss-html --save-dev
 Here is an example 
 ```
 plugins:
-  - @salesforce-ux/sf-sds-linter
+  - @salesforcedevs/sf-sds-linter
 
 overrides:
   - files:

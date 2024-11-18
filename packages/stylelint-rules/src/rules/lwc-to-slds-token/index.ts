@@ -8,8 +8,11 @@ import AbstractStylelintRule from '../AbstractStylelintRule';
 const ruleName = 'lwc-to-slds-token';
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
-  replaced: (oldValue: string, newValue: string) => `Replace '${oldValue}' with '${newValue}'`,
-  warning: 'This LWC token may not function in SLDS+. Consider updating to an SLDS token.',
+  replaced: (oldValue: string, newValue: string) => `The '${oldValue}' design token is deprecated. To avoid breaking changes, we recommend that you replace it with the '${newValue}' styling hook even though it has noticeable changes. Set the fallback to '${oldValue}'. See the New Global Styling Hook Guidance on lightningdesignsystem.com for more info. \n
+  Old Value: ${oldValue} 
+  New Value: ${newValue} \n
+  `,
+  warning: (oldValue: string) => `The '${oldValue}' is currently deprecated.`,
 });
 
 // Read the LWC to SLDS mapping file
@@ -34,20 +37,20 @@ class LwcToSldsTokenRule extends AbstractStylelintRule {
         root.walkDecls((decl) => {
           const parsedValue = valueParser(decl.value);
           let valueChanged = false;
-
+          
           parsedValue.walk((node) => {
             if (node.type === 'word' && node.value.startsWith('--lwc-')) {
               const index = decl.toString().indexOf(decl.value); // Start index of the value
               const endIndex = index + decl.value.length;
-
-              if (node.value in lwcToSLDS && lwcToSLDS[node.value].startsWith('--slds-')) {
+              const oldValue = node.value;
+              if (node.value in lwcToSLDS && lwcToSLDS[node.value] !== "--") {
                 const newValue = lwcToSLDS[node.value];
-                const oldValue = node.value;
+                const proposedNewValue = `var(${newValue}, ${decl.value})`
                 node.value = newValue;
                 valueChanged = true;
 
                 stylelint.utils.report({
-                  message: messages.replaced(oldValue, newValue),
+                  message: messages.replaced(decl.value, proposedNewValue),
                   node: decl,
                   result,
                   index,
@@ -56,7 +59,7 @@ class LwcToSldsTokenRule extends AbstractStylelintRule {
                 });
               } else {
                 stylelint.utils.report({
-                  message: messages.warning,
+                  message: messages.warning(decl.value),
                   node: decl,
                   index,
                   endIndex,
@@ -67,9 +70,9 @@ class LwcToSldsTokenRule extends AbstractStylelintRule {
             }
           });
 
-          if (valueChanged) {
-            decl.value = parsedValue.toString();
-          }
+          // if (valueChanged) {
+          //   decl.value = parsedValue.toString();
+          // }
         });
       }
     };
