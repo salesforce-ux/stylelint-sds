@@ -5,7 +5,7 @@ import { Root } from "postcss"
 const ruleName = "no-sds-custom-properties";
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
-  expected: (prop: string) => `Unexpected "--sds custom property" within selector "${prop}". Replace with "slds" or "dxp" equivalents. See link.`,
+  expected: (prop: string) => `'${prop}' is currently deprecated in the new design for Lightning UI.`,
 });
 
 class NoSdsCustomPropertiesRule extends AbstractStylelintRule {

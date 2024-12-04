@@ -9,7 +9,10 @@ const ruleName = 'no-aura-tokens';
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   deprecated: 'Aura tokens are deprecated. Please migrate to SLDS Design Tokens.',
-  replaced: (oldValue: string, newValue: string) => `The '${oldValue}' design token is deprecated. To avoid breaking changes, we recommend that you replace it with the '${newValue}' styling hook even though it has noticeable changes. Set the fallback to '${oldValue}'. See the New Global Styling Hooks Guidance on lightningdesignsystem.com for more info.`,
+  replaced: (oldValue: string, newValue: string) => `The '${oldValue}' design token is deprecated. To avoid breaking changes, we recommend that you replace it with the '${newValue}' styling hook even though it has noticeable changes. Set the fallback to '${oldValue}'. See the New Global Styling Hooks Guidance on lightningdesignsystem.com for more info. \n
+  Old Value: ${oldValue} 
+  New Value: ${newValue} \n
+  `,
 });
 
 // Read the token mapping file
@@ -43,15 +46,24 @@ class NoAuraTokensRule extends AbstractStylelintRule {
 
               if (tokenName in tokenMapping) {
                 const newValue = tokenMapping[tokenName];
+                //If it is already fixed - then don't flag again..
+                if(JSON.stringify(parsedValue).indexOf(newValue) > 0)
+                  return;
+                
                 if (typeof newValue === 'string' && newValue.startsWith('--lwc-')) {
+                  const replacementStyle = `var(${newValue}, ${decl.value})`
                   stylelint.utils.report({
-                    message: messages.replaced(decl.value, newValue),
+                    message: messages.replaced(decl.value, replacementStyle),
                     node: decl,
                     index,
                     endIndex,
                     result,
                     ruleName: this.getRuleName(),
                   });
+
+                  if (result.stylelint.config.fix && replacementStyle) {
+                    decl.value = replacementStyle;
+                  }
                 } else {
                   stylelint.utils.report({
                     message: messages.deprecated,
@@ -62,16 +74,17 @@ class NoAuraTokensRule extends AbstractStylelintRule {
                     ruleName: this.getRuleName(),
                   });
                 }
-              } else {
-                stylelint.utils.report({
-                  message: messages.deprecated,
-                  node: decl,
-                  index,
-                  endIndex,
-                  result,
-                  ruleName: this.getRuleName(),
-                });
-              }
+              } 
+              // else {
+              //   stylelint.utils.report({
+              //     message: messages.deprecated,
+              //     node: decl,
+              //     index,
+              //     endIndex,
+              //     result,
+              //     ruleName: this.getRuleName(),
+              //   });
+              // }
             }
           });
         });

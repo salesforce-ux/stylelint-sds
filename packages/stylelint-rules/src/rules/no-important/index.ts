@@ -23,7 +23,7 @@ class NoImportantRule extends AbstractStylelintRule {
             const endIndex = index + '!important'.length;
 
             stylelint.utils.report({
-              message: 'The use of "!important" is not allowed.',
+              message: "Avoid using '!important' unless absolutely necessary.",
               node: decl,
               index,
               endIndex,

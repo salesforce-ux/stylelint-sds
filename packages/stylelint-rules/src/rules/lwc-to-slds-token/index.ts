@@ -36,28 +36,37 @@ class LwcToSldsTokenRule extends AbstractStylelintRule {
       if (this.validateOptions(result, primaryOptions)) {
         root.walkDecls((decl) => {
           const parsedValue = valueParser(decl.value);
-          let valueChanged = false;
+          let proposedNewValue='';
           
           parsedValue.walk((node) => {
             if (node.type === 'word' && node.value.startsWith('--lwc-')) {
-              const index = decl.toString().indexOf(decl.value); // Start index of the value
+              const index = decl.toString().indexOf(decl.value);
               const endIndex = index + decl.value.length;
               const oldValue = node.value;
-              if (node.value in lwcToSLDS && lwcToSLDS[node.value] !== "--") {
-                const newValue = lwcToSLDS[node.value];
-                const proposedNewValue = `var(${newValue}, ${decl.value})`
-                node.value = newValue;
-                valueChanged = true;
+              const newValue = lwcToSLDS[node.value];
+              
+              //If it is already fixed - then don't flag again..
+              if(JSON.stringify(parsedValue).indexOf(JSON.stringify(newValue)) > 0 || decl.value.indexOf(newValue) > 0)
+                return;
 
+              proposedNewValue = `var(${newValue}, ${decl.value})`
+
+              if (node.value in lwcToSLDS && lwcToSLDS[node.value] !== "--") {
+                node.value = newValue;
+                
                 stylelint.utils.report({
                   message: messages.replaced(decl.value, proposedNewValue),
                   node: decl,
                   result,
                   index,
                   endIndex,
-                  ruleName: this.getRuleName(),
+                  ruleName: this.getRuleName()
                 });
-              } else {
+                if (result.stylelint.config.fix && proposedNewValue) {
+                  decl.value = proposedNewValue;
+                }
+              } 
+              else{
                 stylelint.utils.report({
                   message: messages.warning(decl.value),
                   node: decl,
@@ -69,10 +78,6 @@ class LwcToSldsTokenRule extends AbstractStylelintRule {
               }
             }
           });
-
-          // if (valueChanged) {
-          //   decl.value = parsedValue.toString();
-          // }
         });
       }
     };

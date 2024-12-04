@@ -11,9 +11,11 @@ import enforceUtilityClasses from './enforce-utility-classes';
 import lwcToSldsToken from './lwc-to-slds-token';
 import noAuraTokens from './no-aura-tokens';
 import enforceBemUsage from './enforce-bem-usage';
-import noMissingSldsClasses from './no-missing-slds-classes';
+import noDeprecatedSLDS2Classes from './no-deprecated-slds2-classes';
 import noCalcFunction from './no-calc-function';
 import noHardcodedValuesSlds2 from './no-hardcoded-values-slds2';
+import enforceSdsToSldsHooks from './enforce-sds-to-slds-hooks';
+
 export default
 [
 	lwcToSldsToken,
@@ -29,7 +31,8 @@ export default
 	noSldsPrivateVar,
 	noUnusedClasses,
 	enforceUtilityClasses,
-	noMissingSldsClasses,
+	noDeprecatedSLDS2Classes,
 	noCalcFunction,
-	noHardcodedValuesSlds2
+	noHardcodedValuesSlds2,
+	enforceSdsToSldsHooks
 ];

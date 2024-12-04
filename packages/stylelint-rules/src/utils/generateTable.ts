@@ -2,7 +2,7 @@
 export default // Helper function to format suggestions as a well-aligned table
 function generateTable(suggestions: any[]): string {
     // Start the message with a header
-    let message = "Matching predefined classes :\n";
+    let message = "\n";
   
     // Loop through suggestions and append each class and confidence as a list item
     suggestions.forEach((suggestion, index) => {

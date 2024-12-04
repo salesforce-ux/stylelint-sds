@@ -1,10 +1,8 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-// Resolve __dirname for ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
+const __dirname = process.cwd();
 
 // Input and output file paths
 const JSON_REPORT = path.join(__dirname, 'reports/consolidated_report.json');

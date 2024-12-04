@@ -31,8 +31,6 @@ const findClosestColorHook = (color: string, supportedColors, cssProperty: strin
     const closestHooksWithoutSameProperty: { name: string; distance: number }[] = [];
     const labColor = chroma(color).lab();
   
-    console.log(`Given Color ${color}`);
-  
     Object.entries(supportedColors).forEach(([sldsValue, data]) => {
       if (sldsValue && isHexCode(sldsValue)) {
         const hooks = data['hooks']; // Get the hooks for the sldsValue
@@ -67,9 +65,6 @@ const findClosestColorHook = (color: string, supportedColors, cssProperty: strin
       closestHooksWithoutSameProperty.sort((a, b) => a.distance - b.distance);
       returnStylingHooks.push(...closestHooksWithoutSameProperty.slice(0, 5).map(h => h.name));
     }
-  
-    console.log(`Closest Hooks ${JSON.stringify(returnStylingHooks)}`);
-    //return Array.from(new Set(returnStylingHooks));
   
     const uniqueHooks = Array.from(new Set(returnStylingHooks));
   

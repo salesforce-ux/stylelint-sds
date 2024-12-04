@@ -45,22 +45,19 @@ class EnforceBemUsageRule extends AbstractStylelintRule {
 
   protected rule(primaryOptions?: any) {
     return (root: Root, result: PostcssResult) => {
-      if (this.validateOptions(result, primaryOptions)) {
-        root.walkDecls((decl) => {
-          const parsedValue = valueParser(decl.value);
-          parsedValue.walk((node) => {
-            if (
-              node.type === "word" &&
-              bemMapping.items[0].tokens[node.value]
-            ) {
-              const index = decl.toString().indexOf(decl.value);
-              const endIndex = index + decl.value.length;
-              const newValue = bemMapping.items[0].tokens[node.value];
+      //if (this.validateOptions(result, primaryOptions)) 
+      {
+        root.walkRules((rule) => {
+          const givenProp = rule.selector.replace(".", ""); //to remove cases like .slds-text-heading_large
+          if (bemMapping.items[0].tokens[givenProp]) {
+              const index = rule.toString().indexOf(givenProp);
+              const endIndex = index + givenProp.length;
+              const newValue = bemMapping.items[0].tokens[givenProp];
 
               if (typeof newValue === "string") {
                 stylelint.utils.report({
-                  message: messages.replaced(decl.value, newValue),
-                  node: decl,
+                  message: messages.replaced(givenProp, newValue),
+                  node: rule,
                   index,
                   endIndex,
                   result,
@@ -69,12 +66,37 @@ class EnforceBemUsageRule extends AbstractStylelintRule {
 
                 // Call the fix method if in fixing context
                 if (result.stylelint.config.fix) {
-                  this.fix(decl, newValue);
+                  this.fix(rule, newValue);
                 }
               }
-            }
-          });
+          }
         });
+        // root.walkDecls((decl) => {
+        //   const givenProp = decl.prop;
+        //   console.log(`Given Prop ${givenProp}`)
+        //     if (bemMapping.items[0].tokens[givenProp]) {
+        //       console.log(`Given Prop mapped to ${bemMapping.items[0].tokens[givenProp]}`)
+        //       const index = decl.toString().indexOf(givenProp);
+        //       const endIndex = index + givenProp.length;
+        //       const newValue = bemMapping.items[0].tokens[givenProp];
+
+        //       if (typeof newValue === "string") {
+        //         stylelint.utils.report({
+        //           message: messages.replaced(givenProp, newValue),
+        //           node: decl,
+        //           index,
+        //           endIndex,
+        //           result,
+        //           ruleName: this.getRuleName(),
+        //         });
+
+        //         // Call the fix method if in fixing context
+        //         if (result.stylelint.config.fix) {
+        //           this.fix(decl, newValue);
+        //         }
+        //       }
+        //     }
+        // });
       }
     };
   }

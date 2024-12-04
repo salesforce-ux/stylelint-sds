@@ -1,18 +1,54 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
-import { fileURLToPath } from 'url';
 import { promisify } from 'util';
 import { spawn } from 'child_process';
 import convertJsonToSarif from './json-to-sarif'
 
 const execPromise = promisify(exec);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = process.cwd()
 
-// Configurations
-const CONFIG_FILE = 'packages/example-repository/.stylelintrc.yml';
-const TARGET_DIR = process.argv[2]; // Target directory passed as an argument
+/*
+console.log(`
+  Usage: npm run report [options] <input>
+
+  Options:
+    -c, --config       Stylelintrc configuration
+    -d, --director     Target directory to lint files
+  
+  Examples:
+    npm run report -- -c .stylelintrc.yml -d example-component-folder
+    npm run report -- -d . (for current directory & with current directory stylelint config)
+`);
+*/
+const args = process.argv.slice(2); // Skip the first two entries (node and script path)
+
+let configFile = '';
+let targetDirectory = '';
+
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '-c' || args[i] === '--config') {
+    configFile = args[i + 1]; // Get the value after `-c`
+  }
+  if (args[i] === '-d' || args[i] === '--directory') {
+    targetDirectory = args[i + 1]; // Get the value after `-d`
+  }
+}
+
+
+if(configFile === '')
+  configFile = './stylelintrc.yml'
+
+validateConfigFile(configFile);
+
+if(targetDirectory === '')
+  targetDirectory = '.'
+
+
+
+//'packages/example-repository/.stylelintrc.yml'
+const CONFIG_FILE = configFile;;
+const TARGET_DIR = targetDirectory;//process.argv[2];
 const FOLDER_NAME = 'reports';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
@@ -20,6 +56,16 @@ const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 const BATCH_SIZE = 10;
 const MAX_BATCHES = 10;
 const TIME_PER_BATCH = 5;
+
+async function validateConfigFile(configPath: string) {
+  try {
+    await fs.access(path.resolve(configPath)); // Check if the file is accessible
+  } catch {
+    console.error(`Error: Config file "${configPath}" does not exist.`);
+    console.error(`Command usage: npm run report -- -c .stylelintrc.yml -d example-component-folder`)
+    process.exit(1);
+  }
+}
 
 async function initializeOutputDirectory(): Promise<void> {
   await fs.rm(OUTPUT_DIR, { recursive: true, force: true });
@@ -56,8 +102,6 @@ function calculateBatchInfo(totalFiles: number) {
 }
 
 function lintBatch(batch: string[], batchNum: number): Promise<void> {
-  console.log(`Linting batch ${batchNum}`);
-
   return new Promise((resolve, reject) => {
     const outputFile = `${OUTPUT_DIR}/sarif_batch${batchNum}.json`;
 
@@ -73,21 +117,6 @@ function lintBatch(batch: string[], batchNum: number): Promise<void> {
     ]);
 
     resolve();
-    // process.stdout.on('data', (data) => {
-    //   console.log(`Batch ${batchNum} Output: ${data}`);
-    // });
-
-    // process.stderr.on('data', (data) => {
-    //   console.error(`Batch ${batchNum} Error: ${data}`);
-    // });
-
-    // process.on('close', (code) => {
-    //   if (code === 0) {
-    //     resolve();
-    //   } else {
-    //     reject(new Error(`Batch ${batchNum} failed with exit code ${code}`));
-    //   }
-    // });
   });
 }
 
@@ -96,8 +125,7 @@ async function processFilesInBatches(files: string[]): Promise<void> {
   const { totalBatches, estimatedTime } = calculateBatchInfo(totalFiles);
 
   console.log(`Total files: ${totalFiles}`);
-  console.log(`Batch size: ${BATCH_SIZE}`);
-  console.log(`Processing up to ${totalBatches} batches, estimated time: ${estimatedTime} seconds`);
+  console.log(`Processing in ${totalBatches} batch(es), estimated time: ${estimatedTime} sec.`);
 
   for (let i = 0; i < totalFiles; i += BATCH_SIZE) {
     const batchNum = Math.floor(i / BATCH_SIZE) + 1;
@@ -106,7 +134,6 @@ async function processFilesInBatches(files: string[]): Promise<void> {
       break;
     }
     const batch = files.slice(i, i + BATCH_SIZE);
-    console.log(`Linting batch ${batchNum} of ${totalBatches}...`);
     await lintBatch(batch, batchNum);
   }
 }
@@ -124,10 +151,7 @@ async function consolidateReports(): Promise<void> {
   try {
     const { stdout } = await execPromise(`find "${OUTPUT_DIR}" -name "*_batch*.json"`);
 
-    console.log(`Find Command Output: ${stdout.trim()}`);
-
     jsonFiles = stdout.trim().split('\n').filter(file => file);
-
     if (jsonFiles.length === 0) {
       console.warn(`No JSON files found in directory: ${OUTPUT_DIR}`);
     }
@@ -136,18 +160,11 @@ async function consolidateReports(): Promise<void> {
     throw error;
   }
 
-  console.log('Merging JSON files...');
   await execPromise(`jq -s 'add' ${jsonFiles.join(' ')} > "${consolidatedReportPath}"`);
-  console.log(`All valid JSON files have been merged into ${consolidatedReportPath}.`);
 
   try {
     await execPromise(`node ./node_modules/stylelint-sarif-formatter/index.js "${consolidatedReportPath}" -o "${consolidatedSarifPath}"`);
-    const sarifExists = await fs.stat(consolidatedSarifPath).catch(() => false);
-    if (sarifExists) {
-      console.log(`SARIF report generated successfully: ${consolidatedSarifPath}`);
-    } else {
-      console.error(`Failed to generate SARIF report.`);
-    }
+    await fs.stat(consolidatedSarifPath).catch(() => false);
   } catch (error: any) {
     console.error(`Error generating SARIF report:`, error);
   }
@@ -164,14 +181,18 @@ async function main(): Promise<void> {
 
     const cssFiles = await findCSSFiles(TARGET_DIR);
     await processFilesInBatches(cssFiles);
-    console.log("Processing of all batches completed!");
     await consolidateReports();
 
     // Add your SARIF conversion logic here if needed
     await convertJsonToSarif();
+
+    
   } catch (error) {
     console.error("An error occurred:", error);
     process.exit(1); // Exit with failure status if an error occurs
+  }
+  finally {
+    await execPromise(`rm ${OUTPUT_DIR}/*_batch*.json`)
   }
 }
 

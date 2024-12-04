@@ -1,17 +1,17 @@
 /*## `--lwc` to `--slds` token*/
 .testLWC {
-	background-color: var(--slds-g-color-accent-1, var(--lwc-brandPrimary));
+	background-color: var(--lwc-brandPrimary);
 }
 .testLWC2 {
-	background-color: var(color-mix(in oklab, var(--slds-g-color-accent-1), transparent 90%), var(--lwc-brandPrimaryTransparent10));
+	background-color: var(--lwc-brandPrimaryTransparent10);
 }
 .testLWC3 {
-	padding: var(var(--slds-g-spacing-4) var(--slds-g-spacing-3), var(--lwc-cardFooterPadding));
-	margin: var(0 0 var(--slds-g-spacing-3), var(--lwc-cardHeaderMargin));
+	padding: var(--lwc-cardFooterPadding);
+	margin: var(--lwc-cardHeaderMargin);
 }
 .testLWC4 {
 	text-align: var(--lwc-cardFooterTextAlign);
-	border-width: var(--slds-g-sizing-border-1, var(--lwc-borderWidthThin));
+	border-width: var(--lwc-borderWidthThin);
 }
 .testLWC5 {
 	background-color: var(--lwc-brandBackgroundDark);
@@ -19,21 +19,21 @@
 
 /* ## No Aura token */
    .testLWC {
-      color: var(--slds-g-color-accent-1, var(--lwc-brandPrimary, t(brandPrimary)));
-      color: var(--slds-g-color-accent-1, var(--lwc-brandPrimary));
-      color: var(color-mix(in oklab, var(--slds-g-color-accent-1), transparent 90%), var(--lwc-brandPrimaryTransparent10, token(brandPrimaryTransparent10)));
+      color: t(brandPrimary);
+      color: var(--lwc-brandPrimary);
+      color: token(brandPrimaryTransparent10);
    }
 
 /* ## SLDS Deprecated hooks $ */
 lightning-tabset {
     --slds-c-tabs-list-color-border: transparent;
-    --slds-c-tabs-item-spacing-blockstart: var(--slds-g-spacing-2, var(--lwc-spacingXSmall));
-    --slds-c-tabs-item-spacing-blockend: var(--slds-g-spacing-2, var(--lwc-spacingXSmall));
+    --slds-c-tabs-item-spacing-block-start: var(--lwc-spacingXSmall);
+    --slds-c-tabs-item-spacing-block-end: var(--lwc-spacingXSmall);
 }
 
 /* Enforce `--sds` to `--slds` */
 .myCustomClass{
-	border-radius: var(--slds-g-sizing-border-1);
+	border-radius: var(--sds-g-sizing-border-1);
 }
 
 /* ## Enforce use of Utility classes */
@@ -78,7 +78,7 @@ lightning-tabset {
 
 /* ## No Important tag */
 .importantCls {
-	width: 25%;
+	width: 25% !important;
 }
 
 /* ## No LWC Custom properties */
@@ -151,7 +151,7 @@ lightning-tabset {
 
 /* slds-css/no-lwc-custom-properties */
 :where(html){
-    --lwc-brandPrimary: var(--slds-g-color-brand-base-60);
+    --lwc-brandPrimary: var(--slds-g-color-brand-base-60) !important;
 }
 
 /* ## Enforce BEM Usage
