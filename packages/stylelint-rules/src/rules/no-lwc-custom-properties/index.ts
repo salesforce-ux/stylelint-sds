@@ -4,7 +4,7 @@ import { Root } from 'postcss'
 const ruleName = "no-lwc-custom-properties";
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
-  expected: (prop: string) => `Unexpected "--lwc custom property" within selector "${prop}". Replace with "slds" or "dxp" equivalents. See https://github.com/mvogelgesang/stylelint-plugin-slds/#no-lwc-custom-properties.`,
+  expected: (prop: string) => `Unexpected "--lwc custom property" within selector "${prop}". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux-emu/stylelint-sds/tree/main/packages/stylelint-rules/src/rules/no-lwc-custom-properties/README.md`,
 });
 
 class NoLwcCustomPropertiesRule extends AbstractStylelintRule {

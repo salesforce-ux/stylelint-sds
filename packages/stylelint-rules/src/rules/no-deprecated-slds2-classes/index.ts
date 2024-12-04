@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 import { resolve } from "path";
 import AbstractStylelintRule from '../AbstractStylelintRule';
 
-const ruleName = "no-missing-slds-classes";
+const ruleName = "no-deprecated-slds2-classes";
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   expected: (prop: string) => `Selector: "${prop}" is no longer available in SLDS2`,

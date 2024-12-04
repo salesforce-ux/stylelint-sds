@@ -6,7 +6,7 @@ import { Root, Declaration } from 'postcss';
 
 const ruleName = 'no-deprecated-slds-classes';
 const messages = stylelint.utils.ruleMessages(ruleName, {
-  deprecated: (className: string) => `The class "${className}" is deprecated and not available in SLDS+. Please update to a supported class.`,
+  deprecated: (className: string) => `The class "${className}" is deprecated and not available in SLDS2. Please update to a supported class.`,
 });
 
 // Read the deprecated classes file
@@ -35,7 +35,7 @@ class NoDeprecatedSldsClassesRule extends AbstractStylelintRule {
           const classMatches = rule.selector.match(classRegex);
           if (classMatches) {
             classMatches.forEach((match) => {
-              const className = match.slice(1); // Remove the leading dot
+              const className = match.slice(1);
               if (deprecatedClasses.has(className)) {
                 stylelint.utils.report({
                   message: messages.deprecated(className),

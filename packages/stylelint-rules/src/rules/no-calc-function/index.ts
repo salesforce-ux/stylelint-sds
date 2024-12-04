@@ -33,20 +33,20 @@ class DoNotUseCalcFunction extends AbstractStylelintRule {
             });
 
             // Call the fix method if in fixing context
-            if (result.stylelint.config.fix) {
-              this.fix(decl);
-            }
+            // if (result.stylelint.config.fix) {
+            //   this.fix(decl);
+            // }
           }
         });
       }
     };
   }
 
-  // Implement the fix method
-  protected fix(decl: Declaration): void {
-    // Example fix: Remove the calc function (this is just a placeholder)
-    decl.value = decl.value.replace(/calc\([^)]+\)/g, ''); // Remove calc() usage
-  }
+  // // Implement the fix method
+  // protected fix(decl: Declaration): void {
+  //   // Example fix: Remove the calc function (this is just a placeholder)
+  //   decl.value = decl.value.replace(/calc\([^)]+\)/g, ''); // Remove calc() usage
+  // }
 }
 
 // Export the rule using createPlugin

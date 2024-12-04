@@ -43,6 +43,10 @@ overrides:
         - true
       sf-sds/do-not-use-calc-function:
         - true
+      sf-sds/enforce-sds-to-slds-hooks:
+        - true
+        - severity: error
+        
     sourceMap: 
       - false
 

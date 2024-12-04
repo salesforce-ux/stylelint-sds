@@ -23,8 +23,8 @@ const ruleName = "no-hardcoded-values-slds2";
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   rejected: (color: string, closestHook: string) =>
-    `Avoid hardcoded color "${color}". Use the closest styling hook "${closestHook}" instead.`,
-  suggested: (color: string) => `Replace hardcoded "${color}" with a suitable value`,
+    `Replace the "${color}" value with any styling hook mentioned below "${closestHook}" instead.`,
+  suggested: (color: string) => `The "${color}" static value has no replacement styling hook.`,
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {

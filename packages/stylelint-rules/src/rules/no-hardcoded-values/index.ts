@@ -23,8 +23,8 @@ const ruleName = "no-hardcoded-values";
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   rejected: (color: string, closestHook: string) =>
-    `Avoid hardcoded color "${color}". Use the closest styling hook "${closestHook}" instead.`,
-  suggested: (color: string) => `Replace hardcoded "${color}" with a suitable value`,
+    `Replace the "${color}" value with any styling hook mentioned below "${closestHook}" instead.`,
+  suggested: (color: string) => `The "${color}" static value has no replacement styling hook.`,
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {
@@ -91,7 +91,7 @@ class NoHardcodedValuesRule extends AbstractStylelintRule {
       
       root.walkDecls((decl) => {
         const cssProperty = decl.prop.toLowerCase();
-        const colorProperties = ["color", "fill", "background", "background-color", "stroke", "border-*-color", "outline-color"];
+        const colorProperties = ["color", "fill", "background", "background-color", "stroke", "border*-color", "outline-color"];
         const densificationProperties = ["font-size", "border*", "margin*", "padding*", "width", "height", "top", "right", "left"];
         
         const value = decl.value;
