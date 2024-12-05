@@ -44,9 +44,6 @@ validateConfigFile(configFile);
 if(targetDirectory === '')
   targetDirectory = '.'
 
-
-
-//'packages/example-repository/.stylelintrc.yml'
 const CONFIG_FILE = configFile;;
 const TARGET_DIR = targetDirectory;//process.argv[2];
 const FOLDER_NAME = 'reports';

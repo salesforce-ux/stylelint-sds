@@ -9,7 +9,7 @@
             "runtimeArgs": [
               "stylelint",
               "force-app/main/default/lwc/myComponent/test.css",
-              "--config=packages/example-repository/.stylelintrc.yml"
+              "--config=packages/test-repository/.stylelintrc.yml"
             ],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",

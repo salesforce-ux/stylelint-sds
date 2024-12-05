@@ -11,9 +11,9 @@
     "build": "npm run build --workspaces",
     "test": "npm run test --workspaces",
     "clean": "npm run clean --workspaces", 
-    "report": "node packages/stylelint-rules/build/generate-report.js -- -c packages/example-repository/.stylelintrc.yml",
+    "report": "node packages/stylelint-rules/build/generate-report.js -- -c packages/test-repository/.stylelintrc.yml",
     "report_custom": "node packages/stylelint-rules/build/generate-report.js -- ",
     "report_npm": "node node_modules/@salesforcedevs/stylelint-sds/build/generate-report.js -- ",
-    "fix": "stylelint packages/example-repository/force-app/main/default/lwc/myComponent/test.css --fix"
+    "fix": "stylelint packages/test-repository/force-app/main/default/lwc/myComponent/test.css --fix"
   }
 }
