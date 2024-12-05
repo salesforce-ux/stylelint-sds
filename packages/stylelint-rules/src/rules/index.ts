@@ -6,7 +6,6 @@ import noLwcCustomProperties from './no-lwc-custom-properties';
 import noSdsCustomProperties from './no-sds-custom-properties';
 import noSldsClassOverrides from './no-slds-class-overrides';
 import noSldsPrivateVar from './no-slds-private-var';
-import noUnusedClasses from './no-unused-classes';
 import enforceUtilityClasses from './enforce-utility-classes';
 import lwcToSldsToken from './lwc-to-slds-token';
 import noAuraTokens from './no-aura-tokens';
@@ -29,7 +28,6 @@ export default
 	noSdsCustomProperties,
 	noSldsClassOverrides,
 	noSldsPrivateVar,
-	noUnusedClasses,
 	enforceUtilityClasses,
 	noDeprecatedSLDS2Classes,
 	noCalcFunction,

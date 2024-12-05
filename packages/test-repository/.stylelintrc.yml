@@ -1,5 +1,5 @@
 plugins:
-  # - "@salesforcedevs/stylelint-slds" # This is when we use it as npm package.
+  # - "@salesforce-ux/stylelint-slds" # This is when we use it as npm package.
   - "../stylelint-rules/build"
 
 overrides:
@@ -14,9 +14,6 @@ overrides:
       sf-sds/no-important:
         - true
         - severity: warning
-      # sf-sds/no-unused-classes:
-      #   - true
-      #   - severity: warning
       sf-sds/no-hardcoded-values:
         - true
         - severity: error

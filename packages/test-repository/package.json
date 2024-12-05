@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "echo 'not implemented'",
+    "clean": "rimraf node_modules package-lock.json",
     "lint:css": "stylelint **/*.css",
     "fix": "stylelint force-app/main/default/lwc/myComponent/test.css --fix",
     "lint:content": "stylelint '/Users/lnemalipuri/app_code/uxf/_github/SLDS-Stylelint-Example/**/*.css' --config=.stylelintrc.yml --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif",
