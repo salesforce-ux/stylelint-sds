@@ -1,13 +1,3 @@
-/* TESTING */
-.myCustomClass {
-	--lwc-brandPrimary: blue;
-	background-color: var(--lwc-brandPrimary);
-}
-
-
-
-
-
 /*
 	Currently: Stylelint(sf-sds/lwc-to-slds-token)
 	name: 				 sf-sds/slds2-lwc-token-to-hook
@@ -69,6 +59,24 @@
 	--lwc-brandPrimary: blue;
 	background-color: var(--lwc-brandPrimary);
 }
+
+.myCustomClass {
+	height: auto;
+	background-color: white;
+	color:white;
+	fill:white;
+	background:white;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
