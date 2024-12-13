@@ -9,15 +9,19 @@
     "lint:css": "stylelint **/*.css",
     "fix": "stylelint force-app/main/default/lwc/myComponent/test.css --fix",
     "lint:content": "stylelint '/Users/lnemalipuri/app_code/uxf/_github/SLDS-Stylelint-Example/**/*.css' --config=.stylelintrc.yml --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif",
-    "lint:core": "stylelint '/Users/lnemalipuri/app_code/uxf/core_projects/core-public/core' --config=.stylelintrc.yml --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif"
+    "lint:core": "stylelint '/Users/lnemalipuri/app_code/uxf/core_projects/core-public/core' --config=.stylelintrc.yml --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif",
+    "lint": "stylelint './**/*.css' --config=.stylelintrc.yml",
+    "report": "node node_modules/@salesforce-ux/stylelint-sds/build/generate-report.js ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "postcss-html": "^1.7.0",
-    "stylelint": "^16.9.0",
     "stylelint-sarif-formatter": "^1.0.7"
+  },
+  "dependencies": {
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint-plugin-html": "^8.1.2"
   }
 }

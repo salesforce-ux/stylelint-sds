@@ -35,10 +35,6 @@ export default
 					src: 'public',
 					dest: 'build',
 					rename: './public'
-				},
-				{
-					src: 'rollup.config.js',
-					dest: 'build'
 				}
 			]
 		})
