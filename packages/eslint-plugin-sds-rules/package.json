@@ -1,0 +1,21 @@
+{
+    "name": "eslint-plugin-sds-rules",
+    "version": "0.0.1",
+    "main": "src/index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+      "@html-eslint/parser": "^0.17.0",
+      "eslint": "^8.0.0"
+    },
+    "peerDependencies": {
+      "eslint": "^8.0.0",
+      "@html-eslint/parser": "^0.17.0"
+    }
+  }
+  

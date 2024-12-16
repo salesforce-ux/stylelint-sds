@@ -3,3 +3,4 @@ scripts/reports/
 node_modules/
 reports/
 packages/stylelint-rules/.npmrc
+.codegenie
