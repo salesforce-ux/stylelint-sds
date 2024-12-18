@@ -1,21 +1,27 @@
 {
-    "name": "eslint-plugin-sds-rules",
+    "name": "@salesforce-ux/eslint-plugin-sds-rules",
     "version": "0.0.1",
     "main": "src/index.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "rm -rf dist && rollup -c",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "description": "",
     "dependencies": {
-      "@html-eslint/parser": "^0.17.0",
-      "eslint": "^8.0.0"
+        "@html-eslint/parser": "^0.17.0",
+        "eslint": "^8.0.0"
     },
     "peerDependencies": {
-      "eslint": "^8.0.0",
-      "@html-eslint/parser": "^0.17.0"
+        "@html-eslint/parser": "^0.17.0",
+        "eslint": "^8.0.0"
+    },
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^28.0.2",
+        "@rollup/plugin-node-resolve": "^16.0.0",
+        "rollup": "^2.79.2",
+        "rollup-plugin-terser": "^7.0.2"
     }
-  }
-  
+}

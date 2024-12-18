@@ -34,7 +34,7 @@ module.exports = {
       console.error(`Failed to load deprecated classes JSON: ${error.message}`);
       return {}; // Exit gracefully if JSON cannot be loaded
     }
-    console.log(`FileContent ${deprecatedClasses}`)
+    //console.log(`FileContent ${deprecatedClasses}`)
     function check(node) {
       if (isAttributesEmpty(node)) {
         return;
