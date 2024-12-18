@@ -1,60 +1,69 @@
 # Stylelint for SLDS
 
 ## Overview
-This repository provides custom Stylelint rules for Salesforce Lightning Design System (SLDS) styling. Follow the setup instructions to contribute or integrate these rules into your project.
 
-## Setup Instructions
-To contribute to this repository, please follow these steps:
+This repository provides custom **Stylelint rules** specifically for ensuring adherence to **Salesforce Lightning Design System (SLDS)** styling conventions. These rules help developers maintain consistent styling and avoid common issues while working with SLDS components. Follow the setup instructions below to integrate these rules into your project or contribute to the repository.
 
-1. **Clone the Repository**
-   ```bash
-   git clone git@github.com:salesforce-ux/stylelint-sds.git
-   cd stylelint-sds
+---
 
-2. **Install Dependencies**
-Run the following command to install the necessary packages:
+## Setup Instructions for this repository
+
+### 1. Clone the Repository
+Start by cloning the repository to your local machine:
+```bash
+git clone git@github.com:salesforce-ux/stylelint-sds.git
+cd stylelint-sds
+```
+
+### 2. Install Dependencies
+
+Run the following command to install the required packages:
 ```
 npm install
 ```
 
-3. **Build the Rules**
-To compile the rules into a single file, execute:
+### 3. Build the Rules
+
+Compile the rules into a single file by executing:
 ```
 npm run build
 ```
 
-After this step, you should see a new build directory containing all required files, including package.json, index.js, and README.js.
+After building, you should see a new `build` directory containing the necessary files, including:
+	•	package.json
+	•	index.js
+	•	README.md
 
-## Linking the Repository
-Since this package is not yet distributed via npm, you can link it locally for testing purposes:
+### Linking the Repository for local development
 
-1.	Change to the build directory:
+Since this package is not yet available via npm, you can link it locally for testing purposes:
+	1.	Navigate to the build directory:
+
 ```
 cd build
 npm link
 ```
-This command prepares your local npm package for linking to other projects.
+
+	2.	This command prepares the package for local linking to other projects.
+
+## Usage in any repository
 
 
-## Usage in a Project
+1. Install Additional Dependencies
 
-After linking the package, you can use it in your project:
+Install the required dependencies for Stylelint:
 
-1.	Link the package in your project directory:
-  ```
-  npm link @salesforce-ux/stylelint-sds
-  ```
-2.	Verify the link by checking the node_modules directory.
-3.	Install the required dependencies:
 ```
-npm install stylelint postcss-html --save-dev
+npm install stylelint postcss-html @salesforce-ux/stylelint-sds --save-dev
 ```
 
-4.	Create a Stylelint configuration file named .stylelintrc.yml. Below is an example configuration:
-Here is an example 
+2. Configure Stylelint
+
+Create a .stylelintrc.yml file in your project directory with the following configuration:
+
 ```
 plugins:
-  - @salesforce-ux/sf-sds-linter
+  - @salesforce-ux/stylelint-sds
 
 overrides:
   - files:
@@ -70,13 +79,10 @@ overrides:
       slds-css/no-hardcoded-values:
         - true
         - severity: error
-      # slds-css/enforce-use-of-utility-classes:
-      #   - true
       slds-css/no-aura-tokens:
         - true
       slds-css/lwc-to-slds-token:
         - true
-
       slds-css/enforce-bem-usage:
         - true
       slds-css/no-deprecated-slds-classes:
@@ -91,37 +97,26 @@ overrides:
         - true
 
   - files:
-      # Apply this custom syntax only to HTML files
-      - "**/*.html"  
-    # Parse HTML files to extract CSS
-    customSyntax: "postcss-html"  
-    # You can define specific rules for HTML files, or leave it empty to ignore
-    rules: {}  
+      - "**/*.html"
+    customSyntax: "postcss-html"
+    rules: {}
 
 report: true
 ```
 
+### Generating SARIF Reports
 
-## Generating SARIF Reports
-
-Use the below command
+To generate a SARIF (Static Analysis Results Interchange Format) report, use the following command:
 
 ```
 stylelint **/*.css --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif
 ```
 
-## Running Stylelint on a Specific Repository
+#### Running Stylelint on a Specific Repository
 
-```
-stylelint "path/to/directory/**/*.css" --config path/to/.stylelintrc.json --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif
-```
+You can lint a specific directory or repository with the following command:
 
+stylelint "path/to/directory/**/*.css" --config path/to/.stylelintrc.yml --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif
 
-
-
-
-
-
-
-
+By following these steps, you can ensure that your SLDS components adhere to best practices and stay consistent with Salesforce design guidelines. Happy linting!
 
