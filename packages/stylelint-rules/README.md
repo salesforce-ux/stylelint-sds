@@ -37,19 +37,20 @@ After building, you should see a new `build` directory containing the necessary 
 ### Linking the Repository for local development
 
 Since this package is not yet available via npm, you can link it locally for testing purposes:
-	1.	Navigate to the build directory:
+- Navigate to the build directory:
 
 ```
 cd build
 npm link
 ```
 
-	2.	This command prepares the package for local linking to other projects.
+- This command prepares the package for local linking to other projects.
 
 ## Usage in any repository
 
+If you want to use these rules in any of your component repositories, you can follow the below steps - 
 
-1. Install Additional Dependencies
+### Install Additional Dependencies
 
 Install the required dependencies for Stylelint:
 
@@ -57,7 +58,7 @@ Install the required dependencies for Stylelint:
 npm install stylelint postcss-html @salesforce-ux/stylelint-sds --save-dev
 ```
 
-2. Configure Stylelint
+### Configure Stylelint
 
 Create a .stylelintrc.yml file in your project directory with the following configuration:
 
