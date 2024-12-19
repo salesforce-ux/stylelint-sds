@@ -32,6 +32,10 @@ export default
 					dest: 'build'
 				},
 				{
+					src: '.stylelintrc.yml',
+					dest: 'build'
+				},
+				{
 					src: 'public',
 					dest: 'build',
 					rename: './public'

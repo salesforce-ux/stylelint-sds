@@ -42,12 +42,11 @@ async function normalizeData(sldsVersion) {
     if(sldsVersion === 'slds2')
     {
         await writeFile(`${__dirname}/slds2-stylinghooks.json`, JSON.stringify(result, null, 2), 'utf8');
-        console.log('Normalized data written to slds2-stylinghooks.json');
     }
     else
     {
         await writeFile(`${__dirname}/slds1-stylinghooks.json`, JSON.stringify(result, null, 2), 'utf8');
-        console.log('Normalized data written to slds1-stylinghooks.json');
+        //console.log('Normalized data written to slds1-stylinghooks.json');
     }
     
 
