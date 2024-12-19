@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const { findAttr, isAttributesEmpty } = require("./utils/node");
 
-console.log('Checking deprecated classes')
 module.exports = {
   meta: {
     type: "problem", // The rule type
@@ -20,11 +19,11 @@ module.exports = {
   create(context) {
     // Load the JSON file containing deprecated classes
     const deprecatedClassesPath = path.resolve(
-      context.getCwd(),
-      "./public/metadata/deprecatedClasses.json"
+      __dirname, 
+      "../../public/metadata/deprecatedClasses.json"
     );
 
-    console.log(`deprecatedClassesPath ${deprecatedClassesPath}`)
+    //console.log(`deprecatedClassesPath ${deprecatedClassesPath}`)
 
     let deprecatedClasses = [];
     try {
@@ -34,7 +33,7 @@ module.exports = {
       console.error(`Failed to load deprecated classes JSON: ${error.message}`);
       return {}; // Exit gracefully if JSON cannot be loaded
     }
-    //console.log(`FileContent ${deprecatedClasses}`)
+
     function check(node) {
       if (isAttributesEmpty(node)) {
         return;
@@ -43,11 +42,26 @@ module.exports = {
       const classAttr = findAttr(node, "class");
       if (classAttr && classAttr.value) {
         const classNames = classAttr.value.value.split(/\s+/);
-        console.log(`Checking deprecated class ${classNames}`)
         classNames.forEach((className) => {
-          if (deprecatedClasses.includes(className)) {
+          if (className && deprecatedClasses.includes(className)) {
+            // Find the exact location of the problematic class name
+            const classNameStart = classAttr.value.value.indexOf(className) +7; // 7 here is for `class= "`
+            const classNameEnd = classNameStart + className.length;
+
+            // Use the loc property to get line and column from the class attribute
+            const startLoc = {
+                line: classAttr.loc.start.line,
+                column: classAttr.loc.start.column + classNameStart,
+            };
+            const endLoc = {
+                line: classAttr.loc.start.line,
+                column: classAttr.loc.start.column + classNameEnd,
+            };
+            
+            
             context.report({
               node,
+              loc: { start: startLoc, end: endLoc },
               data: {
                 className,
               },

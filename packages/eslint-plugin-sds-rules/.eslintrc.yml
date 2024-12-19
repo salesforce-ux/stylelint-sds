@@ -1,0 +1,23 @@
+root: true
+overrides:
+  - files:
+      - "*.html"
+      - "*.cmp"
+    parser: "@html-eslint/parser"
+    plugins:
+      - "@salesforce-ux/sds-rules"
+    rules:
+      "@salesforce-ux/sds-rules/no-bem-class":
+        - "error"
+      "@salesforce-ux/sds-rules/no-deprecated-slds-classes":
+        - "error"
+
+  - files:
+      - "*.js"
+      - "*.json"
+    excludedFiles: "*.js"
+    rules:
+      "@salesforce-ux/no-bem-class":
+        - "error"
+      "@salesforce-ux/sds-rules/no-deprecated-slds-classes":
+        - "error"

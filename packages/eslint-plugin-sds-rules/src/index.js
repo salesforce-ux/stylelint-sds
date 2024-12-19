@@ -1,4 +1,3 @@
-console.log("Loading custom rules for @salesforce-ux/eslint-plugin-sds-rules...");
 module.exports = {
     rules: {
         "no-bem-class": require("./rules/no-bem-class"),
