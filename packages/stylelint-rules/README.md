@@ -2,122 +2,55 @@
 
 ## Overview
 
-This repository provides custom **Stylelint rules** specifically for ensuring adherence to **Salesforce Lightning Design System (SLDS)** styling conventions. These rules help developers maintain consistent styling and avoid common issues while working with SLDS components. Follow the setup instructions below to integrate these rules into your project or contribute to the repository.
+This repository provides custom **Stylelint rules** designed to ensure adherence to **Salesforce Lightning Design System (SLDS)** styling conventions. These rules help developers maintain consistent styling and identify common issues when working with SLDS components. Follow the instructions below to integrate these rules into your project.
 
 ---
 
-## Setup Instructions for this repository
+## Setup Instructions for Your Components Repository
 
-### 1. Clone the Repository
-Start by cloning the repository to your local machine:
+### 1. Install Dependencies
+Install the custom Stylelint package for SLDS:
 ```bash
-git clone git@github.com:salesforce-ux/stylelint-sds.git
-cd stylelint-sds
+npm install @salesforce-ux/stylelint-sds
 ```
 
-### 2. Install Dependencies
+2. Configure Stylelint
 
-Run the following command to install the required packages:
-```
-npm install
-```
+Create a .stylelintrc.yml file in your project root to enable the Stylelint rules. Use the example configuration provided in this repository as a reference.
 
-### 3. Build the Rules
-
-Compile the rules into a single file by executing:
-```
-npm run build
-```
-
-After building, you should see a new `build` directory containing the necessary files, including:
-	•	package.json
-	•	index.js
-	•	README.md
-
-### Linking the Repository for local development
-
-Since this package is not yet available via npm, you can link it locally for testing purposes:
-- Navigate to the build directory:
-
-```
-cd build
-npm link
-```
-
-- This command prepares the package for local linking to other projects.
-
-## Usage in any repository
-
-If you want to use these rules in any of your component repositories, you can follow the below steps - 
-
-### Install Additional Dependencies
-
-Install the required dependencies for Stylelint:
-
-```
-npm install stylelint postcss-html @salesforce-ux/stylelint-sds --save-dev
-```
-
-### Configure Stylelint
-
-Create a .stylelintrc.yml file in your project directory with the following configuration:
+Example content for .stylelintrc.yml:
 
 ```
 plugins:
   - @salesforce-ux/stylelint-sds
 
-overrides:
-  - files:
-      - "**/*.css"
-    customSyntax: postcss
-    rules:
-      slds-css/no-slds-class-overrides:
-        - true
-        - severity: warning
-      slds-css/no-important:
-        - true
-        - severity: warning
-      slds-css/no-hardcoded-values:
-        - true
-        - severity: error
-      slds-css/no-aura-tokens:
-        - true
-      slds-css/lwc-to-slds-token:
-        - true
-      slds-css/enforce-bem-usage:
-        - true
-      slds-css/no-deprecated-slds-classes:
-        - true
-      slds-css/no-deprecated-slds-hooks:
-        - true
-      slds-css/no-lwc-custom-properties:
-        - true
-      slds-css/no-sds-custom-properties:
-        - true
-      slds-css/no-slds-private-var:
-        - true
-
-  - files:
-      - "**/*.html"
-    customSyntax: "postcss-html"
-    rules: {}
-
-report: true
+rules:
+  slds-css/no-slds-class-overrides: [true, { severity: "warning" }]
+  slds-css/no-important: [true, { severity: "warning" }]
+  slds-css/no-hardcoded-values: [true, { severity: "error" }]
+  slds-css/no-aura-tokens: true
+  slds-css/lwc-to-slds-token: true
+  slds-css/no-deprecated-slds-classes: true
+  slds-css/enforce-bem-usage: true
 ```
 
-### Generating SARIF Reports
+This configuration will enforce SLDS rules and show errors or warnings for any violations.
 
-To generate a SARIF (Static Analysis Results Interchange Format) report, use the following command:
+3. Update Project Commands
+
+Add or modify the following commands in your package.json to include linting capabilities:
 
 ```
-stylelint **/*.css --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif
+  "scripts": {
+    "lint": "stylelint 'src/**/*.css'",
+    "fix": "stylelint 'src/**/*.css' --fix",
+    "report": "stylelint 'src/**/*.css' --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif"
+  }
 ```
 
-#### Running Stylelint on a Specific Repository
+	•	lint: Runs the Stylelint rules on your CSS files and outputs issues.
+	•	fix: Attempts to automatically fix violations.
+	•	report: Generates a SARIF report for static analysis.
 
-You can lint a specific directory or repository with the following command:
-
-stylelint "path/to/directory/**/*.css" --config path/to/.stylelintrc.yml --custom-formatter=node_modules/stylelint-sarif-formatter/index.js --output-file report.sarif
-
-By following these steps, you can ensure that your SLDS components adhere to best practices and stay consistent with Salesforce design guidelines. Happy linting!
+Update the file paths in these commands (src/**/*.css) to match the directories you want to validate in your project.
 
