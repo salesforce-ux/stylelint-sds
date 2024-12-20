@@ -1,4 +1,6 @@
 root: true
+ignorePatterns:
+  - "node_modules/"
 overrides:
   - files:
       - "*.html"
