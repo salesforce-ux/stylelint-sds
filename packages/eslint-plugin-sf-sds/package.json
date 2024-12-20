@@ -1,5 +1,5 @@
 {
-    "name": "@salesforce-ux/eslint-plugin-sds-rules",
+    "name": "@salesforce-ux/eslint-plugin-sf-sds",
     "version": "0.0.1-beta1",
     "main": "src/index.js",
     "scripts": {

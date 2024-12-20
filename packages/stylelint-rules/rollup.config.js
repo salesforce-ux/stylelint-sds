@@ -46,10 +46,10 @@ export default
 },
 
 {
-    input: 'src/reports/generate-json-report.ts', // Entry file for reports folder
+    input: 'src/reports/report.ts', // Entry file for reports folder
     output: [
       {
-        file: 'build/generate-report.js', // Output for reporting.js
+        file: 'build/report.js', // Output for reporting.js
         format: 'esm', // ES module format
         sourcemap: true // Enable sourcemaps for debugging
       }

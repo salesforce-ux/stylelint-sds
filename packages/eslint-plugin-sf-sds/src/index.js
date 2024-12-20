@@ -6,10 +6,10 @@ module.exports = {
     configs: {
         recommended: {
             parser: "@html-eslint/parser", // Use HTML parser
-            plugins: ["sds-rules"],
+            plugins: ["sf-sds"],  
             rules: {
-                "sds-rules/no-bem-class": "error", // Enable rule
-                "sds-rules/no-deprecated-slds-classes": "error"
+                "sf-sds/no-bem-class": "error", 
+                "sf-sds/no-deprecated-slds-classes": "error"
             },
         },
     },
