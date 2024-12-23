@@ -1,7 +1,6 @@
 {
-  "name": "stylelint-sds",
+  "name": "@salesforce-ux/stylelint-sds",
   "version": "1.0.0",
-  "private": true,
   "type": "module",
   "workspaces": [
     "packages/*"
