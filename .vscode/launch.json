@@ -42,5 +42,18 @@
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
           },
+          {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Jest Tests",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+            "runtimeArgs": ["--runInBand"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "env": {
+              "NODE_ENV": "test"
+            }
+          }
     ]
   }
