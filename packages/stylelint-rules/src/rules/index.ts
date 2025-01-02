@@ -1,7 +1,7 @@
 import noDeprecatedSldsClasses from './no-deprecated-slds-classes';
 import noDeprecatedSldsHooks from './no-deprecated-slds-hooks';
 import noHardcodedValues from './no-hardcoded-values';
-import noImportant from './no-important';
+import noImportantTag from './no-important-tag';
 import noLwcCustomProperties from './no-lwc-custom-properties';
 import noSdsCustomProperties from './no-sds-custom-properties';
 import noSldsClassOverrides from './no-slds-class-overrides';
@@ -14,7 +14,7 @@ import noDeprecatedSLDS2Classes from './no-deprecated-slds2-classes';
 import noCalcFunction from './no-calc-function';
 import noHardcodedValuesSlds2 from './no-hardcoded-values-slds2';
 import enforceSdsToSldsHooks from './enforce-sds-to-slds-hooks';
-
+import unitStep from './unit-step/rule'
 export default
 [
 	lwcToSldsToken,
@@ -23,7 +23,7 @@ export default
 	noDeprecatedSldsClasses,
 	noDeprecatedSldsHooks,
 	noHardcodedValues,
-	noImportant,
+	noImportantTag,
 	noLwcCustomProperties,
 	noSdsCustomProperties,
 	noSldsClassOverrides,
@@ -32,5 +32,6 @@ export default
 	noDeprecatedSLDS2Classes,
 	noCalcFunction,
 	noHardcodedValuesSlds2,
-	enforceSdsToSldsHooks
+	enforceSdsToSldsHooks,
+	unitStep
 ];
