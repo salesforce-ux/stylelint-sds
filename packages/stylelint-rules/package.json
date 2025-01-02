@@ -1,6 +1,6 @@
 {
   "name": "@salesforce-ux/stylelint-sds",
-  "version": "0.0.7-pilot",
+  "version": "0.0.8-pilot",
   "main": "build/index.js",
   "type": "module",
   "files": [

@@ -164,6 +164,7 @@ async function consolidateComponentReports(): Promise<void> {
     jsonFiles = stdout.trim().split('\n').filter(file => file);
     if (jsonFiles.length === 0) {
       console.warn(`No JSON files found in directory: ${OUTPUT_DIR}`);
+      return;
     }
   } catch (error: any) {
     console.error(`Error reading directory: ${error.message}`);
