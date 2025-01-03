@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+      "outDir": "build",
+      "target": "es2015",
+      "module": "esnext",
+      "moduleResolution": "node",
+      "declaration": true,
+      "esModuleInterop": true
+  }
+}
+
