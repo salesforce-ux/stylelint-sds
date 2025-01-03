@@ -28,7 +28,7 @@ describe('sf-sds/no-lwc-custom-properties rule', () => {
     const warnings = result.results[0].warnings;
     
     assert.strictEqual(warnings.length, 1);
-    assert.strictEqual(warnings[0].text, 'Unexpected "--lwc custom property" within selector "--lwc-color". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-rules/src/rules/no-lwc-custom-properties/README.md (sf-sds/no-lwc-custom-properties)');
+    assert.strictEqual(warnings[0].text, 'Unexpected "--lwc custom property" within selector "--lwc-color". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-plugin-sf-sds/src/rules/no-lwc-custom-properties/README.md (sf-sds/no-lwc-custom-properties)');
     assert.strictEqual(warnings[0].line, 3);
     assert.strictEqual(warnings[0].column, 9);
   });
@@ -77,7 +77,7 @@ describe('sf-sds/no-lwc-custom-properties rule', () => {
     const warnings = result.results[0].warnings;
     
     assert.strictEqual(warnings.length, 2);
-    assert.strictEqual(warnings[0].text, 'Unexpected "--lwc custom property" within selector "--lwc-color". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-rules/src/rules/no-lwc-custom-properties/README.md (sf-sds/no-lwc-custom-properties)');
-    assert.strictEqual(warnings[1].text, 'Unexpected "--lwc custom property" within selector "--lwc-font-size". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-rules/src/rules/no-lwc-custom-properties/README.md (sf-sds/no-lwc-custom-properties)');
+    assert.strictEqual(warnings[0].text, 'Unexpected "--lwc custom property" within selector "--lwc-color". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-plugin-sf-sds/src/rules/no-lwc-custom-properties/README.md (sf-sds/no-lwc-custom-properties)');
+    assert.strictEqual(warnings[1].text, 'Unexpected "--lwc custom property" within selector "--lwc-font-size". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-plugin-sf-sds/src/rules/no-lwc-custom-properties/README.md (sf-sds/no-lwc-custom-properties)');
   });
 });

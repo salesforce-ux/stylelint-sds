@@ -1,6 +1,6 @@
 # Stylelint for SDS
 
-This mono-repo is created to build stylelint rules for Salesforce design system. This repo contains to sub repos - `stylelint-rules` and `test-repository`
+This mono-repo is created to build stylelint rules for Salesforce design system. This repo contains to sub repos - `stylelint-plugin-sf-sds` and `test-repository`
 
 ## How to get started with this
 
@@ -12,11 +12,11 @@ This mono-repo is created to build stylelint rules for Salesforce design system.
     ```
 - The above commands would setup the packages to run the stylelint rules on `test-repository` .css files.
 
-## stylelint-rules
+## stylelint-plugin-sf-sds
 This package contains all the rules we need for SDS.
 
 ## test-repository
-This packages is used for testing all the rules added to `stylelint-rules` and `.stylelintrc.yml`
+This packages is used for testing all the rules added to `stylelint-plugin-sf-sds` and `.stylelintrc.yml`
 
 ## Other useful commands
 
