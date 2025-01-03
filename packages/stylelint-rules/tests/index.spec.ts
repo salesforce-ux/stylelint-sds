@@ -5,7 +5,11 @@ import exportedRules from '../src/index';
 describe('index.ts', () => {
   it('should correctly export the rules array from rules.ts', () => {
     // Validate that exportedRules matches the imported rules
-    assert.deepEqual(exportedRules, rules, 'The exported rules array does not match the imported rules array.');
+    assert.deepEqual(
+      exportedRules,
+      rules,
+      'The exported rules array does not match the imported rules array.'
+    );
   });
 
   it('should export an array', () => {

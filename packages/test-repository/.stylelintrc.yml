@@ -11,7 +11,7 @@ overrides:
       sf-sds/no-slds-class-overrides:
         - true
         - severity: warning
-      sf-sds/no-important:
+      sf-sds/no-important-tag:
         - true
         - severity: warning
       sf-sds/no-hardcoded-values:

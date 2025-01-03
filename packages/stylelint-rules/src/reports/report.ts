@@ -3,15 +3,15 @@ import path from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { spawn } from 'child_process';
-import convertJsonToSarif from './json-to-sarif'
-import { getStylelintValidationReport } from './stylelint-json-report'
+import convertJsonToSarif from './json-to-sarif';
+import { getStylelintValidationReport } from './stylelint-json-report';
 
 import { getEslintValidationReport } from './eslint-json-report';
 import { findCSSFiles, findComponentFiles } from './utils/utils';
-import { calculateBatchInfo } from './utils/batching'
+import { calculateBatchInfo } from './utils/batching';
 
 const execPromise = promisify(exec);
-const __dirname = process.cwd()
+const __dirname = process.cwd();
 
 /*
 console.log(`
@@ -40,17 +40,14 @@ for (let i = 0; i < args.length; i++) {
   }
 }
 
-
-if(configFile === '')
-  configFile = './stylelintrc.yml'
+if (configFile === '') configFile = './stylelintrc.yml';
 
 validateConfigFile(configFile);
 
-if(targetDirectory === '')
-  targetDirectory = '.'
+if (targetDirectory === '') targetDirectory = '.';
 
-const CONFIG_FILE = configFile;;
-const TARGET_DIR = targetDirectory;//process.argv[2];
+const CONFIG_FILE = configFile;
+const TARGET_DIR = targetDirectory; //process.argv[2];
 const FOLDER_NAME = 'reports';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
@@ -61,12 +58,13 @@ const TIME_PER_BATCH = 5;
 
 async function main(): Promise<void> {
   if (!TARGET_DIR) {
-    console.error(" >> Please provide the target directory containing CSS files.");
+    console.error(
+      ' >> Please provide the target directory containing CSS files.'
+    );
     process.exit(1); // Exit if TARGET_DIR is not provided
   }
 
   try {
-
     // Clear the report directory
     await initializeOutputDirectory();
 
@@ -75,15 +73,20 @@ async function main(): Promise<void> {
     const stylelintValidationFiles = await findCSSFiles(TARGET_DIR);
     const eslintValidationFiles = await findComponentFiles(TARGET_DIR);
 
-    const { totalBatches: totalStyleLintBatches, estimatedTime:estimatedStyleLintTime } = calculateBatchInfo(stylelintValidationFiles);
+    const {
+      totalBatches: totalStyleLintBatches,
+      estimatedTime: estimatedStyleLintTime,
+    } = calculateBatchInfo(stylelintValidationFiles);
 
-    const { totalBatches: totalESLintBatches, estimatedTime:estimatedESLintTime } =  calculateBatchInfo(eslintValidationFiles);
-
+    const {
+      totalBatches: totalESLintBatches,
+      estimatedTime: estimatedESLintTime,
+    } = calculateBatchInfo(eslintValidationFiles);
 
     console.log(`
       ====================================================
-                     Total files for validation: ${((totalStyleLintBatches + totalESLintBatches) * BATCH_SIZE) }
-                     Approximate time(sec):  ${estimatedStyleLintTime + estimatedESLintTime }          
+                     Total files for validation: ${(totalStyleLintBatches + totalESLintBatches) * BATCH_SIZE}
+                     Approximate time(sec):  ${estimatedStyleLintTime + estimatedESLintTime}          
       ====================================================
     `);
 
@@ -94,11 +97,10 @@ async function main(): Promise<void> {
     // Add your SARIF conversion logic here if needed
     await convertJsonToSarif();
   } catch (error) {
-    console.error("An error occurred:", error);
+    console.error('An error occurred:', error);
     process.exit(1); // Exit with failure status if an error occurs
-  }
-  finally {
-    await execPromise(`rm ${OUTPUT_DIR}/*batch*.json`)
+  } finally {
+    await execPromise(`rm ${OUTPUT_DIR}/*batch*.json`);
   }
 }
 
@@ -107,16 +109,27 @@ async function initializeOutputDirectory(): Promise<void> {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
 }
 
-async function combineJsonReports(){
+async function combineJsonReports() {
   const finalJson = path.join(OUTPUT_DIR, 'consolidated_report.json');
-  const esLintJsonReportPath = path.join(OUTPUT_DIR, 'batch_eslint_report.json');
-  const styleLintJsonReportPath = path.join(OUTPUT_DIR, 'batch_stylelint_report.json');
+  const esLintJsonReportPath = path.join(
+    OUTPUT_DIR,
+    'batch_eslint_report.json'
+  );
+  const styleLintJsonReportPath = path.join(
+    OUTPUT_DIR,
+    'batch_stylelint_report.json'
+  );
 
   let jsonFiles: string[] = [];
   try {
-    const { stdout } = await execPromise(`find "${OUTPUT_DIR}" -name "batch_eslint_report.json" -o -name "batch_stylelint_report.json"`);
+    const { stdout } = await execPromise(
+      `find "${OUTPUT_DIR}" -name "batch_eslint_report.json" -o -name "batch_stylelint_report.json"`
+    );
 
-    jsonFiles = stdout.trim().split('\n').filter(file => file);
+    jsonFiles = stdout
+      .trim()
+      .split('\n')
+      .filter((file) => file);
     if (jsonFiles.length === 0) {
       console.warn(`No JSON files found in directory: ${OUTPUT_DIR}`);
       return;
@@ -133,7 +146,9 @@ async function validateConfigFile(configPath: string) {
     await fs.access(path.resolve(configPath)); // Check if the file is accessible
   } catch {
     console.error(`Error: Config file "${configPath}" does not exist.`);
-    console.error(`Command usage: npm run report -- -c .stylelintrc.yml -d example-component-folder`)
+    console.error(
+      `Command usage: npm run report -- -c .stylelintrc.yml -d example-component-folder`
+    );
     process.exit(1);
   }
 }
@@ -144,7 +159,7 @@ async function validateConfigFile(configPath: string) {
     await main();
     process.exit(0); // Exit with success status
   } catch (error) {
-    console.error("Unhandled error:", error);
+    console.error('Unhandled error:', error);
     process.exit(1); // Exit with failure status
   }
 })();

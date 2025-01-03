@@ -1,97 +1,109 @@
-import stylelint, { PostcssResult } from 'stylelint';
+import { Root } from 'postcss';
+import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
 import valueParser from 'postcss-value-parser';
 import { readFileSync } from 'fs';
-import { Root } from 'postcss';
 import { resolve } from 'path';
-import AbstractStylelintRule from '../AbstractStylelintRule';
+import { fileURLToPath } from 'url';
 
-const ruleName = 'no-aura-tokens';
+const { utils, createPlugin }: typeof stylelint = stylelint;
+const ruleName: string = 'sf-sds/no-aura-tokens';
 
-const messages = stylelint.utils.ruleMessages(ruleName, {
-  deprecated: 'Aura tokens are deprecated. Please migrate to SLDS Design Tokens.',
-  replaced: (oldValue: string, newValue: string) => `The '${oldValue}' design token is deprecated. To avoid breaking changes, we recommend that you replace it with the '${newValue}' styling hook even though it has noticeable changes. Set the fallback to '${oldValue}'. See the New Global Styling Hooks Guidance on lightningdesignsystem.com for more info. \n
-  Old Value: ${oldValue} 
-  New Value: ${newValue} \n
-  `,
+const messages = utils.ruleMessages(ruleName, {
+  deprecated:
+    'Aura tokens are deprecated. Please migrate to SLDS Design Tokens.',
+  replaced: (oldValue: string, newValue: string) =>
+    `The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with '${newValue}' styling hook. Set the fallback to '${oldValue}'. See the New Global Styling Hooks Guidance on lightningdesignsystem.com for more info.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n`,
 });
 
-// Read the token mapping file
-const tokenMappingPath = resolve(new URL('.', import.meta.url).pathname, './public/metadata/tokenMapping.json');
+// Load token mapping file
+const isTestEnv = process.env.NODE_ENV === 'test';
+const tokenMappingPath = resolve(
+  isTestEnv
+    ? fileURLToPath(
+        new URL('../../../public/metadata/tokenMapping.json', import.meta.url)
+      )
+    : new URL('./public/metadata/tokenMapping.json', import.meta.url).pathname
+);
+
 const tokenMapping = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
 
-class NoAuraTokensRule extends AbstractStylelintRule {
-  constructor() {
-    super(ruleName);
-  }
-
-  protected validateOptions(result: PostcssResult, options: any): boolean {
-    return stylelint.utils.validateOptions(result, this.ruleName, {
-      actual: options,
-      possible: {}, // Customize as needed
-    });
-  }
-
-  protected rule(primaryOptions?: any) {
-    return (root: Root, result: PostcssResult) => {
-      if (this.validateOptions(result, primaryOptions)) {
-        root.walkDecls((decl) => {
-          const parsedValue = valueParser(decl.value);
-
-          parsedValue.walk((node) => {
-            if (node.type === 'function' && (node.value === 'token' || node.value === 't')) {
-              const tokenName = node.nodes[0].value;
-
-              const index = decl.toString().indexOf(decl.value); // Start index of the value
-              const endIndex = index + decl.value.length;
-
-              if (tokenName in tokenMapping) {
-                const newValue = tokenMapping[tokenName];
-                //If it is already fixed - then don't flag again..
-                if(JSON.stringify(parsedValue).indexOf(newValue) > 0)
-                  return;
-                
-                if (typeof newValue === 'string' && newValue.startsWith('--lwc-')) {
-                  const replacementStyle = `var(${newValue}, ${decl.value})`
-                  stylelint.utils.report({
-                    message: messages.replaced(decl.value, replacementStyle),
-                    node: decl,
-                    index,
-                    endIndex,
-                    result,
-                    ruleName: this.getRuleName(),
-                  });
-
-                  if (result.stylelint.config.fix && replacementStyle) {
-                    decl.value = replacementStyle;
-                  }
-                } else {
-                  stylelint.utils.report({
-                    message: messages.deprecated,
-                    node: decl,
-                    index,
-                    endIndex,
-                    result,
-                    ruleName: this.getRuleName(),
-                  });
-                }
-              } 
-              // else {
-              //   stylelint.utils.report({
-              //     message: messages.deprecated,
-              //     node: decl,
-              //     index,
-              //     endIndex,
-              //     result,
-              //     ruleName: this.getRuleName(),
-              //   });
-              // }
-            }
-          });
-        });
-      }
-    };
-  }
+function validateOptions(result: PostcssResult, options: any) {
+  return utils.validateOptions(result, ruleName, {
+    actual: options,
+    possible: {}, // Extend as needed
+  });
 }
 
-// Create and export the plugin
-export default new NoAuraTokensRule().createPlugin();
+function rule(
+  primaryOptions: any,
+  secondaryOptions: any,
+  context: RuleContext
+) {
+  return (root: Root, result: PostcssResult) => {
+    if (validateOptions(result, primaryOptions)) {
+      root.walkDecls((decl) => {
+        const parsedValue = valueParser(decl.value);
+
+        parsedValue.walk((node) => {
+          if (
+            node.type === 'function' &&
+            (node.value === 'token' || node.value === 't')
+          ) {
+            const tokenName = node.nodes[0].value;
+
+            const index = decl.toString().indexOf(decl.value); // Start index of the value
+            const endIndex = index + decl.value.length;
+
+            if (tokenName in tokenMapping) {
+              const newValue = tokenMapping[tokenName];
+
+              // Skip if already fixed
+              if (decl.value.includes(newValue)) return;
+
+              if (
+                typeof newValue === 'string' &&
+                newValue.startsWith('--lwc-')
+              ) {
+                const replacementStyle = `var(${newValue}, ${decl.value})`;
+
+                utils.report({
+                  message: messages.replaced(decl.value, replacementStyle),
+                  node: decl,
+                  index,
+                  endIndex,
+                  result,
+                  ruleName,
+                });
+
+                if (context.fix && replacementStyle) {
+                  decl.value = replacementStyle;
+                }
+              } else {
+                utils.report({
+                  message: messages.deprecated,
+                  node: decl,
+                  index,
+                  endIndex,
+                  result,
+                  ruleName,
+                });
+              }
+            } else {
+              utils.report({
+                message: messages.deprecated,
+                node: decl,
+                index,
+                endIndex,
+                result,
+                ruleName,
+              });
+            }
+          }
+        });
+      });
+    }
+  };
+}
+
+// Export the plugin
+export default createPlugin(ruleName, rule as unknown as Rule);

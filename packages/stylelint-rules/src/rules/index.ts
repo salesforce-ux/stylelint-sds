@@ -14,24 +14,23 @@ import noDeprecatedSLDS2Classes from './no-deprecated-slds2-classes';
 import noCalcFunction from './no-calc-function';
 import noHardcodedValuesSlds2 from './no-hardcoded-values-slds2';
 import enforceSdsToSldsHooks from './enforce-sds-to-slds-hooks';
-import unitStep from './unit-step/rule'
-export default
-[
-	lwcToSldsToken,
-	noAuraTokens,
-	enforceBemUsage,
-	noDeprecatedSldsClasses,
-	noDeprecatedSldsHooks,
-	noHardcodedValues,
-	noImportantTag,
-	noLwcCustomProperties,
-	noSdsCustomProperties,
-	noSldsClassOverrides,
-	noSldsPrivateVar,
-	enforceUtilityClasses,
-	noDeprecatedSLDS2Classes,
-	noCalcFunction,
-	noHardcodedValuesSlds2,
-	enforceSdsToSldsHooks,
-	unitStep
+import unitStep from './unit-step/rule';
+export default [
+  enforceSdsToSldsHooks,
+  noDeprecatedSldsClasses,
+  noDeprecatedSldsHooks,
+  lwcToSldsToken,
+  noCalcFunction,
+  noHardcodedValues,
+  noLwcCustomProperties,
+  noSdsCustomProperties,
+  noSldsClassOverrides,
+  enforceUtilityClasses,
+  noHardcodedValuesSlds2,
+  noDeprecatedSLDS2Classes,
+  noAuraTokens,
+  enforceBemUsage,
+  noSldsPrivateVar,
+  noImportantTag,
+  unitStep,
 ];

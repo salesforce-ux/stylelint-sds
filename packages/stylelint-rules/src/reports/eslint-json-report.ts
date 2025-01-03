@@ -7,10 +7,10 @@ import path from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { spawn } from 'child_process';
-import convertJsonToSarif from './json-to-sarif'
+import convertJsonToSarif from './json-to-sarif';
 
 const execPromise = promisify(exec);
-const __dirname = process.cwd()
+const __dirname = process.cwd();
 
 /*
 console.log(`
@@ -39,17 +39,14 @@ for (let i = 0; i < args.length; i++) {
   }
 }
 
-
-if(configFile === '')
-  configFile = './stylelintrc.yml'
+if (configFile === '') configFile = './stylelintrc.yml';
 
 validateConfigFile(configFile);
 
-if(targetDirectory === '')
-  targetDirectory = '.'
+if (targetDirectory === '') targetDirectory = '.';
 
-const CONFIG_FILE = configFile;;
-const TARGET_DIR = targetDirectory;//process.argv[2];
+const CONFIG_FILE = configFile;
+const TARGET_DIR = targetDirectory; //process.argv[2];
 const FOLDER_NAME = 'reports';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
@@ -63,7 +60,9 @@ async function validateConfigFile(configPath: string) {
     await fs.access(path.resolve(configPath)); // Check if the file is accessible
   } catch {
     console.error(`Error: Config file "${configPath}" does not exist.`);
-    console.error(`Command usage: npm run report -- -c .stylelintrc.yml -d example-component-folder`)
+    console.error(
+      `Command usage: npm run report -- -c .stylelintrc.yml -d example-component-folder`
+    );
     process.exit(1);
   }
 }
@@ -72,9 +71,14 @@ async function findCSSFiles(directory: string): Promise<string[]> {
   return new Promise((resolve, reject) => {
     const findProcess = spawn('find', [
       directory,
-      '-name', '*.css',
-      '-o', '-name', '*.less',
-      '-o', '-name', '*.scss'
+      '-name',
+      '*.css',
+      '-o',
+      '-name',
+      '*.less',
+      '-o',
+      '-name',
+      '*.scss',
     ]);
     let files = '';
 
@@ -88,7 +92,12 @@ async function findCSSFiles(directory: string): Promise<string[]> {
 
     findProcess.on('close', (code) => {
       if (code === 0) {
-        resolve(files.trim().split('\n').filter(file => file));
+        resolve(
+          files
+            .trim()
+            .split('\n')
+            .filter((file) => file)
+        );
       } else {
         reject(new Error(`find command exited with code ${code}`));
       }
@@ -97,7 +106,10 @@ async function findCSSFiles(directory: string): Promise<string[]> {
 }
 
 function calculateBatchInfo(totalFiles: number) {
-  const totalBatches = Math.min(Math.ceil(totalFiles / BATCH_SIZE), MAX_BATCHES);
+  const totalBatches = Math.min(
+    Math.ceil(totalFiles / BATCH_SIZE),
+    MAX_BATCHES
+  );
   const estimatedTime = totalBatches * TIME_PER_BATCH;
   return { totalBatches, estimatedTime };
 }
@@ -117,19 +129,21 @@ function lintComponentBatch(batch: string[], batchNum: number): Promise<void> {
         '--output-file',
         outputFile,
         '--ignore-pattern',
-        'node_modules/'
+        'node_modules/',
       ]);
-      resolve()
+      resolve();
     } catch (error) {
-      console.log(`Error ${error}`)
+      console.log(`Error ${error}`);
     }
   });
 }
 
 async function processFilesInBatches(componentFiles: string[]): Promise<void> {
-  
   const totalComponentFiles = componentFiles.length;
-  const { totalBatches: totalComponentBatches, estimatedTime:estimatedComponentValidationTime } =  calculateBatchInfo(totalComponentFiles);
+  const {
+    totalBatches: totalComponentBatches,
+    estimatedTime: estimatedComponentValidationTime,
+  } = calculateBatchInfo(totalComponentFiles);
 
   const totalBatches = totalComponentBatches;
   const estimatedTime = estimatedComponentValidationTime;
@@ -147,21 +161,28 @@ async function processFilesInBatches(componentFiles: string[]): Promise<void> {
     const batch = componentFiles.slice(i, i + BATCH_SIZE);
     await lintComponentBatch(batch, batchNum);
   }
-
 }
 
 function delay(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function consolidateComponentReports(): Promise<void> {
   await delay(5000);
-  const consolidatedReportPath = path.join(OUTPUT_DIR, 'batch_eslint_report.json');
+  const consolidatedReportPath = path.join(
+    OUTPUT_DIR,
+    'batch_eslint_report.json'
+  );
 
   let jsonFiles: string[] = [];
   try {
-    const { stdout } = await execPromise(`find "${OUTPUT_DIR}" -name "eslint_batch*.json"`);
-    jsonFiles = stdout.trim().split('\n').filter(file => file);
+    const { stdout } = await execPromise(
+      `find "${OUTPUT_DIR}" -name "eslint_batch*.json"`
+    );
+    jsonFiles = stdout
+      .trim()
+      .split('\n')
+      .filter((file) => file);
     if (jsonFiles.length === 0) {
       console.warn(`No JSON files found in directory: ${OUTPUT_DIR}`);
       return;
@@ -170,31 +191,37 @@ async function consolidateComponentReports(): Promise<void> {
     console.error(`Error reading directory: ${error.message}`);
     throw error;
   }
-  await execPromise(`jq -s 'add' ${jsonFiles.join(' ')} > "${consolidatedReportPath}"`);
+  await execPromise(
+    `jq -s 'add' ${jsonFiles.join(' ')} > "${consolidatedReportPath}"`
+  );
   try {
-    const eslintReport = await JSON.parse(await fs.readFile(consolidatedReportPath, 'utf8'));
-    await fs.writeFile(consolidatedReportPath, JSON.stringify(convertToStylelintSchema(eslintReport), null, 2));
+    const eslintReport = await JSON.parse(
+      await fs.readFile(consolidatedReportPath, 'utf8')
+    );
+    await fs.writeFile(
+      consolidatedReportPath,
+      JSON.stringify(convertToStylelintSchema(eslintReport), null, 2)
+    );
   } catch (error: any) {
-    console.log(`Error ${error}`)
+    console.log(`Error ${error}`);
   }
 }
 
 function convertToStylelintSchema(eslintReport) {
-  
-  return eslintReport.map(file => ({
+  return eslintReport.map((file) => ({
     source: file.filePath,
-    warnings: file.messages.map(message => ({
+    warnings: file.messages.map((message) => ({
       line: message.line,
       column: message.column,
-      rule: message.ruleId?.replace("@salesforce-ux/", "") || "unknown",
+      rule: message.ruleId?.replace('@salesforce-ux/', '') || 'unknown',
       severity: message.severity === 2 ? 'error' : 'warning',
-      text: message.message
-    }))
+      text: message.message,
+    })),
   }));
 }
 
-export async function getEslintValidationReport(eslintValidationFiles){
-    //const componentFiles = await findComponentFiles(TARGET_DIR);
-    await processFilesInBatches(eslintValidationFiles);
-    await consolidateComponentReports();
+export async function getEslintValidationReport(eslintValidationFiles) {
+  //const componentFiles = await findComponentFiles(TARGET_DIR);
+  await processFilesInBatches(eslintValidationFiles);
+  await consolidateComponentReports();
 }

@@ -1,53 +1,51 @@
-import { Root, Declaration } from 'postcss';
-import stylelint, { PostcssResult } from 'stylelint';
-import AbstractStylelintRule from '../AbstractStylelintRule';
+import { Root } from 'postcss';
+import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
 
-const ruleName = 'do-not-use-calc-function'
-class DoNotUseCalcFunction extends AbstractStylelintRule {
-  constructor() {
-    super(ruleName);
-  }
+const { utils, createPlugin }: typeof stylelint = stylelint;
+const ruleName: string = 'sf-sds/do-not-use-calc-function';
 
-  protected validateOptions(result: PostcssResult, options: any): boolean {
-    return stylelint.utils.validateOptions(result, this.ruleName, {
-      actual: options,
-      possible: {}, 
-    });
-  }
+const messages = utils.ruleMessages(ruleName, {
+  disallowed: (property: string) =>
+    `The use of "calc()" in the property "${property}" is not allowed.`,
+});
 
-  protected rule(primaryOptions?: any) {
-    return (root: Root, result: PostcssResult) => {
-      if (this.validateOptions(result, primaryOptions)) {
-        root.walkDecls((decl: Declaration) => {
-          if (decl.value.includes('calc(')) {
-            const index = decl.toString().indexOf('calc(');
-            const endIndex = index + 'calc('.length;
-
-            stylelint.utils.report({
-              message: `The use of "calc()" in "${decl.prop}" is not allowed.`,
-              node: decl,
-              index,
-              endIndex,
-              result,
-              ruleName: this.getRuleName(),
-            });
-
-            // Call the fix method if in fixing context
-            // if (result.stylelint.config.fix) {
-            //   this.fix(decl);
-            // }
-          }
-        });
-      }
-    };
-  }
-
-  // // Implement the fix method
-  // protected fix(decl: Declaration): void {
-  //   // Example fix: Remove the calc function (this is just a placeholder)
-  //   decl.value = decl.value.replace(/calc\([^)]+\)/g, ''); // Remove calc() usage
-  // }
+function validateOptions(result: PostcssResult, options: any) {
+  return utils.validateOptions(result, ruleName, {
+    actual: options,
+    possible: {}, // Extend as needed
+  });
 }
 
-// Export the rule using createPlugin
-export default new DoNotUseCalcFunction().createPlugin();
+function rule(
+  primaryOptions: any,
+  secondaryOptions: any,
+  context: RuleContext
+) {
+  return (root: Root, result: PostcssResult) => {
+    if (validateOptions(result, primaryOptions)) {
+      root.walkDecls((decl) => {
+        if (decl.value.includes('calc(')) {
+          const index = decl.toString().indexOf('calc(');
+          const endIndex = index + 'calc('.length;
+
+          utils.report({
+            message: messages.disallowed(decl.prop),
+            node: decl,
+            index,
+            endIndex,
+            result,
+            ruleName,
+          });
+
+          // If fixing is enabled
+          // if (context.fix) {
+          //   decl.value = decl.value.replace(/calc\([^)]+\)/g, ''); // Example fix: removes calc()
+          // }
+        }
+      });
+    }
+  };
+}
+
+// Export the plugin
+export default createPlugin(ruleName, rule as unknown as Rule);

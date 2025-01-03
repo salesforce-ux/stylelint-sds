@@ -1,42 +1,52 @@
-import stylelint, { PostcssResult } from "stylelint";
-import AbstractStylelintRule from '../AbstractStylelintRule';
-import { Root } from 'postcss'
+import { Root } from 'postcss';
+import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
+import { Options } from './option.interface';
 
-const ruleName = "no-slds-private-var";
+const { utils, createPlugin }: typeof stylelint = stylelint;
+const ruleName: string = 'sf-sds/no-slds-private-var';
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
-  expected: (prop: string) => `Unexpected "--_slds- private variable usage" within selector "${prop}".`,
+  expected: (prop: string) =>
+    `Unexpected "--_slds- private variable usage" within selector "${prop}".`,
 });
 
-class NoSldsPrivateVarRule extends AbstractStylelintRule {
-  constructor() {
-    super(ruleName);
-  }
-
-  protected validateOptions(result: PostcssResult, options: any): boolean {
-    return stylelint.utils.validateOptions(result, this.ruleName, {
-      actual: options,
-      possible: {}, // Customize as needed
-    });
-  }
-
-  protected rule(primaryOptions?: any) {
-    return (root: Root, result: PostcssResult) => {
-      if (this.validateOptions(result, primaryOptions)) {
-        root.walkDecls((decl) => {
-          if (decl.prop.startsWith("--_slds-")) {
-            stylelint.utils.report({
-              message: messages.expected(decl.prop),
-              node: decl,
-              result,
-              ruleName: this.getRuleName(),
-            });
-          }
-        });
-      }
-    };
-  }
+function validateOptions(result: PostcssResult, options: Options) {
+  return stylelint.utils.validateOptions(result, ruleName, {
+    actual: options,
+    possible: {}, // Customize as needed
+  });
 }
 
-// Export the rule using createPlugin
-export default new NoSldsPrivateVarRule().createPlugin();
+function rule(
+  primaryOptions: Options,
+  secondaryOptions: Options,
+  context: RuleContext
+) {
+  return (root: Root, result: PostcssResult) => {
+    if (validateOptions(result, primaryOptions)) {
+      root.walkDecls((decl) => {
+        if (decl.prop.startsWith('--_slds-')) {
+          stylelint.utils.report({
+            message: messages.expected(decl.prop),
+            node: decl,
+            result,
+            ruleName,
+          });
+
+          // Optional: Call the fix method if in fixing context
+          if (result.stylelint.config.fix) {
+            fix(decl);
+          }
+        }
+      });
+    }
+  };
+}
+
+// Implement the fix method
+function fix(decl: any): void {
+  // Modify the declaration as needed, e.g., remove the deprecated variable or correct it
+  decl.prop = decl.prop.replace('--_slds-', '--slds-');
+}
+
+export default createPlugin(ruleName, rule as unknown as Rule);

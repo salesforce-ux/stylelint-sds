@@ -7,10 +7,10 @@ import path from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { spawn } from 'child_process';
-import convertJsonToSarif from './json-to-sarif'
+import convertJsonToSarif from './json-to-sarif';
 
 const execPromise = promisify(exec);
-const __dirname = process.cwd()
+const __dirname = process.cwd();
 
 /*
 console.log(`
@@ -39,16 +39,14 @@ for (let i = 0; i < args.length; i++) {
   }
 }
 
-if(configFile === '')
-  configFile = './stylelintrc.yml'
+if (configFile === '') configFile = './stylelintrc.yml';
 
 validateConfigFile(configFile);
 
-if(targetDirectory === '')
-  targetDirectory = '.'
+if (targetDirectory === '') targetDirectory = '.';
 
-const CONFIG_FILE = configFile;;
-const TARGET_DIR = targetDirectory;//process.argv[2];
+const CONFIG_FILE = configFile;
+const TARGET_DIR = targetDirectory; //process.argv[2];
 const FOLDER_NAME = 'reports';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
@@ -62,13 +60,18 @@ async function validateConfigFile(configPath: string) {
     await fs.access(path.resolve(configPath)); // Check if the file is accessible
   } catch {
     console.error(`Error: Config file "${configPath}" does not exist.`);
-    console.error(`Command usage: npm run report -- -c .stylelintrc.yml -d example-component-folder`)
+    console.error(
+      `Command usage: npm run report -- -c .stylelintrc.yml -d example-component-folder`
+    );
     process.exit(1);
   }
 }
 
 function calculateBatchInfo(totalFiles: number) {
-  const totalBatches = Math.min(Math.ceil(totalFiles / BATCH_SIZE), MAX_BATCHES);
+  const totalBatches = Math.min(
+    Math.ceil(totalFiles / BATCH_SIZE),
+    MAX_BATCHES
+  );
   const estimatedTime = totalBatches * TIME_PER_BATCH;
   return { totalBatches, estimatedTime };
 }
@@ -87,18 +90,19 @@ function lintBatch(batch: string[], batchNum: number): Promise<void> {
         '--formatter',
         'json',
         '--output-file',
-        outputFile
+        outputFile,
       ]);
       resolve();
     } catch (error) {
-      console.error(`Error ${error}`)
+      console.error(`Error ${error}`);
     }
   });
 }
 
 async function processFilesInBatches(cssFiles: string[]): Promise<void> {
   const totalCssFiles = cssFiles.length;
-  const { totalBatches: totalCssBatches, estimatedTime: estimatedCssTime } = calculateBatchInfo(totalCssFiles);
+  const { totalBatches: totalCssBatches, estimatedTime: estimatedCssTime } =
+    calculateBatchInfo(totalCssFiles);
 
   const totalBatches = totalCssBatches;
   const estimatedTime = estimatedCssTime;
@@ -117,17 +121,25 @@ async function processFilesInBatches(cssFiles: string[]): Promise<void> {
 }
 
 function delay(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function consolidateReports(): Promise<void> {
   await delay(5000);
-  const consolidatedReportPath = path.join(OUTPUT_DIR, 'batch_stylelint_report.json');
-  
+  const consolidatedReportPath = path.join(
+    OUTPUT_DIR,
+    'batch_stylelint_report.json'
+  );
+
   let jsonFiles: string[] = [];
   try {
-    const { stdout } = await execPromise(`find "${OUTPUT_DIR}" -name "sl_batch*.json"`);
-    jsonFiles = stdout.trim().split('\n').filter(file => file);
+    const { stdout } = await execPromise(
+      `find "${OUTPUT_DIR}" -name "sl_batch*.json"`
+    );
+    jsonFiles = stdout
+      .trim()
+      .split('\n')
+      .filter((file) => file);
     if (jsonFiles.length === 0) {
       console.warn(`No JSON files found in directory: ${OUTPUT_DIR}`);
       return;
@@ -137,11 +149,13 @@ async function consolidateReports(): Promise<void> {
     throw error;
   }
 
-  await execPromise(`jq -s 'add' ${jsonFiles.join(' ')} > "${consolidatedReportPath}"`);
+  await execPromise(
+    `jq -s 'add' ${jsonFiles.join(' ')} > "${consolidatedReportPath}"`
+  );
 }
 
-export async function getStylelintValidationReport(cssFiles){
-    //const cssFiles = await findCSSFiles(TARGET_DIR);
-    await processFilesInBatches(cssFiles);
-    await consolidateReports();
+export async function getStylelintValidationReport(cssFiles) {
+  //const cssFiles = await findCSSFiles(TARGET_DIR);
+  await processFilesInBatches(cssFiles);
+  await consolidateReports();
 }

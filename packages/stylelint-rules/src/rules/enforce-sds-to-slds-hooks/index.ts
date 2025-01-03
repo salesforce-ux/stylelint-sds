@@ -1,56 +1,57 @@
 import { Root } from 'postcss';
-import stylelint, { PostcssResult } from 'stylelint';
-import AbstractStylelintRule from '../AbstractStylelintRule';
+import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
+import { Options } from './option.interface';
 
-class SDSMappingRule extends AbstractStylelintRule {
-  constructor() {
-    super('enforce-sds-to-slds-hooks');
-  }
+const { utils, createPlugin }: typeof stylelint = stylelint;
+const ruleName: string = 'sf-sds/enforce-sds-to-slds-hooks';
 
-  protected validateOptions(result: PostcssResult, options: any): boolean {
-    return stylelint.utils.validateOptions(result, this.ruleName, {
-      actual: options,
-      possible: {}, // Customize if additional options are added
-    });
-  }
-
-  protected rule(primaryOptions?: any) {
-    return (root: Root, result: PostcssResult) => {
-      if (this.validateOptions(result, primaryOptions)) {
-        const sdsVarPattern = /var\(--sds-[^)]+\)/g;
-
-        root.walkDecls(decl => {
-          const matches = decl.value.matchAll(sdsVarPattern);
-
-          for (const match of matches) {
-            const [fullMatch] = match;
-            const startIndex = decl.toString().indexOf(fullMatch);
-            const endIndex = startIndex + fullMatch.length;
-
-            stylelint.utils.report({
-              message: `The "${fullMatch}" styling hook is replaced by "${fullMatch.replace('--sds-', '--slds-')}".`,
-              node: decl,
-              index: startIndex,
-              endIndex,
-              result,
-              ruleName: this.getRuleName(),
-            });
-
-            // If fixing is enabled, replace the hook
-            if (result.stylelint.config.fix) {
-              this.fix(decl, fullMatch);
-            }
-          }
-        });
-      }
-    };
-  }
-
-  // Fix method to replace var(--sds-...) with var(--slds-...)
-  protected fix(decl: any, fullMatch: string): void {
-    decl.value = decl.value.replace(fullMatch, fullMatch.replace('--sds-', '--slds-'));
-  }
+function validateOptions(result: PostcssResult, options: Options): boolean {
+  return utils.validateOptions(result, ruleName, {
+    actual: options,
+    possible: {}, // Customize if additional options are added
+  });
 }
 
-// Export the rule using createPlugin
-export default new SDSMappingRule().createPlugin();
+function rule(
+  primaryOptions: Options,
+  secondaryOptions: Options,
+  context: RuleContext
+) {
+  return (root: Root, result: PostcssResult) => {
+    const sdsVarPattern = /var\(--sds-[^)]+\)/g;
+
+    root.walkDecls((decl) => {
+      const matches = decl.value.matchAll(sdsVarPattern);
+
+      for (const match of matches) {
+        const [fullMatch] = match;
+        const startIndex = decl.toString().indexOf(fullMatch);
+        const endIndex = startIndex + fullMatch.length;
+
+        utils.report({
+          message: `The "${fullMatch}" styling hook is replaced by "${fullMatch.replace('--sds-', '--slds-')}".`,
+          node: decl,
+          index: startIndex,
+          endIndex,
+          result,
+          ruleName,
+        });
+
+        // If fixing is enabled, replace the hook
+        if (result.stylelint.config.fix) {
+          fix(decl, fullMatch);
+        }
+      }
+    });
+  };
+}
+
+// Fix method to replace var(--sds-...) with var(--slds-...)
+function fix(decl: any, fullMatch: string): void {
+  decl.value = decl.value.replace(
+    fullMatch,
+    fullMatch.replace('--sds-', '--slds-')
+  );
+}
+
+export default createPlugin(ruleName, rule as unknown as Rule);
