@@ -1,6 +1,6 @@
 plugins:
   # - "@salesforce-ux/stylelint-slds" # This is when we use it as npm package.
-  - "../stylelint-rules/build"
+  - "../stylelint-plugin-sf-sds/build"
 
 overrides:
   - files:
@@ -11,7 +11,7 @@ overrides:
       sf-sds/no-slds-class-overrides:
         - true
         - severity: warning
-      sf-sds/no-important:
+      sf-sds/no-important-tag:
         - true
         - severity: warning
       sf-sds/no-hardcoded-values:
@@ -20,7 +20,7 @@ overrides:
       sf-sds/no-hardcoded-values-slds2:
         - true
         - severity: error
-      sf-sds/enforce-use-of-utility-classes:
+      sf-sds/enforce-utility-classes:
         - true
       sf-sds/no-aura-tokens:
         - true
