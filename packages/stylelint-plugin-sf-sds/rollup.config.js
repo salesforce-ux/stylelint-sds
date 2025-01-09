@@ -39,6 +39,10 @@ export default
 					src: 'public',
 					dest: 'build',
 					rename: './public'
+				},
+				{
+					src: 'scripts/config-setup/create-stylelint-config.js',
+					dest: 'build/scripts'
 				}
 			]
 		})

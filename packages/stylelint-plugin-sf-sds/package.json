@@ -1,6 +1,6 @@
 {
   "name": "@salesforce-ux/stylelint-sds",
-  "version": "0.0.9-test4",
+  "version": "0.0.9-test5",
   "main": "build/index.js",
   "type": "module",
   "files": [
@@ -11,6 +11,7 @@
     "clean": "rimraf node_modules package-lock.json build",
     "lint": "eslint src tests --ext .ts",
     "fix": "npm run lint -- --fix",
+    "setup-stylelint": "node node_modules/@salesforce-ux/stylelint-sds/build/scripts/create-stylelint-config.js",
     "test": "NODE_ENV=test mocha"
   },
   "dependencies": {
