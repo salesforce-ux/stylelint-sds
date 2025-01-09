@@ -6,14 +6,18 @@
     "workspaces": [
         "packages/*"
     ],
-    "scripts": {},
+    "files": [
+        "build/",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "rollup --config rollup.config.js",
+        "setup-lint": "node ./build/setup.js"
+    },
     "type": "module",
     "dependencies": {
         "@salesforce-ux/eslint-plugin-sf-sds": "file:../eslint-plugin-sf-sds/salesforce-ux-eslint-plugin-sf-sds-0.0.1-beta1.tgz",
         "@salesforce-ux/stylelint-sds": "file:../stylelint-plugin-sf-sds/salesforce-ux-stylelint-sds-0.0.9-test5.tgz"
-    },
-    "bin": {
-        "setup-lint": "./setup.mjs"
     },
     "keywords": [
         "eslint",
