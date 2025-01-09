@@ -4,7 +4,8 @@
   "main": "build/index.js",
   "type": "module",
   "files": [
-    "build/*"
+    "build/*",
+    ".stylelintrc.yml"
   ],
   "scripts": {
     "build": "rollup --config rollup.config.js",

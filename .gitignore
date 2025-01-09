@@ -4,3 +4,6 @@ node_modules/
 reports/
 .codegenie
 dist/
+*.tgz
+build/
+packages/**/*.tgz
