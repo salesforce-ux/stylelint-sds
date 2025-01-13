@@ -6,7 +6,7 @@ import { promises as fs } from 'fs';
 import path, { join, extname } from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { spawn } from 'child_process';
+import spawn from 'cross-spawn';
 import convertJsonToSarif from './json-to-sarif';
 import { consolidateReportsJQ } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
@@ -116,9 +116,9 @@ async function lintComponentBatch(batch: string[], batchNum: number): Promise<vo
       console.log(`ESLint Output: ${data}`);
     });
 
-    lintProcess.stderr.on('data', (data) => {
-      console.error(`ESLint Error - may be not configured`);
-    });
+    // lintProcess.stderr.on('data', (data) => {
+    //   console.error(`ESLint Error - may be not configured`);
+    // });
 
     lintProcess.on('close', (code) => {
       if (code === 0) {
@@ -160,7 +160,7 @@ async function processFilesInBatches(componentFiles: string[]): Promise<void> {
       await lintComponentBatch(batch, batchNum);
     }
     catch(error){
-      console.log(`Linting components failed`)
+      console.log(`Linting components not completed - may be not configured`)
     }
     
   }

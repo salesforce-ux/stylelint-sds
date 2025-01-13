@@ -6,11 +6,12 @@ import { promises as fs } from 'fs';
 import path, { join, extname } from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { spawn } from 'child_process';
+import spawn from 'cross-spawn';
 import convertJsonToSarif from './json-to-sarif';
 import { consolidateReportsJQ } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
+import { chmod } from 'fs/promises';
 
 /*
 console.log(`
@@ -79,7 +80,6 @@ function calculateBatchInfo(totalFiles: number) {
 function lintBatch(batch: string[], batchNum: number): Promise<void> {
   return new Promise((resolve, reject) => {
     const outputFile = `${OUTPUT_DIR}/sl_batch${batchNum}.json`;
-
     try {
       //console.log(`Running linter in stylelint`)
       const process = spawn('npx', [

@@ -4,11 +4,13 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import convertJsonToSarif from './json-to-sarif';
 import { getStylelintValidationReport } from './stylelint-json-report';
-
+import { rimraf } from 'rimraf';
 import { getEslintValidationReport } from './eslint-json-report';
 import { findCSSFiles, findComponentFiles } from './utils/utils';
 import { calculateBatchInfo } from './utils/batching';
 import { json } from 'stream/consumers';
+import glob from 'glob';
+
 import { consolidateReportsJQ } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
@@ -55,6 +57,18 @@ const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 const BATCH_SIZE = 10;
 const MAX_BATCHES = 10;
 const TIME_PER_BATCH = 5;
+
+const removeFiles = async (pattern: string): Promise<void> => {
+  console.log(`Removing files matching: ${pattern}`);
+  // try {
+  //   await rimraf(pattern, { glob: true }); // Directly supports Promises
+  //   console.log('All matching files removed successfully!');
+  // } catch (error) {
+  //   console.error('Error during file removal:', error);
+  // }
+};
+
+
 
 async function main(): Promise<void> {
   if (!TARGET_DIR) {
@@ -105,7 +119,6 @@ async function main(): Promise<void> {
       console.error('Failed to get ESLint report');
     }
     
-
     await combineJsonReports();
     // Add your SARIF conversion logic here if needed
     await convertJsonToSarif();
@@ -113,7 +126,11 @@ async function main(): Promise<void> {
     console.error('An error occurred:', error);
     process.exit(1); // Exit with failure status if an error occurs
   } finally {
-    await execPromise(`rm ${OUTPUT_DIR}/*batch*.json`);
+    //await execPromise(`rm ${OUTPUT_DIR}/*batch*.json`);
+    (async () => {
+      await removeFiles(`${OUTPUT_DIR}/*batch*.json`);
+    })();
+    
   }
 }
 
@@ -124,15 +141,6 @@ async function initializeOutputDirectory(): Promise<void> {
 
 async function combineJsonReports() {
   const finalJson = path.join(OUTPUT_DIR, 'consolidated_report.json');
-  // const esLintJsonReportPath = path.join(
-  //   OUTPUT_DIR,
-  //   'batch_eslint_report.json'
-  // );
-  // const styleLintJsonReportPath = path.join(
-  //   OUTPUT_DIR,
-  //   'batch_stylelint_report.json'
-  // );
-
   let jsonFiles: string[] = await findJsonFiles(OUTPUT_DIR);
   await consolidateReportsJQ(jsonFiles, finalJson);
 }
@@ -158,23 +166,6 @@ async function findJsonFiles(outputDir: string): Promise<string[]> {
     throw error;
   }
 }
-
-// async function mergeJsonFiles(jsonFiles: string[], outputFilePath: string): Promise<void> {
-//   try {
-//     const mergedData = await Promise.all(
-//       jsonFiles.map(async (file) => {
-//         const content = await fs.readFile(file, 'utf8');
-//         return JSON.parse(content);
-//       })
-//     ).then((data) => data.reduce((acc, curr) => ({ ...acc, ...curr }), {})); // Merge JSON objects
-
-//     await fs.writeFile(outputFilePath, JSON.stringify(mergedData, null, 2), 'utf8');
-//     console.log(`Merged JSON written to: ${outputFilePath}`);
-//   } catch (error: any) {
-//     console.error(`Error merging JSON files: ${error.message}`);
-//     throw error;
-//   }
-// }
 
 async function validateConfigFile(configPath: string) {
   try {
