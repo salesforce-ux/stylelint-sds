@@ -1,6 +1,6 @@
 {
   "name": "@salesforce-ux/stylelint-sds",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "main": "build/index.js",
   "type": "module",
   "files": [
@@ -22,7 +22,7 @@
     "node-jq": "^6.0.1",
     "postcss-values-parser": "^6.0.2",
     "rimraf": "^6.0.1",
-    "stylelint": "^16.10.0",
+    "stylelint": "16.10.0",
     "stylelint-sarif-formatter": "^1.0.7",
     "yaml": "^2.6.0"
   },
