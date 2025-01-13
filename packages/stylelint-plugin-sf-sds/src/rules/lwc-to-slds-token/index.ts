@@ -42,7 +42,7 @@ function rule(
         parsedValue.walk((node) => {
           if (node.type === 'word' && node.value.startsWith('--lwc-')) {
             const oldValue = node.value;
-            const newValue = lwcToSLDS[oldValue];
+            const newValue = lwcToSLDS[oldValue] === 'Continue to use' ? '' : lwcToSLDS[oldValue];
             const startIndex = decl.toString().indexOf(decl.value);
             const endIndex = startIndex + decl.value.length;
 

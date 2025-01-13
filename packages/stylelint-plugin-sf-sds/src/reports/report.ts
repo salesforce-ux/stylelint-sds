@@ -11,7 +11,7 @@ import { calculateBatchInfo } from './utils/batching';
 import { json } from 'stream/consumers';
 import glob from 'glob';
 
-import { consolidateReportsJQ } from './utils/consolidateJsonFiles';
+import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
 
@@ -59,7 +59,7 @@ const MAX_BATCHES = 10;
 const TIME_PER_BATCH = 5;
 
 const removeFiles = async (pattern: string): Promise<void> => {
-  console.log(`Removing files matching: ${pattern}`);
+  //console.log(`Removing files matching: ${pattern}`);
   // try {
   //   await rimraf(pattern, { glob: true }); // Directly supports Promises
   //   console.log('All matching files removed successfully!');
@@ -67,8 +67,6 @@ const removeFiles = async (pattern: string): Promise<void> => {
   //   console.error('Error during file removal:', error);
   // }
 };
-
-
 
 async function main(): Promise<void> {
   if (!TARGET_DIR) {
@@ -142,7 +140,8 @@ async function initializeOutputDirectory(): Promise<void> {
 async function combineJsonReports() {
   const finalJson = path.join(OUTPUT_DIR, 'consolidated_report.json');
   let jsonFiles: string[] = await findJsonFiles(OUTPUT_DIR);
-  await consolidateReportsJQ(jsonFiles, finalJson);
+  const combinedData = await consolidateReportsJQ(jsonFiles);
+  await writeToFile(combinedData, finalJson);
 }
 
 async function findJsonFiles(outputDir: string): Promise<string[]> {

@@ -2,7 +2,7 @@ import jq from 'node-jq'
 import { writeFile } from 'fs/promises';
 import fspromises from 'fs/promises';
 
-export async function consolidateReportsJQ(jsonFiles:  string[], consolidatedReportPath: string) {
+export async function consolidateReportsJQ(jsonFiles:  string[]): Promise<string | object> {
   try {
     // Use the 'add' filter to combine JSON files
     const filter = 'add';
@@ -14,14 +14,19 @@ export async function consolidateReportsJQ(jsonFiles:  string[], consolidatedRep
       allData.push(JSON.parse(content));
     }
     const combinedData = await jq.run('add', JSON.stringify(allData), { input: 'string', output: 'json' });
-
-    //const combinedData = await jq.run(filter, jsonFiles, { input: 'file', output: 'json' });
-
-    // Write the consolidated data to the output path
-    await writeFile(consolidatedReportPath, JSON.stringify(combinedData, null, 2));
-    //console.log(`Consolidated report created at ${consolidatedReportPath}`);
+    
+    return combinedData;
+    
   } catch (error) {
     console.error('Error consolidating reports:', error);
     throw error;
+  }
+}
+
+export async function writeToFile(data: any, filePath: string){
+  try {
+    await writeFile(filePath, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error('Error while writing to the file');
   }
 }

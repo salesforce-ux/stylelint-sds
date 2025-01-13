@@ -8,7 +8,7 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import spawn from 'cross-spawn';
 import convertJsonToSarif from './json-to-sarif';
-import { consolidateReportsJQ } from './utils/consolidateJsonFiles';
+import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
 import { chmod } from 'fs/promises';
@@ -151,7 +151,8 @@ async function consolidateReports(): Promise<void> {
     throw error;
   }
   
-  await consolidateReportsJQ(jsonFiles, consolidatedReportPath);
+  const combinedData = await consolidateReportsJQ(jsonFiles);
+  await writeToFile(combinedData, consolidatedReportPath);
 }
 
 export async function getStylelintValidationReport(cssFiles) {

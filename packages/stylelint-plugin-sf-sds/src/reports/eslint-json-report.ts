@@ -8,7 +8,7 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import spawn from 'cross-spawn';
 import convertJsonToSarif from './json-to-sarif';
-import { consolidateReportsJQ } from './utils/consolidateJsonFiles';
+import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
 
@@ -97,41 +97,26 @@ async function lintComponentBatch(batch: string[], batchNum: number): Promise<vo
   return new Promise((resolve, reject) => {
     const outputFile = join(OUTPUT_DIR, `eslint_batch${batchNum}.json`);
 
-    const args = [
-      'eslint',
-      ...batch,
-      '--config',
-      '.eslintrc.yml',
-      '--format',
-      'json',
-      '--output-file',
-      outputFile,
-      '--ignore-pattern',
-      'node_modules/',
-    ];
-
-    const lintProcess = spawn('npx', args, { shell: true });
-
-    lintProcess.stdout.on('data', (data) => {
-      console.log(`ESLint Output: ${data}`);
-    });
-
-    // lintProcess.stderr.on('data', (data) => {
-    //   console.error(`ESLint Error - may be not configured`);
-    // });
-
-    lintProcess.on('close', (code) => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(new Error(`ESLint process exited with code ${code}`));
-      }
-    });
-
-    lintProcess.on('error', (error) => {
-      console.error(`Error spawning ESLint process: ${error.message}`);
-      reject(error);
-    });
+    try {
+      const args = [
+        'eslint',
+        ...batch,
+        '--config',
+        '.eslintrc.yml',
+        '--format',
+        'json',
+        '--output-file',
+        outputFile,
+        '--ignore-pattern',
+        'node_modules/',
+      ];
+  
+      const lintProcess = spawn('npx', args, { shell: true });
+      resolve();
+    } catch (error) {
+      console.error(`ESLint Error ${error}`);
+    }
+    
   });
 }
 
@@ -198,7 +183,8 @@ async function consolidateComponentReports(): Promise<void> {
     throw error;
   }
 
-  await consolidateReportsJQ(jsonFiles, consolidatedReportPath);
+  const combinedData = await consolidateReportsJQ(jsonFiles);
+  await writeToFile(convertToStylelintSchema(combinedData), consolidatedReportPath);
 }
 
 function convertToStylelintSchema(eslintReport) {
