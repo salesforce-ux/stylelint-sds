@@ -3,7 +3,7 @@ import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
 import valueParser from 'postcss-value-parser';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
-import { fileURLToPath } from 'url';
+import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
 const ruleName: string = 'sf-sds/no-aura-tokens';
@@ -16,14 +16,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 // Load token mapping file
-const isTestEnv = process.env.NODE_ENV === 'test';
-const tokenMappingPath = resolve(
-  isTestEnv
-    ? fileURLToPath(
-        new URL('../../../public/metadata/tokenMapping.json', import.meta.url)
-      )
-    : new URL('./public/metadata/tokenMapping.json', import.meta.url).pathname
-);
+const tokenMappingPath = metadataFileUrl('./public/metadata/tokenMapping.json');
+
 
 const tokenMapping = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
 

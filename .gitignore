@@ -1,7 +1,6 @@
 package-lock.json
 scripts/reports/
 node_modules/
-reports/
 .codegenie
 dist/
 *.tgz

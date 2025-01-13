@@ -4,7 +4,7 @@ import valueParser from 'postcss-value-parser';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { Options } from './option.interface';
-import { fileURLToPath } from 'url';
+import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
 const ruleName: string = 'sf-sds/lwc-to-slds-token';
@@ -16,14 +16,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
   warning: (oldValue: string) => `The '${oldValue}' is currently deprecated.`,
 });
 
-const isTestEnv = process.env.NODE_ENV === 'test';
-const tokenMappingPath = resolve(
-  isTestEnv
-    ? fileURLToPath(
-        new URL('../../../public/metadata/lwcToSlds.json', import.meta.url)
-      )
-    : new URL('./public/metadata/lwcToSlds.json', import.meta.url).pathname
-);
+const tokenMappingPath = metadataFileUrl('./public/metadata/lwcToSlds.json');
 
 const lwcToSLDS = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
 

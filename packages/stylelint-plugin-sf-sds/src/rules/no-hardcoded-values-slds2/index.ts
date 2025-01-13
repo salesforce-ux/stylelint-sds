@@ -46,7 +46,6 @@ const loadStylinghooksData = async (): Promise<StylinghookData> => {
   const jsonFilePath = metadataFileUrl(
     'public/metadata/slds-plus/slds2-stylinghooks.json'
   );
-  //const jsonFilePath = new URL('./public/metadata/slds-plus/slds1-stylinghooks.json', import.meta.url).pathname;
   const jsonData = await fs.readFile(jsonFilePath, 'utf8');
   return JSON.parse(jsonData) as StylinghookData; // Cast the parsed data to StylinghookData type
 };
