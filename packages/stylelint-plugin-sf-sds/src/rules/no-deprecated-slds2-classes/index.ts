@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { Root } from 'postcss';
 import { fileURLToPath } from 'url';
-
+import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 const { utils, createPlugin } = stylelint;
 
 const ruleName = 'sf-sds/no-deprecated-slds2-classes';
@@ -17,17 +17,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 const isTestEnv = process.env.NODE_ENV === 'test';
 
 // Load deprecated selectors from a metadata file
-const deprecatedSelectorsPath = resolve(
-  isTestEnv
-    ? fileURLToPath(
-        new URL(
-          '../../../public/metadata/sldsPlus.metadata.json',
-          import.meta.url
-        )
-      )
-    : new URL('./public/metadata/sldsPlus.metadata.json', import.meta.url)
-        .pathname
-);
+const deprecatedSelectorsPath = metadataFileUrl('./public/metadata/sldsPlus.metadata.json');
 
 // Read and parse the JSON file containing deprecated selectors
 const deprecatedSelectors = JSON.parse(

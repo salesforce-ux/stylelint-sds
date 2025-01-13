@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 import { Root } from 'postcss';
 import { resolve } from 'path';
 import { parse } from 'yaml';
-import { fileURLToPath } from 'url';
+import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 const { utils, createPlugin } = stylelint;
 
 const ruleName = 'sf-sds/enforce-bem-usage';
@@ -27,13 +27,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 });
 
 const isTestEnv = process.env.NODE_ENV === 'test';
-const tokenMappingPath = resolve(
-  isTestEnv
-    ? fileURLToPath(
-        new URL('../../../public/metadata/bem-naming.yml', import.meta.url)
-      )
-    : new URL('./public/metadata/bem-naming.yml', import.meta.url).pathname
-);
+const tokenMappingPath = metadataFileUrl('./public/metadata/bem-naming.yml');
 
 const bemMapping: ParsedData = parse(readFileSync(tokenMappingPath, 'utf8'));
 

@@ -3,7 +3,7 @@ import valueParser from 'postcss-value-parser';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { Root, Declaration } from 'postcss';
-import { fileURLToPath } from 'url';
+import { metadataFileUrl } from '../../utils/metaDataFileUrl'
 const { utils, createPlugin } = stylelint;
 
 const ruleName = 'sf-sds/no-deprecated-slds-hooks';
@@ -16,17 +16,8 @@ const messages = utils.ruleMessages(ruleName, {
 
 // Read the deprecated tokens file
 const isTestEnv = process.env.NODE_ENV === 'test';
-const tokenMappingPath = resolve(
-  isTestEnv
-    ? fileURLToPath(
-        new URL(
-          '../../../public/metadata/deprecatedHooks.json',
-          import.meta.url
-        )
-      )
-    : new URL('./public/metadata/deprecatedHooks.json', import.meta.url)
-        .pathname
-);
+const tokenMappingPath = metadataFileUrl('./public/metadata/deprecatedHooks.json');
+
 
 const deprecatedHooks = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
 

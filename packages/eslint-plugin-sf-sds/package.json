@@ -1,6 +1,6 @@
 {
     "name": "@salesforce-ux/eslint-plugin-sf-sds",
-    "version": "0.0.1-beta1",
+    "version": "0.0.1",
     "main": "src/index.js",
     "scripts": {
         "build": "rm -rf dist && rollup -c",
