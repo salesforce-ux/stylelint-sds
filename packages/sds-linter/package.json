@@ -1,6 +1,6 @@
 {
     "name": "@salesforce-ux/sds-linter",
-    "version": "0.0.1-test",
+    "version": "0.0.1",
     "description": "SDS Linter with both stylelint and eslint together",
     "main": "index.mjs",
     "workspaces": [
@@ -26,5 +26,8 @@
         "sds linter"
     ],
     "author": "Kishore Nemalipuri",
-    "license": "MIT"
+    "license": "MIT",
+    "devDependencies": {
+        "@rollup/plugin-typescript": "^12.1.2"
+    }
 }

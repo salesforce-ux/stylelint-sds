@@ -9,6 +9,7 @@ export default {
       file: "dist/index.js", // Output file for the single bundle
       format: "cjs", // CommonJS format (use "esm" for ES Modules if preferred)
       sourcemap: true, // Generate a source map
+      exports: 'auto',
     },
   ],
   plugins: [

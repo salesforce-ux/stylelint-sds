@@ -12,6 +12,17 @@ export default
 			format: 'esm'
 		}
 	],
+	external: [
+		'stylelint', // External stylelint
+		'fs', // Node.js core module
+		'fs/promises', // Node.js core module
+		'path', // Node.js core module
+		'url', // Node.js core module
+		'yaml', // Third-party module
+		'postcss-value-parser', // Third-party module
+		'postcss-values-parser', // Third-party module
+		'chroma-js', // Third-party module
+	  ],
 	plugins:
 	[
 		del(
@@ -58,6 +69,15 @@ export default
         sourcemap: true // Enable sourcemaps for debugging
       }
     ],
+	external: [
+		'fs', // Native Node.js module
+		'path', // Native Node.js module
+		'child_process', // Native Node.js module
+		'util', // Native Node.js module
+		'fs/promises', // Native Node.js module
+		'cross-spawn', // Third-party library
+		'node-jq', // Third-party library
+	],
     plugins: [
       ts()
     ]
