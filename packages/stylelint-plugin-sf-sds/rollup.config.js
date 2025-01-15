@@ -77,6 +77,8 @@ export default
 		'fs/promises', // Native Node.js module
 		'cross-spawn', // Third-party library
 		'node-jq', // Third-party library
+		'rimraf',
+		'glob'
 	],
     plugins: [
       ts()

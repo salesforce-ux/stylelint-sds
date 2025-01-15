@@ -60,12 +60,27 @@ const TIME_PER_BATCH = 5;
 
 const removeFiles = async (pattern: string): Promise<void> => {
   //console.log(`Removing files matching: ${pattern}`);
-  // try {
-  //   await rimraf(pattern, { glob: true }); // Directly supports Promises
-  //   console.log('All matching files removed successfully!');
-  // } catch (error) {
-  //   console.error('Error during file removal:', error);
-  // }
+
+  try {
+    // Wrap glob in a Promise to handle async code properly
+    const files = await new Promise<string[]>((resolve, reject) => {
+      glob(pattern, (err, files) => {
+        if (err) {
+          reject('Error during file globbing:');
+        } else {
+          resolve(files);
+        }
+      });
+    });
+
+    // Proceed to remove files if they match
+    files.forEach(file => {
+      const filePath = path.resolve(file); // Ensure full path to file
+      fs.unlink(filePath);
+    });
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
 };
 
 async function main(): Promise<void> {
@@ -125,9 +140,8 @@ async function main(): Promise<void> {
     process.exit(1); // Exit with failure status if an error occurs
   } finally {
     //await execPromise(`rm ${OUTPUT_DIR}/*batch*.json`);
-    (async () => {
-      await removeFiles(`${OUTPUT_DIR}/*batch*.json`);
-    })();
+    await removeFiles(`${OUTPUT_DIR}/*batch*.json`);
+    console.log(`Process completed!`);
     
   }
 }
