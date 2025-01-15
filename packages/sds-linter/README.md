@@ -26,6 +26,8 @@ After installing the package, you need to add a few commands to your `package.js
 You need to add the below in "scripts" item in `package.json`
 
 ```
+"lint:styles": "stylelint './**/*.css' --config=.stylelintrc.yml",
+"lint:components": "eslint '**/*.{html,cmp}' --ext .html,.cmp --config=.eslintrc.yml",
 "lint": "npm run lint:components; npm run lint:styles",
 "fix": "stylelint '**/*.css' -c .stylelintrc.yml --fix ",
 "report": "node node_modules/@salesforce-ux/stylelint-sds/build/report.js force-app/ -c .stylelintrc.yml",
@@ -49,18 +51,16 @@ NOTE: If the project root already containing `.eslintrc.yml` & `.stylelintrc.yml
   ```
   npx run lint
   ```
-
 * To auto-fix some of the most confident fixes automatically.
 
-    ```
-    npx run fix
-    ```
-
+  ```
+  npx run fix
+  ```
 * To run a report in .sarif format
 
-    ```
-    npx run report
-    ```
+  ```
+  npx run report
+  ```
 
 ### Contribution
 
