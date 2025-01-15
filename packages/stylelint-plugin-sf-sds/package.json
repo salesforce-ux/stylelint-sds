@@ -1,6 +1,6 @@
 {
   "name": "@salesforce-ux/stylelint-sds",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "main": "build/index.js",
   "type": "module",
   "files": [
@@ -19,6 +19,7 @@
     "chroma-js": "^3.1.2",
     "cross-spawn": "^7.0.6",
     "eslint": "8.56.0",
+    "glob": "^11.0.1",
     "node-jq": "^6.0.1",
     "postcss-values-parser": "^6.0.2",
     "rimraf": "^6.0.1",

@@ -9,7 +9,7 @@ import { getEslintValidationReport } from './eslint-json-report';
 import { findCSSFiles, findComponentFiles } from './utils/utils';
 import { calculateBatchInfo } from './utils/batching';
 import { json } from 'stream/consumers';
-import glob from 'glob';
+import { glob } from 'glob';
 
 import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
@@ -63,15 +63,7 @@ const removeFiles = async (pattern: string): Promise<void> => {
 
   try {
     // Wrap glob in a Promise to handle async code properly
-    const files = await new Promise<string[]>((resolve, reject) => {
-      glob(pattern, (err, files) => {
-        if (err) {
-          reject('Error during file globbing:');
-        } else {
-          resolve(files);
-        }
-      });
-    });
+    const files = await glob(pattern);
 
     // Proceed to remove files if they match
     files.forEach(file => {
