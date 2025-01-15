@@ -17,11 +17,18 @@ module.exports = {
   },
 
   create(context) {
-    // Load the JSON file containing deprecated classes
-    const deprecatedClassesPath = path.resolve(
+    let deprecatedClassesPath = path.resolve(
       __dirname, 
-      "../../public/metadata/deprecatedClasses.json"
+      "./public/metadata/deprecatedClasses.json"
     );
+    if(process.env.NODE_ENV === 'test')
+    {
+      // In case of testing, we grab the json from local folder.
+      deprecatedClassesPath = path.resolve(
+        __dirname, 
+        "./../../public/metadata/deprecatedClasses.json"
+      );
+    }
 
     //console.log(`deprecatedClassesPath ${deprecatedClassesPath}`)
 
