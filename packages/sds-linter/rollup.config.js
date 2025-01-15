@@ -1,4 +1,5 @@
 import ts from '@rollup/plugin-typescript';
+import copy from 'rollup-plugin-copy';
 
 export default [
   {
@@ -8,7 +9,26 @@ export default [
       format: 'esm',
     },
     external: ['fs', 'path', 'url'],
-    plugins: [ts()],
+    plugins: [
+      ts(),
+
+      copy(
+        {
+          targets:
+          [
+            {
+              src: '.eslintrc.yml',
+              dest: 'build'
+            },
+            {
+              src: '.stylelintrc.yml',
+              dest: 'build'
+            }
+          ]
+        }
+      )
+
+    ],
   },
 //   {
 //     input: 'src/reports/report.ts',

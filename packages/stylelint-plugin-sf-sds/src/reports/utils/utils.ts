@@ -11,6 +11,9 @@ export async function findCSSFiles(directory: string): Promise<string[]> {
         const fullPath = join(dir, entry.name);
 
         if (entry.isDirectory()) {
+          //Ignore node_modules folders
+          if(entry.name === "node_modules")
+            continue;
           // Recursively search subdirectories
           const subDirResults = await recursiveSearch(fullPath);
           results = results.concat(subDirResults);
@@ -41,11 +44,14 @@ export async function findComponentFiles(directory: string): Promise<string[]> {
     let results: string[] = [];
     try {
       const entries = await fs.readdir(dir, { withFileTypes: true });
-
       for (const entry of entries) {
         const fullPath = join(dir, entry.name);
 
         if (entry.isDirectory()) {
+          //Ignore node_modules folders
+          if(entry.name === "node_modules")
+            continue;
+          
           // Recursively search subdirectories
           const subDirResults = await recursiveSearch(fullPath);
           results = results.concat(subDirResults);
