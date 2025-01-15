@@ -1,6 +1,6 @@
 {
     "name": "@salesforce-ux/sds-linter",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "SDS Linter with both stylelint and eslint together",
     "main": "index.mjs",
     "workspaces": [
