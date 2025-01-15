@@ -97,7 +97,7 @@ async function main(): Promise<void> {
 
     console.log(`
       ====================================================
-                     Total files for validation: ${(totalStyleLintBatches + totalESLintBatches) * BATCH_SIZE}
+                     Total files for validation: ${(totalStyleLintBatches + totalESLintBatches)}
                      Approximate time(sec):  ${estimatedStyleLintTime + estimatedESLintTime}          
       ====================================================
     `);

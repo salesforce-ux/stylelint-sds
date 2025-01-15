@@ -8,11 +8,11 @@ const __dirname = path.dirname(__filename);
 
 const config = [
   {
-    "sourcePath" : "./../node_modules/@salesforce-ux/eslint-plugin-sf-sds/build/.eslintrc.yml",
+    "sourcePath" : "./.eslintrc.yml",
     "destinationPath":".eslintrc.yml"
   },
   {
-    "sourcePath" : "./../node_modules/@salesforce-ux/stylelint-sds/build/.stylelintrc.yml",
+    "sourcePath" : "./.stylelintrc.yml",
     "destinationPath":".stylelintrc.yml"
   }
 ]
