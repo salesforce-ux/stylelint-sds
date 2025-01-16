@@ -1,17 +1,14 @@
 /*
     This file is to get all the validation issue with stylelint rules
 */
-
 import { promises as fs } from 'fs';
 import path, { join, extname } from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import spawn from 'cross-spawn';
-import convertJsonToSarif from './json-to-sarif';
 import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
-import { chmod } from 'fs/promises';
 
 /*
 console.log(`
@@ -82,8 +79,8 @@ function lintBatch(batch: string[], batchNum: number): Promise<void> {
     const outputFile = `${OUTPUT_DIR}/sl_batch${batchNum}.json`;
     try {
       //console.log(`Running linter in stylelint`)
-      const process = spawn('npx', [
-        'stylelint',
+      const stylelintPath = path.resolve(__dirname, 'node_modules/.bin/stylelint');
+      const process = spawn(stylelintPath, [
         ...batch,
         '--config',
         CONFIG_FILE,

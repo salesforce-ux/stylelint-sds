@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
 import { join, extname } from 'path';
+import path from 'path';
 
 export async function findCSSFiles(directory: string): Promise<string[]> {
   async function recursiveSearch(dir: string): Promise<string[]> {
@@ -77,4 +78,11 @@ export async function findComponentFiles(directory: string): Promise<string[]> {
   }
 }
 
-
+/**
+ * This method is for normalizing the uri paths to .css/.html files in .sarif report as those should compatible to both windows and mac/linux systems.
+ * @param uri
+ */
+export function normalizePath (uri: string): string  {
+  const isWindows = process.platform === 'win32';
+  return isWindows ? path.win32.normalize(uri) : path.posix.normalize(uri);
+};

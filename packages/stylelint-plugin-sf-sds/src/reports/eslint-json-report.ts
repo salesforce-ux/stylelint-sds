@@ -7,7 +7,6 @@ import path, { join, extname } from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import spawn from 'cross-spawn';
-import convertJsonToSarif from './json-to-sarif';
 import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
@@ -97,9 +96,9 @@ async function lintComponentBatch(batch: string[], batchNum: number): Promise<vo
   return new Promise((resolve, reject) => {
     const outputFile = join(OUTPUT_DIR, `eslint_batch${batchNum}.json`);
 
+    const eslintPath = path.resolve(__dirname, 'node_modules/.bin/eslint');
     try {
       const args = [
-        'eslint',
         ...batch,
         '--config',
         '.eslintrc.yml',
@@ -111,7 +110,7 @@ async function lintComponentBatch(batch: string[], batchNum: number): Promise<vo
         'node_modules/',
       ];
   
-      const lintProcess = spawn('npx', args, { shell: true });
+      const lintProcess = spawn(eslintPath, args);
       resolve();
     } catch (error) {
       console.error(`ESLint Error ${error}`);

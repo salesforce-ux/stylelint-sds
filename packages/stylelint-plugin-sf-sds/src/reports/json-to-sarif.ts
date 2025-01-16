@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import { normalizePath } from './utils/utils';
 
 const __dirname = process.cwd();
 
@@ -102,7 +103,7 @@ async function convertJsonToSarif(): Promise<void> {
         const id = warning.rule || 'unknown_rule';
         const severity = warning.severity || 'warning';
         const message = warning.text || 'No message provided';
-        const filePath = entry.source || 'unknown_file';
+        const filePath = normalizePath(entry.source) || 'unknown_file';
         const startLine = warning.line || 1;
         const endLine = warning.endLine || startLine;
         const startColumn = warning.column || 1;

@@ -131,10 +131,7 @@ async function main(): Promise<void> {
     console.error('An error occurred:', error);
     process.exit(1); // Exit with failure status if an error occurs
   } finally {
-    //await execPromise(`rm ${OUTPUT_DIR}/*batch*.json`);
     await removeFiles(`${OUTPUT_DIR}/*batch*.json`);
-    console.log(`Process completed!`);
-    
   }
 }
 

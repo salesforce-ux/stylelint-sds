@@ -16,7 +16,7 @@
 To install the SDS Linter Utility in your project, you can use npm:
 
 ```
-npm install --save-dev sds-linter
+npm install sds-linter --save-dev
 ```
 
 ### Usage
