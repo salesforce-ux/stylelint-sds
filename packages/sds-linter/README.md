@@ -16,7 +16,7 @@
 To install the SDS Linter Utility in your project, you can use npm:
 
 ```
-npm install sds-linter --save-dev
+npm install @salesforce-ux/sds-linter --save-dev
 ```
 
 ### Usage
@@ -49,7 +49,8 @@ NOTE: If the project root already containing `.eslintrc.yml` & `.stylelintrc.yml
 * To lint all components and styles in your project:
 
   ```
-  npx run lint
+  npx run lint:components
+  npx run lint:styles
   ```
 * To auto-fix some of the most confident fixes automatically.
 
