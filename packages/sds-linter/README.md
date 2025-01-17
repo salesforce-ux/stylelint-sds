@@ -49,18 +49,18 @@ NOTE: If the project root already containing `.eslintrc.yml` & `.stylelintrc.yml
 * To lint all components and styles in your project:
 
   ```
-  npx run lint:components
-  npx run lint:styles
+  npm run lint:components
+  npm run lint:styles
   ```
 * To auto-fix some of the most confident fixes automatically.
 
   ```
-  npx run fix
+  npm run fix
   ```
 * To run a report in .sarif format
 
   ```
-  npx run report
+  npm run report
   ```
 
 ### Contribution
