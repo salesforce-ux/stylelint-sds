@@ -1,0 +1,34 @@
+{
+    "name": "@salesforce-ux/slds-linter",
+    "version": "0.0.1",
+    "description": "SLDS Linter with both stylelint and eslint together",
+    "main": "index.mjs",
+    "workspaces": [
+        "packages/*"
+    ],
+    "access": "public",
+    "files": [
+        "build/",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "rollup --config rollup.config.js",
+        "setup-lint": "node ./build/setup.js"
+    },
+    "type": "module",
+    "dependencies": {
+        "@salesforce-ux/eslint-plugin-sf-sds": "latest",
+        "@salesforce-ux/stylelint-sds": "latest"
+    },
+    "keywords": [
+        "eslint SDS",
+        "stylelint SDS",
+        "salesforce",
+        "sds linter"
+    ],
+    "author": "Kishore Nemalipuri",
+    "license": "MIT",
+    "devDependencies": {
+        "@rollup/plugin-typescript": "^12.1.2"
+    }
+}
