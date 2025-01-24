@@ -6,3 +6,4 @@ dist/
 *.tgz
 build/
 packages/**/*.tgz
+.npmrc

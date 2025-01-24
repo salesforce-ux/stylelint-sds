@@ -1,8 +1,5 @@
 import stylelint from 'stylelint';
 import assert from 'assert';
-import fs from 'fs';
-import path from 'path';
-import sinon from 'sinon';
 
 const ruleName = 'sf-sds/enforce-utility-classes';
 

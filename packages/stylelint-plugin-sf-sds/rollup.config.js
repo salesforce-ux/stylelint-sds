@@ -76,7 +76,7 @@ export default
 		'util', // Native Node.js module
 		'fs/promises', // Native Node.js module
 		'cross-spawn', // Third-party library
-		'node-jq', // Third-party library
+		'jq', // Third-party library
 		'rimraf',
 		'glob'
 	],

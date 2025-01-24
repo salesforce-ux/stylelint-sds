@@ -1,4 +1,3 @@
-import jq from 'node-jq'
 import { writeFile } from 'fs/promises';
 import fspromises from 'fs/promises';
 
@@ -13,9 +12,11 @@ export async function consolidateReportsJQ(jsonFiles:  string[]): Promise<string
       const content = await fspromises.readFile(file, 'utf8');
       allData.push(JSON.parse(content));
     }
-    const combinedData = await jq.run('add', JSON.stringify(allData), { input: 'string', output: 'json' });
-    
-    return combinedData;
+    return allData.flat();
+    // The below worked with node-jq
+    // const combinedData = await jq.run('add', JSON.stringify(allData), { input: 'string', output: 'json' });
+    // return combinedData;
+
     
   } catch (error) {
     console.error('Error consolidating reports:', error);
