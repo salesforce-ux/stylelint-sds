@@ -13,7 +13,7 @@ overrides:
       - "*.cmp"
     parser: "@html-eslint/parser"
     plugins:
-      - "@salesforce-ux/sf-sds"
+      - "@salesforce-ux/slds"
     rules:
       "@salesforce-ux/sf-sds/no-bem-class":
         - "error"
