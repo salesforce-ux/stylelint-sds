@@ -13,7 +13,7 @@ describe('no-important', () => {
         config: {
           plugins: ['./src/index.ts'],
           rules: {
-            'sf-sds/no-important-tag': true,
+            'slds/no-important-tag': true,
           },
         },
       } as LinterOptions);

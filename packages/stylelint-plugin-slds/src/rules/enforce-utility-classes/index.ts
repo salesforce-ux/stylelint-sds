@@ -6,7 +6,7 @@ import CSSClassMatcher from './utility-classes-cache';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
-const ruleName = 'sf-sds/enforce-utility-classes';
+const ruleName = 'slds/enforce-utility-classes';
 
 // Load the predefined classes from a JSON file
 const jsonFilePath = metadataFileUrl('./public/metadata/utilities.json');

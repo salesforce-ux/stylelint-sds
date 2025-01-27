@@ -1,9 +1,9 @@
 import stylelint from 'stylelint';
 import assert from 'assert';
 
-const ruleName = 'sf-sds/no-slds-class-overrides';
+const ruleName = 'slds/no-slds-class-overrides';
 
-describe('sf-sds/no-slds-class-overrides rule', () => {
+describe('slds/no-slds-class-overrides rule', () => {
   it('should report an error when overriding .slds- class styles', async () => {
     const css = `
       .foo {

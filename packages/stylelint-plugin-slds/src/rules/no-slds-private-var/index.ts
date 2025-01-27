@@ -3,7 +3,7 @@ import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
 import { Options } from './option.interface';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'sf-sds/no-slds-private-var';
+const ruleName: string = 'slds/no-slds-private-var';
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   expected: (prop: string) =>

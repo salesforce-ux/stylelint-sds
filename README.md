@@ -18,7 +18,7 @@ This package contains all the rules we need for SDS.
 
 ## test-repository
 
-This packages is used for testing all the rules added to `stylelint-plugin-sf-sds` and `.stylelintrc.yml`
+This packages is used for testing all the rules added to `stylelint-plugin-slds` and `.stylelintrc.yml`
 
 ## Other useful commands
 

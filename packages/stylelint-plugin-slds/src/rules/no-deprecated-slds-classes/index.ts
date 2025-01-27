@@ -5,7 +5,7 @@ import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 
 const { utils, createPlugin } = stylelint;
 
-const ruleName = 'sf-sds/no-deprecated-slds-classes';
+const ruleName = 'slds/no-deprecated-slds-classes';
 const messages = stylelint.utils.ruleMessages(ruleName, {
   deprecated: (className: string) =>
     `The class "${className}" is deprecated and not available in SLDS2. Please update to a supported class.`,

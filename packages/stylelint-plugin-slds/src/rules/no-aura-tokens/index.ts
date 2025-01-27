@@ -5,7 +5,7 @@ import { readFileSync } from 'fs';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'sf-sds/no-aura-tokens';
+const ruleName: string = 'slds/no-aura-tokens';
 
 const messages = utils.ruleMessages(ruleName, {
   deprecated:

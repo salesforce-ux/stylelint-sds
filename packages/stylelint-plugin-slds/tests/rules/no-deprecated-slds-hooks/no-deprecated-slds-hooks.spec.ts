@@ -3,9 +3,9 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 
 const { lint } = stylelint;
 
-describe('sf-sds/no-deprecated-slds-hooks', () => {
+describe('slds/no-deprecated-slds-hooks', () => {
   const expectedMessages = [
-    'Replace deprecated hook "--slds-c-breadcrumbs-spacing-inline-start" with "--slds-c-breadcrumbs-spacing-inlinestart" (sf-sds/no-deprecated-slds-hooks)',
+    'Replace deprecated hook "--slds-c-breadcrumbs-spacing-inline-start" with "--slds-c-breadcrumbs-spacing-inlinestart" (slds/no-deprecated-slds-hooks)',
   ];
 
   expectedMessages.forEach((message, index) => {
@@ -15,7 +15,7 @@ describe('sf-sds/no-deprecated-slds-hooks', () => {
         config: {
           plugins: ['./src/index.ts'], // Path to the plugin
           rules: {
-            'sf-sds/no-deprecated-slds-hooks': true, // Enable the rule
+            'slds/no-deprecated-slds-hooks': true, // Enable the rule
           },
         },
       } as LinterOptions);

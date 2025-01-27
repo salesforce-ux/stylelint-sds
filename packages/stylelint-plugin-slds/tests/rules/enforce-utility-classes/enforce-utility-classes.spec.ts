@@ -1,10 +1,10 @@
 import stylelint from 'stylelint';
 import assert from 'assert';
 
-const ruleName = 'sf-sds/enforce-utility-classes';
+const ruleName = 'slds/enforce-utility-classes';
 
 //TODO: Kishore
-describe('sf-sds/enforce-utility-classes rule', () => {
+describe('slds/enforce-utility-classes rule', () => {
   it('should report a message for properties that should use utility classes', async () => {
     const result = await stylelint.lint({
       files: './tests/providers/enforce-utility-classes.css',

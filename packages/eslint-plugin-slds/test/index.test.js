@@ -30,13 +30,13 @@ describe('ESLint Plugin Configurations', () => {
   
     test('should define recommended configuration with plugins', () => {
       expect(index.configs.recommended).toHaveProperty('plugins');
-      expect(index.configs.recommended.plugins).toContain('sf-sds');
+      expect(index.configs.recommended.plugins).toContain('slds');
     });
   
     test('should define recommended configuration with rules', () => {
       expect(index.configs.recommended).toHaveProperty('rules');
-      expect(index.configs.recommended.rules).toHaveProperty('sf-sds/no-bem-class', 'error');
-      expect(index.configs.recommended.rules).toHaveProperty('sf-sds/no-deprecated-slds-classes', 'error');
+      expect(index.configs.recommended.rules).toHaveProperty('slds/no-bem-class', 'error');
+      expect(index.configs.recommended.rules).toHaveProperty('slds/no-deprecated-slds-classes', 'error');
     });
 });
 

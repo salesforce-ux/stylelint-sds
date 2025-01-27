@@ -4,7 +4,7 @@ import stylelint, { Rule, PostcssResult } from 'stylelint';
 import { Options } from './option.interface';
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
-const ruleName = 'sf-sds/no-slds-class-overrides';
+const ruleName = 'slds/no-slds-class-overrides';
 const defaultOptions: Options = {
   step: 0.125,
   units: ['ch', 'em', 'ex', 'rem', 'vh', 'vw', 'vmin', 'vmax'],

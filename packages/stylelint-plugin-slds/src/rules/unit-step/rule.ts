@@ -8,7 +8,7 @@ import { defaultOptions } from './option';
 import { Options } from './option.interface';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'sf-sds/unit-step';
+const ruleName: string = 'slds/unit-step';
 
 function validateOptions(result: PostcssResult, options: Options) {
   return utils.validateOptions(result, ruleName, {

@@ -2,7 +2,7 @@ import stylelint, { Rule, PostcssResult } from 'stylelint';
 import { Root } from 'postcss';
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
-const ruleName = 'sf-sds/no-sds-custom-properties';
+const ruleName = 'slds/no-sds-custom-properties';
 
 const messages = utils.ruleMessages(ruleName, {
   expected: (prop: string) =>

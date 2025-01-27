@@ -3,7 +3,7 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 
 const { lint }: typeof stylelint = stylelint;
 
-describe('sf-sds/enforce-sds-to-slds-hooks', () => {
+describe('slds/enforce-sds-to-slds-hooks', () => {
   const testCases = [
     {
       description: 'should report and fix var(--sds-primary-color)',
@@ -47,7 +47,7 @@ describe('sf-sds/enforce-sds-to-slds-hooks', () => {
           config: {
             plugins: ['./src/index.ts'], // Adjust path as needed
             rules: {
-              'sf-sds/enforce-sds-to-slds-hooks': [true],
+              'slds/enforce-sds-to-slds-hooks': [true],
             },
             fix: true, // Enable fixing
           },

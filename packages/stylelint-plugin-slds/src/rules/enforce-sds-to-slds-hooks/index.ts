@@ -3,7 +3,7 @@ import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
 import { Options } from './option.interface';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'sf-sds/enforce-sds-to-slds-hooks';
+const ruleName: string = 'slds/enforce-sds-to-slds-hooks';
 
 function validateOptions(result: PostcssResult, options: Options): boolean {
   return utils.validateOptions(result, ruleName, {

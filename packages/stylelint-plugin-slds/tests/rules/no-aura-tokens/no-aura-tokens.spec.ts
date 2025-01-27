@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import stylelint from 'stylelint';
 import path from 'path';
 
-const ruleName = 'sf-sds/no-aura-tokens';
+const ruleName = 'slds/no-aura-tokens';
 const config = {
   plugins: ['./src/index.ts'],
   rules: {

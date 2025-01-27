@@ -1,11 +1,11 @@
 import stylelint, { Rule, PostcssResult } from 'stylelint';
 import { Root } from 'postcss';
-const ruleName = 'sf-sds/no-lwc-custom-properties';
+const ruleName = 'slds/no-lwc-custom-properties';
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
 const messages = utils.ruleMessages(ruleName, {
   expected: (prop: string) =>
-    `Unexpected "--lwc custom property" within selector "${prop}". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-plugin-sf-sds/src/rules/no-lwc-custom-properties/README.md`,
+    `Unexpected "--lwc custom property" within selector "${prop}". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-plugin-slds/src/rules/no-lwc-custom-properties/README.md`,
 });
 
 function validateOptions(result: PostcssResult, options: any): boolean {

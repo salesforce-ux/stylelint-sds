@@ -4,7 +4,7 @@ import { Root } from 'postcss';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 const { utils, createPlugin } = stylelint;
 
-const ruleName = 'sf-sds/no-deprecated-slds2-classes';
+const ruleName = 'slds/no-deprecated-slds2-classes';
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   expected: (selector: string) =>

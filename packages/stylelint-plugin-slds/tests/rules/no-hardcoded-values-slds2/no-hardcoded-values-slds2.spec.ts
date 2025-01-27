@@ -4,7 +4,7 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 const { lint }: typeof stylelint = stylelint;
 
 describe('no-hardcoded-values-slds2', () => {
-  const ruleName = 'sf-sds/no-hardcoded-values-slds2';
+  const ruleName = 'slds/no-hardcoded-values-slds2';
 
   const testCases = [
     {
@@ -16,7 +16,7 @@ describe('no-hardcoded-values-slds2', () => {
         }
       `,
       expectedMessage:
-        'Replace the "#ff0000" value with any styling hook mentioned below "\n1. --slds-g-color-border-error-2 \n" instead. (sf-sds/no-hardcoded-values-slds2)',
+        'Replace the "#ff0000" value with any styling hook mentioned below "\n1. --slds-g-color-border-error-2 \n" instead. (slds/no-hardcoded-values-slds2)',
     },
     {
       description:
@@ -27,7 +27,7 @@ describe('no-hardcoded-values-slds2', () => {
         }
       `,
       expectedMessage:
-        'The "16px" static value has no replacement styling hook. (sf-sds/no-hardcoded-values-slds2)',
+        'The "16px" static value has no replacement styling hook. (slds/no-hardcoded-values-slds2)',
     },
     {
       description:

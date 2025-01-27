@@ -2,10 +2,10 @@ import stylelint from 'stylelint';
 import path from 'path';
 import assert from 'assert';
 
-const ruleName = 'sf-sds/no-sds-custom-properties';
+const ruleName = 'slds/no-sds-custom-properties';
 const { utils } = stylelint;
 
-describe('sf-sds/no-sds-custom-properties rule', () => {
+describe('slds/no-sds-custom-properties rule', () => {
   it('should report an error when --sds custom properties are used', async () => {
     const css = `
       .foo {
@@ -26,7 +26,7 @@ describe('sf-sds/no-sds-custom-properties rule', () => {
     const warnings = result.results[0].warnings;
     
     assert.strictEqual(warnings.length, 1);
-    assert.strictEqual(warnings[0].text, `'--sds-color' is currently deprecated in the new design for Lightning UI. (sf-sds/no-sds-custom-properties)`);
+    assert.strictEqual(warnings[0].text, `'--sds-color' is currently deprecated in the new design for Lightning UI. (slds/no-sds-custom-properties)`);
   });
 
   it('should not report an error when non --sds custom properties are used', async () => {
@@ -71,6 +71,6 @@ describe('sf-sds/no-sds-custom-properties rule', () => {
     const warnings = result.results[0].warnings;
     
     assert.strictEqual(warnings.length, 1);
-    assert.strictEqual(warnings[0].text, `'--sds-font-size' is currently deprecated in the new design for Lightning UI. (sf-sds/no-sds-custom-properties)`);
+    assert.strictEqual(warnings[0].text, `'--sds-font-size' is currently deprecated in the new design for Lightning UI. (slds/no-sds-custom-properties)`);
   });
 });

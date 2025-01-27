@@ -4,10 +4,10 @@
     {
       "files": ["*.html", "*.cmp"],
       "parser": "@html-eslint/parser",
-      "plugins": ["sf-sds"],
+      "plugins": ["slds"],
       "rules": {
-        "sf-sds/no-bem-class": ["error"],
-        "sf-sds/no-deprecated-slds-classes": ["error"]
+        "slds/no-bem-class": ["error"],
+        "slds/no-deprecated-slds-classes": ["error"]
       }
     },
     {
@@ -15,8 +15,8 @@
       "excludedFiles": "*.js",
       "rules": {
         // No custom rule applied for .js files
-        "sf-sds/no-bem-class": ["error"],
-        "sf-sds/no-deprecated-slds-classes": ["error"]
+        "slds/no-bem-class": ["error"],
+        "slds/no-deprecated-slds-classes": ["error"]
       }
     }
   ]

@@ -6,7 +6,7 @@ import { parse } from 'yaml';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 const { utils, createPlugin } = stylelint;
 
-const ruleName = 'sf-sds/enforce-bem-usage';
+const ruleName = 'slds/enforce-bem-usage';
 
 interface Item {
   name: string;

@@ -15,9 +15,9 @@ overrides:
     plugins:
       - "@salesforce-ux/slds"
     rules:
-      "@salesforce-ux/sf-sds/no-bem-class":
+      "@salesforce-ux/slds/no-bem-class":
         - "error"
-      "@salesforce-ux/sf-sds/no-deprecated-slds-classes":
+      "@salesforce-ux/slds/no-deprecated-slds-classes":
         - "error"
 
   - files:
@@ -27,5 +27,5 @@ overrides:
     rules:
       "@salesforce-ux/no-bem-class":
         - "error"
-      "@salesforce-ux/sf-sds/no-deprecated-slds-classes":
+      "@salesforce-ux/slds/no-deprecated-slds-classes":
         - "error"

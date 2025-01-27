@@ -23,7 +23,7 @@ interface StylinghookData {
   };
 }
 
-const ruleName = 'sf-sds/no-hardcoded-values-slds2';
+const ruleName = 'slds/no-hardcoded-values-slds2';
 
 const messages = utils.ruleMessages(ruleName, {
   rejected: (color: string, closestHook: string) =>

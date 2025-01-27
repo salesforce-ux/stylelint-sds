@@ -16,7 +16,7 @@ describe('unit-step', () => {
         config: {
           plugins: ['./src/index.ts'],
           rules: {
-            'sf-sds/unit-step': true,
+            'slds/unit-step': true,
           },
         },
       } as LinterOptions);

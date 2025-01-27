@@ -32,39 +32,39 @@ overrides:
       - "**/*.scss"
     customSyntax: "postcss"
     rules:
-      sf-sds/no-slds-class-overrides:
+      slds/no-slds-class-overrides:
         - true
         - severity: warning
-      # sf-sds/no-important-tag:
+      # slds/no-important-tag:
       #   - true
       #   - severity: warning
-      # sf-sds/no-hardcoded-values:
+      # slds/no-hardcoded-values:
       #   - true
       #   - severity: error
-      sf-sds/no-hardcoded-values-slds2:
+      slds/no-hardcoded-values-slds2:
         - true
         - severity: error
-      sf-sds/enforce-utility-classes:
+      slds/enforce-utility-classes:
         - true
-      sf-sds/no-aura-tokens:
+      slds/no-aura-tokens:
         - true
-      sf-sds/lwc-to-slds-token:
+      slds/lwc-to-slds-token:
         - true
-      sf-sds/enforce-bem-usage:
+      slds/enforce-bem-usage:
         - true
-      sf-sds/no-deprecated-slds-classes:
+      slds/no-deprecated-slds-classes:
         - true
-      sf-sds/no-deprecated-slds-hooks:
+      slds/no-deprecated-slds-hooks:
         - true
-      sf-sds/no-lwc-custom-properties:
+      slds/no-lwc-custom-properties:
         - true
-      sf-sds/no-sds-custom-properties:
+      slds/no-sds-custom-properties:
         - true
-      sf-sds/no-slds-private-var:
+      slds/no-slds-private-var:
         - true
-      # sf-sds/do-not-use-calc-function:
+      # slds/do-not-use-calc-function:
       #   - true
-      sf-sds/enforce-sds-to-slds-hooks:
+      slds/enforce-sds-to-slds-hooks:
         - true
         - severity: error
   

@@ -4,7 +4,7 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 const { lint }: typeof stylelint = stylelint;
 
 describe('lwc-to-slds-token', () => {
-  const ruleName = 'sf-sds/lwc-to-slds-token';
+  const ruleName = 'slds/lwc-to-slds-token';
 
   const testCases = [
     {

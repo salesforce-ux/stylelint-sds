@@ -4,7 +4,7 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 const { lint }: typeof stylelint = stylelint;
 
 describe('no-hardcoded-values', () => {
-  const ruleName = 'sf-sds/no-hardcoded-values';
+  const ruleName = 'slds/no-hardcoded-values';
 
   const testCases = [
     {
@@ -28,7 +28,7 @@ describe('no-hardcoded-values', () => {
         }
       `,
       expectedMessage:
-        'The "16px" static value has no replacement styling hook. (sf-sds/no-hardcoded-values)',
+        'The "16px" static value has no replacement styling hook. (slds/no-hardcoded-values)',
     },
     {
       description:

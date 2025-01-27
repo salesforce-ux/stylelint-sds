@@ -50,8 +50,8 @@ const FOLDER_NAME = 'reports';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
 // Batch settings
-const BATCH_SIZE = 10;
-const MAX_BATCHES = 10;
+const BATCH_SIZE = 50;
+const MAX_BATCHES = 1000;
 const TIME_PER_BATCH = 5;
 
 async function validateConfigFile(configPath: string) {

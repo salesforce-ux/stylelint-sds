@@ -4,7 +4,7 @@ import { Root } from 'postcss';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl'
 const { utils, createPlugin } = stylelint;
 
-const ruleName = 'sf-sds/no-deprecated-slds-hooks';
+const ruleName = 'slds/no-deprecated-slds-hooks';
 const messages = utils.ruleMessages(ruleName, {
   deprecated: (token: string) =>
     `The hook "${token}" is deprecated and will not work in SLDS2. Please remove or replace it.`,

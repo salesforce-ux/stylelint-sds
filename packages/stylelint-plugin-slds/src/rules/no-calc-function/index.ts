@@ -2,7 +2,7 @@ import { Root } from 'postcss';
 import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'sf-sds/do-not-use-calc-function';
+const ruleName: string = 'slds/do-not-use-calc-function';
 
 const messages = utils.ruleMessages(ruleName, {
   disallowed: (property: string) =>

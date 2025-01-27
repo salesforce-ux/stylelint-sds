@@ -6,7 +6,7 @@ import { Options } from './option.interface';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 
 const { createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'sf-sds/lwc-to-slds-token';
+const ruleName: string = 'slds/lwc-to-slds-token';
 
 // Define messages for reporting
 const messages = stylelint.utils.ruleMessages(ruleName, {

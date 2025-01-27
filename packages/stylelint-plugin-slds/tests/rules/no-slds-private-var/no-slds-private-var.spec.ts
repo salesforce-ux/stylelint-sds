@@ -7,15 +7,15 @@ describe('no-slds-private-var', () => {
   const testCases = [
     {
       message:
-        'Unexpected "--_slds- private variable usage" within selector "--_slds-deprecated-var". (sf-sds/no-slds-private-var)',
+        'Unexpected "--_slds- private variable usage" within selector "--_slds-deprecated-var". (slds/no-slds-private-var)',
       code: `
         .example {
           --_slds-deprecated-var: #fff;
         }
       `,
-      ruleName: 'sf-sds/no-slds-private-var',
+      ruleName: 'slds/no-slds-private-var',
       expectedMessages: [
-        'Unexpected "--_slds- private variable usage" within selector "--_slds-deprecated-var". (sf-sds/no-slds-private-var)',
+        'Unexpected "--_slds- private variable usage" within selector "--_slds-deprecated-var". (slds/no-slds-private-var)',
       ],
     },
     {
@@ -25,7 +25,7 @@ describe('no-slds-private-var', () => {
           --slds-valid-var: #fff;
         }
       `,
-      ruleName: 'sf-sds/no-slds-private-var',
+      ruleName: 'slds/no-slds-private-var',
       expectedMessages: [],
     },
   ];

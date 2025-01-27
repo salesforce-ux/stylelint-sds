@@ -3,7 +3,7 @@ import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
 import { Options } from './option.interface';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'sf-sds/no-important-tag';
+const ruleName: string = 'slds/no-important-tag';
 
 function validateOptions(result: PostcssResult, options: Options) {
   return utils.validateOptions(result, ruleName, {

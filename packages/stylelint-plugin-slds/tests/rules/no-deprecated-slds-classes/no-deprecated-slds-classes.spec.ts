@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 const { lint }: typeof stylelint = stylelint;
 
-describe('sf-sds/no-deprecated-slds-classes', () => {
+describe('slds/no-deprecated-slds-classes', () => {
   const messages = [
-    'The class "slds-box_border" is deprecated and not available in SLDS2. Please update to a supported class. (sf-sds/no-deprecated-slds-classes)',
-    'The class "slds-chat-avatar__intials" is deprecated and not available in SLDS2. Please update to a supported class. (sf-sds/no-deprecated-slds-classes)',
+    'The class "slds-box_border" is deprecated and not available in SLDS2. Please update to a supported class. (slds/no-deprecated-slds-classes)',
+    'The class "slds-chat-avatar__intials" is deprecated and not available in SLDS2. Please update to a supported class. (slds/no-deprecated-slds-classes)',
   ];
 
   messages.map((message, index) => {
@@ -15,7 +15,7 @@ describe('sf-sds/no-deprecated-slds-classes', () => {
         config: {
           plugins: ['./src/index.ts'],
           rules: {
-            'sf-sds/no-deprecated-slds-classes': true,
+            'slds/no-deprecated-slds-classes': true,
           },
         },
       } as LinterOptions);
