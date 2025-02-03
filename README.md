@@ -39,3 +39,15 @@ You can auto fix all the errors at once in a given css file or all the css files
 ```
 npm run fix
 ```
+
+### Publishing the packages to npm
+
+Go to the respective folder for which you want to publish new npm package.
+
+```
+npm version patch
+npm run build
+npm publish
+
+```
+Note: You should have permissions to publish packages to `@salesforce-ux` npm org.
