@@ -54,6 +54,20 @@
             "env": {
               "NODE_ENV": "test"
             }
+          },
+          {
+            "type": "node",
+            "request": "launch",
+            "name": "Run report",
+            "runtimeExecutable": "node",
+            "args": [
+              "${workspaceFolder}/node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js",
+              "-d", "packages/test-repository/force-app/main/default/lwc/myComponent",
+              "-c", "node_modules/@salesforce-ux/stylelint-plugin-slds/build/.stylelintrc.yml"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
           }
     ]
   }

@@ -47,9 +47,9 @@ function rule(
 
             // Skip if the value has already been fixed
             if (
-              newValue &&
-              (decl.value.includes(newValue) ||
-                JSON.stringify(parsedValue).includes(newValue))
+              newValue &&  newValue !== '--' && 
+              ((decl.value.includes(newValue) ||
+                JSON.stringify(parsedValue).includes(newValue)) )
             ) {
               return;
             }

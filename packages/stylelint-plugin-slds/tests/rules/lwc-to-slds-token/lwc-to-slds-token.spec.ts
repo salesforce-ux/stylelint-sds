@@ -27,6 +27,16 @@ describe('lwc-to-slds-token', () => {
         `,
       expectedMessage: `The '--lwc-unsupported-token' is currently deprecated.`,
     },
+    {
+      description:
+        'Reports warning for deprecated LWC token without a replacement(--)',
+      inputCss: `
+          .example {
+            color: var(--lwc-brandBackgroundDark);
+          }
+        `,
+      expectedMessage: `The '--lwc-brandBackgroundDark' is currently deprecated.`,
+    }
   ];
 
   testCases.forEach(({ description, inputCss, expectedMessage }, index) => {

@@ -103,6 +103,8 @@ async function main(): Promise<void> {
     console.log(`
       ====================================================
                      Total files for validation: ${(stylelintValidationFiles.length + eslintValidationFiles.length)}
+                     Total stylelint validation files : ${stylelintValidationFiles.length}
+                     Total eslint validation files: ${eslintValidationFiles.length}
                      Approximate time(sec):  ${estimatedStyleLintTime + estimatedESLintTime}          
       ====================================================
     `);
