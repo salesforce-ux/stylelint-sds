@@ -7,4 +7,3 @@ dist/
 build/
 packages/**/*.tgz
 .npmrc
-reports/
