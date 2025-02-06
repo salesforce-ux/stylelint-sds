@@ -2,10 +2,14 @@
     This file is to get all the validation issue with stylelint rules
 */
 import { promises as fs } from 'fs';
+import readline from 'readline';
+import cliProgress from 'cli-progress';
+import { execFile } from 'child_process';
 import path, { join, extname } from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import spawn from 'cross-spawn';
+import {processFilesInBatches as runBatches} from './run-batches'
 import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
@@ -44,14 +48,11 @@ validateConfigFile(configFile);
 if (targetDirectory === '') targetDirectory = '.';
 
 const CONFIG_FILE = configFile;
-const TARGET_DIR = targetDirectory; //process.argv[2];
 const FOLDER_NAME = 'reports';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
 // Batch settings
-const BATCH_SIZE = 50;
-const MAX_BATCHES = 100;
-const TIME_PER_BATCH = 5;
+const BATCH_SIZE = 2;
 
 async function validateConfigFile(configPath: string) {
   try {
@@ -65,65 +66,13 @@ async function validateConfigFile(configPath: string) {
   }
 }
 
-function calculateBatchInfo(totalFiles: number) {
-  const totalBatches = Math.min(
-    Math.ceil(totalFiles / BATCH_SIZE),
-    MAX_BATCHES
-  );
-  const estimatedTime = totalBatches * TIME_PER_BATCH;
-  return { totalBatches, estimatedTime };
-}
-
-function lintBatch(batch: string[], batchNum: number): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const outputFile = `${OUTPUT_DIR}/sl_batch${batchNum}.json`;
-    try {
-      //console.log(`Running linter in stylelint`)
-      const stylelintPath = path.resolve(__dirname, 'node_modules/.bin/stylelint');
-      const process = spawn(stylelintPath, [
-        ...batch,
-        '--config',
-        CONFIG_FILE,
-        '--formatter',
-        'json',
-        '--output-file',
-        outputFile,
-      ]);
-      resolve();
-    } catch (error) {
-      console.error(`Error ${error}`);
-    }
-  });
-}
-
 async function processFilesInBatches(cssFiles: string[]): Promise<void> {
-  const totalCssFiles = cssFiles.length;
-  const { totalBatches: totalCssBatches, estimatedTime: estimatedCssTime } =
-    calculateBatchInfo(totalCssFiles);
-
-  const totalBatches = totalCssBatches;
-  const estimatedTime = estimatedCssTime;
-
-  // Lint css files using stylelint
-  for (let i = 0; i < totalCssFiles; i += BATCH_SIZE) {
-    const batchNum = Math.floor(i / BATCH_SIZE) + 1;
-    if (batchNum > MAX_BATCHES) {
-      console.log(`Reached maximum batch limit of ${MAX_BATCHES}. Stopping.`);
-      break;
-    }
-    const batch = cssFiles.slice(i, i + BATCH_SIZE);
-    await lintBatch(batch, batchNum);
-  }
-}
-
-function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  const stylelintPath = path.resolve(__dirname, 'node_modules/.bin/stylelint');
+  const stylelintConfigFile = configFile;
+  await runBatches(cssFiles, stylelintPath, stylelintConfigFile, 10);
 }
 
 async function consolidateReports(): Promise<void> {
-  // Simulate a delay if necessary
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-
   const consolidatedReportPath = join(OUTPUT_DIR, 'batch_stylelint_report.json');
   let jsonFiles: string[] = [];
 

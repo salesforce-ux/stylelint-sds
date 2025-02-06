@@ -7,6 +7,7 @@ import path, { join, extname } from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import spawn from 'cross-spawn';
+import {processFilesInBatches as runBatches} from './run-batches'
 import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles';
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
@@ -38,7 +39,7 @@ for (let i = 0; i < args.length; i++) {
   }
 }
 
-if (configFile === '') configFile = './stylelintrc.yml';
+if (configFile === '') configFile = './eslintrc.yml';
 
 validateConfigFile(configFile);
 
@@ -50,7 +51,7 @@ const FOLDER_NAME = 'reports';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
 // Batch settings
-const BATCH_SIZE = 50;
+const BATCH_SIZE = 100;
 const MAX_BATCHES = 1000;
 const TIME_PER_BATCH = 5;
 
@@ -92,72 +93,13 @@ function calculateBatchInfo(totalFiles: number) {
   return { totalBatches, estimatedTime };
 }
 
-async function lintComponentBatch(batch: string[], batchNum: number): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const outputFile = join(OUTPUT_DIR, `eslint_batch${batchNum}.json`);
-
-    const eslintPath = path.resolve(__dirname, 'node_modules/.bin/eslint');
-    try {
-      const args = [
-        ...batch,
-        '--config',
-        '.eslintrc.yml',
-        '--format',
-        'json',
-        '--output-file',
-        outputFile,
-        '--ignore-pattern',
-        'node_modules/',
-      ];
-  
-      const lintProcess = spawn(eslintPath, args);
-      resolve();
-    } catch (error) {
-      console.error(`ESLint Error ${error}`);
-    }
-    
-  });
-}
-
 async function processFilesInBatches(componentFiles: string[]): Promise<void> {
-  const totalComponentFiles = componentFiles.length;
-  const {
-    totalBatches: totalComponentBatches,
-    estimatedTime: estimatedComponentValidationTime,
-  } = calculateBatchInfo(totalComponentFiles);
-
-  const totalBatches = totalComponentBatches;
-  const estimatedTime = estimatedComponentValidationTime;
-
-  //console.log(`Total files: ${totalComponentFiles}`);
-  //console.log(`Processing in ${totalBatches} batch(es), estimated time: ${estimatedTime} sec.`);
-
-  // Lint components using eslint
-  for (let i = 0; i < totalComponentFiles; i += BATCH_SIZE) {
-    const batchNum = Math.floor(i / BATCH_SIZE) + 1;
-    if (batchNum > MAX_BATCHES) {
-      console.log(`Reached maximum batch limit of ${MAX_BATCHES}. Stopping.`);
-      break;
-    }
-    const batch = componentFiles.slice(i, i + BATCH_SIZE);
-    try{
-      await lintComponentBatch(batch, batchNum);
-    }
-    catch(error){
-      console.log(`Linting components not completed - may be not configured`)
-    }
-    
-  }
-}
-
-function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+    const eslintPath = path.resolve(__dirname, 'node_modules/.bin/eslint');
+    const eslintConfigFile = configFile;
+    await runBatches(componentFiles, eslintPath, eslintConfigFile, 10);
 }
 
 async function consolidateComponentReports(): Promise<void> {
-  // Simulate a delay if necessary
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-
   const consolidatedReportPath = join(OUTPUT_DIR, 'batch_eslint_report.json');
   let jsonFiles: string[] = [];
 
