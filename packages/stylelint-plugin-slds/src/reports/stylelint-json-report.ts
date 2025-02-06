@@ -29,25 +29,19 @@ console.log(`
 */
 const args = process.argv.slice(2); // Skip the first two entries (node and script path)
 
-let configFile = '';
+let stylelintConfigFilePath = 'node_modules/@salesforce-ux/stylelint-plugin-slds/build/.stylelintrc.yml';
 let targetDirectory = '';
 
 for (let i = 0; i < args.length; i++) {
-  if (args[i] === '-c' || args[i] === '--config') {
-    configFile = args[i + 1]; // Get the value after `-c`
-  }
   if (args[i] === '-d' || args[i] === '--directory') {
     targetDirectory = args[i + 1]; // Get the value after `-d`
   }
 }
 
-if (configFile === '') configFile = './stylelintrc.yml';
-
-validateConfigFile(configFile);
+validateConfigFile(stylelintConfigFilePath);
 
 if (targetDirectory === '') targetDirectory = '.';
 
-const CONFIG_FILE = configFile;
 const FOLDER_NAME = 'reports';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
@@ -68,7 +62,7 @@ async function validateConfigFile(configPath: string) {
 
 async function processFilesInBatches(cssFiles: string[]): Promise<void> {
   const stylelintPath = path.resolve(__dirname, 'node_modules/.bin/stylelint');
-  const stylelintConfigFile = configFile;
+  const stylelintConfigFile = stylelintConfigFilePath;
   await runBatches(cssFiles, stylelintPath, stylelintConfigFile, 10);
 }
 
