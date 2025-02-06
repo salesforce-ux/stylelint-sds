@@ -12,7 +12,7 @@
     "test": "npm run test --workspaces",
     "clean": "npm run clean --workspaces",
     "fix": "stylelint packages/test-repository/force-app/main/default/lwc/myComponent/test.css --fix",
-    "report": "node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js -d /Users/lnemalipuri/app_code/uxf/core_projects/core-public/core -c node_modules/@salesforce-ux/stylelint-plugin-slds/build/.stylelintrc.yml"
+    "report": "node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js -d packages/test-repository -c node_modules/@salesforce-ux/stylelint-plugin-slds/build/.stylelintrc.yml"
   },
   "devDependencies": {
     "rimraf": "^6.0.1"
