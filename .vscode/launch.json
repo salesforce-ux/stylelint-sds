@@ -62,8 +62,7 @@
             "runtimeExecutable": "node",
             "args": [
               "${workspaceFolder}/node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js",
-              "-d", "packages/test-repository/force-app/main/default/lwc/myComponent",
-              "-c", "node_modules/@salesforce-ux/stylelint-plugin-slds/build/.stylelintrc.yml"
+              "-d", "packages/test-repository"
             ],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",

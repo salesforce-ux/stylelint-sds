@@ -22,6 +22,7 @@ export default
 		'postcss-value-parser', // Third-party module
 		'postcss-values-parser', // Third-party module
 		'chroma-js', // Third-party module
+		'cli-progress'
 	  ],
 	plugins:
 	[
@@ -78,7 +79,8 @@ export default
 		'cross-spawn', // Third-party library
 		'jq', // Third-party library
 		'rimraf',
-		'glob'
+		'glob',
+		'cli-progress'
 	],
     plugins: [
       ts()

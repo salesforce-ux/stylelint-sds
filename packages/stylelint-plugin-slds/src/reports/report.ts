@@ -13,47 +13,26 @@ import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles'
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
 
-/*
-console.log(`
-  Usage: npm run report [options] <input>
-
-  Options:
-    -c, --config       Stylelintrc configuration
-    -d, --directory     Target directory to lint files
-  
-  Examples:
-    npm run report -- -c .stylelintrc.yml -d example-component-folder
-    npm run report -- -d . (for current directory & with current directory stylelint config)
-`);
-*/
 const args = process.argv.slice(2); // Skip the first two entries (node and script path)
 
-let configFile = '';
 let targetDirectory = '';
 
 for (let i = 0; i < args.length; i++) {
-  if (args[i] === '-c' || args[i] === '--config') {
-    configFile = args[i + 1]; // Get the value after `-c`
-  }
   if (args[i] === '-d' || args[i] === '--directory') {
     targetDirectory = args[i + 1]; // Get the value after `-d`
   }
 }
 
-if (configFile === '') configFile = './stylelintrc.yml';
-
-validateConfigFile(configFile);
 
 if (targetDirectory === '') targetDirectory = '.';
 
-const CONFIG_FILE = configFile;
 const TARGET_DIR = targetDirectory; //process.argv[2];
 const FOLDER_NAME = 'reports';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
 // Batch settings
-const BATCH_SIZE = 10;
-const MAX_BATCHES = 10;
+const BATCH_SIZE = 100;
+const MAX_BATCHES = 100;
 const TIME_PER_BATCH = 5;
 
 const removeFiles = async (pattern: string): Promise<void> => {
@@ -103,12 +82,9 @@ async function main(): Promise<void> {
     console.log(`
       ====================================================
                      Total files for validation: ${(stylelintValidationFiles.length + eslintValidationFiles.length)}
-                     Total stylelint validation files : ${stylelintValidationFiles.length}
-                     Total eslint validation files: ${eslintValidationFiles.length}
-                     Approximate time(sec):  ${estimatedStyleLintTime + estimatedESLintTime}          
+                     Approximate time:  ${estimatedStyleLintTime + estimatedESLintTime} (sec)       
       ====================================================
     `);
-
     
     try{
       await getStylelintValidationReport(stylelintValidationFiles);
@@ -169,17 +145,6 @@ async function findJsonFiles(outputDir: string): Promise<string[]> {
   }
 }
 
-async function validateConfigFile(configPath: string) {
-  try {
-    await fs.access(path.resolve(configPath)); // Check if the file is accessible
-  } catch {
-    console.error(`Error: Config file "${configPath}" does not exist.`);
-    console.error(
-      `Command usage: npm run report -- -c .stylelintrc.yml -d example-component-folder`
-    );
-    process.exit(1);
-  }
-}
 
 // Use an async IIFE to ensure proper exit handling
 (async () => {

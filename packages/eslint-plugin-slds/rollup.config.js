@@ -36,9 +36,12 @@ export default {
           src: 'public',
           dest: 'build',
           rename: './public'
+        },
+        {
+          src: '.eslintrc.yml',
+          dest: 'build'
         }
       ]
     })
-
   ],
 };
