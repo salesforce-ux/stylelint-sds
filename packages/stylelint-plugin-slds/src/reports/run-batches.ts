@@ -1,4 +1,4 @@
-import { execFile } from 'child_process';
+import { spawn } from 'child_process';
 import path from 'path';
 import cliProgress from 'cli-progress';
 
@@ -35,18 +35,35 @@ function runLinterBatch(batch: string[], batchNum: number, linterPath: string, c
       }
 
     //console.log(`Arguments ${configFile} ${outputFile}`)
-    execFile(linterPath, args, { maxBuffer: 10 * 1024 * 1024 }, (error, stdout, stderr) => {
-      if (error && (error.code === 2 || error.code === 1)) {
-        //console.warn(`${linter} Batch ${batchNum} completed with linting errors, but continuing.`);
-        return resolve(`${label} Batch ${batchNum} completed with linting errors.`);
-      }
+    const child = spawn(linterPath, args);
 
-      if (error) {
-        //console.error(`${label} Batch ${batchNum} failed with error:`, error);
-        return reject(new Error(`${label} failed for batch ${batchNum}`));
-      }
+    let stdoutData = '';
+    let stderrData = '';
 
-      resolve(`${label} Batch ${batchNum} completed successfully.`);
+    // Capture stdout
+    child.stdout.on('data', (data) => {
+        stdoutData += data.toString();
+    });
+
+    // Capture stderr
+    child.stderr.on('data', (data) => {
+        stderrData += data.toString();
+    });
+
+    // Handle process exit
+    child.on('close', (code) => {
+        if (code === 2 || code === 1) {
+            return resolve(`${label} Batch ${batchNum} completed with linting errors.`);
+        } else if (code !== 0) {
+            return reject(new Error(`${label} failed for batch ${batchNum} with exit code ${code}`));
+        }
+
+        resolve(`${label} Batch ${batchNum} completed successfully.`);
+    });
+
+    // Handle errors
+    child.on('error', (error) => {
+        reject(new Error(`${label} failed to start: ${error.message}`));
     });
   });
 }
