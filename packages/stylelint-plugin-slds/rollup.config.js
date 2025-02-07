@@ -80,7 +80,9 @@ export default
 		'jq', // Third-party library
 		'rimraf',
 		'glob',
-		'cli-progress'
+		'cli-progress',
+		'JSONStream',
+		'stream/promises'
 	],
     plugins: [
       ts()
