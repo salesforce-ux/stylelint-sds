@@ -21,8 +21,7 @@ export default
 		'yaml', // Third-party module
 		'postcss-value-parser', // Third-party module
 		'postcss-values-parser', // Third-party module
-		'chroma-js', // Third-party module
-		'cli-progress'
+		'chroma-js' // Third-party module
 	  ],
 	plugins:
 	[
@@ -80,7 +79,10 @@ export default
 		'jq', // Third-party library
 		'rimraf',
 		'glob',
-		'cli-progress'
+		'cli-progress',
+		'cli-progress',
+		'JSONStream',
+		'stream/promises'
 	],
     plugins: [
       ts()
