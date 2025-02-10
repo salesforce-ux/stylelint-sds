@@ -1,7 +1,10 @@
 package-lock.json
 scripts/reports/
 node_modules/
-reports/
-packages/stylelint-rules/.npmrc
 .codegenie
 dist/
+*.tgz
+build/
+packages/**/*.tgz
+.npmrc
+/reports/

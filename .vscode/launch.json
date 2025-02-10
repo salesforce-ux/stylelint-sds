@@ -42,5 +42,31 @@
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
           },
+          {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Jest Tests",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+            "runtimeArgs": ["--runInBand"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "env": {
+              "NODE_ENV": "test"
+            }
+          },
+          {
+            "type": "node",
+            "request": "launch",
+            "name": "Run report",
+            "runtimeExecutable": "node",
+            "args": [
+              "${workspaceFolder}/node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js",
+              "-d", "packages/test-repository"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+          }
     ]
   }

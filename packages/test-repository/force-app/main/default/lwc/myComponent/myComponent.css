@@ -1,6 +1,6 @@
 /*
-	Currently: Stylelint(sf-sds/lwc-to-slds-token)
-	name: 				 sf-sds/slds2-lwc-token-to-hook
+	Currently: Stylelint(slds/lwc-to-slds-token)
+	name: 				 slds/slds2-lwc-token-to-hook
 */
 
 .testLWC {
@@ -180,7 +180,7 @@
 }
 
 /* slds-css/no-bem-usage */
-/* sf-sds/no-slds-class-overrides */
+/* slds/no-slds-class-overrides */
 .slds-button--last{
 	border-start-start-radius: 0;
 }
