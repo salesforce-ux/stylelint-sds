@@ -109,7 +109,7 @@ module.exports = {
       }
 
       // ✅ Scenario 3: Fix <lightning-icon> inside <button>
-      if (tagName === "lightning-icon" || tagName === "lightning:icon") {
+      if ((tagName === "lightning-icon" || tagName === "lightning:icon") && node.parent?.name === "button") {
         const variantAttr = findAttr(node, "variant");
         const sizeAttr = findAttr(node, "size");
 
