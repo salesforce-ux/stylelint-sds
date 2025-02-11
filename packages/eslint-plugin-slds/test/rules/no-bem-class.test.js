@@ -1,11 +1,11 @@
 const { RuleTester } = require("eslint"); // Import RuleTester
-const rule = require("../../src/rules/no-bem-class"); // Import the rule
+const rule = require("../../src/rules/enforce-bem-class"); // Import the rule
 
 const ruleTester = new RuleTester({
   parser: require.resolve("@html-eslint/parser"), // Specify the parser for HTML files
 });
 
-ruleTester.run("no-bem-class", rule, {
+ruleTester.run("enforce-bem-class", rule, {
   valid: [
     {
       code: `<div class="block__element--modifier"></div>`, // Valid BEM class name

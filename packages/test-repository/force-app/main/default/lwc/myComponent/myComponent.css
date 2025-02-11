@@ -179,7 +179,7 @@
 	font-size: t(--lwc-borderRadiusMedium);
 }
 
-/* slds-css/no-bem-usage */
+/* slds-css/enforce-bem-usage */
 /* slds/no-slds-class-overrides */
 .slds-button--last{
 	border-start-start-radius: 0;

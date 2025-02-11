@@ -2,13 +2,18 @@ import stylelint, { Rule, PostcssResult } from 'stylelint';
 import { readFileSync } from 'fs';
 import { Root } from 'postcss';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
+import ruleMetadata from '../../utils/rulesMetadata';
+import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
 
-const ruleName = 'slds/no-deprecated-slds2-classes';
 
+
+const ruleName:string = 'slds/no-deprecated-slds2-classes';
+
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 const messages = stylelint.utils.ruleMessages(ruleName, {
   expected: (selector: string) =>
-    `Selector: "${selector}" is no longer available in SLDS2. Please update to a supported selector.`,
+    replacePlaceholders(errorMsg,{selector}),
 });
 
 // Check if it's in test environment to load the correct metadata path
@@ -44,11 +49,14 @@ function rule(
             rule.selector.includes(deprecatedSelector)
           )
         ) {
+          const severity =
+                        result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
           utils.report({
             message: messages.expected(rule.selector),
             node: rule,
             result,
             ruleName,
+            severity
           });
         }
       });

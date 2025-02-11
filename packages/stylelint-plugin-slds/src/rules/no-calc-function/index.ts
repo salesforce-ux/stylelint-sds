@@ -1,12 +1,18 @@
 import { Root } from 'postcss';
 import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
+import ruleMetadata from '../../utils/rulesMetadata';
+import replacePlaceholders from '../../utils/util';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'slds/do-not-use-calc-function';
+
+const ruleName:string = 'slds/do-not-use-calc-function';
+
+
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 const messages = utils.ruleMessages(ruleName, {
   disallowed: (property: string) =>
-    `The use of "calc()" in the property "${property}" is not allowed.`,
+    replacePlaceholders(errorMsg,{property}),
 });
 
 function validateOptions(result: PostcssResult, options: any) {
@@ -27,7 +33,8 @@ function rule(
         if (decl.value.includes('calc(')) {
           const index = decl.toString().indexOf('calc(');
           const endIndex = index + 'calc('.length;
-
+          const severity =
+                        result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
           utils.report({
             message: messages.disallowed(decl.prop),
             node: decl,
@@ -35,6 +42,7 @@ function rule(
             endIndex,
             result,
             ruleName,
+            severity
           });
 
           // If fixing is enabled

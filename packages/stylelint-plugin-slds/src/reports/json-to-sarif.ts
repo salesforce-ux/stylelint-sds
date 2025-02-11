@@ -1,6 +1,8 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { normalizePath } from './utils/utils';
+import ruleMetadata from '../utils/rulesMetadata';
+
 
 const __dirname = process.cwd();
 
@@ -11,7 +13,6 @@ const SARIF_REPORT = path.join(__dirname, 'reports/consolidated_report.sarif');
 // Define SARIF structure types
 interface SarifRule {
   id: string;
-  shortDescription: { text: string };
   fullDescription: { text: string };
   defaultConfiguration: { level: string };
 }
@@ -87,41 +88,50 @@ interface Entry {
   warnings: Warning[];
 }
 
+function pushRulesInSarifOutput(jsonData:Entry[]):void {
+  jsonData.forEach((entry) => {
+    if (!entry.warnings || entry.warnings.length === 0) return;
+   
+    const ruleSet = new Set();
+    
+    entry.warnings.forEach((warning) => {
+      const ruleId = warning.rule;
+      if(!ruleSet.has(ruleId)){
+      ruleSet.add(ruleId);
+
+      sarifOutput.runs[0].tool.driver.rules.push({
+        id: ruleId,
+        fullDescription: { text: ruleMetadata(ruleId).ruleDesc || 'No message provided' },
+        defaultConfiguration: { level: ruleMetadata(ruleId).severityLevel || 'warning' },
+      });
+      }
+    });
+    
+  });
+}
+
 async function convertJsonToSarif(): Promise<void> {
   try {
     // Read and parse the JSON report
     const data = await fs.readFile(JSON_REPORT, 'utf8');
     const jsonData: Entry[] = JSON.parse(data);
 
+    pushRulesInSarifOutput(jsonData);
     // Process each entry in the JSON data
     jsonData.forEach((entry) => {
       if (!entry.warnings || entry.warnings.length === 0) return;
-
+      
       // Process all warnings in the array
       entry.warnings.forEach((warning) => {
         // Extract relevant fields
         const id = warning.rule || 'unknown_rule';
-        const severity = warning.severity || 'warning';
+        const severity = ruleMetadata(id).severityLevel || 'warning';
         const message = warning.text || 'No message provided';
         const filePath = normalizePath(entry.source) || 'unknown_file';
         const startLine = warning.line || 1;
         const endLine = warning.endLine || startLine;
         const startColumn = warning.column || 1;
         const endColumn = warning.endColumn || startColumn;
-
-        // Check if the rule already exists in the `rules` array
-        const ruleExists = sarifOutput.runs[0].tool.driver.rules.some(
-          (rule) => rule.id === id
-        );
-
-        if (!ruleExists) {
-          sarifOutput.runs[0].tool.driver.rules.push({
-            id,
-            shortDescription: { text: message },
-            fullDescription: { text: message },
-            defaultConfiguration: { level: severity },
-          });
-        }
 
         // Add result to SARIF `results` array
         sarifOutput.runs[0].results.push({

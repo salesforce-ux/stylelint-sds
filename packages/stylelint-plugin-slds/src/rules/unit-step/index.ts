@@ -6,9 +6,12 @@ import { wording } from './wording';
 
 import { defaultOptions } from './option';
 import { Options } from './option.interface';
+import ruleMetadata from '../../utils/rulesMetadata';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'slds/unit-step';
+const ruleName:string = 'slds/unit-step';
+
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 function validateOptions(result: PostcssResult, options: Options) {
   return utils.validateOptions(result, ruleName, {
@@ -35,7 +38,8 @@ function rule(
       options.atRules?.map((atRule) => {
         root.walkAtRules(atRule, (decl) => {
           const params: ContainerBase = parse(decl.params);
-
+const severity =
+              result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
           params.walkNumerics((param) => {
             if (
               options.units.includes(param.unit) &&
@@ -64,6 +68,7 @@ function rule(
                 result,
                 ruleName,
                 word: decl.params,
+                severity
               });
               param.value = valueFixed.toString();
             }
@@ -75,6 +80,8 @@ function rule(
       });
       options.properties?.map((property) => {
         root.walkDecls(property, (decl) => {
+          const severity =
+                        result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
           const nodes: ContainerBase = parse(decl.value);
 
           nodes.walkNumerics((node) => {
@@ -105,6 +112,7 @@ function rule(
                 result,
                 ruleName,
                 word: decl.value,
+                severity
               });
               node.value = valueFixed.toString();
             }
