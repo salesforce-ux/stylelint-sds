@@ -1,12 +1,16 @@
 import stylelint, { Rule, PostcssResult } from 'stylelint';
 import { Root } from 'postcss';
+import replacePlaceholders from '../../utils/util';
+import ruleMetadata from '../../utils/rulesMetadata';
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
-const ruleName = 'slds/no-sds-custom-properties';
+const ruleName:string = 'slds/no-sds-custom-properties';
+
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 const messages = utils.ruleMessages(ruleName, {
   expected: (prop: string) =>
-    `'${prop}' is currently deprecated in the new design for Lightning UI.`,
+    replacePlaceholders(errorMsg,{prop}),
 });
 
 function validateOptions(result: PostcssResult, options: any): boolean {
@@ -20,12 +24,15 @@ function rule(primaryOptions?: any) {
   return (root: Root, result: PostcssResult) => {
     if (validateOptions(result, primaryOptions)) {
       root.walkDecls((decl) => {
+        const severity =
+                      result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
         if (decl.prop.startsWith('--sds-')) {
           utils.report({
             message: messages.expected(decl.prop),
             node: decl,
             result,
-            ruleName
+            ruleName,
+            severity
           });
         }
       });

@@ -2,9 +2,16 @@ import { Root } from 'postcss';
 import stylelint, { Rule, PostcssResult } from 'stylelint';
 
 import { Options } from './option.interface';
+import ruleMetadata from '../../utils/rulesMetadata';
+import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
-const ruleName = 'slds/no-slds-class-overrides';
+
+const ruleName:string = 'slds/no-slds-class-overrides';
+
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
+
+
 const defaultOptions: Options = {
   step: 0.125,
   units: ['ch', 'em', 'ex', 'rem', 'vh', 'vw', 'vmin', 'vmax'],
@@ -99,15 +106,17 @@ function rule(primaryOptions: Options) {
       root.walkRules((rule) => {
         // Split the selectors on commas to check each selector individually
         const selectors: string[] = rule.selector.split(/\s*,\s*/);
-
+const severity =
+              result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
         selectors.forEach((selector) => {
           if (selector.includes('.slds-')) {
             utils.report({
-              message: `Instead of overriding styles of the SLDS class "${selector}" replace "${selector}" with a custom class and update your markup.`,
+              message: replacePlaceholders(errorMsg,{selector}),
               node: rule,
               result,
               ruleName,
               word: selector,
+              severity
             });
 
             // Uncomment below to enable auto-fixing

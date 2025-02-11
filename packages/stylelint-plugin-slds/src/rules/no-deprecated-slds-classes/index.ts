@@ -2,13 +2,19 @@ import stylelint, { Rule, PostcssResult } from 'stylelint';
 import { readFileSync } from 'fs';
 import { Root } from 'postcss';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
+import ruleMetadata from '../../utils/rulesMetadata';
+import replacePlaceholders from '../../utils/util';
 
 const { utils, createPlugin } = stylelint;
 
-const ruleName = 'slds/no-deprecated-slds-classes';
+
+
+const ruleName:string = 'slds/no-deprecated-slds-classes';
+
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 const messages = stylelint.utils.ruleMessages(ruleName, {
   deprecated: (className: string) =>
-    `The class "${className}" is deprecated and not available in SLDS2. Please update to a supported class.`,
+    replacePlaceholders(errorMsg,{className}),
 });
 
 const isTestEnv = process.env.NODE_ENV === 'test';
@@ -38,6 +44,8 @@ function rule(
     if (validateOptions(result, primaryOptions)) {
       root.walkRules((rule) => {
         const classMatches = rule.selector.match(classRegex);
+        const severity =
+                      result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
         if (classMatches) {
           classMatches.forEach((match) => {
             const className = match.slice(1);
@@ -47,6 +55,7 @@ function rule(
                 node: rule,
                 result,
                 ruleName,
+                severity
               });
             }
           });

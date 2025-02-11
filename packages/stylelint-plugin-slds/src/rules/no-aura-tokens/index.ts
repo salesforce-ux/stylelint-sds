@@ -3,20 +3,23 @@ import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
 import valueParser from 'postcss-value-parser';
 import { readFileSync } from 'fs';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
+import ruleMetadata from '../../utils/rulesMetadata';
+import replacePlaceholders from '../../utils/util';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
 const ruleName: string = 'slds/no-aura-tokens';
 
+
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
+
 const messages = utils.ruleMessages(ruleName, {
-  deprecated:
-    'Aura tokens are deprecated. Please migrate to SLDS Design Tokens.',
+  deprecated: warningMsg,
   replaced: (oldValue: string, newValue: string) =>
-    `The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with '${newValue}' styling hook. Set the fallback to '${oldValue}'. See the New Global Styling Hooks Guidance on lightningdesignsystem.com for more info.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n`,
+    replacePlaceholders(errorMsg, { oldValue, newValue }),
 });
 
 // Load token mapping file
 const tokenMappingPath = metadataFileUrl('./public/metadata/tokenMapping.json');
-
 
 const tokenMapping = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
 
@@ -46,7 +49,9 @@ function rule(
 
             const index = decl.toString().indexOf(decl.value); // Start index of the value
             const endIndex = index + decl.value.length;
-
+            const severity =
+              result.stylelint.config.rules[ruleName]?.[1] ||
+              severityLevel; // Default to "error"
             if (tokenName in tokenMapping) {
               const newValue = tokenMapping[tokenName];
 
@@ -66,6 +71,7 @@ function rule(
                   endIndex,
                   result,
                   ruleName,
+                  severity,
                 });
 
                 if (context.fix && replacementStyle) {
@@ -79,6 +85,7 @@ function rule(
                   endIndex,
                   result,
                   ruleName,
+                  severity,
                 });
               }
             } else {
@@ -89,6 +96,7 @@ function rule(
                 endIndex,
                 result,
                 ruleName,
+                severity,
               });
             }
           }

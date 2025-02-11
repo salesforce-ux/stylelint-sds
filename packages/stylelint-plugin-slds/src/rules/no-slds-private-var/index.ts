@@ -1,13 +1,18 @@
 import { Root } from 'postcss';
 import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
 import { Options } from './option.interface';
+import ruleMetadata from '../../utils/rulesMetadata';
+import replacePlaceholders from '../../utils/util';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'slds/no-slds-private-var';
+
+const ruleName:string = 'slds/no-slds-private-var';
+
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   expected: (prop: string) =>
-    `Unexpected "--_slds- private variable usage" within selector "${prop}".`,
+    replacePlaceholders(errorMsg,{prop}),
 });
 
 function validateOptions(result: PostcssResult, options: Options) {
@@ -25,12 +30,15 @@ function rule(
   return (root: Root, result: PostcssResult) => {
     if (validateOptions(result, primaryOptions)) {
       root.walkDecls((decl) => {
+        const severity =
+                      result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
         if (decl.prop.startsWith('--_slds-')) {
           stylelint.utils.report({
             message: messages.expected(decl.prop),
             node: decl,
             result,
             ruleName,
+            severity
           });
 
           // Optional: Call the fix method if in fixing context

@@ -4,9 +4,13 @@ import fs from 'fs';
 import generateTable from '../../utils/generateTable';
 import CSSClassMatcher from './utility-classes-cache';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
+import ruleMetadata from '../../utils/rulesMetadata';
+import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
-const ruleName = 'slds/enforce-utility-classes';
+const ruleName:string = 'slds/enforce-utility-classes';
+
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 // Load the predefined classes from a JSON file
 const jsonFilePath = metadataFileUrl('./public/metadata/utilities.json');
@@ -34,6 +38,8 @@ function rule(primaryOptions?: any) {
         const matchedClasses = [];
         const matcher = new CSSClassMatcher(predefinedClasses);
         const exactMatchingClass = matcher.findMatchFromNodes(declarations);
+        const severity =
+              result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
 
         if (exactMatchingClass) {
           matchedClasses.push({ name: exactMatchingClass });
@@ -44,10 +50,11 @@ function rule(primaryOptions?: any) {
           const table = generateTable(matchedClasses);
 
           utils.report({
-            message: `Instead of declaring the property, consider placing a helper class on your element:\n${table}`,
+            message: replacePlaceholders(errorMsg,{table}),
             node: rule,
             result,
             ruleName,
+            severity
           });
         }
       });

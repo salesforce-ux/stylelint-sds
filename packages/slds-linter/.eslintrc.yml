@@ -15,7 +15,7 @@ overrides:
     plugins:
       - "@salesforce-ux/slds"
     rules:
-      "@salesforce-ux/slds/no-bem-class":
+      "@salesforce-ux/slds/enforce-bem-class":
         - "error"
       "@salesforce-ux/slds/no-deprecated-slds-classes":
         - "error"
@@ -25,7 +25,7 @@ overrides:
       - "*.json"
     excludedFiles: "*.js"
     rules:
-      "@salesforce-ux/no-bem-class":
+      "@salesforce-ux/enforce-bem-class":
         - "error"
       "@salesforce-ux/slds/no-deprecated-slds-classes":
         - "error"

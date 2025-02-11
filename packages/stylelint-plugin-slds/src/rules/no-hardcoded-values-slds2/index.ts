@@ -8,6 +8,8 @@ import {
 } from '../../utils/color-lib-utils';
 import { Root } from 'postcss';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
+import ruleMetadata from '../../utils/rulesMetadata';
+import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
 
 // Define the structure of a hook
@@ -23,11 +25,13 @@ interface StylinghookData {
   };
 }
 
-const ruleName = 'slds/no-hardcoded-values-slds2';
+const ruleName:string = 'slds/no-hardcoded-values-slds2';
+
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 const messages = utils.ruleMessages(ruleName, {
   rejected: (color: string, closestHook: string) =>
-    `Replace the "${color}" value with any styling hook mentioned below "${closestHook}" instead.`,
+    replacePlaceholders(errorMsg,{color,closestHook}),
   suggested: (color: string) =>
     `The "${color}" static value has no replacement styling hook.`,
 });
@@ -127,6 +131,8 @@ function rule(primaryOptions?: any) {
       const value = decl.value;
       const index = decl.toString().indexOf(decl.value); // Start index of the value
       const endIndex = index + decl.value.length;
+      const severity =
+                    result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
 
       // For color changes
       if (
@@ -148,6 +154,7 @@ function rule(primaryOptions?: any) {
               endIndex,
               result,
               ruleName,
+              severity
             });
           } else {
             utils.report({
@@ -157,6 +164,7 @@ function rule(primaryOptions?: any) {
               endIndex,
               result,
               ruleName,
+              severity
             });
           }
         }
@@ -177,6 +185,7 @@ function rule(primaryOptions?: any) {
             endIndex,
             result,
             ruleName,
+            severity
           });
         } else {
           utils.report({
@@ -186,6 +195,7 @@ function rule(primaryOptions?: any) {
             endIndex,
             result,
             ruleName,
+            severity
           });
         }
       }

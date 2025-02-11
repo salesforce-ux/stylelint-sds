@@ -4,15 +4,19 @@ import valueParser from 'postcss-value-parser';
 import { readFileSync } from 'fs';
 import { Options } from './option.interface';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
+import ruleMetadata from '../../utils/rulesMetadata';
+import replacePlaceholders from '../../utils/util';
 
 const { createPlugin }: typeof stylelint = stylelint;
+
 const ruleName: string = 'slds/lwc-to-slds-token';
 
+const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 // Define messages for reporting
 const messages = stylelint.utils.ruleMessages(ruleName, {
   replaced: (oldValue: string, newValue: string) =>
-    `The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with the '${newValue}' styling hook and set the fallback to '${oldValue}'. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n`,
-  warning: (oldValue: string) => `The '${oldValue}' is currently deprecated.`,
+    replacePlaceholders(errorMsg, { oldValue, newValue }),
+  warning: (oldValue: string) => replacePlaceholders(warningMsg, { oldValue }),
 });
 
 const tokenMappingPath = metadataFileUrl('./public/metadata/lwcToSlds.json');
@@ -41,15 +45,21 @@ function rule(
         parsedValue.walk((node) => {
           if (node.type === 'word' && node.value.startsWith('--lwc-')) {
             const oldValue = node.value;
-            const newValue = lwcToSLDS[oldValue] === 'Continue to use' ? '' : lwcToSLDS[oldValue];
+            const newValue =
+              lwcToSLDS[oldValue] === 'Continue to use'
+                ? ''
+                : lwcToSLDS[oldValue];
             const startIndex = decl.toString().indexOf(decl.value);
             const endIndex = startIndex + decl.value.length;
-
+            const severity =
+              result.stylelint.config.rules[ruleName]?.[1] ||
+              severityLevel; // Default to "error"
             // Skip if the value has already been fixed
             if (
-              newValue &&  newValue !== '--' && 
-              ((decl.value.includes(newValue) ||
-                JSON.stringify(parsedValue).includes(newValue)) )
+              newValue &&
+              newValue !== '--' &&
+              (decl.value.includes(newValue) ||
+                JSON.stringify(parsedValue).includes(newValue))
             ) {
               return;
             }
@@ -64,6 +74,7 @@ function rule(
                 index: startIndex,
                 endIndex,
                 ruleName,
+                severity,
               });
 
               // Fix if the context allows
@@ -78,6 +89,7 @@ function rule(
                 endIndex,
                 result,
                 ruleName,
+                severity,
               });
             }
           }
