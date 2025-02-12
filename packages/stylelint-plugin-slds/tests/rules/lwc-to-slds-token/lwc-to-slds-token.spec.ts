@@ -19,24 +19,23 @@ describe('lwc-to-slds-token', () => {
     },
     {
       description:
-        'Reports warning for deprecated LWC token without a replacement',
-      inputCss: `
-          .example {
-            color: var(--lwc-unsupported-token);
-          }
-        `,
-      expectedMessage: `The '--lwc-unsupported-token' is currently deprecated.`,
-    },
-    {
-      description:
         'Reports warning for deprecated LWC token without a replacement(--)',
       inputCss: `
           .example {
             color: var(--lwc-brandBackgroundDark);
           }
         `,
-      expectedMessage: `The '--lwc-brandBackgroundDark' is currently deprecated.`,
-    }
+      expectedMessage: `The '--lwc-brandBackgroundDark' design token is deprecated. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.`,
+    },
+    {
+      description:
+        'Ignores customer created lwc token',
+      inputCss: `
+          .example {
+            color: var(--lwc-my-own);
+          }
+        `
+    },
   ];
 
   testCases.forEach(({ description, inputCss, expectedMessage }, index) => {
@@ -56,6 +55,7 @@ describe('lwc-to-slds-token', () => {
       );
 
       if (expectedMessage) {
+        console.log(messages[0], expectedMessage);
         expect(messages[0]).to.include(expectedMessage);
       } else {
         expect(messages).to.be.empty;
