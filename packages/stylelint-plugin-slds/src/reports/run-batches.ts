@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { spawn } from 'cross-spawn'; // Makes it work on Windows. Link: https://www.npmjs.com/package/cross-spawn
 import path from 'path';
 import cliProgress from 'cli-progress';
 
