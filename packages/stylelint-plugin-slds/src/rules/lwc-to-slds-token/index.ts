@@ -6,7 +6,6 @@ import { Options } from './option.interface';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
-//import lwcToSLDS from '../../../public/metadata/lwcToSlds.json' with { type: "json" };
 
 const { createPlugin }: typeof stylelint = stylelint;
 
@@ -109,7 +108,7 @@ function rule(
             }        
 
             stylelint.utils.report({
-              message: messages.replaced(oldValue, proposedFix),
+              message,
               node: decl,
               result,
               index: startIndex,
