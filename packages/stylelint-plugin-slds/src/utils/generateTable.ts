@@ -1,5 +1,10 @@
 export default // Helper function to format suggestions as a well-aligned table
 function generateTable(suggestions: any[]): string {
+
+  if(suggestions.length==1){
+    return `"${suggestions[0].name}"`;
+  }
+
   // Start the message with a header
   let message = '\n';
 

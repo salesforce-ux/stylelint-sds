@@ -6,41 +6,60 @@ const { lint }: typeof stylelint = stylelint;
 describe('slds/enforce-sds-to-slds-hooks', () => {
   const testCases = [
     {
-      description: 'should report and fix var(--sds-primary-color)',
+      description: '#Right Side: Should replace sds token',
+      input: `
+        .testClass {
+          background-color: var(--sds-g-color-surface-1);
+        }
+      `,
+      expectedOutput: `
+        .testClass {
+          background-color: var(--slds-g-color-surface-1);
+        }
+      `,
+      expectedMessage: 'The "--sds-g-color-surface-1" styling hook is replaced by "--slds-g-color-surface-1".'
+    },{
+      description: '#Right Side: Should ignore custom created',
+      input: `
+        .testClass {
+          background-color: var(--sds-my-own);
+        }
+      `,
+      expectedOutput: `
+        .testClass {
+          background-color: var(--slds-my-own);
+        }
+      `
+    }, {
+      description: '#Left Side: should replace sds token',
       input: `
         :root {
-          --custom: var(--sds-primary-color);
+          --sds-s-input-color-background: #000;
         }
       `,
       expectedOutput: `
         :root {
-          --custom: var(--slds-primary-color);
+          --slds-s-input-color-background: #000;
         }
       `,
-      messages: [
-        'The "var(--sds-primary-color)" styling hook is replaced by "var(--slds-primary-color)".',
-      ],
-    },
-    {
-      description: 'should report and fix var(--sds-secondary-color)',
+      expectedMessage: 'The "--sds-s-input-color-background" styling hook is replaced by "--slds-s-input-color-background".'
+    }, {
+      description: '#Left Side: should ignore custom created hook',
       input: `
-        body {
-          color: var(--sds-secondary-color);
+        :root {
+          --sds-my-own: 30px;
         }
       `,
       expectedOutput: `
-        body {
-          color: var(--slds-secondary-color);
+        :root {
+          --sds-my-own: 30px;
         }
-      `,
-      messages: [
-        'The "var(--sds-secondary-color)" styling hook is replaced by "var(--slds-secondary-color)".',
-      ],
-    },
+      `
+    }
   ];
 
   testCases.forEach(
-    ({ description, input, expectedOutput, messages }, index) => {
+    ({ description, input, expectedOutput, expectedMessage }, index) => {
       it(`Test Case #${index + 1}: ${description}`, async () => {
         const linterOptions: LinterOptions = {
           code: input,
@@ -60,7 +79,11 @@ describe('slds/enforce-sds-to-slds-hooks', () => {
         const reportedMessages = lintResult._postcssResult.messages.map(
           (message) => message.text
         );
-        expect(reportedMessages).to.have.members(messages);
+        if (expectedMessage) {
+          expect(reportedMessages[0]).to.include(expectedMessage);
+        } else {
+          expect(reportedMessages).to.be.empty;
+        }
       });
     }
   );

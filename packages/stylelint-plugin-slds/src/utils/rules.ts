@@ -16,18 +16,18 @@ const rulesMetadata = {
     severityLevel: 'warning',
     //suggestedMsg: `The "${color}" static value has no replacement styling hook.` //TODO: How to handle this scenario.
     warningMsg:
-      'Consider replacing the static value for "${color}" with a design token: "${closestHook}"',
+      'Consider replacing the static value for "${color}" with a design token: ${closestHook}',
     errorMsg:
-      'Consider replacing the static value for "${color}" with a design token: "${closestHook}"',
+      'Consider replacing the static value for "${color}" with a design token: ${closestHook}',
     ruleDesc: 'Please consider using Design Token instead of static value',
   },
   'slds/no-hardcoded-values-slds2': {
     name: 'slds/no-hardcoded-values-slds2',
     severityLevel: 'warning',
     warningMsg:
-      'Replace the "${color}" value with any styling hook mentioned below "${closestHook}" instead.',
+      'Consider replacing the static value for "${color}" with a design token: ${closestHook}',
     errorMsg:
-      'Replace the "${color}" value with any styling hook mentioned below "${closestHook}" instead.',
+      'Consider replacing the static value for "${color}" with a design token: ${closestHook}',
     ruleDesc: 'Please consider using Design Token instead of static value'
   },
 

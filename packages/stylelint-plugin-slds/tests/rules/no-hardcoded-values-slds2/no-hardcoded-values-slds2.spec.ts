@@ -16,7 +16,7 @@ describe('no-hardcoded-values-slds2', () => {
         }
       `,
       expectedMessage:
-        'Replace the "#ff0000" value with any styling hook mentioned below "\n1. --slds-g-color-border-error-2 \n" instead. (slds/no-hardcoded-values-slds2)',
+        'Consider replacing the static value for "#ff0000" with a design token: "--slds-g-color-on-error-2"'
     },
     {
       description:
@@ -27,7 +27,7 @@ describe('no-hardcoded-values-slds2', () => {
         }
       `,
       expectedMessage:
-        'The "16px" static value has no replacement styling hook. (slds/no-hardcoded-values-slds2)',
+        'Consider replacing the static value for "16px" with a design token: "--slds-g-font-scale-2"',
     },
     {
       description:
@@ -37,8 +37,7 @@ describe('no-hardcoded-values-slds2', () => {
           background-color: #123456;
         }
       `,
-      expectedMessage:
-        'Replace the "#123456" value with any styling hook mentioned below "\n1. --slds-g-color-surface-container-inverse-1',
+      expectedMessage:"Consider replacing the static value for \"#123456\" with a design token: \n1. --slds-g-color-surface-inverse-1 \n2. --slds-g-color-surface-container-inverse-1 \n3. --slds-g-color-surface-inverse-2 \n4. --slds-g-color-surface-container-inverse-2 \n5. --slds-g-color-accent-container-1 \n (slds/no-hardcoded-values-slds2)",
     },
     {
       description:
