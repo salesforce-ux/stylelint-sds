@@ -1,7 +1,7 @@
 {
     "name": "@salesforce-ux/slds-linter",
-    "version": "0.0.5",
-    "description": "SLDS Linter with both stylelint and eslint together",
+    "version": "0.0.7",
+    "description": "SLDS Linter with both Stylelint and ESLint configurations",
     "main": "index.mjs",
     "workspaces": [
         "packages/*"
@@ -9,24 +9,36 @@
     "access": "public",
     "files": [
         "build/",
-        "README.md"
+        "README.md",
+        ".eslintrc.yml",
+        ".stylelintrc.yml"
     ],
     "scripts": {
         "build": "rollup --config rollup.config.js",
         "clean": "rm -rf build package-lock.json",
         "test": "echo 'Not implemented!'",
-        "setup-lint": "node ./build/setup.js"
+        "setup-lint": "node ./build/setup.js",
+        "postinstall": "node ./build/setup.js"
     },
     "type": "module",
     "dependencies": {
         "@salesforce-ux/eslint-plugin-slds": "latest",
-        "@salesforce-ux/stylelint-plugin-slds": "latest"
+        "@salesforce-ux/stylelint-plugin-slds": "latest",
+        "js-yaml": "^4.1.0",
+        "chalk": "^5.2.0",
+        "boxen": "^7.1.1"
+    },
+    "peerDependencies": {
+        "eslint": "^8.0.0",
+        "stylelint": "^14.0.0"
     },
     "keywords": [
         "eslint SDS",
         "stylelint SDS",
         "salesforce",
-        "sds linter"
+        "sds linter",
+        "linting",
+        "code quality"
     ],
     "author": "Kishore Nemalipuri",
     "license": "MIT",
