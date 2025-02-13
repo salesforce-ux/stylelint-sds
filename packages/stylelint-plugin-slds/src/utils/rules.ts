@@ -14,6 +14,7 @@ const rulesMetadata = {
   'slds/no-hardcoded-values': {
     name: 'slds/no-hardcoded-values', //DESIGN_TOKEN - Design Token
     severityLevel: 'warning',
+    //suggestedMsg: `The "${color}" static value has no replacement styling hook.` //TODO: How to handle this scenario.
     warningMsg:
       'Consider replacing the static value for "${color}" with a design token: "${closestHook}"',
     errorMsg:
@@ -45,13 +46,14 @@ const rulesMetadata = {
   
 
   // CHECKED --- TODO:Kishore do we still need this?
-  'slds/no-aura-tokens': {   
-    name: 'slds/no-aura-tokens',
+  'slds/no-invalid-tokens-classes': {   
+    name: 'slds/no-invalid-tokens-classes',
     severityLevel: 'warning',
+    //deprecatedMsg: "Aura tokens are deprecated. Please migrate to SLDS Design Tokens.",
     warningMsg:
-      "Consider removing '${oldValue}', or updating to a design token with a corresponding value. To avoid breaking changes, replace it with '${newValue}' styling hook. Set the fallback to 't(colorTextBrowser)'. For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n",
+      'Consider removing "${oldValue}", or updating to a design token with a corresponding value. To avoid breaking changes, replace it with "${newValue}" styling hook. Set the fallback to "${oldValue}". For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n',
     errorMsg:
-      "Consider removing '${oldValue}', or updating to a design token with a corresponding value. To avoid breaking changes, replace it with '${newValue}' styling hook. Set the fallback to 't(colorTextBrowser)'. For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n",
+      'Consider removing "${oldValue}", or updating to a design token with a corresponding value. To avoid breaking changes, replace it with "${newValue}" styling hook. Set the fallback to "${oldValue}". For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n',
     ruleDesc: 'Please update to a design token or class with corresponding value'
   },
 
@@ -79,9 +81,9 @@ const rulesMetadata = {
     name: 'slds/enforce-sds-to-slds-hooks',
     severityLevel: 'warning',
     warningMsg:
-      'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}.',
+      'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}".',
     errorMsg:
-      'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}.',
+      'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}".',
     ruleDesc: 'Convert --sds to --slds hooks as much as possible',
   },
   // Needs CX review
@@ -100,9 +102,9 @@ const rulesMetadata = {
     name: 'slds/no-invalid-tokens',
     severityLevel: 'error',
     warningMsg:
-      "Consider removing '${oldValue}', or updating to a design token with a corresponding value. To avoid breaking changes, replace it with '${newValue}' styling hook. Set the fallback to 't(colorTextBrowser)'. For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n",
+      'Consider removing "${oldValue}", or updating to a design token with a corresponding value. To avoid breaking changes, replace it with "${newValue}" styling hook. Set the fallback to "${oldValue}". For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n',
     errorMsg:
-      "Consider removing '${oldValue}', or updating to a design token with a corresponding value. To avoid breaking changes, replace it with '${newValue}' styling hook. Set the fallback to 't(colorTextBrowser)'. For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n",
+      'Consider removing "${oldValue}", or updating to a design token with a corresponding value. To avoid breaking changes, replace it with "${newValue}" styling hook. Set the fallback to "${oldValue}". For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n',
     ruleDesc: 'Please update to a design token or class with corresponding value',
   },
   'slds/enforce-wcag-rules': {
@@ -137,18 +139,10 @@ const rulesMetadata = {
     name: 'slds/no-slds-private-var',
     severityLevel: 'warning',
     warningMsg:
-      'Unexpected \'--_slds- private variable usage\' within selector "${prop}".',
+      'Unexpected \"--_slds- private variable usage\" within selector "${prop}".',
     errorMsg:
-      'Unexpected \'--_slds- private variable usage\' within selector "${prop}".',
-    ruleDesc: 'Do not use \--_slds- private variable\'',
-  },
-  // NOT NEDED rule : disable mostly.
-  'slds/unit-step': {
-    name: 'slds/unit-step',
-    severityLevel: 'warning',
-    warningMsg: '',
-    errorMsg: '',
-    ruleDesc: 'Only use increment in units and not decimals.',
+      'Unexpected \"--_slds- private variable usage\" within selector "${prop}".',
+    ruleDesc: 'Do not use \"--_slds- private variable\"',
   },
   
   'slds/no-sds-custom-properties': {

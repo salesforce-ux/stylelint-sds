@@ -20,62 +20,9 @@ npm install @salesforce-ux/stylelint-sds --save-dev
 
 Create a .stylelintrc.yml file in your project root to enable the Stylelint rules. Use the example configuration provided in this repository as a reference.
 
-Example content for .stylelintrc.yml:
+Example content for (.stylelintrc.yml)[./stylelintrc.yml]:
 
-```
-plugins:
-  - "@salesforce-ux/stylelint-sds"
 
-overrides:
-  - files:
-      - "**/*.css"
-      - "**/*.scss"
-    customSyntax: "postcss"
-    rules:
-      slds/no-slds-class-overrides:
-        - true
-        - severity: warning
-      # slds/no-important-tag:
-      #   - true
-      #   - severity: warning
-      # slds/no-hardcoded-values:
-      #   - true
-      #   - severity: error
-      slds/no-hardcoded-values-slds2:
-        - true
-        - severity: error
-      slds/enforce-utility-classes:
-        - true
-      slds/no-aura-tokens:
-        - true
-      slds/lwc-to-slds-token:
-        - true
-      slds/enforce-bem-usage:
-        - true
-      slds/no-deprecated-slds-classes:
-        - true
-      slds/no-deprecated-slds-hooks:
-        - true
-      slds/no-lwc-custom-properties:
-        - true
-      slds/no-sds-custom-properties:
-        - true
-      slds/no-slds-private-var:
-        - true
-      # slds/do-not-use-calc-function:
-      #   - true
-      slds/enforce-sds-to-slds-hooks:
-        - true
-        - severity: error
-  
-    sourceMap: 
-      - false
-
-  - files:
-      - "**/*.html"
-    customSyntax: "postcss-html"
-    rules: {}
-```
 
 This configuration will enforce SLDS rules and show errors or warnings for any violations.
 

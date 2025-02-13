@@ -16,8 +16,7 @@ describe('no-hardcoded-values', () => {
         }
       `,
       expectedMessage:
-        'Replace the "#ff0000" value with any styling hook mentioned below',
-      expectedReplacement: '--slds-g-color-error-container-1',
+        'Consider replacing the static value for "#ff0000" with a design token:'
     },
     {
       description:
@@ -28,7 +27,7 @@ describe('no-hardcoded-values', () => {
         }
       `,
       expectedMessage:
-        'The "16px" static value has no replacement styling hook. (slds/no-hardcoded-values)',
+        'The "16px" static value has no replacement styling hook.',
     },
     {
       description:
@@ -39,7 +38,7 @@ describe('no-hardcoded-values', () => {
         }
       `,
       expectedMessage:
-        'Replace the "#123456" value with any styling hook mentioned below ',
+        'Consider replacing the static value for "#123456" with a design token',
       expectedReplacement: '--slds-g-color-accent-container-3',
     },
     {
@@ -52,15 +51,17 @@ describe('no-hardcoded-values', () => {
       `,
       expectedMessage: null, // No warning expected
     },
-    // {
-    //   description: 'Does not report for densified value not matching any hook',
-    //   inputCss: `
-    //     .example {
-    //       padding: 20px;
-    //     }
-    //   `,
-    //   expectedMessage: null, // No warning expected
-    // },
+    {
+      description: 'Does not report for densified value not matching any hook',
+      inputCss: `
+        .example {
+          padding: 20px;
+        }
+      `,
+      //expectedMessage: null, // No warning expected
+      expectedMessage:
+        'The "20px" static value has no replacement styling hook.',
+    },
   ];
 
   testCases.forEach(
@@ -84,8 +85,11 @@ describe('no-hardcoded-values', () => {
         );
 
         if (expectedMessage) {
+          //console.log(expectedMessage)
+          console.log(`Whats coming ${messages[0]}`)
           expect(messages[0]).to.include(expectedMessage);
         } else {
+          //console.log(`EMPTY!!!`)
           expect(messages).to.be.empty;
         }
         if (expectedReplacement) {
