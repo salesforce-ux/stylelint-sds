@@ -52,15 +52,17 @@ describe('no-hardcoded-values', () => {
       `,
       expectedMessage: null, // No warning expected
     },
-    // {
-    //   description: 'Does not report for densified value not matching any hook',
-    //   inputCss: `
-    //     .example {
-    //       padding: 20px;
-    //     }
-    //   `,
-    //   expectedMessage: null, // No warning expected
-    // },
+    {
+      description: 'Does not report for densified value not matching any hook',
+      inputCss: `
+        .example {
+          padding: 20px;
+        }
+      `,
+      //expectedMessage: null, // No warning expected
+      expectedMessage:
+        'The "20px" static value has no replacement styling hook.',
+    },
   ];
 
   testCases.forEach(
@@ -84,8 +86,11 @@ describe('no-hardcoded-values', () => {
         );
 
         if (expectedMessage) {
+          //console.log(expectedMessage)
+          console.log(`Whats coming ${messages[0]}`)
           expect(messages[0]).to.include(expectedMessage);
         } else {
+          //console.log(`EMPTY!!!`)
           expect(messages).to.be.empty;
         }
         if (expectedReplacement) {

@@ -8,8 +8,8 @@ import {
 } from '../../utils/color-lib-utils';
 import { Root } from 'postcss';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
-import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
+import ruleMetadata from '../../utils/rulesMetadata';
 const { utils, createPlugin } = stylelint;
 
 // Define the structure of a hook
@@ -25,13 +25,14 @@ interface StylinghookData {
   };
 }
 
-const ruleName:string = 'slds/no-hardcoded-values-slds2';
+const ruleName:string = 'slds/enforce-wcag-rules';
 
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 const messages = utils.ruleMessages(ruleName, {
   rejected: (color: string, closestHook: string) =>
-    replacePlaceholders(errorMsg,{color,closestHook}),
+    replacePlaceholders(errorMsg, { color, closestHook} ),
+    // `Replace the "${color}" value with any styling hook mentioned below "${closestHook}" instead.`,
   suggested: (color: string) =>
     `The "${color}" static value has no replacement styling hook.`,
 });
@@ -44,7 +45,10 @@ const isHardCodedDensifyValue = (cssValue: string): boolean => {
 
 // Load and parse the JSON file
 const loadStylinghooksData = async (): Promise<StylinghookData> => {
-  const jsonFilePath = metadataFileUrl('public/metadata/valueToStylinghook.sldsplus.json');
+  const jsonFilePath = metadataFileUrl(
+    'public/metadata/slds-plus/slds1-stylinghooks.json'
+  );
+  
   const jsonData = await fs.readFile(jsonFilePath, 'utf8');
   return JSON.parse(jsonData) as StylinghookData; // Cast the parsed data to StylinghookData type
 };
@@ -104,6 +108,8 @@ function rule(primaryOptions?: any) {
     const supportedStylinghooks = await loadStylinghooksData(); // Await the loading of color data
 
     root.walkDecls((decl) => {
+      const severity =
+                    result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
       const cssProperty = decl.prop.toLowerCase();
       const colorProperties = [
         'color',
@@ -114,23 +120,10 @@ function rule(primaryOptions?: any) {
         'border*-color',
         'outline-color',
       ];
-      const densificationProperties = [
-        'font-size',
-        'border*',
-        'margin*',
-        'padding*',
-        'width',
-        'height',
-        'top',
-        'right',
-        'left',
-      ];
 
       const value = decl.value;
       const index = decl.toString().indexOf(decl.value); // Start index of the value
       const endIndex = index + decl.value.length;
-      const severity =
-                    result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
 
       // For color changes
       if (
@@ -166,37 +159,7 @@ function rule(primaryOptions?: any) {
             });
           }
         }
-      } else if (
-        matchesCssProperty(densificationProperties, cssProperty) &&
-        isHardCodedDensifyValue(value)
-      ) {
-        const closestHooks = findExactMatchStylingHook(
-          value,
-          supportedStylinghooks,
-          cssProperty
-        );
-        if (closestHooks.length > 0) {
-          utils.report({
-            message: messages.rejected(value, generateTable(closestHooks)),
-            node: decl,
-            index,
-            endIndex,
-            result,
-            ruleName,
-            severity
-          });
-        } else {
-          utils.report({
-            message: messages.suggested(value),
-            node: decl,
-            index,
-            endIndex,
-            result,
-            ruleName,
-            severity
-          });
-        }
-      }
+      } 
     });
   };
 }

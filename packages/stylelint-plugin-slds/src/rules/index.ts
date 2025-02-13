@@ -8,13 +8,14 @@ import noSldsClassOverrides from './no-slds-class-overrides';
 import noSldsPrivateVar from './no-slds-private-var';
 import enforceUtilityClasses from './enforce-utility-classes';
 import lwcToSldsToken from './lwc-to-slds-token';
-import noAuraTokens from './no-aura-tokens';
+import noInvalidTokensClasses from './no-invalid-tokens-classes';
 import enforceBemUsage from './enforce-bem-usage';
 import noDeprecatedSLDS2Classes from './no-deprecated-slds2-classes';
 import noCalcFunction from './no-calc-function';
 import noHardcodedValuesSlds2 from './no-hardcoded-values-slds2';
 import enforceSdsToSldsHooks from './enforce-sds-to-slds-hooks';
-import unitStep from './unit-step';
+import enforceWcagRules from './enforce-wcag-rules';
+import reduceAnnotations from './reduce-annotations';
 export default [
   enforceSdsToSldsHooks,
   noDeprecatedSldsClasses,
@@ -28,9 +29,10 @@ export default [
   enforceUtilityClasses,
   noHardcodedValuesSlds2,
   noDeprecatedSLDS2Classes,
-  noAuraTokens,
+  noInvalidTokensClasses,
   enforceBemUsage,
   noSldsPrivateVar,
   noImportantTag,
-  unitStep,
+  enforceWcagRules,
+  reduceAnnotations
 ];

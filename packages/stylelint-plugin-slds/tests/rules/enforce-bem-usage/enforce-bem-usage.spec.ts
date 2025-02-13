@@ -5,7 +5,7 @@ const { lint }: typeof stylelint = stylelint;
 describe('enforce-bem-usage', () => {
   // Define the expected messages for the test
   [
-    "Consider updating 'slds-text-heading_large' to new naming convention 'slds-text-heading--large' (slds/enforce-bem-usage)",
+    'Consider updating "slds-text-heading_large" to new naming convention "slds-text-heading--large" (slds/enforce-bem-usage)',
   ].map((message, index) => {
     it('should enforce BEM usage for rule #' + index, async () => {
       const linterResult: LinterResult = await lint({

@@ -34,7 +34,7 @@ const messages = utils.ruleMessages(ruleName, {
     replacePlaceholders(errorMsg, { color, closestHook} ),
     // `Replace the "${color}" value with any styling hook mentioned below "${closestHook}" instead.`,
   suggested: (color: string) =>
-    `The "${color}" static value has no replacement styling hook.`,
+    `The "${color}" static value has no replacement styling hook.`,  //TODO: Messaging.
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {

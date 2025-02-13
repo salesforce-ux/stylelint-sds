@@ -8,40 +8,39 @@ overrides:
     customSyntax: "postcss"
     rules:
       slds/no-slds-class-overrides:
-        - true
         - severity: warning
       slds/no-important-tag:
-        - true
         - severity: warning
       # slds/no-hardcoded-values:
-      #   - true
       #   - severity: error
       slds/no-hardcoded-values-slds2:
-        - true
-        - severity: error
+        - severity: warning
       slds/enforce-utility-classes:
-        - true
-      slds/no-aura-tokens:
-        - true
-      slds/lwc-to-slds-token:
-        - true
-      slds/enforce-bem-usage:
-        - true
-      slds/no-deprecated-slds-classes:
-        - true
-      slds/no-deprecated-slds-hooks:
-        - true
-      slds/no-lwc-custom-properties:
-        - true
-      slds/no-sds-custom-properties:
-        - true
-      slds/no-slds-private-var:
-        - true
-      # slds/do-not-use-calc-function:
-      #   - true
-      slds/enforce-sds-to-slds-hooks:
-        - true
+        - severity: warning
+      slds/no-invalid-tokens-classes:
         - severity: error
+      slds/lwc-to-slds-token:
+        - severity: warning
+      slds/enforce-bem-usage:
+        - severity: warning
+      slds/no-deprecated-slds-classes:
+        - severity: warning
+      slds/no-deprecated-slds-hooks:
+        - severity: warning
+      slds/no-lwc-custom-properties:
+        - severity: warning
+      slds/no-sds-custom-properties:
+        - severity: warning
+      slds/no-slds-private-var:
+        - severity: warning
+      # slds/do-not-use-calc-function:
+      #  - severity: warning
+      slds/enforce-sds-to-slds-hooks:
+        - severity: warning
+      slds/enforce-wcag-rules:
+        - severity: warning
+      slds/reduce-annotations:
+        - severity: warning
         
     sourceMap: 
       - false

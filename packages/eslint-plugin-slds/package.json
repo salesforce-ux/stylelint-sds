@@ -15,8 +15,9 @@
     "license": "ISC",
     "description": "",
     "dependencies": {
-        "@html-eslint/parser": "^0.33.0",
-        "eslint": "^8.0.0"
+        "@html-eslint/parser": "^0.34.0",
+        "eslint": "^8.0.0",
+        "@html-eslint/eslint-plugin": "^0.34.0"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^28.0.2",
