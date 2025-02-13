@@ -15,9 +15,9 @@ const rulesMetadata = {
     name: 'slds/no-hardcoded-values', //DESIGN_TOKEN - Design Token
     severityLevel: 'warning',
     warningMsg:
-      'Consider replacing the static value for "${color}" with a design token: "${closestHook}"',
+      'Consider replacing the static value for "${color}" with a design token: ${closestHook}',
     errorMsg:
-      'Consider replacing the static value for "${color}" with a design token: "${closestHook}"',
+      'Consider replacing the static value for "${color}" with a design token: ${closestHook}',
     ruleDesc: 'Please consider using Design Token instead of static value',
   },
   'slds/no-hardcoded-values-slds2': {

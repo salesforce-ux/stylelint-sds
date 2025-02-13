@@ -16,8 +16,8 @@ describe('no-hardcoded-values', () => {
         }
       `,
       expectedMessage:
-        'Replace the "#ff0000" value with any styling hook mentioned below',
-      expectedReplacement: '--slds-g-color-error-container-1',
+        'Consider replacing the static value for "#ff0000" with a design token: "--slds-g-color-error-1"',
+      expectedReplacement: '--slds-g-color-error-1',
     },
     {
       description:
@@ -28,7 +28,7 @@ describe('no-hardcoded-values', () => {
         }
       `,
       expectedMessage:
-        'The "16px" static value has no replacement styling hook. (slds/no-hardcoded-values)',
+        'Consider replacing the static value for "16px" with a design token: "--slds-g-font-scale-2"',
     },
     {
       description:
@@ -39,7 +39,7 @@ describe('no-hardcoded-values', () => {
         }
       `,
       expectedMessage:
-        'Replace the "#123456" value with any styling hook mentioned below ',
+        'Consider replacing the static value for "#123456" with a design token: ',
       expectedReplacement: '--slds-g-color-accent-container-3',
     },
     {
