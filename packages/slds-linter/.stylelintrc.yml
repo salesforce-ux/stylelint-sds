@@ -21,7 +21,7 @@ overrides:
         - severity: error
       slds/enforce-utility-classes:
         - true
-      slds/no-aura-tokens:
+      slds/no-invalid-tokens-classes:
         - true
       slds/lwc-to-slds-token:
         - true

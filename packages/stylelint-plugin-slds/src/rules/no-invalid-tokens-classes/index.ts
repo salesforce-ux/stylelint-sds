@@ -7,13 +7,13 @@ import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'slds/no-aura-tokens';
+const ruleName: string = 'slds/no-invalid-tokens-classes';
 
 
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 const messages = utils.ruleMessages(ruleName, {
-  deprecated: warningMsg,
+  deprecatedMsg: 'Aura tokens are deprecated. Please migrate to SLDS Design Tokens.',
   replaced: (oldValue: string, newValue: string) =>
     replacePlaceholders(errorMsg, { oldValue, newValue }),
 });
@@ -79,7 +79,7 @@ function rule(
                 }
               } else {
                 utils.report({
-                  message: messages.deprecated,
+                  message: messages.deprecatedMsg,
                   node: decl,
                   index,
                   endIndex,
@@ -90,7 +90,7 @@ function rule(
               }
             } else {
               utils.report({
-                message: messages.deprecated,
+                message: messages.deprecatedMsg,
                 node: decl,
                 index,
                 endIndex,

@@ -14,6 +14,17 @@
     font-size: 16px;
 }
 
+.slds-text-align—-left {
+    color: red;
+}
+
+.slds-text-align_left {
+    color: red;
+}
+
+
+
+
 .slds-button {  /* This should trigger the Stylelint rule */
     margin-top: 10px;
 }

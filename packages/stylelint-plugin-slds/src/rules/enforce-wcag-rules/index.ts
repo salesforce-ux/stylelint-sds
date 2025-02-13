@@ -25,7 +25,7 @@ interface StylinghookData {
   };
 }
 
-const ruleName:string = 'slds/no-hardcoded-values';
+const ruleName:string = 'slds/enforce-wcag-rules';
 
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
@@ -34,7 +34,7 @@ const messages = utils.ruleMessages(ruleName, {
     replacePlaceholders(errorMsg, { color, closestHook} ),
     // `Replace the "${color}" value with any styling hook mentioned below "${closestHook}" instead.`,
   suggested: (color: string) =>
-    `The "${color}" static value has no replacement styling hook.`,  //TODO: Messaging.
+    `The "${color}" static value has no replacement styling hook.`,
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {
@@ -120,17 +120,6 @@ function rule(primaryOptions?: any) {
         'border*-color',
         'outline-color',
       ];
-      const densificationProperties = [
-        'font-size',
-        'border*',
-        'margin*',
-        'padding*',
-        'width',
-        'height',
-        'top',
-        'right',
-        'left',
-      ];
 
       const value = decl.value;
       const index = decl.toString().indexOf(decl.value); // Start index of the value
@@ -170,37 +159,7 @@ function rule(primaryOptions?: any) {
             });
           }
         }
-      } else if (
-        matchesCssProperty(densificationProperties, cssProperty) &&
-        isHardCodedDensifyValue(value)
-      ) {
-        const closestHooks = findExactMatchStylingHook(
-          value,
-          supportedStylinghooks,
-          cssProperty
-        );
-        if (closestHooks.length > 0) {
-          utils.report({
-            message: messages.rejected(value, generateTable(closestHooks)),
-            node: decl,
-            index,
-            endIndex,
-            result,
-            ruleName,
-            severity
-          });
-        } else {
-          utils.report({
-            message: messages.suggested(value),
-            node: decl,
-            index,
-            endIndex,
-            result,
-            ruleName,
-            severity
-          });
-        }
-      }
+      } 
     });
   };
 }

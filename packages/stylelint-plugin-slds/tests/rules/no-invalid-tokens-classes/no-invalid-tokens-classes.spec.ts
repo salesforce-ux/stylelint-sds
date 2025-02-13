@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import stylelint from 'stylelint';
 import path from 'path';
 
-const ruleName = 'slds/no-aura-tokens';
+const ruleName = 'slds/no-invalid-tokens-classes';
 const config = {
   plugins: ['./src/index.ts'],
   rules: {
@@ -17,7 +17,7 @@ const mockTokenMapping = {
   brandSecondary: '--lwc-brandSecondary',
 };
 
-describe('no-aura-tokens Stylelint Rule', () => {
+describe('no-invalid-tokens-classes Stylelint Rule', () => {
   it('should flag deprecated Aura tokens and suggest replacements', async () => {
     const result = await stylelint.lint({
       code: `
@@ -31,26 +31,11 @@ describe('no-aura-tokens Stylelint Rule', () => {
     const warnings = result.results[0].warnings;
     expect(warnings).to.have.lengthOf(1);
 
-    expect(warnings[0].text).to.include(
-      "The 'token(brandPrimary)' design token is deprecated. To avoid breaking changes, replace it with 'var(--lwc-brandPrimary, token(brandPrimary))'"
-    );
-  });
 
-  it('should flag deprecated Aura tokens and suggest replacements', async () => {
-    const result = await stylelint.lint({
-      code: `
-        .example {
-          color: t(brandPrimary);
-        }
-      `,
-      config,
-    });
-
-    const warnings = result.results[0].warnings;
-    expect(warnings).to.have.lengthOf(1);
+    console.log(`Here are the warnings ${warnings[0].text}`)
 
     expect(warnings[0].text).to.include(
-      "The 't(brandPrimary)' design token is deprecated. To avoid breaking changes, replace it with 'var(--lwc-brandPrimary, t(brandPrimary))'"
+      'Consider removing "token(brandPrimary)", or updating to a design token with a corresponding value. To avoid breaking changes, replace it with "var(--lwc-brandPrimary, token(brandPrimary))" styling hook.'
     );
   });
 

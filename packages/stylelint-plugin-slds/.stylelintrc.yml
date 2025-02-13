@@ -18,30 +18,42 @@ overrides:
       #   - severity: error
       slds/no-hardcoded-values-slds2:
         - true
-        - severity: error
+        - severity: warning
       slds/enforce-utility-classes:
         - true
-      slds/no-aura-tokens:
+        - severity: warning
+      slds/no-invalid-tokens-classes:
         - true
+        - severity: error
       slds/lwc-to-slds-token:
         - true
+        - severity: warning
       slds/enforce-bem-usage:
         - true
+        - severity: warning
       slds/no-deprecated-slds-classes:
         - true
+        - severity: warning
       slds/no-deprecated-slds-hooks:
         - true
+        - severity: warning
       slds/no-lwc-custom-properties:
         - true
+        - severity: warning
       slds/no-sds-custom-properties:
         - true
+        - severity: warning
       slds/no-slds-private-var:
         - true
+        - severity: warning
       # slds/do-not-use-calc-function:
       #   - true
       slds/enforce-sds-to-slds-hooks:
         - true
-        - severity: error
+        - severity: warning
+      slds/enforce-wcag-rules:
+        - true
+        - severity: warning
         
     sourceMap: 
       - false
