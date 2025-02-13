@@ -32,7 +32,6 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 });
 
 const tokenMappingPath = metadataFileUrl('./public/metadata/lwcToSlds.json');
-
 const lwcToSLDS = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
 
 // Validate options for the rule
@@ -85,64 +84,67 @@ function detectRightSide(decl, basicReportProps, autoFixEnabled) {
   const parsedValue = valueParser(decl.value);
   // Usage on right side
   parsedValue.walk((node) => {
-    if (node.type === 'word' && node.value.startsWith('--lwc-')) {
-      const oldValue = node.value;
-
-      if (shouldIgnoreDetection(oldValue)) {
-        // Ignore if entry not found in the list or the token is marked to use further
-        return;
-      }
-
-      const startIndex = decl.toString().indexOf(decl.value);
-      const endIndex = startIndex + decl.value.length;
-      const reportProps = {
-        index: startIndex,
-        endIndex,
-        ...basicReportProps,
-      };
-
-      const recommendation = getRecommendation(oldValue, reportProps);
-      const hasRecommendation = recommendation && recommendation !== '--';
-
-      if (!hasRecommendation) {
-        return;
-      }
-
-      // Ignores if value already fixed with --slds token
-      if (isValueFixed(recommendation, decl, parsedValue)) {
-        return;
-      }
-
-      // Found recommendation, replace value
-      let proposedFix = '';
-      let canFix = true;
-      let message;
-      if (Array.isArray(recommendation)) {
-        message = messages.errorWithStyleHooks(
-          oldValue,
-          recommendation.join(' or ')
-        );
-        canFix = false;
-      } else if (recommendation.startsWith('--slds-')) {
-        message = messages.errorWithStyleHooks(oldValue, recommendation);
-        // add recommendation with fallback
-        proposedFix = `var(${recommendation}, ${decl.value})`;
-      } else {
-        message = messages.errorWithRawValue(oldValue, recommendation);
-        // for any raw values, color-mix, calc
-        proposedFix = recommendation;
-      }
-
-      stylelint.utils.report({
-        message,
-        ...reportProps,
-      });
-
-      // Fix if the context allows
-      if (autoFixEnabled && canFix) {
-        decl.value = proposedFix;
-      }
+    if (node.type !== 'word' || !node.value.startsWith('--lwc-')) {
+      return;
     }
+
+    const oldValue = node.value;
+
+    if (shouldIgnoreDetection(oldValue)) {
+      // Ignore if entry not found in the list or the token is marked to use further
+      return;
+    }
+
+    const startIndex = decl.toString().indexOf(decl.value);
+    const endIndex = startIndex + decl.value.length;
+    const reportProps = {
+      index: startIndex,
+      endIndex,
+      ...basicReportProps,
+    };
+
+    const recommendation = getRecommendation(oldValue, reportProps);
+    const hasRecommendation = recommendation && recommendation !== '--';
+
+    if (!hasRecommendation) {
+      return;
+    }
+
+    // Ignores if value already fixed with --slds token
+    if (isValueFixed(recommendation, decl, parsedValue)) {
+      return;
+    }
+
+    // Found recommendation, replace value
+    let proposedFix = '';
+    let canFix = true;
+    let message;
+    if (Array.isArray(recommendation)) {
+      message = messages.errorWithStyleHooks(
+        oldValue,
+        recommendation.join(' or ')
+      );
+      canFix = false;
+    } else if (recommendation.startsWith('--slds-')) {
+      message = messages.errorWithStyleHooks(oldValue, recommendation);
+      // add recommendation with fallback
+      proposedFix = `var(${recommendation}, ${decl.value})`;
+    } else {
+      message = messages.errorWithRawValue(oldValue, recommendation);
+      // for any raw values, color-mix, calc
+      proposedFix = recommendation;
+    }
+
+    stylelint.utils.report({
+      message,
+      ...reportProps,
+    });
+
+    // Fix if the context allows
+    if (autoFixEnabled && canFix) {
+      decl.value = proposedFix;
+    }
+    
   });
 }
 

@@ -79,9 +79,9 @@ const rulesMetadata = {
     name: 'slds/enforce-sds-to-slds-hooks',
     severityLevel: 'warning',
     warningMsg:
-      'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}.',
+      'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}".',
     errorMsg:
-      'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}.',
+      'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}".',
     ruleDesc: 'Convert --sds to --slds hooks as much as possible',
   },
   // Needs CX review
