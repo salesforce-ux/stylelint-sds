@@ -6,13 +6,19 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const eslintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/eslint-plugin-slds/build/.eslintrc.yml'));
+const stylelintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/stylelint-plugin-slds/build/.stylelintrc.yml'));
+
+// Define the destination path where you want to copy the file
+const destinationPath = path.resolve(__dirname, 'config-copy.json');
+
 const config = [
   {
-    "sourcePath" : "./.eslintrc.yml",
+    "sourcePath" : path.resolve(__dirname, eslintConfigPath),
     "destinationPath":".eslintrc.yml"
   },
   {
-    "sourcePath" : "./.stylelintrc.yml",
+    "sourcePath" : path.resolve(__dirname, stylelintConfigPath),
     "destinationPath":".stylelintrc.yml"
   }
 ]
