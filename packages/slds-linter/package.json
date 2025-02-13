@@ -1,6 +1,6 @@
 {
     "name": "@salesforce-ux/slds-linter",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "SLDS Linter with both stylelint and eslint together",
     "main": "index.mjs",
     "workspaces": [
@@ -15,7 +15,8 @@
         "build": "rollup --config rollup.config.js",
         "clean": "rm -rf build package-lock.json",
         "test": "echo 'Not implemented!'",
-        "setup-lint": "node ./build/setup.js"
+        "setup-lint": "node ./build/setup.js",
+        "postinstall": "npm run setup-lint"
     },
     "type": "module",
     "dependencies": {
