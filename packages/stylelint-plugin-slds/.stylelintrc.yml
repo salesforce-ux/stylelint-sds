@@ -39,6 +39,8 @@ overrides:
         - severity: warning
       slds/enforce-wcag-rules:
         - severity: warning
+      slds/reduce-annotations:
+        - severity: warning
         
     sourceMap: 
       - false

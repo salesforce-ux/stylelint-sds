@@ -116,7 +116,7 @@ const rulesMetadata = {
       'Consider replacing "${oldValue}" with a similar color "${newValue}" styling hook to provide better color contrast',
     ruleDesc: 'Please evaluate if using styling hook provides better color contrast experience',
   },
-  'slds/no-annotation-rule': {
+  'slds/reduce-annotations': {
     name: 'slds/no-annotation-rule',
     severityLevel: 'warning',
     warningMsg:
