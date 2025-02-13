@@ -15,8 +15,7 @@
         "build": "rollup --config rollup.config.js",
         "clean": "rm -rf build package-lock.json",
         "test": "echo 'Not implemented!'",
-        "setup-lint": "node ./build/setup.js",
-        "postinstall": "npm run setup-lint"
+        "setup-lint": "node ./build/setup.js"
     },
     "type": "module",
     "dependencies": {

@@ -94,7 +94,7 @@ const rulesMetadata = {
       'Selector: "${selector}" is no longer available in SLDS2. Please update to a supported selector.',
     errorMsg:
       'Selector: "${selector}" is no longer available in SLDS2. Please update to a supported selector.',
-    ruleDesc: 'We’ve found code that’s not currently compatible with the new design for Lightning UI.',
+    ruleDesc: 'We’ve found code that’s not currently compatible with the Cosmos.',
   },
 
   // New rules
@@ -144,14 +144,17 @@ const rulesMetadata = {
       'Unexpected \"--_slds- private variable usage\" within selector "${prop}".',
     ruleDesc: 'Do not use \"--_slds- private variable\"',
   },
-  
+
+
+ // Needs CX review
+  // --sds-abc
   'slds/no-sds-custom-properties': {
     name: 'slds/no-sds-custom-properties',
     severityLevel: 'warning',
     warningMsg:
-      '"${prop}" is currently deprecated in the new design for Lightning UI.',
+      '"${prop}" is currently deprecated in the Cosmos.',
     errorMsg:
-      '"${prop}" is currently deprecated in the new design for Lightning UI.',
+      '"${prop}" is currently deprecated in the Cosmos.',
     ruleDesc: 'Do not use deprecated --sds custom properties.',
   },
   'slds/no-lwc-custom-properties': {
