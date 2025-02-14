@@ -1,39 +1,31 @@
 import stylelint, { Rule, PostcssResult } from 'stylelint';
 import { readFileSync } from 'fs';
 import { Root } from 'postcss';
-import { parse } from 'yaml';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
-const { utils, createPlugin } = stylelint;
+const { createPlugin } = stylelint;
 import ruleMetadata from './../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
+import { getClassNodesFromSelector } from '../../utils/selector-utils';
 
+const ruleName: string = 'slds/enforce-bem-usage';
 
-const ruleName:string = 'slds/enforce-bem-usage';
+const {
+  severityLevel = 'error',
+  warningMsg = '',
+  errorMsg = '',
+  ruleDesc = 'No description provided',
+} = ruleMetadata(ruleName) || {};
 
-const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
-
-interface Item {
-  name: string;
-  tokenType: string;
-  category: string;
-  properties: string[];
-  tokens: Record<string, string>;
-}
-
-interface ParsedData {
-  items: Item[];
-}
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   replaced: (oldValue: string, newValue: string) =>
-    replacePlaceholders(errorMsg, { oldValue, newValue} )
-    //`Consider updating '${oldValue}' to new naming convention '${newValue}'`,
+    replacePlaceholders(errorMsg, { oldValue, newValue }),
+  //`Consider updating '${oldValue}' to new naming convention '${newValue}'`,
 });
 
-const isTestEnv = process.env.NODE_ENV === 'test';
-const tokenMappingPath = metadataFileUrl('./public/metadata/bem-naming.yml');
 
-const bemMapping: ParsedData = parse(readFileSync(tokenMappingPath, 'utf8'));
+const tokenMappingPath = metadataFileUrl('./public/metadata/bem-naming.json');
+const bemMappings = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
 
 function validateOptions(result: PostcssResult, options: any): boolean {
   return stylelint.utils.validateOptions(result, ruleName, {
@@ -44,41 +36,48 @@ function validateOptions(result: PostcssResult, options: any): boolean {
 
 function rule(primaryOptions?: any) {
   return (root: Root, result: PostcssResult) => {
-    if (validateOptions(result, primaryOptions))
-    {
+    
+    const severity = result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
+    
+    if (validateOptions(result, primaryOptions)) {
       root.walkRules((rule) => {
-        const givenProp = rule.selector.replace('.', ''); //to remove cases like .slds-text-heading_large
-        if (bemMapping.items[0].tokens[givenProp]) {
-          const index = rule.toString().indexOf(givenProp);
-          const endIndex = index + givenProp.length;
-          const newValue = bemMapping.items[0].tokens[givenProp];
-          const severity =
-              result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
-          
-          if (typeof newValue === 'string') {
-            stylelint.utils.report({
-              message: messages.replaced(givenProp, newValue),
-              node: rule,
-              index,
-              endIndex,
-              result,
-              ruleName,
-              severity
-            });
+        let fixOffset = 0; // aggregate position change if using auto-fix, tracked at the rule level
+        const startIndex = rule.toString().indexOf(rule.selector);
+        const classNodes = getClassNodesFromSelector(rule.selector);
+        classNodes.forEach((classNode)=>{
+          // check mapping data for this class name
+          const newValue = bemMappings[classNode.value];
+          if (newValue) {
+            const index = startIndex + classNode.sourceIndex + 1; // find selector in rule plus '.'
+            const endIndex = index + classNode.value.length;
+            
+            const fix = () => {
+              rule.selector =
+                rule.selector.substring(0, fixOffset + index) +
+                newValue +
+                rule.selector.substring(fixOffset + endIndex);
+              fixOffset += newValue.length - (endIndex - index);
+            };
 
-            // Call the fix method if in fixing context
-            if (result.stylelint.config.fix) {
-              fix(rule, newValue);
+            if (typeof newValue === 'string') {
+              stylelint.utils.report({
+                message: messages.replaced(classNode.value, newValue),
+                node: rule,
+                index,
+                endIndex,
+                result,
+                ruleName,
+                severity,
+                fix,
+              });
             }
-          }
-        }
+          }        
+        })
       });
     }
   };
 }
 
-function fix(decl: any, newValue: string): void {
-  decl.value = newValue; // Update the declaration value
-}
+rule.meta = { ruleName, messages, fixable: true };
 
 export default createPlugin(ruleName, rule as unknown as Rule);
