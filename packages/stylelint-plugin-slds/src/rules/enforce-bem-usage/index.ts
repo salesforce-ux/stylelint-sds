@@ -1,14 +1,13 @@
 import stylelint, { Rule, PostcssResult } from 'stylelint';
 import { readFileSync } from 'fs';
 import { Root } from 'postcss';
-import SelectorParser from 'postcss-selector-parser';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
-const { utils, createPlugin } = stylelint;
+const { createPlugin } = stylelint;
 import ruleMetadata from './../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
+import { getClassNodesFromSelector } from '../../utils/selector-utils';
 
 const ruleName: string = 'slds/enforce-bem-usage';
-const selectorParser = SelectorParser();
 
 const {
   severityLevel = 'error',
@@ -44,8 +43,8 @@ function rule(primaryOptions?: any) {
       root.walkRules((rule) => {
         let fixOffset = 0; // aggregate position change if using auto-fix, tracked at the rule level
         const startIndex = rule.toString().indexOf(rule.selector);
-
-        for (const classNode of getClassesFromSelector(rule.selector)) {
+        const classNodes = getClassNodesFromSelector(rule.selector);
+        classNodes.forEach((classNode)=>{
           // check mapping data for this class name
           const newValue = bemMappings[classNode.value];
           if (newValue) {
@@ -72,20 +71,11 @@ function rule(primaryOptions?: any) {
                 fix,
               });
             }
-          }
-        }
+          }        
+        })
       });
     }
   };
-}
-
-function getClassesFromSelector(selector: string) {
-  const selectorAst = selectorParser.astSync(selector);
-  const classNames = [];
-  selectorAst.walkClasses((classNode) => {
-    classNames.push(classNode);
-  });
-  return classNames;
 }
 
 rule.meta = { ruleName, messages, fixable: true };
