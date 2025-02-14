@@ -24,6 +24,7 @@
     "JSONStream": "^1.3.5",
     "postcss-selector-parser": "^7.1.0",
     "postcss-values-parser": "^6.0.2",
+    "postcss-selector-parser": "^7.1.0",
     "rimraf": "^6.0.1",
     "stylelint": "16.10.0",
     "stylelint-sarif-formatter": "^1.0.7",
