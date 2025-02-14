@@ -2,7 +2,6 @@ import stylelint, { Rule, PostcssResult } from 'stylelint';
 import { readFileSync } from 'fs';
 import { Root } from 'postcss';
 import SelectorParser from 'postcss-selector-parser';
-import { parse } from 'yaml';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 const { utils, createPlugin } = stylelint;
 import ruleMetadata from './../../utils/rulesMetadata';
@@ -18,17 +17,6 @@ const {
   ruleDesc = 'No description provided',
 } = ruleMetadata(ruleName) || {};
 
-interface Item {
-  name: string;
-  tokenType: string;
-  category: string;
-  properties: string[];
-  tokens: Record<string, string>;
-}
-
-interface ParsedData {
-  items: Item[];
-}
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   replaced: (oldValue: string, newValue: string) =>
@@ -36,10 +24,9 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
   //`Consider updating '${oldValue}' to new naming convention '${newValue}'`,
 });
 
-const isTestEnv = process.env.NODE_ENV === 'test';
-const tokenMappingPath = metadataFileUrl('./public/metadata/bem-naming.yml');
 
-const bemMapping: ParsedData = parse(readFileSync(tokenMappingPath, 'utf8'));
+const tokenMappingPath = metadataFileUrl('./public/metadata/bem-naming.json');
+const bemMappings = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
 
 function validateOptions(result: PostcssResult, options: any): boolean {
   return stylelint.utils.validateOptions(result, ruleName, {
@@ -50,20 +37,21 @@ function validateOptions(result: PostcssResult, options: any): boolean {
 
 function rule(primaryOptions?: any) {
   return (root: Root, result: PostcssResult) => {
+    
+    const severity = result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
+    
     if (validateOptions(result, primaryOptions)) {
       root.walkRules((rule) => {
         let fixOffset = 0; // aggregate position change if using auto-fix, tracked at the rule level
+        const startIndex = rule.toString().indexOf(rule.selector);
+
         for (const classNode of getClassesFromSelector(rule.selector)) {
           // check mapping data for this class name
-          const newValue = bemMapping.items[0].tokens[classNode.value];
+          const newValue = bemMappings[classNode.value];
           if (newValue) {
-            const index =
-              rule.toString().indexOf(rule.selector) +
-              classNode.sourceIndex +
-              1; // find selector in rule plus '.'
+            const index = startIndex + classNode.sourceIndex + 1; // find selector in rule plus '.'
             const endIndex = index + classNode.value.length;
-            const severity =
-              result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
+            
             const fix = () => {
               rule.selector =
                 rule.selector.substring(0, fixOffset + index) +
