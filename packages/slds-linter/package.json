@@ -19,8 +19,8 @@
     },
     "type": "module",
     "dependencies": {
-        "@salesforce-ux/eslint-plugin-slds": "latest",
-        "@salesforce-ux/stylelint-plugin-slds": "latest"
+        "@salesforce-ux/eslint-plugin-slds": "*",
+        "@salesforce-ux/stylelint-plugin-slds": "*"
     },
     "keywords": [
         "eslint SDS",
