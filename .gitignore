@@ -7,5 +7,5 @@ dist/
 build/
 packages/**/*.tgz
 .npmrc
-.sldslinter
+.sldslinter/
 slds-linter-report.sarif
