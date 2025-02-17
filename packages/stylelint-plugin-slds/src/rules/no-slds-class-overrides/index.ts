@@ -18,9 +18,6 @@ const {
   ruleDesc = 'No description provided',
 } = ruleMetadata(ruleName) || {};
 
-const tokenMappingPath = metadataFileUrl('./public/metadata/slds_classes.json');
-const sldsClasses = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
-
 function rule(primaryOptions: Options) {
   return (root: Root, result: PostcssResult) => {
     const severity =
@@ -37,7 +34,10 @@ function rule(primaryOptions: Options) {
           return;
         } else {
           //match against slds_classes.json entries. As of now we have 4k_ entries.
-          if(sldsClasses.indexOf(classNode.value) > -1)
+          const tokenMappingPath = metadataFileUrl('./public/metadata/slds_classes.json');
+          const sldsClasses = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
+          const sldsSet = new Set(sldsClasses);
+          if(sldsSet.has(classNode.value))
           {
             const index = offsetIndex + classNode.sourceIndex + 1; // find selector in rule plus '.'
             const endIndex = index + classNode.value.length;
