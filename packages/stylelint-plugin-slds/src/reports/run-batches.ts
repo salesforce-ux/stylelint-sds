@@ -2,7 +2,7 @@ import { spawn } from 'cross-spawn'; // Makes it work on Windows. Link: https://
 import path from 'path';
 import cliProgress from 'cli-progress';
 
-const FOLDER_NAME = 'reports';
+const FOLDER_NAME = '.sldslinter';
 
 function runLinterBatch(batch: string[], batchNum: number, linterPath: string, configFile: string): Promise<string> {
   const OUTPUT_DIR = path.join(process.cwd(), FOLDER_NAME);

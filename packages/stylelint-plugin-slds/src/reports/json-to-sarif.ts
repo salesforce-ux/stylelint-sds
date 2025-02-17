@@ -7,8 +7,8 @@ import ruleMetadata from '../utils/rulesMetadata';
 const __dirname = process.cwd();
 
 // Input and output file paths
-const JSON_REPORT = path.join(__dirname, 'reports/consolidated_report.json');
-const SARIF_REPORT = path.join(__dirname, 'reports/consolidated_report.sarif');
+const JSON_REPORT = path.join(__dirname, '.sldslinter/consolidated_report.json');
+const SARIF_REPORT = path.join(__dirname, '/slds-linter-report.sarif');
 
 // Define SARIF structure types
 interface SarifRule {
