@@ -41,7 +41,7 @@ validateConfigFile(eslintConfigFilePath);
 if (targetDirectory === '') targetDirectory = '.';
 
 const TARGET_DIR = targetDirectory; //process.argv[2];
-const FOLDER_NAME = 'reports';
+const FOLDER_NAME = '.sldslinter';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
 // Batch settings
