@@ -89,11 +89,11 @@ interface Entry {
 }
 
 function pushRulesInSarifOutput(jsonData:Entry[]):void {
+  const ruleSet = new Set();
+
   jsonData.forEach((entry) => {
     if (!entry.warnings || entry.warnings.length === 0) return;
-   
-    const ruleSet = new Set();
-    
+
     entry.warnings.forEach((warning) => {
       const ruleId = warning.rule;
       if(!ruleSet.has(ruleId)){
