@@ -30,8 +30,6 @@ module.exports = {
       );
     }
 
-    //console.log(`deprecatedClassesPath ${deprecatedClassesPath}`)
-
     let deprecatedClasses = [];
     try {
       const fileContent = fs.readFileSync(deprecatedClassesPath, "utf8");
