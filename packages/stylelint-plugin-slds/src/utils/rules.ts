@@ -16,18 +16,18 @@ const rulesMetadata = {
     severityLevel: 'warning',
     //suggestedMsg: `The "${color}" static value has no replacement styling hook.` //TODO: How to handle this scenario.
     warningMsg:
-      'Consider replacing the static value for "${color}" with a design token: ${closestHook}',
+      'Consider replacing the static value for "${oldValue}" with a design token: "${newValue}"',
     errorMsg:
-      'Consider replacing the static value for "${color}" with a design token: ${closestHook}',
+      'Consider replacing the static value for "${oldValue}" with a design token: "${newValue}"',
     ruleDesc: 'Please consider using Design Token instead of static value',
   },
   'slds/no-hardcoded-values-slds2': {
     name: 'slds/no-hardcoded-values-slds2',
     severityLevel: 'warning',
     warningMsg:
-      'Consider replacing the static value for "${color}" with a design token: ${closestHook}',
+      'Consider replacing the static value for "${oldValue}" with a design token: "${newValue}"',
     errorMsg:
-      'Consider replacing the static value for "${color}" with a design token: ${closestHook}',
+      'Consider replacing the static value for "${oldValue}" with a design token: "${newValue}"',
     ruleDesc: 'Please consider using Design Token instead of static value'
   },
 
@@ -64,7 +64,7 @@ const rulesMetadata = {
     warningMsg: "The '${oldValue}' is currently deprecated.",
     errorMsg:
       "The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with the '${newValue}' styling hook and set the fallback to '${oldValue}'. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n",
-    ruleDesc: 'Replace deprecated --lwc tokens with the latest sdls tokens.',
+    ruleDesc: 'Replace deprecated --lwc tokens with the latest slds tokens.',
   },
   'slds/enforce-utility-classes': {
     name: 'slds/enforce-utility-classes',// UTILITY_CLASS
@@ -94,7 +94,7 @@ const rulesMetadata = {
       'Selector: "${selector}" is no longer available in SLDS2. Please update to a supported selector.',
     errorMsg:
       'Selector: "${selector}" is no longer available in SLDS2. Please update to a supported selector.',
-    ruleDesc: 'We’ve found code that’s not currently compatible with the Cosmos.',
+    ruleDesc: 'We’ve found code that’s not currently compatible with the new design for Lightning UI.',
   },
 
   // New rules
@@ -152,9 +152,9 @@ const rulesMetadata = {
     name: 'slds/no-sds-custom-properties',
     severityLevel: 'warning',
     warningMsg:
-      '"${prop}" is currently deprecated in the Cosmos.',
+      '"${prop}" is currently deprecated in the new design for Lightning UI.',
     errorMsg:
-      '"${prop}" is currently deprecated in the Cosmos.',
+      '"${prop}" is currently deprecated in the new design for Lightning UI.',
     ruleDesc: 'Do not use deprecated --sds custom properties.',
   },
   'slds/no-lwc-custom-properties': {

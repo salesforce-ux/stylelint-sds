@@ -30,9 +30,8 @@ const ruleName:string = 'slds/enforce-wcag-rules';
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: (color: string, closestHook: string) =>
-    replacePlaceholders(errorMsg, { color, closestHook} ),
-    // `Replace the "${color}" value with any styling hook mentioned below "${closestHook}" instead.`,
+  rejected: (oldValue: string, newValue: string) =>
+    replacePlaceholders(errorMsg, { oldValue, newValue} ),
   suggested: (color: string) =>
     `The "${color}" static value has no replacement styling hook.`,
 });
