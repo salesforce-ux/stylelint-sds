@@ -18,6 +18,10 @@ const {
   ruleDesc = 'No description provided',
 } = ruleMetadata(ruleName) || {};
 
+const tokenMappingPath = metadataFileUrl('./public/metadata/slds_classes.json');
+const sldsClasses = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
+const sldsSet = new Set(sldsClasses);
+
 function rule(primaryOptions: Options) {
   return (root: Root, result: PostcssResult) => {
     const severity =
@@ -25,24 +29,21 @@ function rule(primaryOptions: Options) {
 
     root.walkRules((rule) => {
       const classNodes = getClassNodesFromSelector(rule.selector);
-      
+
       const offsetIndex = rule.toString().indexOf(rule.selector);
       classNodes.forEach((classNode) => {
-        
-        if(!classNode.value.startsWith('slds-')){
+        if (!classNode.value.startsWith('slds-')) {
           // Ignore if the selector do not start with `slds-*`
           return;
         } else {
           //match against slds_classes.json entries. As of now we have 4k_ entries.
-          const tokenMappingPath = metadataFileUrl('./public/metadata/slds_classes.json');
-          const sldsClasses = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
-          const sldsSet = new Set(sldsClasses);
-          if(sldsSet.has(classNode.value))
-          {
+          if (sldsSet.has(classNode.value)) {
             const index = offsetIndex + classNode.sourceIndex + 1; // find selector in rule plus '.'
             const endIndex = index + classNode.value.length;
             utils.report({
-              message: replacePlaceholders(errorMsg,{selector:`.${classNode.value}`}),
+              message: replacePlaceholders(errorMsg, {
+                selector: `.${classNode.value}`,
+              }),
               node: rule,
               result,
               ruleName,
