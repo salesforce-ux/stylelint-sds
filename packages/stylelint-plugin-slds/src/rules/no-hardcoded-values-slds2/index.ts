@@ -11,6 +11,7 @@ import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
+import {valueToStylinghookSldsplus} from "@salesforce-ux/matadata-slds";
 
 // Define the structure of a hook
 interface Hook {
@@ -43,11 +44,11 @@ const isHardCodedDensifyValue = (cssValue: string): boolean => {
 };
 
 // Load and parse the JSON file
-const loadStylinghooksData = async (): Promise<StylinghookData> => {
+/* const loadStylinghooksData = async (): Promise<StylinghookData> => {
   const jsonFilePath = metadataFileUrl('public/metadata/valueToStylinghook.sldsplus.json');
   const jsonData = await fs.readFile(jsonFilePath, 'utf8');
   return JSON.parse(jsonData) as StylinghookData; // Cast the parsed data to StylinghookData type
-};
+}; */
 
 /**
  * Check if any of the hook properties match the provided cssProperty using wildcard matching.
@@ -101,7 +102,7 @@ function validateOptions(result: PostcssResult, options: any): boolean {
 
 function rule(primaryOptions?: any) {
   return async (root: Root, result: PostcssResult) => {
-    const supportedStylinghooks = await loadStylinghooksData(); // Await the loading of color data
+    const supportedStylinghooks = valueToStylinghookSldsplus; //await loadStylinghooksData(); // Await the loading of color data
 
     root.walkDecls((decl) => {
       const cssProperty = decl.prop.toLowerCase();

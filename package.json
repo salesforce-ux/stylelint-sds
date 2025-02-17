@@ -5,6 +5,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "install-all": "npm install --workspaces",
     "build": "npm run build --workspaces",
@@ -14,6 +15,19 @@
     "report": "node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js -d packages/test-repository"
   },
   "devDependencies": {
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "rollup": "^4.12.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-delete": "^2.1.0",
+    "rollup-plugin-node-externals":"^8.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@rollup/plugin-json":"^6.1.0",
+    "ts-node": "10.9.2",
+    "typescript": "5.3.3",
+    "glob":"^11.0.1",
+    "gulp":"^5.0.0",
+    "gulp-clean-dir":"^1.0.2",
+    "clean-pkg-json":"^1.2.0",
+    "gulp-execa":"^8.0.0"
   }
 }

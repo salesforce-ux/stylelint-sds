@@ -6,6 +6,7 @@ const { createPlugin } = stylelint;
 import ruleMetadata from './../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 import { getClassNodesFromSelector } from '../../utils/selector-utils';
+import {bemNaming as bemMappings} from "@salesforce-ux/matadata-slds";
 
 const ruleName: string = 'slds/enforce-bem-usage';
 
@@ -22,10 +23,6 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
     replacePlaceholders(errorMsg, { oldValue, newValue }),
   //`Consider updating '${oldValue}' to new naming convention '${newValue}'`,
 });
-
-
-const tokenMappingPath = metadataFileUrl('./public/metadata/bem-naming.json');
-const bemMappings = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
 
 function validateOptions(result: PostcssResult, options: any): boolean {
   return stylelint.utils.validateOptions(result, ruleName, {

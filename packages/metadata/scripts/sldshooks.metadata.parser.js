@@ -5,8 +5,13 @@ import { dirname } from 'path';
 // Define __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const metadataDir = `${__dirname}/../public/metadata`;
+const metadataDir = `${__dirname}/../resources`;
 
+
+// This script is used to normalize the data from the globalSharedHooks.metadata.json file.
+// It reads the input JSON file, normalizes the data, and writes the normalized data to a new JSON file.
+// The script is used to create two different JSON files, one for slds and one for slds2.
+// The generated file will be used to suggest possible hooks for a hardcoded value in css
 async function normalizeData(sldsVersion) {
   try {
     // Read the input JSON file

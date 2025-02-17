@@ -5,6 +5,7 @@ import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
+import {deprecatedHooks} from "@salesforce-ux/matadata-slds";
 
 const ruleName: string = 'slds/no-deprecated-slds-hooks';
 
@@ -17,12 +18,12 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 // Read the deprecated tokens file
-const isTestEnv = process.env.NODE_ENV === 'test';
+/* const isTestEnv = process.env.NODE_ENV === 'test';
 const tokenMappingPath = metadataFileUrl(
   './public/metadata/deprecatedHooks.json'
 );
 
-const deprecatedHooks = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
+const deprecatedHooks = JSON.parse(readFileSync(tokenMappingPath, 'utf8')); */
 
 function validateOptions(result: PostcssResult, options: any): boolean {
   return utils.validateOptions(result, ruleName, {

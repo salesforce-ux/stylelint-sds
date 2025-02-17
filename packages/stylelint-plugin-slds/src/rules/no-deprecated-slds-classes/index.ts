@@ -5,6 +5,7 @@ import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 import { getClassNodesFromSelector } from '../../utils/selector-utils';
+import {deprecatedClasses} from "@salesforce-ux/matadata-slds";
 
 const { utils, createPlugin } = stylelint;
 
@@ -21,7 +22,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
     replacePlaceholders(errorMsg, { className }),
 });
 
-const isTestEnv = process.env.NODE_ENV === 'test';
+/* const isTestEnv = process.env.NODE_ENV === 'test';
 const tokenMappingPath = metadataFileUrl(
   './public/metadata/deprecatedClasses.json'
 );
@@ -29,7 +30,7 @@ const tokenMappingPath = metadataFileUrl(
 const defaultDeprecatedClasses = new Set(
   JSON.parse(readFileSync(tokenMappingPath, 'utf8'))
 );
-
+ */
 // Regex to match classes
 const classRegex = /\.[\w-]+/g;
 
@@ -43,8 +44,7 @@ function validateOptions(result: PostcssResult, options: any): boolean {
 function rule(
   primaryOptions: any,
   secondaryOptions: any,
-  context: any,
-  deprecatedClasses = defaultDeprecatedClasses
+  context: any
 ) {
   return (root: Root, result: PostcssResult) => {
     const severity =
@@ -52,12 +52,13 @@ function rule(
     if (!validateOptions(result, primaryOptions)) {
       return;
     }
+    const deprecatedClassesSet = new Set(deprecatedClasses);
 
     root.walkRules((rule) => {
       const classNodes = getClassNodesFromSelector(rule.selector);
       const offsetIndex = rule.toString().indexOf(rule.selector);
       classNodes.forEach((classNode) => {
-        if (!deprecatedClasses.has(classNode.value)) {
+        if (!deprecatedClassesSet.has(classNode.value)) {
           return;
         }
         const index = offsetIndex + classNode.sourceIndex + 1; // find selector in rule plus '.'

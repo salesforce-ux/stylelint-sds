@@ -7,14 +7,13 @@ import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin }: typeof stylelint = stylelint;
+import {utilities as predefinedClasses} from "@salesforce-ux/matadata-slds";
 
 const ruleName:string = 'slds/enforce-utility-classes';
 
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
-// Load the predefined classes from a JSON file
-const jsonFilePath = metadataFileUrl('./public/metadata/utilities.json');
-const predefinedClasses = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'));
+
 
 // Helper function to normalize property values (trim and lowercase)
 function normalizeValue(value: string): string {

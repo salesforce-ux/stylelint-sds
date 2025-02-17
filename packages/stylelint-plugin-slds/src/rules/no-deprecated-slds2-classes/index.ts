@@ -5,6 +5,8 @@ import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
+import {sldsPlusMetadata} from "@salesforce-ux/matadata-slds";
+const deprecatedSelectorsList = sldsPlusMetadata.bem.css.deprecated.selectors;
 
 
 
@@ -20,12 +22,12 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 const isTestEnv = process.env.NODE_ENV === 'test';
 
 // Load deprecated selectors from a metadata file
-const deprecatedSelectorsPath = metadataFileUrl('./public/metadata/sldsPlus.metadata.json');
+/* const deprecatedSelectorsPath = metadataFileUrl('./public/metadata/sldsPlus.metadata.json');
 
 // Read and parse the JSON file containing deprecated selectors
 const deprecatedSelectors = JSON.parse(
   readFileSync(deprecatedSelectorsPath, 'utf8')
-).bem.css.deprecated.selectors;
+).bem.css.deprecated.selectors; */
 
 function validateOptions(result: PostcssResult, options: any): boolean {
   return utils.validateOptions(result, ruleName, {
@@ -37,8 +39,7 @@ function validateOptions(result: PostcssResult, options: any): boolean {
 function rule(
   primaryOptions: any,
   secondaryOptions: any,
-  context: any,
-  deprecatedSelectorsList = deprecatedSelectors
+  context: any
 ) {
   return (root: Root, result: PostcssResult) => {
     if (validateOptions(result, primaryOptions)) {

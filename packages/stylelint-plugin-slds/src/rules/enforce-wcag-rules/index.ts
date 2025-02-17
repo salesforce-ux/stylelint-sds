@@ -7,10 +7,10 @@ import {
   isHardCodedColor,
 } from '../../utils/color-lib-utils';
 import { Root } from 'postcss';
-import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import replacePlaceholders from '../../utils/util';
 import ruleMetadata from '../../utils/rulesMetadata';
 const { utils, createPlugin } = stylelint;
+import {valueToStylinghookSlds} from "@salesforce-ux/matadata-slds";
 
 // Define the structure of a hook
 interface Hook {
@@ -44,12 +44,12 @@ const isHardCodedDensifyValue = (cssValue: string): boolean => {
 };
 
 // Load and parse the JSON file
-const loadStylinghooksData = async (): Promise<StylinghookData> => {
+/* const loadStylinghooksData = async (): Promise<StylinghookData> => {
   const jsonFilePath = metadataFileUrl('public/metadata/valueToStylinghook.slds.json');
   
   const jsonData = await fs.readFile(jsonFilePath, 'utf8');
   return JSON.parse(jsonData) as StylinghookData; // Cast the parsed data to StylinghookData type
-};
+}; */
 
 /**
  * Check if any of the hook properties match the provided cssProperty using wildcard matching.
@@ -103,7 +103,7 @@ function validateOptions(result: PostcssResult, options: any): boolean {
 
 function rule(primaryOptions?: any) {
   return async (root: Root, result: PostcssResult) => {
-    const supportedStylinghooks = await loadStylinghooksData(); // Await the loading of color data
+    const supportedStylinghooks = valueToStylinghookSlds; //await loadStylinghooksData(); // Await the loading of color data
 
     root.walkDecls((decl) => {
       const severity =

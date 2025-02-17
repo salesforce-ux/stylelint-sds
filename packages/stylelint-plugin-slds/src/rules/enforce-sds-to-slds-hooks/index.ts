@@ -6,6 +6,7 @@ import replacePlaceholders from '../../utils/util';
 import valueParser from 'postcss-value-parser';
 import { readFileSync } from 'fs';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
+import {globalSharedHooksMetadata} from "@salesforce-ux/matadata-slds";
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
@@ -16,9 +17,7 @@ const ruleInfo = ruleMetadata(ruleName);
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 // data
-const globalSharedHooksPath = metadataFileUrl('./public/metadata/globalSharedHooks.metadata.json');
-const globalSharedHooks = JSON.parse(readFileSync(globalSharedHooksPath, 'utf8'));
-const allSldsHooks = [].concat(Object.keys(globalSharedHooks.global), Object.keys(globalSharedHooks.shared));
+const allSldsHooks = [].concat(Object.keys(globalSharedHooksMetadata.global), Object.keys(globalSharedHooksMetadata.shared));
 
 function validateOptions(result: PostcssResult, options: Options): boolean {
   return utils.validateOptions(result, ruleName, {
