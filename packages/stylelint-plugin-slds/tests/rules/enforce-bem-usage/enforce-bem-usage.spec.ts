@@ -145,7 +145,6 @@ describe('enforce-bem-usage', () => {
         let lintResult = await processLint(input, false);
 
         // Verify the reported messages
-        // console.log(lintResult._postcssResult.messages);
         const reportedMessages = lintResult._postcssResult.messages.map(
           (message) => message.text
         );

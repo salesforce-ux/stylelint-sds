@@ -86,11 +86,8 @@ describe('no-hardcoded-values', () => {
         );
 
         if (expectedMessage) {
-          //console.log(expectedMessage)
-          console.log(`Whats coming ${messages[0]}`)
           expect(messages[0]).to.include(expectedMessage);
         } else {
-          //console.log(`EMPTY!!!`)
           expect(messages).to.be.empty;
         }
         if (expectedReplacement) {

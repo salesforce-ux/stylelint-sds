@@ -30,10 +30,6 @@ describe('no-invalid-tokens-classes Stylelint Rule', () => {
 
     const warnings = result.results[0].warnings;
     expect(warnings).to.have.lengthOf(1);
-
-
-    console.log(`Here are the warnings ${warnings[0].text}`)
-
     expect(warnings[0].text).to.include(
       'Consider removing "token(brandPrimary)", or updating to a design token with a corresponding value. To avoid breaking changes, replace it with "var(--lwc-brandPrimary, token(brandPrimary))" styling hook.'
     );
