@@ -3,6 +3,10 @@
   "version": "0.0.9",
   "main": "build/index.js",
   "type": "module",
+  "exports": {
+    "./build/rules": "./build/rules/index.js",
+    "./.stylelintrc.yml":"./.stylelintrc.yml"
+  },
   "files": [
     "build/*",
     "README.md", 

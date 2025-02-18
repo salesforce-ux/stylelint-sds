@@ -6,9 +6,6 @@
     "bin": {
         "slds-linter": "./bin/slds-linter.js"
     },
-    "workspaces": [
-        "packages/*"
-    ],
     "access": "public",
     "files": [
         "build/",
@@ -16,16 +13,19 @@
         "README.md"
     ],
     "scripts": {
-        "build": "rollup --config rollup.config.js",
-        "clean": "rm -rf build package-lock.json",
-        "test": "echo 'Not implemented!'",
-        "setup-lint": "node ./build/setup.js"
+        "setup-lint": "node ./build/setup.js",
+        "compile": "tsc --project tsconfig.json",
+        "prepublishOnly": "clean-pkg-json",
+        "build": "gulp build"
     },
     "type": "module",
     "dependencies": {
-        "@salesforce-ux/eslint-plugin-slds": "latest",
-        "@salesforce-ux/stylelint-plugin-slds": "latest",
+        "@salesforce-ux/eslint-plugin-slds": "*",
+        "@salesforce-ux/stylelint-plugin-slds": "*",
         "chalk": "^5.3.0",
+        "eslint": "^8.0.0",
+        "npm-run-path": "^6.0.0",
+        "stylelint": "^16.10.0",
         "yargs": "^17.7.2"
     },
     "keywords": [
@@ -35,7 +35,5 @@
         "sds linter"
     ],
     "author": "Kishore Nemalipuri",
-    "license": "MIT",
-    "devDependencies": {
-    }
+    "license": "MIT"
 }

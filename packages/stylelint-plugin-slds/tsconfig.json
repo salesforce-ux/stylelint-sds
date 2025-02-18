@@ -2,11 +2,12 @@
   "compilerOptions": {
     "outDir": "build",
     "target": "ESNext",
-    "module": "esnext",
+    "module": "ES2022",
     "moduleResolution": "node",
     "declaration": true,
     "noEmitOnError": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["./src/**/*.ts"]
 }
