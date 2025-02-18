@@ -1,6 +1,7 @@
 // THIS IS TAKEN FROM html-eslint
 
-const { NODE_TYPES } = require("@html-eslint/parser");
+import { NODE_TYPES } from "@html-eslint/parser";
+
 
 /**
  * @param {TagNode | ScriptTagNode | StyleTagNode} node
@@ -209,7 +210,7 @@ function getTemplateTokens(tokens) {
   );
 }
 
-module.exports = {
+export {
   findAttr,
   isAttributesEmpty,
   isNodeTokensOnSameLine,

@@ -1,9 +1,7 @@
-const {
-    findAttr,
-    isAttributesEmpty
-  } = require("./utils/node");
+import { findAttr, isAttributesEmpty } from "./utils/node";
 
-module.exports = {
+
+export = {
     meta: {
       type: "problem", // The rule type
       docs: {

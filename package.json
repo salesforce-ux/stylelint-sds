@@ -23,6 +23,7 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "@rollup/plugin-json": "^6.1.0",
     "@types/node": "^20.11.19",
+    "@types/eslint": "^8.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
     "ts-node": "^10.9.2",

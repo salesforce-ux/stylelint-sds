@@ -1,7 +1,8 @@
-module.exports = {
+
+export = {
     rules: {
-        "enforce-bem-class": require("./rules/enforce-bem-class"),
-        "no-deprecated-slds-classes": require("./rules/no-deprecated-slds-classes"),
+        "enforce-bem-class": require('./rules/enforce-bem-class'),
+        "no-deprecated-slds-classes": require('./rules/no-deprecated-slds-classes'),
         "modal-close-button-issue": require('./rules/modal-close-button-issue')
     },
     configs: {

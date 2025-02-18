@@ -1,7 +1,7 @@
-const { findAttr, isAttributesEmpty } = require("./utils/node");
+import { findAttr, isAttributesEmpty } from "./utils/node";
 
 // This rule specific to CVS, find more details here https://issues.salesforce.com/issue/a028c00000zh1iqAAA/modal-close-button-is-not-visible-with-the-new-white-background-after-winter-25-release
-module.exports = {
+export = {
   meta: {
     type: "problem",
     docs: {
