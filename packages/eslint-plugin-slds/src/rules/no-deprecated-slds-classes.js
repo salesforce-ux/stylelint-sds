@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { findAttr, isAttributesEmpty } = require("./utils/node");
+const {deprecatedClasses} = require('@salesforce-ux/matadata-slds');
 
 module.exports = {
   meta: {
@@ -17,7 +18,7 @@ module.exports = {
   },
 
   create(context) {
-    let deprecatedClassesPath = path.resolve(
+    /* let deprecatedClassesPath = path.resolve(
       __dirname, 
       "./public/metadata/deprecatedClasses.json"
     );
@@ -28,18 +29,18 @@ module.exports = {
         __dirname, 
         "./../../public/metadata/deprecatedClasses.json"
       );
-    }
+    } */
 
     //console.log(`deprecatedClassesPath ${deprecatedClassesPath}`)
 
-    let deprecatedClasses = [];
+    /* let deprecatedClasses = [];
     try {
       const fileContent = fs.readFileSync(deprecatedClassesPath, "utf8");
       deprecatedClasses = JSON.parse(fileContent);
     } catch (error) {
       console.error(`Failed to load deprecated classes JSON: ${error.message}`);
       return {}; // Exit gracefully if JSON cannot be loaded
-    }
+    } */
 
     function check(node) {
       if (isAttributesEmpty(node)) {
