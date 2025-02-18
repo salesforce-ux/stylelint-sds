@@ -1,6 +1,6 @@
 {
     "name": "@salesforce-ux/slds-linter",
-    "version": "0.0.8",
+    "version": "0.0.11",
     "description": "SLDS Linter with both stylelint and eslint together",
     "main": "index.mjs",
     "bin": {
@@ -23,8 +23,8 @@
     },
     "type": "module",
     "dependencies": {
-        "@salesforce-ux/eslint-plugin-slds": "latest",
-        "@salesforce-ux/stylelint-plugin-slds": "latest",
+        "@salesforce-ux/eslint-plugin-slds": "0.0.11",
+        "@salesforce-ux/stylelint-plugin-slds": "0.0.11",
         "chalk": "^5.3.0",
         "yargs": "^17.7.2"
     },
