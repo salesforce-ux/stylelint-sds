@@ -40,6 +40,8 @@ function createGitHubRelease(version, token, user, tgzFilePath) {
       `npx gh-release --token ${token} --owner ${user} --repo test --tag v${version} --name "Release v${version}" --assets ${tgzFilePath} --dry-run`,
       { stdio: "inherit" }
     );
+    console.log(`Running semantic-release...`);
+    execSync(`CI=true GH_TOKEN=${token} npx semantic-release`);
     console.log(`GitHub Release for v${version} created successfully.`);
   } catch (error) {
     console.error("Error creating GitHub release:", error.message);
@@ -61,7 +63,10 @@ function isValidVersion(version) {
 }
 
 function packPackage(packageLinter, versionLinter) {
-  execSync("npm pack", { cwd: packageLinter, stdio: "inherit" });
+  
+        execSync(`mkdir ${packageLinter}/dist`);
+        execSync("npm pack --pack-destination ./dist", { cwd: packageLinter, stdio: 'inherit' });
+
   const tgzFilePath = path.resolve(
     packageLinter,
     `salesforce-ux-slds-linter-${versionLinter}.tgz`
@@ -195,7 +200,7 @@ async function publishPackages() {
 
     //Create a github release
     console.log("Creating github release...");
-    createGitHubRelease(versionLinter, githubToken, githubUsername, tgzPath);
+//     createGitHubRelease(versionLinter, githubToken, githubUsername, tgzPath);
   } catch (error) {
     console.error("Error in publishing packages", error.message);
   } finally {
