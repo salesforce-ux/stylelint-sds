@@ -7,8 +7,8 @@ import {ruleMetadata} from '@salesforce-ux/stylelint-plugin-slds';
 const __dirname = process.cwd();
 
 // Input and output file paths
-const JSON_REPORT = path.join(__dirname, 'reports/consolidated_report.json');
-const SARIF_REPORT = path.join(__dirname, 'reports/consolidated_report.sarif');
+const JSON_REPORT = path.join(__dirname, '.sldslinter/consolidated_report.json');
+const SARIF_REPORT = path.join(__dirname, '/slds-linter-report.sarif');
 
 // Define SARIF structure types
 interface SarifRule {
@@ -89,11 +89,11 @@ interface Entry {
 }
 
 function pushRulesInSarifOutput(jsonData:Entry[]):void {
+  const ruleSet = new Set();
+
   jsonData.forEach((entry) => {
     if (!entry.warnings || entry.warnings.length === 0) return;
-   
-    const ruleSet = new Set();
-    
+
     entry.warnings.forEach((warning) => {
       const ruleId = warning.rule;
       if(!ruleSet.has(ruleId)){

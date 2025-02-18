@@ -21,6 +21,7 @@ export default
 		'yaml', // Third-party module
 		'postcss-value-parser', // Third-party module
 		'postcss-values-parser', // Third-party module
+		'postcss-selector-parser',
 		'chroma-js', // Third-party module
 		'cli-progress'
 	  ],

@@ -45,6 +45,7 @@ const isHardCodedDensifyValue = (cssValue: string): boolean => {
 
 // Load and parse the JSON file
 /* const loadStylinghooksData = async (): Promise<StylinghookData> => {
+
   const jsonFilePath = metadataFileUrl('public/metadata/valueToStylinghook.slds.json');
   
   const jsonData = await fs.readFile(jsonFilePath, 'utf8');

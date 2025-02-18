@@ -42,7 +42,7 @@ validateConfigFile(stylelintConfigFilePath);
 
 if (targetDirectory === '') targetDirectory = '.';
 
-const FOLDER_NAME = 'reports';
+const FOLDER_NAME = '.sldslinter';
 const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
 
 // Batch settings
