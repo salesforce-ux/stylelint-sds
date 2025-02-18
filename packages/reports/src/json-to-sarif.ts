@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { normalizePath } from './utils/utils';
-import ruleMetadata from '../utils/rulesMetadata';
+import {ruleMetadata} from '@salesforce-ux/stylelint-plugin-slds';
 
 
 const __dirname = process.cwd();

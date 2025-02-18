@@ -34,7 +34,7 @@ async function generateIndex(){
   }).join('\n');
   writeFileSync('./build/index.js', content);
 
-  writeFileSync('./build/index.d.ts', `declare module '@salesforce-ux/matadata-slds';
+  writeFileSync('./types/index.d.ts', `declare module '@salesforce-ux/matadata-slds';
     ${content}
   `)
 }
@@ -64,6 +64,6 @@ function generateFiles() {
 
 const genrateDefinitions = task(`tsc --project ${process.cwd()}/tsconfig.json`);
 
-export const build = series(cleanDirs, copy, generateFiles, genrateDefinitions, generateIndex);
+export const build = series(cleanDirs, /* copy, */ generateFiles, genrateDefinitions, generateIndex);
 
 export default task("gulp --tasks");

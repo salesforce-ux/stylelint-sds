@@ -3,12 +3,16 @@
     "version": "0.0.10",
     "main": "build/index.js",
     "files": [
-        "build/*"
+        "build/*",
+        "README.md",
+        "RULES.md",
+        ".eslintrc.yml",
+        "public/*"
     ],
     "scripts": {
-        "build": "rollup -c",
-        "clean": "rm -rf build package-lock.json",
-        "test": "jest"
+        "build": "rollup -c",    
+        "test": "jest",
+        "prepublishOnly": "clean-pkg-json"
     },
     "keywords": [],
     "author": "",

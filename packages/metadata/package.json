@@ -6,6 +6,7 @@
   ],
   "type": "module",
   "main": "build/index.js",
+  "types": "types/index.d.ts",
   "description": "This package contains metdata required to validate and autofix by linter",
   "author": "UXF Tooling Team",
   "license": "ISC",

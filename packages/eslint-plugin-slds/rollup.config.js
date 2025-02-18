@@ -20,28 +20,5 @@ export default {
     resolve(), // Resolve Node.js-style imports (from node_modules)
     commonjs(), // Convert CommonJS to ES modules
     //terser(), // Minify the output for production
-    copy(
-    {
-      targets:
-      [
-        {
-          src: 'package.json',
-          dest: 'build'
-        },
-        {
-          src: 'README.md',
-          dest: 'build'
-        },
-        {
-          src: 'public',
-          dest: 'build',
-          rename: './public'
-        },
-        {
-          src: '.eslintrc.yml',
-          dest: 'build'
-        }
-      ]
-    })
   ],
 };

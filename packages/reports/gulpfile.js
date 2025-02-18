@@ -7,23 +7,14 @@ import {task} from "gulp-execa";
  * @returns 
  */
 function cleanDirs(){
-    return rimraf(['build', 'publish']);
+    return rimraf(['build']);
 }
-
-/**
- * Copy resources to publish dir
- * @returns 
- */
-function copy() {
-    return src(['./package.json', 'README.md', 'RULES.MD'])
-      .pipe(dest('build/'));
-  }
 
  /**
   * Compile typescript files
   * */ 
 const compileTs = task(`tsc --project ${process.cwd()}/tsconfig.json`);
   
-export const build = series(cleanDirs, /* copy, */ compileTs);
+export const build = series(cleanDirs, compileTs);
 
 export default task('gulp --tasks');
