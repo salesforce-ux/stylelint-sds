@@ -1,0 +1,63 @@
+/* Example component styles using lwc tokens that will be replaced */
+
+.my-component {
+    /* Will be replaced with --slds-g-color-surface-container-1 */
+    background-color: var(--lwc-colorBackgroundAlt);
+    
+    /* Will be replaced with --slds-g-radius-border-circle */
+    border-radius: var(--lwc-borderRadiusCircle);
+    
+    /* This token is deprecated (value is "--" in mapping) */
+    background-image: var(--lwc-brandBandDefaultImage);
+    
+    /* Will be replaced with --slds-g-spacing-4 */
+    padding: var(--lwc-spacingMedium);
+    
+    /* Will be replaced with --slds-g-color-accent-1 */
+    color: var(--lwc-colorTextBrand);
+}
+
+.my-button {
+    /* Will be replaced with --slds-g-color-accent-container-1 */
+    background-color: var(--lwc-buttonColorBackgroundBrandPrimary);
+    
+    /* Will be replaced with --slds-g-color-on-accent-1 */
+    color: var(--lwc-buttonColorTextPrimary);
+    
+    /* Will be replaced with --slds-s-button-radius-border */
+    border-radius: var(--lwc-buttonBorderRadius);
+    
+    /* Will be replaced with --slds-g-color-border-accent-1 */
+    border: 1px solid var(--lwc-buttonColorBorderBrandPrimary);
+}
+
+.my-banner {
+    /* These tokens are deprecated (value is "--" in mapping) */
+    background-image: var(--lwc-bannerGroupDefaultImage);
+    content: var(--lwc-bannerUserDefaultImage);
+    
+    /* Will be replaced with --slds-g-spacing-4 */
+    padding: var(--lwc-spacingMedium);
+}
+
+.my-card {
+    /* Will be replaced with --slds-g-color-surface-container-1 */
+    background: var(--lwc-cardColorBackground);
+    
+    /* Will be replaced with --slds-s-container-color-border */
+    border: 1px solid var(--lwc-cardColorBorder);
+    
+    /* Will be replaced with 0 var(--slds-g-spacing-4) */
+    padding: var(--lwc-cardBodyPadding);
+}
+
+.my-spinner {
+    /* This token should continue to be used as-is - will be ignored by tool */
+    animation-duration: var(--lwc-durationInstantly);
+    
+    /* Will be replaced with --slds-g-sizing-9 */
+    width: var(--lwc-spinnerSizeMedium);
+    
+    /* Will be replaced with --slds-g-sizing-9 */
+    height: var(--lwc-spinnerSizeMedium);
+} 

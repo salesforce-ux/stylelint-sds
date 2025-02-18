@@ -6,9 +6,11 @@ import { fileURLToPath } from 'url';
 import chalk from 'chalk';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+import {npmRunPathEnv} from 'npm-run-path';
 
-const eslintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/eslint-plugin-slds/build/.eslintrc.yml'));
-const stylelintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/stylelint-plugin-slds/build/.stylelintrc.yml'));
+const eslintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/eslint-plugin-slds/.eslintrc.yml'));
+const stylelintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/stylelint-plugin-slds/.stylelintrc.yml'));
+
 
 // ✅ Define CLI Commands using `yargs`
 yargs(hideBin(process.argv))
@@ -19,8 +21,8 @@ yargs(hideBin(process.argv))
         () => {
             console.log(chalk.cyan('🔍 Running ESLint and Stylelint...'));
             try {
-                execSync(`eslint **/*.{html,cmp} --config ${eslintConfigPath} --ext .html,.cmp`, { stdio: 'inherit' });
-                execSync(`stylelint ./**/*.css --config ${stylelintConfigPath}`, { stdio: 'inherit' });
+                execSync(`npx eslint **/*.{html,cmp} --config ${eslintConfigPath} --ext .html,.cmp`, { stdio: 'inherit', env: npmRunPathEnv() });
+                execSync(`npx stylelint ./**/*.css --config ${stylelintConfigPath}`, { stdio: 'inherit', env: npmRunPathEnv() });
                 console.log(chalk.green('✅ Linting completed successfully!'));
             } catch (error) {
                 console.error(chalk.red('❌ Linting failed. Please fix the errors and try again.'));
@@ -35,7 +37,7 @@ yargs(hideBin(process.argv))
         () => {
             console.log(chalk.cyan('🎨 Running Stylelint...'));
             try {
-                execSync(`stylelint ./**/*.css --config ${stylelintConfigPath}`, { stdio: 'inherit' });
+                execSync(`npx stylelint ./**/*.css --config ${stylelintConfigPath}`, { stdio: 'inherit', env: npmRunPathEnv() });
                 console.log(chalk.green('✅ Stylelint completed successfully!'));
             } catch (error) {
                 console.error(chalk.red('❌ Stylelint failed. Please fix the errors and try again.'));
@@ -50,7 +52,7 @@ yargs(hideBin(process.argv))
         () => {
             console.log(chalk.cyan('🛠️ Running ESLint...'));
             try {
-                execSync(`eslint **/*.{html,cmp} --config ${eslintConfigPath} --ext .html,.cmp`, { stdio: 'inherit' });
+                execSync(`npx eslint **/*.{html,cmp} --config ${eslintConfigPath} --ext .html,.cmp`, { stdio: 'inherit', env: npmRunPathEnv() });
                 console.log(chalk.green('✅ ESLint completed successfully!'));
             } catch (error) {
                 console.error(chalk.red('❌ ESLint failed. Please fix the errors and try again.'));
@@ -65,8 +67,8 @@ yargs(hideBin(process.argv))
         () => {
             console.log(chalk.cyan('🔧 Running auto-fix for ESLint and Stylelint...'));
             try {
-                execSync(`eslint **/*.{html,cmp} --config ${eslintConfigPath} --fix --ext .html,.cmp`, { stdio: 'inherit' });
-                execSync(`stylelint "**/*.css" -c ${stylelintConfigPath} --fix`, { stdio: 'inherit' });
+                execSync(`npx eslint **/*.{html,cmp} --config ${eslintConfigPath} --fix --ext .html,.cmp`, { stdio: 'inherit', env: npmRunPathEnv() });
+                execSync(`npx stylelint "**/*.css" -c ${stylelintConfigPath} --fix`, { stdio: 'inherit', env: npmRunPathEnv() });
                 console.log(chalk.green('✅ Auto-fix applied successfully!'));
             } catch (error) {
                 console.error(chalk.red('❌ Fixing failed. Please check linting errors.'));
@@ -88,7 +90,7 @@ yargs(hideBin(process.argv))
         (argv) => {
             console.log(chalk.cyan(`📊 Generating linting report for ${argv.dir}...`));
             try {
-                execSync(`node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js ${argv.dir} -c ${stylelintConfigPath}`, { stdio: 'inherit' });
+                execSync(`node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js ${argv.dir} -c ${stylelintConfigPath}`, { stdio: 'inherit', env: npmRunPathEnv() });
                 console.log(chalk.green('✅ Report generated successfully!'));
             } catch (error) {
                 console.error(chalk.red('❌ Failed to generate the report.'));
