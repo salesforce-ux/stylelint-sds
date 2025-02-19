@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLDS BEM Example</title>
+    <link rel="stylesheet" href="enforce-bem.css">
+</head>
+<body class="slds-theme_default">
+    <div class="slds-grid slds-grid_frame">
+        <!-- Header Section -->
+        <header class="slds-container_medium slds-p-around_medium slds-border_bottom">
+            <div class="slds-media slds-media_center">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon_container_circle">
+                        Logo
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h1 class="slds-text-heading_large">Company Name</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="slds-container_medium slds-p-around_medium">
+            <!-- Featured Section -->
+            <section class="slds-box_small slds-m-bottom_large slds-theme_shade">
+                <h2 class="slds-text-heading_medium slds-text-align_center slds-m-bottom_large">
+                    Featured Content
+                </h2>
+                <div class="slds-grid slds-grid_align-center">
+                    <!-- Card 1 -->
+                    <div class="slds-card slds-m-around_medium">
+                        <div class="slds-card__body_inner">
+                            <div class="slds-text-body_regular">
+                                Card Content 1
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="slds-card slds-m-around_medium">
+                        <div class="slds-card__body_inner">
+                            <div class="slds-text-body_regular">
+                                Card Content 2
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Form Section -->
+            <section class="slds-box_small">
+                <h2 class="slds-text-heading_medium slds-m-bottom_large">Contact Form</h2>
+                <form class="slds-form">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Name</label>
+                        <input type="text" class="slds-input" placeholder="Enter your name">
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Email</label>
+                        <input type="email" class="slds-input" placeholder="Enter your email">
+                    </div>
+                    <div class="slds-form-element">
+                        <button class="slds-button slds-button_brand slds-m-top_medium">
+                            Submit
+                        </button>
+                        <button class="slds-button slds-button_neutral slds-m-top_medium slds-m-left_medium">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="slds-container_medium slds-p-around_medium slds-border_top">
+            <div class="slds-text-body_regular slds-text-align_center">
+                Footer Content &copy; 2024
+            </div>
+        </footer>
+    </div>
+</body>
+</html> 

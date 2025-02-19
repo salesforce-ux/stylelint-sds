@@ -26,7 +26,7 @@ describe('slds/no-sds-custom-properties rule', () => {
     const warnings = result.results[0].warnings;
     
     assert.strictEqual(warnings.length, 1);
-    assert.strictEqual(warnings[0].text, `"--sds-color" is currently deprecated in the new design for Lightning UI. (slds/no-sds-custom-properties)`);
+    assert.strictEqual(warnings[0].text, `"--sds-color" is currently deprecated in the Cosmos. (slds/no-sds-custom-properties)`);
   });
 
   it('should not report an error when non --sds custom properties are used', async () => {
@@ -71,6 +71,6 @@ describe('slds/no-sds-custom-properties rule', () => {
     const warnings = result.results[0].warnings;
     
     assert.strictEqual(warnings.length, 1);
-    assert.strictEqual(warnings[0].text, `"--sds-font-size" is currently deprecated in the new design for Lightning UI. (slds/no-sds-custom-properties)`);
+    assert.strictEqual(warnings[0].text, `"--sds-font-size" is currently deprecated in the Cosmos. (slds/no-sds-custom-properties)`);
   });
 });

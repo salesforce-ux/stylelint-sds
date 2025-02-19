@@ -2,10 +2,10 @@
   "name": "stylelint-sds",
   "version": "1.0.1",
   "private": true,
-  "type": "module",
   "workspaces": [
     "packages/*"
   ],
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "install-all": "npm install --workspaces",
     "build": "npm run build --workspaces",
@@ -15,6 +15,19 @@
     "report": "node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js -d packages/test-repository"
   },
   "devDependencies": {
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",    
+    "@types/node": "^20.11.19",
+    "@types/eslint": "^8.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "glob": "^11.0.1",
+    "gulp": "^5.0.0",
+    "gulp-clean-dir": "^1.0.2",
+    "clean-pkg-json": "^1.2.0",
+    "gulp-execa": "^8.0.0",
+    "prettier": "^3.4.2",
+    "esbuild": "^0.25.0"
   }
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deprecated Hooks Demo</title>
+    <link rel="stylesheet" href="deprecatedHooks.css">
+    <style>
+        /* Inline style block with deprecated properties */
+        :root {
+            /* Deprecated properties with their replacements */
+            --slds-c-accordion-heading-text-color: #333;
+            --slds-c-accordion-section-spacing-block-end: 1rem;
+            --slds-c-alert-spacing-inline-start: 1rem;
+            --slds-c-button-spacing-inline-end: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Using deprecated properties in inline styles -->
+    <div class="accordion" style="--slds-c-accordion-heading-text-color: blue;">
+        <h2>Accordion Title</h2>
+        <div class="accordion-content">Content here</div>
+    </div>
+
+    <div class="alert-container" style="--slds-c-alert-spacing-block-end: 2rem;">
+        <p>Alert message</p>
+    </div>
+
+    <div class="button-group">
+        <button style="--slds-c-button-spacing-inline-end: 1rem;">Button 1</button>
+        <button>Button 2</button>
+    </div>
+
+    <textarea class="textarea-wrapper" style="--slds-c-textarea-sizing-min-height: 100px;">
+        Sample textarea
+    </textarea>
+
+    <div class="toast-notification" style="--slds-c-toast-sizing-min-width: 320px;">
+        Toast message
+    </div>
+</body>
+</html> 

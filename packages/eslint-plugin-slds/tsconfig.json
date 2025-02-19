@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "declaration": true,
+    "noEmitOnError": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["build", "node_modules"]
+}

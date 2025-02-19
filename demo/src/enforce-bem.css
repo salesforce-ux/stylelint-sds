@@ -1,0 +1,152 @@
+/* Layout & Grid */
+.slds-grid {
+  display: grid;
+}
+
+.slds-grid_frame {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.slds-grid_vertical {
+  flex-direction: column;
+}
+
+.slds-grid_align-center {
+  justify-content: center;
+}
+
+/* Container Styles */
+.slds-container_medium {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.slds-container_center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Box & Border Utilities */
+.slds-box_small {
+  padding: 1rem;
+  border: 1px solid #d8dde6;
+}
+
+.slds-border_top {
+  border-top: 1px solid #d8dde6;
+}
+
+.slds-border_bottom {
+  border-bottom: 1px solid #d8dde6;
+}
+
+/* Text Utilities */
+.slds-text-heading_large {
+  font-size: 2rem;
+  line-height: 1.25;
+}
+
+.slds-text-heading_medium {
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.slds-text-body_regular {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.slds-text-align_center {
+  text-align: center;
+}
+
+/* Spacing Utilities */
+.slds-m-around_medium {
+  margin: 1rem;
+}
+
+.slds-p-around_medium {
+  padding: 1rem;
+}
+
+.slds-m-bottom_large {
+  margin-bottom: 2rem;
+}
+
+/* Card Components */
+.slds-card {
+  background: #fff;
+  border: 1px solid #d8dde6;
+  border-radius: 0.25rem;
+}
+
+.slds-card__body_inner {
+  padding: 1rem;
+}
+
+/* Media Object */
+.slds-media {
+  display: flex;
+  align-items: flex-start;
+}
+
+.slds-media_center {
+  align-items: center;
+}
+
+.slds-media__figure {
+  margin-right: 0.75rem;
+}
+
+/* Button Styles */
+.slds-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.slds-button_brand {
+  background-color: #0070d2;
+  color: white;
+}
+
+.slds-button_neutral {
+  background-color: white;
+  border: 1px solid #d8dde6;
+}
+
+/* Form Elements */
+.slds-form-element {
+  margin-bottom: 0.5rem;
+}
+
+.slds-input {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.slds-input_bare {
+  border: none;
+  background: transparent;
+}
+
+/* Theme Utilities */
+.slds-theme_default {
+  background-color: #fff;
+  color: #16325c;
+}
+
+.slds-theme_shade {
+  background-color: #f4f6f9;
+}
+
+/* Responsive Utilities */
+@media (max-width: 48em) {
+  .slds-small-size_1-of-1 {
+    width: 100%;
+  }
+  
+  .slds-small-size_1-of-2 {
+    width: 50%;
+  }
+} 

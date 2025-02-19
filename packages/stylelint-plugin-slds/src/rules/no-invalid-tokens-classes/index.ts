@@ -5,6 +5,7 @@ import { readFileSync } from 'fs';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
+import {tokenMapping} from "@salesforce-ux/matadata-slds";
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
 const ruleName: string = 'slds/no-invalid-tokens-classes';
@@ -19,9 +20,9 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 // Load token mapping file
-const tokenMappingPath = metadataFileUrl('./public/metadata/tokenMapping.json');
+/* const tokenMappingPath = metadataFileUrl('./public/metadata/tokenMapping.json');
 
-const tokenMapping = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
+const tokenMapping = JSON.parse(readFileSync(tokenMappingPath, 'utf8')); */
 
 function validateOptions(result: PostcssResult, options: any) {
   return utils.validateOptions(result, ruleName, {

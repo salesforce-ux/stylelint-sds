@@ -29,9 +29,9 @@ function rule(
 ) {
   return (root: Root, result: PostcssResult) => {
     if (validateOptions(result, primaryOptions)) {
-      root.walkDecls((decl) => {
-        const severity =
+      const severity =
                       result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
+      root.walkDecls((decl) => {
         if (decl.prop.startsWith('--_slds-')) {
           stylelint.utils.report({
             message: messages.expected(decl.prop),

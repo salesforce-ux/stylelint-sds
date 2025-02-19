@@ -1,0 +1,97 @@
+/* Basic utility classes */
+.slds-small {
+  font-size: 12px;
+}
+
+.slds-medium {
+  font-size: 14px;
+}
+
+.slds-large {
+  font-size: 16px;
+}
+
+/* Spacing utilities */
+.slds-has-buffer {
+  margin: 12px;
+}
+
+.slds-m-left_xxx-small {
+  margin-left: 2px;
+}
+
+/* Layout classes */
+.slds-align-content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon related classes */
+.slds-icon__container {
+  display: inline-block;
+  padding: 0.25rem;
+}
+
+.slds-icon__container_circle {
+  border-radius: 50%;
+}
+
+.slds-has-icon {
+  position: relative;
+}
+
+.slds-has-icon_left-right {
+  padding: 0 1.25rem;
+}
+
+/* Color utilities */
+.slds-color__background_gray-1 {
+  background-color: #f3f3f3;
+}
+
+.slds-color__text_gray-1 {
+  color: #333333;
+}
+
+.slds-color__border_gray-1 {
+  border-color: #dddddd;
+}
+
+/* Component specific classes */
+.slds-lookup {
+  position: relative;
+}
+
+.slds-lookup__list {
+  max-height: 255px;
+  overflow-y: auto;
+}
+
+.slds-lookup__item {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+/* Card and box related */
+.slds-card_empty {
+  padding: 1rem;
+  text-align: center;
+}
+
+.slds-box_border {
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+}
+
+/* Complex combinations */
+.slds-media_timeline.slds-has-icon.slds-has-buffer {
+  position: relative;
+  padding-left: 2rem;
+  margin: 1rem;
+}
+
+.slds-navigation-list-vertical__action.slds-is-active.slds-has-icon {
+  background-color: #f3f3f3;
+  font-weight: bold;
+} 

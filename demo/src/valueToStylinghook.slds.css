@@ -1,0 +1,102 @@
+/* Sample CSS classes using static values that can be replaced with SLDS hooks */
+
+.header-title {
+  /* Can be replaced with --slds-g-font-scale-5 */
+  font-size: 1.5rem;
+  /* Can be replaced with --slds-g-color-neutral-base-20 */
+  color: #2e2e2e;
+  /* Can be replaced with --slds-g-font-weight-3 */
+  font-weight: 300;
+}
+
+.card {
+  /* Can be replaced with --slds-g-color-surface-1 */
+  background-color: #ffffff;
+  /* Can be replaced with --slds-g-shadow-2 */
+  box-shadow: 0 2px 8px -2px #18181814, 0 8px 12px -2px #18181828;
+  /* Can be replaced with --slds-g-radius-border-2 */
+  border-radius: 0.25rem;
+  /* Can be replaced with --slds-g-spacing-4 */
+  padding: 1rem;
+}
+
+.input-field {
+  /* Can be replaced with --slds-s-input-color-background */
+  background: #ffffff;
+  /* Can be replaced with --slds-s-input-color-border */
+  border-color: #747474;
+  /* Can be replaced with --slds-s-input-sizing-border */
+  border-width: 1px;
+  /* Can be replaced with --slds-s-input-radius-border */
+  border-radius: 0.25rem;
+  /* Can be replaced with --slds-s-input-font-size */
+  font-size: 13px;
+}
+
+.alert-error {
+  /* Can be replaced with --slds-g-color-error-container-1 */
+  background-color: #ba0517;
+  /* Can be replaced with --slds-g-color-on-error-1 */
+  color: #ffffff;
+  /* Can be replaced with --slds-g-spacing-3 */
+  padding: 0.75rem;
+}
+
+.success-text {
+  /* Can be replaced with --slds-g-color-success-base-50 */
+  color: #2e844a;
+  /* Can be replaced with --slds-g-font-lineheight-base */
+  line-height: 1.5;
+}
+
+/* Examples with multiple possible hook suggestions */
+
+.icon {
+  /* Can be replaced with either:
+     --slds-g-color-on-surface-1 (for general UI icons)
+     --slds-g-color-on-surface-2 (for emphasized icons)
+     --slds-g-color-disabled-1 (for disabled state) */
+  fill: #747474;
+  /* Can be replaced with either:
+     --slds-g-sizing-5 (for regular icons)
+     --slds-g-sizing-6 (for large icons) */
+  width: 1rem;
+  height: 1rem;
+}
+
+.surface-container {
+  /* Can be replaced with either:
+     --slds-g-color-surface-1 (for primary surfaces)
+     --slds-g-color-surface-container-1 (for container surfaces)
+     --slds-s-input-color-background (for input backgrounds) */
+  background-color: #ffffff;
+  /* Can be replaced with either:
+     --slds-g-spacing-4 (for regular spacing)
+     --slds-g-spacing-5 (for loose spacing)
+     --slds-s-input-spacing (for input padding) */
+  padding: 1rem;
+}
+
+.text-content {
+  /* Can be replaced with either:
+     --slds-g-color-on-surface-1 (for primary text)
+     --slds-g-color-on-surface-2 (for secondary text)
+     --slds-s-input-color (for input text) */
+  color: #2e2e2e;
+  /* Can be replaced with either:
+     --slds-g-font-scale-1 (for body text)
+     --slds-g-font-size-base (for base text size) */
+  font-size: 0.875rem;
+}
+
+.border-element {
+  /* Can be replaced with either:
+     --slds-g-color-border-1 (for primary borders)
+     --slds-g-color-border-2 (for secondary borders)
+     --slds-s-input-color-border (for input borders) */
+  border-color: #c9c9c9;
+  /* Can be replaced with either:
+     --slds-g-sizing-border-1 (for thin borders)
+     --slds-s-input-sizing-border (for input borders) */
+  border-width: 1px;
+} 

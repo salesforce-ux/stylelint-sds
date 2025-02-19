@@ -1,0 +1,43 @@
+/* Sample CSS showing deprecated custom properties and their replacements */
+
+.accordion {
+    /* Deprecated: --slds-c-accordion-heading-text-color */
+    /* Use: --slds-c-accordion-heading-color instead */
+    color: var(--slds-c-accordion-heading-text-color);
+    
+    /* Deprecated: --slds-c-accordion-section-spacing-block-end */
+    /* Use: --slds-c-accordion-section-spacing-blockend instead */
+    padding-bottom: var(--slds-c-accordion-section-spacing-block-end);
+}
+
+.alert-container {
+    /* Deprecated: --slds-c-alert-spacing-inline-start */
+    /* Use: --slds-c-alert-spacing-inlinestart instead */
+    padding-left: var(--slds-c-alert-spacing-inline-start);
+    
+    /* Deprecated: --slds-c-alert-spacing-block-end */
+    /* Use: --slds-c-alert-spacing-blockend instead */
+    padding-bottom: var(--slds-c-alert-spacing-block-end);
+}
+
+.button-group {
+    /* Deprecated: --slds-c-button-spacing-inline-end */
+    /* Use: --slds-c-button-spacing-inlineend instead */
+    margin-right: var(--slds-c-button-spacing-inline-end);
+    
+    /* Deprecated: --slds-c-button-spacing-block-start */
+    /* Use: --slds-c-button-spacing-blockstart instead */
+    margin-top: var(--slds-c-button-spacing-block-start);
+}
+
+.textarea-wrapper {
+    /* Deprecated: --slds-c-textarea-sizing-min-height */
+    /* Use: --slds-c-textarea-sizing-height-min instead */
+    min-height: var(--slds-c-textarea-sizing-min-height);
+}
+
+.toast-notification {
+    /* Deprecated: --slds-c-toast-sizing-min-width */
+    /* Use: --slds-c-toast-sizing-width-min instead */
+    min-width: var(--slds-c-toast-sizing-min-width);
+} 

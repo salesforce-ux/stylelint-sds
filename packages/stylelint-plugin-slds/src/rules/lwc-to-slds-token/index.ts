@@ -6,6 +6,7 @@ import { Options } from './option.interface';
 import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
+import {lwcToSlds} from "@salesforce-ux/matadata-slds";
 
 const { createPlugin }: typeof stylelint = stylelint;
 
@@ -31,9 +32,6 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
     `The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with '${newValue}'. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n`,
 });
 
-const tokenMappingPath = metadataFileUrl('./public/metadata/lwcToSlds.json');
-const lwcToSLDS = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
-
 // Validate options for the rule
 function validateOptions(result: PostcssResult, options: Options) {
   return stylelint.utils.validateOptions(result, ruleName, {
@@ -46,14 +44,14 @@ function shouldIgnoreDetection(lwcToken: string) {
   // Ignore if entry not found in the list or the token is marked to use further
   return (
     !lwcToken.startsWith('--lwc-') ||
-    !(lwcToken in lwcToSLDS) ||
-    lwcToSLDS[lwcToken] === 'Continue to use'
+    !(lwcToken in lwcToSlds) ||
+    lwcToSlds[lwcToken] === 'Continue to use'
   );
 }
 
 function getRecommendation(lwcToken: string, reportProps: any) {
   const oldValue = lwcToken;
-  const recommendation = lwcToSLDS[oldValue];
+  const recommendation = lwcToSlds[oldValue];
   const hasRecommendation = recommendation && recommendation !== '--';
   if (!hasRecommendation) {
     // Found a deprecated token but don't have any alternate recommendation then just report user to follow docs
