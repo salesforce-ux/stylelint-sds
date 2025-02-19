@@ -12,37 +12,8 @@ import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles'
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
 
-/*
-console.log(`
-  Usage: npm run report [options] <input>
-
-  Options:
-    -c, --config       Stylelintrc configuration
-    -d, --director     Target directory to lint files
-  
-  Examples:
-    npm run report -- -c .stylelintrc.yml -d example-component-folder
-    npm run report -- -d . (for current directory & with current directory stylelint config)
-`);
-*/
-const args = process.argv.slice(2); // Skip the first two entries (node and script path)
-
 let eslintConfigFilePath = 'node_modules/@salesforce-ux/eslint-plugin-slds/build/.eslintrc.yml';
-let targetDirectory = '';
-
-for (let i = 0; i < args.length; i++) {
-  if (args[i] === '-d' || args[i] === '--directory') {
-    targetDirectory = args[i + 1]; // Get the value after `-d`
-  }
-}
-
-validateConfigFile(eslintConfigFilePath);
-
-if (targetDirectory === '') targetDirectory = '.';
-
-const TARGET_DIR = targetDirectory; //process.argv[2];
-const FOLDER_NAME = '.sldslinter';
-const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
+let OUTPUT_DIR = '';
 
 // Batch settings
 const BATCH_SIZE = 100;
@@ -135,7 +106,10 @@ function convertToStylelintSchema(eslintReport) {
   }));
 }
 
-export async function getEslintValidationReport(eslintValidationFiles) {
+export async function getEslintValidationReport(eslintValidationFiles, configFilePath, outDir) {
+  eslintConfigFilePath = configFilePath;
+  OUTPUT_DIR = outDir;
+  await validateConfigFile(eslintConfigFilePath);
   await processFilesInBatches(eslintValidationFiles);
   await consolidateComponentReports();
 }

@@ -10,7 +10,7 @@ import {npmRunPathEnv} from 'npm-run-path';
 
 const eslintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/eslint-plugin-slds/.eslintrc.yml'));
 const stylelintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/stylelint-plugin-slds/.stylelintrc.yml'));
-
+const reportGenModulePath = fileURLToPath(await import.meta.resolve('@salesforce-ux/slds-report-generator'));
 
 // ✅ Define CLI Commands using `yargs`
 yargs(hideBin(process.argv))
@@ -90,7 +90,7 @@ yargs(hideBin(process.argv))
         (argv) => {
             console.log(chalk.cyan(`📊 Generating linting report for ${argv.dir}...`));
             try {
-                execSync(`node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js ${argv.dir} -c ${stylelintConfigPath}`, { stdio: 'inherit', env: npmRunPathEnv() });
+                execSync(`node ${reportGenModulePath} -d ${argv.dir} --style-config ${stylelintConfigPath} --eslint-confg ${eslintConfigPath}`, { stdio: 'inherit', env: npmRunPathEnv() });
                 console.log(chalk.green('✅ Report generated successfully!'));
             } catch (error) {
                 console.error(chalk.red('❌ Failed to generate the report.'));

@@ -25,6 +25,6 @@ const compileTs = async ()=>{
   })
 };
   
-export const build = series(cleanDirs, /* copy, */ compileTs);
+export const build = series(cleanDirs, compileTs);
 
 export default task('gulp --tasks');

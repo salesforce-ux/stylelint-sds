@@ -1,12 +1,12 @@
 {
-  "name": "@salesforce-ux/slds-sarif-reporter",
+  "name": "@salesforce-ux/slds-report-generator",
   "version": "0.0.0",
   "files": [
     "./build/**",
     "README.md"
   ],
   "type": "module",
-  "main": "build/index.js",
+  "main": "build/report.js",
   "description": "This package makes use of linter on styles and markeup files to generate SARIF report",
   "author": "UXF Tooling Team",
   "license": "ISC",

@@ -1,6 +1,7 @@
 import { spawn } from 'cross-spawn'; // Makes it work on Windows. Link: https://www.npmjs.com/package/cross-spawn
 import path from 'path';
 import cliProgress from 'cli-progress';
+import {npmRunPathEnv} from 'npm-run-path';
 
 const FOLDER_NAME = '.sldslinter';
 
@@ -34,7 +35,7 @@ function runLinterBatch(batch: string[], batchNum: number, linterPath: string, c
       }
 
     //console.log(`Arguments ${configFile} ${outputFile}`)
-    const child = spawn(linterPath, args);
+    const child = spawn(linterPath, args, { stdio: 'inherit', env: npmRunPathEnv() });
 
     let stdoutData = '';
     let stderrData = '';
@@ -87,7 +88,7 @@ export async function processFilesInBatches(
         : `Styles Linting Progress [{bar}] {percentage}% | {value}/{total} files`,
     barCompleteChar: '█',
     barIncompleteChar: '-',
-    hideCursor: true,
+    hideCursor: true
   });
 
   progressBar.start(totalFiles, 0); // Start the progress bar
@@ -99,12 +100,13 @@ export async function processFilesInBatches(
     try {
       const result = await runLinterBatch(batch, batchNum, linter, configFile);
       batchResults.push(result);
+      processedFiles += batch.length; // Update the number of files processed
+      progressBar.update(processedFiles); // Update the progress bar
     } catch (error) {
-      console.error(`Error processing batch ${batchNum}: ${error}`);
+      progressBar.stop();
+      console.error(`\n\nError processing batch ${batchNum}`, error);
+      console.log(`\n\n\n`);
     }
-
-    processedFiles += batch.length; // Update the number of files processed
-    progressBar.update(processedFiles); // Update the progress bar
   }
 
   progressBar.stop(); // Stop the progress bar after completion

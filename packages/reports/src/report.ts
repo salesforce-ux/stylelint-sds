@@ -16,10 +16,16 @@ const __dirname = process.cwd();
 const args = process.argv.slice(2); // Skip the first two entries (node and script path)
 
 let targetDirectory = '';
+let stylelintConfig = '';
+let eslintConfig = '';
 
 for (let i = 0; i < args.length; i++) {
   if (args[i] === '-d' || args[i] === '--directory') {
     targetDirectory = args[i + 1]; // Get the value after `-d`
+  } else if (args[i] === '--style-config') {
+    stylelintConfig = args[i + 1]; // Get the value after `-d`
+  }if (args[i] === '--eslint-confg') {
+    eslintConfig = args[i + 1]; // Get the value after `-d`
   }
 }
 
@@ -87,19 +93,22 @@ async function main(): Promise<void> {
     `);
     
     try{
-      await getStylelintValidationReport(stylelintValidationFiles);
+      console.log('\n');
+      await getStylelintValidationReport(stylelintValidationFiles, stylelintConfig, OUTPUT_DIR);
     }
     catch(error){
       console.error('Failed to get Stylelint report');
     }
 
     try{
-      await getEslintValidationReport(eslintValidationFiles);
+      console.log('\n\n\n\n');
+      await getEslintValidationReport(eslintValidationFiles, eslintConfig, OUTPUT_DIR);
     }
     catch(error){
       console.error('Failed to get ESLint report');
     }
     
+    console.log('\n\n\n\n');
     await combineJsonReports();
     // Add your SARIF conversion logic here if needed
     await convertJsonToSarif();

@@ -14,39 +14,9 @@ import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles'
 const execPromise = promisify(exec);
 const __dirname = process.cwd();
 
-/*
-console.log(`
-  Usage: npm run report [options] <input>
-
-  Options:
-    -c, --config       Stylelintrc configuration
-    -d, --director     Target directory to lint files
-  
-  Examples:
-    npm run report -- -c .stylelintrc.yml -d example-component-folder
-    npm run report -- -d . (for current directory & with current directory stylelint config)
-`);
-*/
-const args = process.argv.slice(2); // Skip the first two entries (node and script path)
 
 let stylelintConfigFilePath = 'node_modules/@salesforce-ux/stylelint-plugin-slds/build/.stylelintrc.yml';
-let targetDirectory = '';
-
-for (let i = 0; i < args.length; i++) {
-  if (args[i] === '-d' || args[i] === '--directory') {
-    targetDirectory = args[i + 1]; // Get the value after `-d`
-  }
-}
-
-validateConfigFile(stylelintConfigFilePath);
-
-if (targetDirectory === '') targetDirectory = '.';
-
-const FOLDER_NAME = '.sldslinter';
-const OUTPUT_DIR = path.join(__dirname, FOLDER_NAME);
-
-// Batch settings
-const BATCH_SIZE = 2;
+let OUTPUT_DIR = '';
 
 async function validateConfigFile(configPath: string) {
   try {
@@ -61,9 +31,9 @@ async function validateConfigFile(configPath: string) {
 }
 
 async function processFilesInBatches(cssFiles: string[]): Promise<void> {
-  const stylelintPath = path.resolve(__dirname, 'node_modules/.bin/stylelint');
+  //const stylelintPath = path.resolve(__dirname, 'node_modules/.bin/stylelint');
   const stylelintConfigFile = stylelintConfigFilePath;
-  await runBatches(cssFiles, stylelintPath, stylelintConfigFile, 10);
+  await runBatches(cssFiles, 'npx stylelint', stylelintConfigFile, 10);
 }
 
 async function consolidateReports(): Promise<void> {
@@ -95,7 +65,10 @@ async function consolidateReports(): Promise<void> {
   await writeToFile(combinedData, consolidatedReportPath);
 }
 
-export async function getStylelintValidationReport(cssFiles) {
+export async function getStylelintValidationReport(cssFiles, configFilePath, outDir) {
+  stylelintConfigFilePath = configFilePath;
+  OUTPUT_DIR = outDir;
+  await validateConfigFile(stylelintConfigFilePath);
   await processFilesInBatches(cssFiles);
   await consolidateReports();
 }

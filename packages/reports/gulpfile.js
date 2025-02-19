@@ -1,6 +1,7 @@
 import { series, src, dest } from 'gulp';
 import { rimraf} from 'rimraf'
 import {task} from "gulp-execa";
+import * as esbuild from 'esbuild'
 
 /**
  * Clean all generated folder
@@ -13,7 +14,16 @@ function cleanDirs(){
  /**
   * Compile typescript files
   * */ 
-const compileTs = task(`tsc --project ${process.cwd()}/tsconfig.json`);
+const compileTs = async ()=>{
+  await esbuild.build({
+    entryPoints: ["./src/report.ts"],
+    bundle:true,
+    outdir:"build",
+    platform: "node",
+    format:"esm",
+    packages:'external'
+  })
+};
   
 export const build = series(cleanDirs, compileTs);
 
