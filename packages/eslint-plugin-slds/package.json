@@ -10,8 +10,7 @@
         "public/*"
     ],
     "scripts": {
-        "_build": "rollup -c",    
-        "build":"rimraf build && tsc --project ./tsconfig.json",
+    "build": "gulp build",
         "test": "jest",
         "prepublishOnly": "clean-pkg-json"
     },

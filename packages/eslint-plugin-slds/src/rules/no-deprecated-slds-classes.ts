@@ -1,5 +1,5 @@
 import { findAttr, isAttributesEmpty } from "./utils/node";
-//const {deprecatedClasses} = require('@salesforce-ux/matadata-slds');
+//TODO: load deprecatedClasses from @salesforce-ux/matadata-slds instead of local res file.
 import { deprecatedClasses } from "./deprecatedClasses";
 
 export = {
