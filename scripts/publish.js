@@ -22,13 +22,14 @@ function promptGitHubToken() {
   });
 }
 
-function promptGitHubUsername() {
-  return new Promise((resolve) => {
-    rl.question("Please enter your GitHub username: ", (user) => {
-      resolve(user);
-    });
-  });
-}
+//Needed in case of gh-release
+// function promptGitHubUsername() {
+//   return new Promise((resolve) => {
+//     rl.question("Please enter your GitHub username: ", (user) => {
+//       resolve(user);
+//     });
+//   });
+// }
 
 function createGitHubRelease(version, token, user, tgzFilePath) {
   try {
@@ -64,7 +65,7 @@ function isValidVersion(version) {
 
 function packPackage(packageLinter, versionLinter) {
   
-        execSync(`mkdir ${packageLinter}/dist`);
+        execSync(`mkdir -p ${packageLinter}/dist`);
         execSync("npm pack --pack-destination ./dist", { cwd: packageLinter, stdio: 'inherit' });
 
   const tgzFilePath = path.resolve(
@@ -98,7 +99,7 @@ function promptVersion(packageName) {
           rl.question(
             "Enter version type (normal/alpha/beta): ",
             (versionType) => {
-              const normalizedType = versionType.toLowerCase().trim();
+                const normalizedType = (versionType.trim().length == 0)? "normal" : versionType.toLowerCase().trim();
 
               let finalVersion = versionNumber;
               if (["alpha", "beta"].includes(normalizedType)) {
@@ -157,7 +158,8 @@ async function publishPackage(packageName, version) {
     buildPackage(packageDir);
 
     console.log(`Publishing ${packageName}...`);
-    //   runCommand('npm publish --access=restricted', packageDir);
+    // Check in console that you're logged in npm. Please run npm whoami to check you're logged in/
+    // runCommand('npm publish', packageDir);
 
     console.log(`Package ${packageName} published successfully!`);
   } catch (error) {
@@ -178,7 +180,7 @@ async function publishLinter(versionEslint, versionStylelint, versionLinter) {
 async function publishPackages() {
   try {
     const githubToken = await promptGitHubToken();
-    const githubUsername = await promptGitHubUsername();
+//     const githubUsername = await promptGitHubUsername();
     const versionEslint = await promptVersion("eslint");
     const versionStylelint = await promptVersion("stylelint");
     const versionLinter = await promptVersion("linter");
