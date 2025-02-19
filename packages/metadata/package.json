@@ -2,11 +2,11 @@
   "name": "@salesforce-ux/matadata-slds",
   "version": "0.0.0",
   "files": [
-    "./build/**"
+    "./build/**",
+    "README.md"
   ],
   "type": "module",
   "main": "build/index.js",
-  "types": "types/index.d.ts",
   "description": "This package contains metdata required to validate and autofix by linter",
   "author": "UXF Tooling Team",
   "license": "ISC",
@@ -14,7 +14,7 @@
     "url": "https://github.com/salesforce-ux/stylelint-sds"
   },
   "scripts": {
-    "gen:valueToHooksMapping":"node ./scripts/sldshooks.metdata.parser.js",
+    "gen:value2Hooks": "gulp value2HooksMappings",
     "build":"gulp build",
     "prepublishOnly": "clean-pkg-json",
     "gen:defs":"tsc ./build/*.js --declaration --allowJs --emitDeclarationOnly --outDir ./build"
