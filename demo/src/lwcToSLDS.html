@@ -1,0 +1,59 @@
+<!-- Example component using lwc tokens -->
+<div class="my-component">
+    <!-- Using tokens that will be replaced with SLDS tokens -->
+    <div style="
+        /* Will be replaced with --slds-g-color-surface-container-1 */
+        background-color: var(--lwc-colorBackgroundAlt);
+        /* Will be replaced with --slds-g-spacing-4 */
+        margin: var(--lwc-spacingMedium)
+    ">
+        Component Content
+    </div>
+</div>
+
+<!-- Using deprecated tokens (value is "--" in mapping) -->
+<div class="my-banner" style="
+    /* These tokens are deprecated */
+    background-image: var(--lwc-bannerGroupDefaultImage);
+    min-height: var(--lwc-brandBandImageHeightSmall)
+">
+    Banner Content
+</div>
+
+<!-- Using tokens that will be replaced with computed values -->
+<div class="my-card" style="
+    /* Will be replaced with 0 var(--slds-g-spacing-4) */
+    padding: var(--lwc-cardBodyPadding)
+">
+    Card Content
+</div>
+
+<!-- Using tokens that should continue to be used -->
+<div class="my-spinner" style="
+    /* This token should continue to be used as-is */
+    animation-duration: var(--lwc-durationInstantly);
+    /* Will be replaced with --slds-g-sizing-9 */
+    width: var(--lwc-spinnerSizeMedium)
+">
+    Loading...
+</div>
+
+<!-- Using mix of inline and class-based styles -->
+<button class="my-button" style="
+    /* Will be replaced with --slds-g-color-accent-container-1 */
+    background: var(--lwc-buttonColorBackgroundBrandPrimary);
+    /* Will be replaced with --slds-g-radius-border-circle */
+    border-radius: var(--lwc-borderRadiusCircle)
+">
+    Click Me
+</button>
+
+<!-- Using tokens in custom elements -->
+<custom-element style="
+    /* Will be replaced with --slds-g-color-surface-container-1 */
+    background: var(--lwc-cardColorBackground);
+    /* This token is deprecated */
+    content: var(--lwc-userDefaultAvatar)
+">
+    Custom Element Content
+</custom-element> 

@@ -1,0 +1,27 @@
+{
+  "name": "@salesforce-ux/slds-report-generator",
+  "version": "0.0.0",
+  "files": [
+    "./build/**",
+    "README.md"
+  ],
+  "type": "module",
+  "main": "build/report.js",
+  "description": "This package makes use of linter on styles and markeup files to generate SARIF report",
+  "author": "UXF Tooling Team",
+  "license": "ISC",
+  "repository": {
+    "url": "https://github.com/salesforce-ux/stylelint-sds"
+  },
+  "scripts": {
+    "gen:report":"",
+    "build":"gulp build"
+  },
+  "dependencies": {
+    "@salesforce-ux/stylelint-plugin-slds":"*",
+    "JSONStream": "^1.3.5",
+    "cli-progress": "^3.12.0",
+    "cross-spawn": "^7.0.6",
+    "glob": "^11.0.1"
+  }
+}

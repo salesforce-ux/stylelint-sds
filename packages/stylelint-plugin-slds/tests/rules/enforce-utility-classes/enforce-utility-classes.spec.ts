@@ -16,10 +16,10 @@ describe('slds/enforce-utility-classes rule', () => {
       }
     });
 
+    
     const warnings = result.results[0].warnings;
-    console.log(`--> ${JSON.stringify(warnings)}`)
     assert.strictEqual(warnings.length, 1);
-    assert.strictEqual(warnings[0].text.includes(`Instead of declaring the property, consider placing a helper class on your element:\n\n1. .slds-is-visually-empty \n`), true);
+    assert.strictEqual(warnings[0].text.includes(`Instead of declaring the property, consider placing a helper class on your element:\n.slds-is-visually-empty`), true);
     
   });
 

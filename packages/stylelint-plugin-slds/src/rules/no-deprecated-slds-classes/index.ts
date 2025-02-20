@@ -1,10 +1,9 @@
-import stylelint, { Rule, PostcssResult } from 'stylelint';
-import { readFileSync } from 'fs';
+import { deprecatedClasses } from "@salesforce-ux/matadata-slds";
 import { Root } from 'postcss';
-import { metadataFileUrl } from '../../utils/metaDataFileUrl';
+import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import ruleMetadata from '../../utils/rulesMetadata';
-import replacePlaceholders from '../../utils/util';
 import { getClassNodesFromSelector } from '../../utils/selector-utils';
+import replacePlaceholders from '../../utils/util';
 
 const { utils, createPlugin } = stylelint;
 
@@ -21,7 +20,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
     replacePlaceholders(errorMsg, { className }),
 });
 
-const isTestEnv = process.env.NODE_ENV === 'test';
+/* const isTestEnv = process.env.NODE_ENV === 'test';
 const tokenMappingPath = metadataFileUrl(
   './public/metadata/deprecatedClasses.json'
 );
@@ -29,35 +28,21 @@ const tokenMappingPath = metadataFileUrl(
 const defaultDeprecatedClasses = new Set(
   JSON.parse(readFileSync(tokenMappingPath, 'utf8'))
 );
-
+ */
 // Regex to match classes
 const classRegex = /\.[\w-]+/g;
 
-function validateOptions(result: PostcssResult, options: any): boolean {
-  return utils.validateOptions(result, ruleName, {
-    actual: options,
-    possible: {}, // Customize as needed
-  });
-}
 
-function rule(
-  primaryOptions: any,
-  secondaryOptions: any,
-  context: any,
-  deprecatedClasses = defaultDeprecatedClasses
-) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    const severity =
-      result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
-    if (!validateOptions(result, primaryOptions)) {
-      return;
-    }
+    
+    const deprecatedClassesSet = new Set(deprecatedClasses);
 
     root.walkRules((rule) => {
       const classNodes = getClassNodesFromSelector(rule.selector);
       const offsetIndex = rule.toString().indexOf(rule.selector);
       classNodes.forEach((classNode) => {
-        if (!deprecatedClasses.has(classNode.value)) {
+        if (!deprecatedClassesSet.has(classNode.value)) {
           return;
         }
         const index = offsetIndex + classNode.sourceIndex + 1; // find selector in rule plus '.'

@@ -1,132 +1,52 @@
 import { Root } from 'postcss';
-import stylelint, { Rule, PostcssResult } from 'stylelint';
+import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 
-import { Options } from './option.interface';
+import { sldsClasses } from "@salesforce-ux/matadata-slds";
 import ruleMetadata from '../../utils/rulesMetadata';
+import { getClassNodesFromSelector } from '../../utils/selector-utils';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
+const ruleName: string = 'slds/no-slds-class-overrides';
 
-const ruleName:string = 'slds/no-slds-class-overrides';
+const {
+  severityLevel = 'error',
+  warningMsg = '',
+  errorMsg = '',
+  ruleDesc = 'No description provided',
+} = ruleMetadata(ruleName) || {};
+const sldsSet = new Set(sldsClasses);
 
-const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
-
-
-const defaultOptions: Options = {
-  step: 0.125,
-  units: ['ch', 'em', 'ex', 'rem', 'vh', 'vw', 'vmin', 'vmax'],
-  atRules: ['media'],
-  properties: [
-    'border',
-    'border-bottom',
-    'border-bottom-left-radius',
-    'border-bottom-right-radius',
-    'border-bottom-width',
-    'border-left',
-    'border-left-width',
-    'border-radius',
-    'border-right',
-    'border-right-width',
-    'border-top',
-    'border-top-left-radius',
-    'border-top-right-radius',
-    'border-top-width',
-    'bottom',
-    'box-shadow',
-    'columns',
-    'column-gap',
-    'column-width',
-    'flex-basis',
-    'font',
-    'font-size',
-    'gap',
-    'height',
-    'inset',
-    'left',
-    'letter-spacing',
-    'line-height',
-    'margin',
-    'margin-bottom',
-    'margin-left',
-    'margin-right',
-    'margin-top',
-    'max-height',
-    'max-width',
-    'min-height',
-    'min-width',
-    'outline',
-    'outline-offset',
-    'outline-width',
-    'padding',
-    'padding-bottom',
-    'padding-left',
-    'padding-right',
-    'padding-top',
-    'right',
-    'row-gap',
-    'text-indent',
-    'top',
-    'width',
-  ],
-};
-function validateOptions(result: PostcssResult, options: Options): boolean {
-  return utils.validateOptions(result, ruleName, {
-    actual: options,
-    possible: {
-      step: [(value: unknown) => typeof value === 'number' && value > 0],
-      units: [
-        (value: unknown) =>
-          typeof value === 'string' &&
-          defaultOptions.units.includes(value as string),
-      ],
-      atRules: [
-        (value: unknown) =>
-          typeof value === 'string' &&
-          defaultOptions.atRules.includes(value as string),
-      ],
-      properties: [
-        (value: unknown) =>
-          typeof value === 'string' &&
-          defaultOptions.properties.includes(value as string),
-      ],
-    },
-  });
-}
-
-function rule(primaryOptions: Options) {
-  const options: Options = { ...defaultOptions, ...primaryOptions };
-
+function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    // Access customUrls safely
-    const customUrls = result.stylelint.customUrls || []; // Default to an empty array if undefined
 
-    // Validate options at the start of the rule execution
-    if (validateOptions(result, options)) {
-      // Walk through all CSS rules
-      root.walkRules((rule) => {
-        // Split the selectors on commas to check each selector individually
-        const selectors: string[] = rule.selector.split(/\s*,\s*/);
-const severity =
-              result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
-        selectors.forEach((selector) => {
-          if (selector.includes('.slds-')) {
+    root.walkRules((rule) => {
+      const classNodes = getClassNodesFromSelector(rule.selector);
+      const offsetIndex = rule.toString().indexOf(rule.selector);
+      classNodes.forEach((classNode) => {
+        if (!classNode.value.startsWith('slds-')) {
+          // Ignore if the selector do not start with `slds-*`
+          return;
+        } else {
+          //match against slds_classes.json entries. As of now we have 4k_ entries.
+          if (sldsSet.has(classNode.value)) {
+            const index = offsetIndex + classNode.sourceIndex + 1; // find selector in rule plus '.'
+            const endIndex = index + classNode.value.length;
             utils.report({
-              message: replacePlaceholders(errorMsg,{selector}),
+              message: replacePlaceholders(errorMsg, {
+                selector: `.${classNode.value}`,
+              }),
               node: rule,
               result,
               ruleName,
-              word: selector,
-              severity
+              severity,
+              index,
+              endIndex,
             });
-
-            // Uncomment below to enable auto-fixing
-            // if (context.fix) {
-            //   rule.selector = rule.selector.replace(/\.slds-[\w-]+/g, '').trim();
-            // }
           }
-        });
+        }
       });
-    }
+    });
   };
 }
 

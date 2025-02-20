@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLDS Styling Examples</title>
+    <style>
+        /* Sample CSS classes using static values that can be replaced with SLDS hooks */
+        .header-title {
+            /* Can be replaced with --slds-g-font-scale-5 */
+            font-size: 1.5rem;
+            /* Can be replaced with --slds-g-color-neutral-base-20 */
+            color: #2e2e2e;
+            /* Can be replaced with --slds-g-font-weight-3 */
+            font-weight: 300;
+        }
+
+        .card {
+            /* Can be replaced with --slds-g-color-surface-1 */
+            background-color: #ffffff;
+            /* Can be replaced with --slds-g-shadow-2 */
+            box-shadow: 0 2px 8px -2px #18181814, 0 8px 12px -2px #18181828;
+            /* Can be replaced with --slds-g-radius-border-2 */
+            border-radius: 0.25rem;
+            /* Can be replaced with --slds-g-spacing-4 */
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-text {
+            /* Can be replaced with --slds-g-color-success-base-50 */
+            color: #2e844a;
+            /* Can be replaced with --slds-g-font-lineheight-base */
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Using style tag defined classes -->
+    <div class="card">
+        <h1 class="header-title">Welcome to SLDS Examples</h1>
+        <p class="success-text">This is styled using classes defined in the style tag.</p>
+    </div>
+
+    <!-- Using inline styles -->
+    <div style="
+        /* Can be replaced with --slds-g-color-surface-1 */
+        background-color: #ffffff;
+        /* Can be replaced with --slds-g-shadow-2 */
+        box-shadow: 0 2px 8px -2px #18181814, 0 8px 12px -2px #18181828;
+        /* Can be replaced with --slds-g-radius-border-2 */
+        border-radius: 0.25rem;
+        /* Can be replaced with --slds-g-spacing-4 */
+        padding: 1rem;
+        margin-bottom: 1rem;
+    ">
+        <input type="text" style="
+            /* Can be replaced with --slds-s-input-color-background */
+            background: #ffffff;
+            /* Can be replaced with --slds-s-input-color-border */
+            border-color: #747474;
+            /* Can be replaced with --slds-s-input-sizing-border */
+            border-width: 1px;
+            /* Can be replaced with --slds-s-input-radius-border */
+            border-radius: 0.25rem;
+            /* Can be replaced with --slds-s-input-font-size */
+            font-size: 13px;
+        ">
+    </div>
+
+    <!-- Example with multiple possible hooks -->
+    <div style="
+        /* Can be replaced with either:
+           --slds-g-color-on-surface-1 (for general UI icons)
+           --slds-g-color-on-surface-2 (for emphasized icons)
+           --slds-g-color-disabled-1 (for disabled state) */
+        color: #747474;
+        /* Can be replaced with either:
+           --slds-g-sizing-5 (for regular icons)
+           --slds-g-sizing-6 (for large icons) */
+        width: 1rem;
+        height: 1rem;
+    ">
+        ★
+    </div>
+</body>
+</html> 

@@ -1,6 +1,5 @@
 import { Root } from 'postcss';
-import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
-import { Options } from './option.interface';
+import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 
@@ -15,39 +14,26 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
     replacePlaceholders(errorMsg,{prop}),
 });
 
-function validateOptions(result: PostcssResult, options: Options) {
-  return stylelint.utils.validateOptions(result, ruleName, {
-    actual: options,
-    possible: {}, // Customize as needed
-  });
-}
 
-function rule(
-  primaryOptions: Options,
-  secondaryOptions: Options,
-  context: RuleContext
-) {
+
+function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    if (validateOptions(result, primaryOptions)) {
-      root.walkDecls((decl) => {
-        const severity =
-                      result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
-        if (decl.prop.startsWith('--_slds-')) {
-          stylelint.utils.report({
-            message: messages.expected(decl.prop),
-            node: decl,
-            result,
-            ruleName,
-            severity
-          });
+    root.walkDecls((decl) => {
+      if (decl.prop.startsWith('--_slds-')) {
+        stylelint.utils.report({
+          message: messages.expected(decl.prop),
+          node: decl,
+          result,
+          ruleName,
+          severity
+        });
 
-          // Optional: Call the fix method if in fixing context
-          if (result.stylelint.config.fix) {
-            fix(decl);
-          }
+        // Optional: Call the fix method if in fixing context
+        if (result.stylelint.config.fix) {
+          fix(decl);
         }
-      });
-    }
+      }
+    });
   };
 }
 

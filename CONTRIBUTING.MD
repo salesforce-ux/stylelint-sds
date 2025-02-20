@@ -6,7 +6,7 @@ Create a new issue before starting your project so that we can keep track of wha
 
 1. Fork this repository.
 1. The [README](README.md) has details on how to set up your environment.
-1. Create a _topic_ branch in your fork based on the correct branch (the **master** branch, see [Branches section](#branches) below). Note, this step is recommended but technically not required if contributing using a fork.
+1. Create a _topic_ branch in your fork based on the correct branch (the **main** branch, see [Branches section](#branches) below). Note, this step is recommended but technically not required if contributing using a fork.
 1. Edit the code in your fork.
 1. Sign CLA (see [CLA](#cla) below)
 1. Send us a pull request when you are done. We'll review your code, suggest any
@@ -19,9 +19,9 @@ Agreement. You can do so by going to https://cla.salesforce.com/sign-cla.
 
 ## Branches
 
-- Our released (aka. _production_) branch is `master`.
+- Our released (aka. _production_) branch is `main`.
 - Our work happens in _topic_ branches (feature and/or bug-fix).
-  - feature as well as bug-fix branches are based on `master`
+  - feature as well as bug-fix branches are based on `main`
   - branches _should_ be kept up-to-date using `rebase`
   - see below for further merge instructions
 
@@ -33,11 +33,11 @@ Agreement. You can do so by going to https://cla.salesforce.com/sign-cla.
 
 - _Topic_ branches are:
 
-  1. based on `master` and will be
-  1. squash-merged into `master`.
+  1. based on `main` and will be
+  1. squash-merged into `main`.
 
 - Hot-fix branches are an exception.
-  - Instead we aim for faster cycles and a generally stable `master` branch.
+  - Instead we aim for faster cycles and a generally stable `main` branch.
 
 ## Pull Requests
 

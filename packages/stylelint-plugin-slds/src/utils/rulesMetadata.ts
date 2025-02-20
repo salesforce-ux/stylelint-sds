@@ -2,7 +2,7 @@
 import rulesData from './rules';
 
 // Define the structure of the rules
-interface Rule {
+export interface Rule {
   name: string;
   severityLevel: string;
   warningMsg: string;
@@ -11,7 +11,7 @@ interface Rule {
 }
 
 // Define a type for the rules object
-type Rules = {
+export type Rules = {
   [key: string]: Rule;
 };
 

@@ -10,12 +10,12 @@ jest.mock('../src/rules/no-deprecated-slds-classes', () => jest.fn());
 describe('ESLint Plugin Rules', () => {
     test('should define enforce-bem-class rule', () => {
         expect(index.rules).toHaveProperty('enforce-bem-class');
-        expect(typeof index.rules['enforce-bem-class']).toBe('function');
+        expect(typeof index.rules['enforce-bem-class']).toBe('object');
     });
     
     test('should define no-deprecated-slds-classes rule', () => {
     expect(index.rules).toHaveProperty('no-deprecated-slds-classes');
-    expect(typeof index.rules['no-deprecated-slds-classes']).toBe('function');
+    expect(typeof index.rules['no-deprecated-slds-classes']).toBe('object');
     });
 });
 

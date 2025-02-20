@@ -1,5 +1,5 @@
 import { Root } from 'postcss';
-import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
+import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 
@@ -15,43 +15,28 @@ const messages = utils.ruleMessages(ruleName, {
     replacePlaceholders(errorMsg,{property}),
 });
 
-function validateOptions(result: PostcssResult, options: any) {
-  return utils.validateOptions(result, ruleName, {
-    actual: options,
-    possible: {}, // Extend as needed
-  });
-}
-
-function rule(
-  primaryOptions: any,
-  secondaryOptions: any,
-  context: RuleContext
-) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    if (validateOptions(result, primaryOptions)) {
-      root.walkDecls((decl) => {
-        if (decl.value.includes('calc(')) {
-          const index = decl.toString().indexOf('calc(');
-          const endIndex = index + 'calc('.length;
-          const severity =
-                        result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
-          utils.report({
-            message: messages.disallowed(decl.prop),
-            node: decl,
-            index,
-            endIndex,
-            result,
-            ruleName,
-            severity
-          });
+    root.walkDecls((decl) => {
+      if (decl.value.includes('calc(')) {
+        const index = decl.toString().indexOf('calc(');
+        const endIndex = index + 'calc('.length;
+        utils.report({
+          message: messages.disallowed(decl.prop),
+          node: decl,
+          index,
+          endIndex,
+          result,
+          ruleName,
+          severity
+        });
 
-          // If fixing is enabled
-          // if (context.fix) {
-          //   decl.value = decl.value.replace(/calc\([^)]+\)/g, ''); // Example fix: removes calc()
-          // }
-        }
-      });
-    }
+        // If fixing is enabled
+        // if (context.fix) {
+        //   decl.value = decl.value.replace(/calc\([^)]+\)/g, ''); // Example fix: removes calc()
+        // }
+      }
+    });
   };
 }
 
