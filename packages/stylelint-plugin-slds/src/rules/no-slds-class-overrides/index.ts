@@ -15,6 +15,7 @@ const {
   errorMsg = '',
   ruleDesc = 'No description provided',
 } = ruleMetadata(ruleName) || {};
+
 const sldsSet = new Set(sldsClasses);
 
 function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {

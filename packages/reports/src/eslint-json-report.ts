@@ -3,14 +3,10 @@
 */
 
 import { promises as fs } from 'fs';
-import path, { join, extname } from 'path';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-import spawn from 'cross-spawn';
-import {processFilesInBatches as runBatches} from './run-batches'
+import path, { extname, join } from 'path';
+import { processFilesInBatches as runBatches } from './run-batches';
 import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles';
-const execPromise = promisify(exec);
-const __dirname = process.cwd();
+
 
 let eslintConfigFilePath = 'node_modules/@salesforce-ux/eslint-plugin-slds/build/.eslintrc.yml';
 let OUTPUT_DIR = '';

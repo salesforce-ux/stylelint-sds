@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import chalk from 'chalk';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+
 import {npmRunPathEnv} from 'npm-run-path';
 
 const eslintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/eslint-plugin-slds/.eslintrc.yml'));

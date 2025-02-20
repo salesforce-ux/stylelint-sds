@@ -2,21 +2,14 @@
     This file is to get all the validation issue with stylelint rules
 */
 import { promises as fs } from 'fs';
-import readline from 'readline';
-import cliProgress from 'cli-progress';
-import { execFile } from 'child_process';
-import path, { join, extname } from 'path';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-import spawn from 'cross-spawn';
-import {processFilesInBatches as runBatches} from './run-batches'
+import path, { extname, join } from 'path';
+import { processFilesInBatches as runBatches } from './run-batches';
 import { consolidateReportsJQ, writeToFile } from './utils/consolidateJsonFiles';
-const execPromise = promisify(exec);
-const __dirname = process.cwd();
 
 
 let stylelintConfigFilePath = 'node_modules/@salesforce-ux/stylelint-plugin-slds/build/.stylelintrc.yml';
 let OUTPUT_DIR = '';
+
 
 async function validateConfigFile(configPath: string) {
   try {
