@@ -101,7 +101,7 @@ function pushRulesInSarifOutput(jsonData:Entry[]):void {
 
       sarifOutput.runs[0].tool.driver.rules.push({
         id: ruleId,
-        fullDescription: { text: ruleMetadata(ruleId).ruleDesc || 'No message provided' },
+        fullDescription: { text: ruleMetadata(ruleId).ruleDesc || '' },
         defaultConfiguration: { level: ruleMetadata(ruleId).severityLevel || 'warning' },
       });
       }
@@ -126,7 +126,7 @@ async function convertJsonToSarif(): Promise<void> {
         // Extract relevant fields
         const id = warning.rule || 'unknown_rule';
         const severity = ruleMetadata(id).severityLevel || 'warning';
-        const message = warning.text || 'No message provided';
+        const message = warning.text || '';
         const filePath = normalizePath(entry.source) || 'unknown_file';
         const startLine = warning.line || 1;
         const endLine = warning.endLine || startLine;
