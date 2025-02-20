@@ -3,10 +3,24 @@ import path from "path";
 import fs from "fs";
 import readline from "readline";
 
+//importing package.json of packages
+import * as eslintPackage from "../packages/eslint-plugin-slds/package.json" with { type: "json" };
+import * as stylelintPackage from "../packages/stylelint-plugin-slds/package.json" with { type: "json" };
+import * as linterPackage from "../packages/slds-linter/package.json" with { type: "json" };
+
 const packageDirs = {
-  eslint: path.resolve("packages/eslint-plugin-slds"),
-  stylelint: path.resolve("packages/stylelint-plugin-slds"),
-  linter: path.resolve("packages/slds-linter"),
+  eslint: {
+    path: path.resolve("packages/eslint-plugin-slds"),
+    version: eslintPackage.default.version,
+  },
+  stylelint: {
+    path: path.resolve("packages/stylelint-plugin-slds"),
+    version: stylelintPackage.default.version,
+  },
+  linter: {
+    path: path.resolve("packages/slds-linter"),
+    version: linterPackage.default.version,
+  },
 };
 
 const rl = readline.createInterface({
@@ -14,41 +28,41 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-function promptGitHubToken() {
+async function promptGHRelease() {
   return new Promise((resolve) => {
-    rl.question("Please enter your GitHub token: ", (token) => {
-      resolve(token);
-    });
+    rl.question(
+      "Please enter your repo package version for gh release: ",
+      (version) => {
+        resolve(version);
+      }
+    );
   });
 }
 
-//Needed in case of gh-release
-// function promptGitHubUsername() {
-//   return new Promise((resolve) => {
-//     rl.question("Please enter your GitHub username: ", (user) => {
-//       resolve(user);
-//     });
-//   });
-// }
-
-function createGitHubRelease(version, token, user, tgzFilePath) {
+async function createGitHubRelease(tgzFilePath) {
   try {
-    // execSync(
-    //         `npx gh-release --token ${token} --owner ${user} --repo test --tag v${version} --name "Release v${version}" --assets ${tgzFilePath} --dry-run`,
-    //         { stdio: "inherit" }
-    //       );
-    console.log(
-      `npx gh-release --token ${token} --owner ${user} --repo test --tag v${version} --name "Release v${version}" --assets ${tgzFilePath} --dry-run`,
-      { stdio: "inherit" }
-    );
-    console.log(`Running semantic-release...`);
-    execSync(`CI=true GH_TOKEN=${token} npx semantic-release`);
-    console.log(`GitHub Release for v${version} created successfully.`);
+    /*
+    semantic-release
+    Semantic release not able to add tgz file in the release object.
+    */
+    // console.log(`Running semantic-release...`);
+    // runCommand(`CI=true GH_TOKEN=${token} npx semantic-release --debug`);
+
+    /*
+    gh-release 
+    Takes GH_TOKEN from process.env
+    no option of dry-run
+    */
+    const versionRelease = await promptGHRelease();
+    runCommand(`npm version ${versionRelease} --no-git-tag-version`);
+    //runCommand(`gh release create v${versionRelease} ${tgzFilePath} --title "Release v${versionRelease}" --notes "Release notes for v${versionRelease}"`)
+    console.log(`GitHub Release for v${versionRelease} created successfully.`);
   } catch (error) {
     console.error("Error creating GitHub release:", error.message);
   }
 }
-function runCommand(command, cwd) {
+
+function runCommand(command, cwd = process.cwd()) {
   try {
     console.log(`Running: ${command}`);
     execSync(command, { cwd, stdio: "inherit" });
@@ -64,9 +78,8 @@ function isValidVersion(version) {
 }
 
 function packPackage(packageLinter, versionLinter) {
-  
-        execSync(`mkdir -p ${packageLinter}/dist`);
-        execSync("npm pack --pack-destination ./dist", { cwd: packageLinter, stdio: 'inherit' });
+  runCommand(`mkdir -p dist`, packageLinter);
+  runCommand("npm pack --pack-destination ./dist", packageLinter);
 
   const tgzFilePath = path.resolve(
     packageLinter,
@@ -75,14 +88,9 @@ function packPackage(packageLinter, versionLinter) {
   return tgzFilePath;
 }
 
-function promptVersion(packageName) {
-  const packageDir = packageDirs[packageName];
-  const packageJsonPath = path.join(packageDir, "package.json");
-
+async function promptVersionNumber(packageName) {
   try {
-    // Read the current version from the package.json file for prompt
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
-    const currentVersion = packageJson.version;
+    const currentVersion = packageDirs[packageName].version;
     return new Promise((resolve) => {
       rl.question(
         `Current version of package "${packageName}" is ${currentVersion}. Enter the version number (e.g., 1.2.3): `,
@@ -91,24 +99,10 @@ function promptVersion(packageName) {
             console.log(
               "Invalid version format. Please enter a valid version number (e.g., 1.0.1)."
             );
-            resolve(promptVersion(packageName)); // Retry if invalid
-            return;
+            resolve(promptVersionNumber(packageName, currentVersion)); // Retry if invalid
+          } else {
+            resolve(versionNumber); // Return valid version number
           }
-
-          // Ask for version type (normal/alpha/beta)
-          rl.question(
-            "Enter version type (normal/alpha/beta): ",
-            (versionType) => {
-                const normalizedType = (versionType.trim().length == 0)? "normal" : versionType.toLowerCase().trim();
-
-              let finalVersion = versionNumber;
-              if (["alpha", "beta"].includes(normalizedType)) {
-                finalVersion += `-${normalizedType}`;
-              }
-
-              resolve(finalVersion);
-            }
-          );
         }
       );
     });
@@ -117,21 +111,61 @@ function promptVersion(packageName) {
       `Error reading package.json for ${packageName}:`,
       error.message
     );
-    return promptVersion(packageName);
+    return promptVersionNumber(packageName);
   }
+}
+
+async function promptVersionType() {
+  return new Promise((resolve) => {
+    rl.question(
+      "Choose release type [ alpha | beta | final ]: ",
+      (versionType) => {
+        const normalizedType =
+          versionType.trim().length === 0
+            ? "final"
+            : versionType.toLowerCase().trim();
+
+        // Validate the version type
+        if (["alpha", "beta", "final"].includes(normalizedType)) {
+          resolve(normalizedType); // Return valid version type
+        } else {
+          console.log(
+            'Invalid version type. Please enter "alpha", "beta", or "final".'
+          );
+          resolve(promptVersionType()); // Retry if invalid
+        }
+      }
+    );
+  });
+}
+
+async function promptVersion(packageName) {
+  try {
+    const versionNumber = await promptVersionNumber(packageName); // Prompt for version number
+    const versionType = await promptVersionType(); // Prompt for version type
+
+    let finalVersion = versionNumber;
+    if (["alpha", "beta"].includes(versionType)) {
+      finalVersion += `-${versionType}`;
+    }
+
+    return finalVersion;
+  } catch (error) {}
 }
 
 function updateDependenciesInLinter(versionEslint, versionStylelint) {
   try {
-    const packagePath = path.join(packageDirs.linter, "package.json");
-    const packageLinter = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+    const packagePath = path.join(packageDirs.linter.path, "package.json");
 
-    packageLinter.dependencies["@salesforce-ux/eslint-plugin-slds"] =
+    linterPackage.default.dependencies["@salesforce-ux/eslint-plugin-slds"] =
       `^${versionEslint}`;
-    packageLinter.dependencies["@salesforce-ux/stylelint-plugin-slds"] =
+    linterPackage.default.dependencies["@salesforce-ux/stylelint-plugin-slds"] =
       `^${versionStylelint}`;
 
-    fs.writeFileSync(packagePath, JSON.stringify(packageLinter, null, 2));
+    fs.writeFileSync(
+      packagePath,
+      JSON.stringify(linterPackage.default, null, 2)
+    );
     console.log("Updated dependencies for package with new versions");
   } catch (error) {
     console.error("Error in updating dependencies", error.message);
@@ -149,7 +183,7 @@ function buildPackage(packageDir) {
 
 async function publishPackage(packageName, version) {
   try {
-    const packageDir = packageDirs[packageName];
+    const packageDir = packageDirs[packageName].path;
 
     console.log(`Publishing package ${packageName} with version ${version}...`);
 
@@ -159,7 +193,7 @@ async function publishPackage(packageName, version) {
 
     console.log(`Publishing ${packageName}...`);
     // Check in console that you're logged in npm. Please run npm whoami to check you're logged in/
-    // runCommand('npm publish', packageDir);
+    // runCommand('npm publish --access=restricted --dry-run', packageDir);
 
     console.log(`Package ${packageName} published successfully!`);
   } catch (error) {
@@ -179,8 +213,11 @@ async function publishLinter(versionEslint, versionStylelint, versionLinter) {
 
 async function publishPackages() {
   try {
-    const githubToken = await promptGitHubToken();
-//     const githubUsername = await promptGitHubUsername();
+    const githubToken = process.env.GH_TOKEN;
+    if (!githubToken) {
+      throw new Error("Github Token is missing!");
+      // process.exit();
+    }
     const versionEslint = await promptVersion("eslint");
     const versionStylelint = await promptVersion("stylelint");
     const versionLinter = await promptVersion("linter");
@@ -198,11 +235,11 @@ async function publishPackages() {
 
     //Packing
     console.log("Packing..");
-    const tgzPath = packPackage(packageDirs["linter"], versionLinter);
+    const tgzPath = packPackage(packageDirs["linter"].path, versionLinter);
 
     //Create a github release
     console.log("Creating github release...");
-//     createGitHubRelease(versionLinter, githubToken, githubUsername, tgzPath);
+    //     await createGitHubRelease(tgzPath);
   } catch (error) {
     console.error("Error in publishing packages", error.message);
   } finally {
