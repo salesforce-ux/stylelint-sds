@@ -33,7 +33,7 @@ async function validateConfigFile(configPath: string) {
 async function processFilesInBatches(cssFiles: string[]): Promise<void> {
   //const stylelintPath = path.resolve(__dirname, 'node_modules/.bin/stylelint');
   const stylelintConfigFile = stylelintConfigFilePath;
-  await runBatches(cssFiles, 'npx stylelint', stylelintConfigFile, 10);
+  await runBatches(cssFiles, 'stylelint', stylelintConfigFile, 10);
 }
 
 async function consolidateReports(): Promise<void> {

@@ -59,9 +59,9 @@ function calculateBatchInfo(totalFiles: number) {
 }
 
 async function processFilesInBatches(componentFiles: string[]): Promise<void> {
-    const eslintPath = path.resolve(__dirname, 'node_modules/.bin/eslint');
+    //const eslintPath = path.resolve(__dirname, 'node_modules/.bin/eslint');
     const eslintConfigFile = eslintConfigFilePath;
-    await runBatches(componentFiles, eslintPath, eslintConfigFile, 10);
+    await runBatches(componentFiles, 'eslint', eslintConfigFile, 10);
 }
 
 async function consolidateComponentReports(): Promise<void> {

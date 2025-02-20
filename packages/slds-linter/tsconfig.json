@@ -6,7 +6,9 @@
     "moduleResolution": "node",
     "declaration": true,
     "noEmitOnError": true,
+    "skipLibCheck": true,
     "esModuleInterop": true
   },
   "include": ["src/**/*.ts"],
+  "exclude": ["node_module/*", "build/*"]
 }
