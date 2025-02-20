@@ -10,11 +10,10 @@
     ".stylelintrc.yml"
   ],
   "scripts": {
-    "fix": "npm run lint -- --fix",
     "test": "NODE_ENV=test mocha",
-    "compile":"tsc --project tsconfig.json",
     "prepublishOnly": "clean-pkg-json",
-    "build": "gulp build"
+    "build": "gulp build",
+    "dev": "gulp dev"
   },
   "dependencies": {
     "chroma-js": "^3.1.2",    

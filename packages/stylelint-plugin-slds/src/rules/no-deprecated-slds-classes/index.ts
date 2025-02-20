@@ -1,11 +1,9 @@
-import stylelint, { Rule, PostcssResult } from 'stylelint';
-import { readFileSync } from 'fs';
+import { deprecatedClasses } from "@salesforce-ux/matadata-slds";
 import { Root } from 'postcss';
-import { metadataFileUrl } from '../../utils/metaDataFileUrl';
+import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import ruleMetadata from '../../utils/rulesMetadata';
-import replacePlaceholders from '../../utils/util';
 import { getClassNodesFromSelector } from '../../utils/selector-utils';
-import {deprecatedClasses} from "@salesforce-ux/matadata-slds";
+import replacePlaceholders from '../../utils/util';
 
 const { utils, createPlugin } = stylelint;
 
@@ -34,24 +32,10 @@ const defaultDeprecatedClasses = new Set(
 // Regex to match classes
 const classRegex = /\.[\w-]+/g;
 
-function validateOptions(result: PostcssResult, options: any): boolean {
-  return utils.validateOptions(result, ruleName, {
-    actual: options,
-    possible: {}, // Customize as needed
-  });
-}
 
-function rule(
-  primaryOptions: any,
-  secondaryOptions: any,
-  context: any
-) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    const severity =
-      result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
-    if (!validateOptions(result, primaryOptions)) {
-      return;
-    }
+    
     const deprecatedClassesSet = new Set(deprecatedClasses);
 
     root.walkRules((rule) => {

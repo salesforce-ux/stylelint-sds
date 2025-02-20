@@ -1,7 +1,7 @@
-import { series, src, dest } from 'gulp';
-import { rimraf} from 'rimraf'
-import {task} from "gulp-execa";
-import * as esbuild from 'esbuild'
+import * as esbuild from 'esbuild';
+import { series, watch } from 'gulp';
+import { task } from "gulp-execa";
+import { rimraf } from 'rimraf';
 
 /**
  * Clean all generated folder
@@ -24,7 +24,16 @@ const compileTs = async ()=>{
     packages:'external'
   })
 };
-  
+
 export const build = series(cleanDirs, compileTs);
+
+const watchChanges = ()=>{
+  watch(["./src/**/*.ts"], function(cb) {
+    build();
+    cb();
+  });
+}
+
+export const dev = series(build, watchChanges)  
 
 export default task('gulp --tasks');

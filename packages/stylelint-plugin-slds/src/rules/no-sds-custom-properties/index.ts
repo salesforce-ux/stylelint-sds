@@ -1,4 +1,4 @@
-import stylelint, { Rule, PostcssResult } from 'stylelint';
+import stylelint, { Rule, PostcssResult, RuleSeverity } from 'stylelint';
 import { Root } from 'postcss';
 import replacePlaceholders from '../../utils/util';
 import ruleMetadata from '../../utils/rulesMetadata';
@@ -13,30 +13,21 @@ const messages = utils.ruleMessages(ruleName, {
     replacePlaceholders(errorMsg,{prop}),
 });
 
-function validateOptions(result: PostcssResult, options: any): boolean {
-  return utils.validateOptions(result, ruleName, {
-    actual: options,
-    possible: {}, // Customize as needed
-  });
-}
 
-function rule(primaryOptions?: any) {
+function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    if (validateOptions(result, primaryOptions)) {
-      root.walkDecls((decl) => {
-        const severity =
-                      result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
-        if (decl.prop.startsWith('--sds-')) {
-          utils.report({
-            message: messages.expected(decl.prop),
-            node: decl,
-            result,
-            ruleName,
-            severity
-          });
-        }
-      });
-    }
+    root.walkDecls((decl) => {
+      
+      if (decl.prop.startsWith('--sds-')) {
+        utils.report({
+          message: messages.expected(decl.prop),
+          node: decl,
+          result,
+          ruleName,
+          severity
+        });
+      }
+    });
   };
 }
 

@@ -1,11 +1,10 @@
 import { Root } from 'postcss';
-import stylelint, { Rule, PostcssResult } from 'stylelint';
+import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 
-import { Options } from './option.interface';
+import { sldsClasses } from "@salesforce-ux/matadata-slds";
 import ruleMetadata from '../../utils/rulesMetadata';
-import replacePlaceholders from '../../utils/util';
 import { getClassNodesFromSelector } from '../../utils/selector-utils';
-import {sldsClasses} from "@salesforce-ux/matadata-slds";
+import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
 const ruleName: string = 'slds/no-slds-class-overrides';
@@ -18,10 +17,8 @@ const {
 } = ruleMetadata(ruleName) || {};
 const sldsSet = new Set(sldsClasses);
 
-function rule(primaryOptions: Options) {
+function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    const severity =
-      result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
 
     root.walkRules((rule) => {
       const classNodes = getClassNodesFromSelector(rule.selector);

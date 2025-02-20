@@ -1,12 +1,9 @@
+import { globalSharedHooksMetadata } from "@salesforce-ux/matadata-slds";
 import { Root } from 'postcss';
-import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
-import { Options } from './option.interface';
+import valueParser from 'postcss-value-parser';
+import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
-import valueParser from 'postcss-value-parser';
-import { readFileSync } from 'fs';
-import { metadataFileUrl } from '../../utils/metaDataFileUrl';
-import {globalSharedHooksMetadata} from "@salesforce-ux/matadata-slds";
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
@@ -18,13 +15,6 @@ const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No 
 
 // data
 const allSldsHooks = [].concat(Object.keys(globalSharedHooksMetadata.global), Object.keys(globalSharedHooksMetadata.shared));
-
-function validateOptions(result: PostcssResult, options: Options): boolean {
-  return utils.validateOptions(result, ruleName, {
-    actual: options,
-    possible: {}, // Customize if additional options are added
-  });
-}
 
 const toSldsToken = (sdsToken: string) => sdsToken.replace('--sds-', '--slds-')
 
@@ -99,17 +89,9 @@ function detectLeftSide(decl, basicReportProps, autoFixEnabled) {
     }
 }
 
-function rule(
-  primaryOptions: Options,
-  secondaryOptions: Options,
-  context: RuleContext
-) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    if (!validateOptions(result, primaryOptions)) {
-      return;
-    }
 
-    const severity = result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
     const autoFixEnabled = result.stylelint.config.fix;
 
     root.walkDecls((decl) => {
