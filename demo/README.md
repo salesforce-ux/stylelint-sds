@@ -25,7 +25,7 @@ Link `slds-linter` package to global
 Navigate back to `demo` folder
 
 ```
-> cd slylelint-sdc/demo
+> cd slylelint-sds/demo
 ```
 
 ### Step 4
