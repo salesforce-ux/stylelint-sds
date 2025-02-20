@@ -37,7 +37,13 @@ describe('no-hardcoded-values-slds2', () => {
           background-color: #123456;
         }
       `,
-      expectedMessage:"Consider replacing the static value for \"#123456\" with a design token: \n1. --slds-g-color-surface-inverse-1 \n2. --slds-g-color-surface-container-inverse-1 \n3. --slds-g-color-surface-inverse-2 \n4. --slds-g-color-surface-container-inverse-2 \n5. --slds-g-color-accent-container-1 \n (slds/no-hardcoded-values-slds2)",
+      expectedMessage:`Consider replacing the static value for "#123456" with a design token: "
+1. --slds-g-color-surface-inverse-1 
+2. --slds-g-color-surface-container-inverse-1 
+3. --slds-g-color-surface-inverse-2 
+4. --slds-g-color-surface-container-inverse-2 
+5. --slds-g-color-accent-container-1 
+"`,
     },
     {
       description:
