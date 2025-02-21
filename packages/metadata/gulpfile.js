@@ -44,6 +44,9 @@ export {${namedExports.sort().join(",")}}
   );
 }
 
+/**
+  * Compile typescript files
+  * */ 
 async function generateBundle() {
   await esbuild.build({
     entryPoints: ["./src/*.ts"],
@@ -58,6 +61,10 @@ async function generateBundle() {
   })  
 }
 
+/**
+  * ESBuild bydefault won't generate definition file. There are multiple ways 
+  * to generate definition files. But we are reliying on tsc for now
+  * */ 
 const generateDefinitions = task('tsc --project tsconfig.json');
 
 /**
