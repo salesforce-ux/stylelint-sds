@@ -115,6 +115,5 @@ yargs(hideBin(process.argv))
             }
         }
     )
-    .help();
-
-yargsInst.showHelp();
+    .help()
+    .argv;
