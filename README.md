@@ -1,53 +1,60 @@
-# Stylelint for SDS
+# SLDS Linter
 
-The SLDS Linter plug-in is a customizable linting tool specifically built for Salesforce Lightning Design System (SLDS) 2. SLDS Linter was built on top of ESLint and StyleLint, two widely used linters in modern front-end development. Use SLDS Linter to automatically find potential style problems and wrong patterns in your design code.
+## Overview
 
-## How to get started with this
+SLDS Linter provides custom linting rules specifically built for Salesforce Lightning Design System 2 (SLDS 2 beta). SLDS Linter is designed to uplift your Cascading Style Sheet (CSS), Lightning Web Component (LWC), and Aura component files to SLDS 2 and to conform to SLDS best practices. SLDS Linter rules allow you to maintain consistent styling and identify common issues when working with Lightning components. 
 
-- Clone this repository
-- On the root folder, run the below commands
+
+Follow these instructions to integrate SLDS Linter into your project.
+
+---
+
+## **Get Started with SLDS Linter**
+
+First, clone the repository, then run some commands to run SLDS Linter rules on test-repository CSS files.
+
+1. Clone this repository.
+2. Using your favorite code editor, in your project root folder, run these commands.
+
   ```
     npm run install-all
     npm run build
   ```
-- The above commands would setup the packages to run the stylelint rules on `test-repository` .css files.
 
-## stylelint-plugin-slds
+### Set Up SLDS Linter in Your Component Repository
 
-This package contains all the rules we need for SDS.
+Now you’re ready to set up and run SLDS Linter in your project.
 
-## test-repository
+If you’re uplifting your SLDS 1 code to SLDS 2 and you’re working in a sandbox or scratch org, run an npm init first. If you’re working in production org code, you can skip this step.
 
-This packages is used for testing all the rules added to `stylelint-plugin-slds` and `.stylelintrc.yml`
+  ```
+    npm init
+    npm install @salesforce-ux/slds-linter --save-dev
+  ```
+To include linting capabilities in your project, add these scripts in your package.json, or modify them.
 
-## Other useful commands
+  ```
+  "scripts": {
 
-### Generate .sarif report
+   "lint:styles": "stylelint ./**/*.css --config=.stylelintrc.yml",
+   "lint:components": "eslint **/*.{html,cmp} --ext .html,.cmp --config=.eslintrc.yml",
+   "lint": "npm run lint:components; npm run lint:styles",
+   "fix": "stylelint **/*.css -c .stylelintrc.yml --fix ",
+   "report": "node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js force-app/ -c .stylelintrc.yml",
+   "setup-lint": "node ./node_modules/@salesforce-ux/slds-linter/build/setup.js"
+  }
+  ```
 
-To generate a .sarif report of validation issues, use the below commands
+-	lint: Runs the Stylelint rules on your CSS files and outputs issues.
+-	fix: Attempts to automatically fix violations.
+-	report: Generates a SARIF report for static analysis.
+-	setup-lint: This would configure .eslintrc.yml and .stylelintrc.yml
 
-```
-npm run report
-```
 
-The above command runs on predefined stylelintrc.yml and lint *.css available in test-repository.
+To match the directories that you validate in your project, update the file paths in the src//*.css directory.
 
-### Auto fix validation errors.
-
-You can auto fix all the errors at once in a given css file or all the css files using the below command
-
-```
-npm run fix
-```
-
-### Publishing the packages to npm
-
-Go to the respective folder for which you want to publish new npm package.
-
-```
-npm version patch
-npm run build
-npm publish
-
-```
-Note: You should have permissions to publish packages to `@salesforce-ux` npm org.
+4. Run `npm run setup-lint` to set up all the configuration files.
+5. To run SLDS Linter, in Terminal, run `npm run report` to generate a Sarif report in the `reports` folder of your project root directory.
+5. Open the generated Sarif file.
+6. Make a note of how many components SLDS Linter has identified that you must update.
+7. Run `npm run fix` to automatically fix validation errors in bulk.
