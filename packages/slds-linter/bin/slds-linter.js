@@ -12,6 +12,8 @@ const stylelintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce
 
 // ✅ Define CLI Commands using `yargs`
 yargs(hideBin(process.argv))
+    .scriptName('')
+    .usage('Usage: $0 npx @salesforce-ux/slds-linter [command]')
     .command(
         'lint',
         'Run both ESLint and Stylelint',

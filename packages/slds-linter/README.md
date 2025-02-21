@@ -33,7 +33,7 @@ To install the SLDS Linter Utility in your project, you can use npm:
 To see what all options does slds-linter provide please run `npx @salesforce-ux/slds-linter --help` which gives the below output.
 
   ```
-  npx @salesforce-ux/slds-linter [command]
+Usage:  npx @salesforce-ux/slds-linter [command]
 
 Commands:
   lint             Run both ESLint and Stylelint
