@@ -9,6 +9,7 @@ import { hideBin } from 'yargs/helpers';
 
 const eslintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/eslint-plugin-slds/build/.eslintrc.yml'));
 const stylelintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/stylelint-plugin-slds/build/.stylelintrc.yml'));
+const reportExecuterPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/stylelint-plugin-slds/build/report.js'));
 
 // ✅ Define CLI Commands using `yargs`
 yargs(hideBin(process.argv))
@@ -104,7 +105,7 @@ yargs(hideBin(process.argv))
         (argv) => {
             console.log(chalk.cyan(`📊 Generating linting report for ${argv.dir}...`));
             try {
-                execSync(`node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js ${argv.dir} -c ${stylelintConfigPath}`, { stdio: 'inherit' });
+                execSync(`node ${reportExecuterPath} ${argv.dir} -c ${stylelintConfigPath}`, { stdio: 'inherit' });
                 console.log(chalk.green('✅ Report generated successfully!'));
             } catch (error) {
                 console.error(chalk.red('❌ Failed to generate the report.'));
