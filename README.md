@@ -30,34 +30,34 @@ To install the SLDS Linter Utility in your project, you can use npm:
 
 ### Command-Line Interface (CLI)
 
-To see what all options does slds-linter provide please run `slds-linter --help` which gives the below output.
+To see what all options does slds-linter provide please run `npx @salesforce-ux/slds-linter --help` which gives the below output.
 
   ```
-  slds-linter [command]
+  npx @salesforce-ux/slds-linter [command]
 
 Commands:
-  slds-linter lint             Run both ESLint and Stylelint
-  slds-linter lint:styles      Run only Stylelint
-  slds-linter lint:components  Run only ESLint
-  slds-linter fix              Fix auto-fixable issues
-  slds-linter report           Generate a linting report
+  lint             Run both ESLint and Stylelint
+  lint:styles      Run only Stylelint
+  lint:components  Run only ESLint
+  fix              Fix auto-fixable issues
+  report           Generate a linting report
 
 Options:
   --version  Show version number                                       [boolean]
   --help     Show help                                                 [boolean]
   ```
 
--	slds-linter lint -  Runs the ESlint and Stylelint rules on your HTML/CSS/CMP files and outputs issues.
--	slds-linter lint:styles - Runs the Stylelint rules on your CSS files and outputs issues.
--	slds-linter lint:components -  Runs the ESlint rules on your HTML/CMP files and outputs issues.
--	slds-linter fix: Attempts to automatically fix violations.
--	slds-linter report: Generates a SARIF report for static analysis.
+-	npx @salesforce-ux/slds-linter lint -  Runs the ESlint and Stylelint rules on your HTML/CSS/CMP files and outputs issues.
+-	npx @salesforce-ux/slds-linter lint:styles - Runs the Stylelint rules on your CSS files and outputs issues.
+-	npx @salesforce-ux/slds-linter lint:components -  Runs the ESlint rules on your HTML/CMP files and outputs issues.
+-	npx @salesforce-ux/slds-linter fix: Attempts to automatically fix violations.
+-	npx @salesforce-ux/slds-linter report: Generates a SARIF report for static analysis.
 
 
-1. Run `slds-linter lint` to see the lint output on terminal. For specific files, you can go ahead with either `slds-linter lint:styles` for lint errors within css files or `slds-linter lint:components` for lint errors within html/cmp files.
-2. To run SLDS Linter, in Terminal, run `slds-linter report` to generate a Sarif report in the project root directory. It will be named as `slds-linter-report.sarif`
+1. Run `npx @salesforce-ux/slds-linter lint` to see the lint output on terminal. For specific files, you can go ahead with either `npx @salesforce-ux/slds-linter lint:styles` for lint errors within css files or `npx @salesforce-ux/slds-linter lint:components` for lint errors within html/cmp files.
+2. To run SLDS Linter, in Terminal, run `npx @salesforce-ux/slds-linter report` to generate a Sarif report in the project root directory. It will be named as `slds-linter-report.sarif`
 3. Open the generated Sarif file.
 4. Make a note of how many components SLDS Linter has identified that you must update.
-5. Run `slds-linter fix` to automatically fix validation errors in bulk.
+5. Run `npx @salesforce-ux/slds-linter fix` to automatically fix validation errors in bulk.
 
 For any questions or issues, feel free to reach out to the maintainers or open an issue in the repository.
