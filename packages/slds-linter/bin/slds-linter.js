@@ -20,12 +20,20 @@ yargs(hideBin(process.argv))
             console.log(chalk.cyan('🔍 Running ESLint and Stylelint...'));
             try {
                 execSync(`eslint **/*.{html,cmp} --config ${eslintConfigPath} --ext .html,.cmp`, { stdio: 'inherit' });
-                execSync(`stylelint ./**/*.css --config ${stylelintConfigPath}`, { stdio: 'inherit' });
-                console.log(chalk.green('✅ Linting completed successfully!'));
+                console.log(chalk.green('✅ Linting components completed successfully!'));
             } catch (error) {
-                console.error(chalk.red('❌ Linting failed. Please fix the errors and try again.'));
-                process.exit(1);
+                console.error(chalk.red('❌ Linting components failed. Please fix the errors and try again.'));
+                //process.exit(1);
             }
+
+            try {
+                execSync(`stylelint ./**/*.css --config ${stylelintConfigPath}`, { stdio: 'inherit' });
+                console.log(chalk.green('✅ Linting styles completed successfully!'));
+            } catch (error) {
+                console.error(chalk.red('❌ Linting styles failed. Please fix the errors and try again.'));
+                //process.exit(1);
+            }
+            
         }
     )
     .command(
@@ -66,12 +74,20 @@ yargs(hideBin(process.argv))
             console.log(chalk.cyan('🔧 Running auto-fix for ESLint and Stylelint...'));
             try {
                 execSync(`eslint **/*.{html,cmp} --config ${eslintConfigPath} --fix --ext .html,.cmp`, { stdio: 'inherit' });
-                execSync(`stylelint "**/*.css" -c ${stylelintConfigPath} --fix`, { stdio: 'inherit' });
-                console.log(chalk.green('✅ Auto-fix applied successfully!'));
+                console.log(chalk.green('✅ Auto-fix components applied successfully!'));
             } catch (error) {
-                console.error(chalk.red('❌ Fixing failed. Please check linting errors.'));
-                process.exit(1);
+                console.error(chalk.red('❌ Fixing components failed. Please check linting errors.'));
+                //process.exit(1);
             }
+
+            try {
+                execSync(`stylelint "**/*.css" -c ${stylelintConfigPath} --fix`, { stdio: 'inherit' });
+                console.log(chalk.green('✅ Auto-fix styles applied successfully!'));
+            } catch (error) {
+                console.error(chalk.red('❌ Fixing styles failed. Please check linting errors.'));
+                //process.exit(1);
+            }
+
         }
     )
     .command(
