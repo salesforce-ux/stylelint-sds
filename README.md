@@ -60,9 +60,4 @@ Options:
 4. Make a note of how many components SLDS Linter has identified that you must update.
 5. Run `slds-linter fix` to automatically fix validation errors in bulk.
 
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 For any questions or issues, feel free to reach out to the maintainers or open an issue in the repository.
