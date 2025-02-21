@@ -4,57 +4,65 @@
 
 SLDS Linter provides custom linting rules specifically built for Salesforce Lightning Design System 2 (SLDS 2 beta). SLDS Linter is designed to uplift your Cascading Style Sheet (CSS), Lightning Web Component (LWC), and Aura component files to SLDS 2 and to conform to SLDS best practices. SLDS Linter rules allow you to maintain consistent styling and identify common issues when working with Lightning components. 
 
+## Features
 
-Follow these instructions to integrate SLDS Linter into your project.
+* Component Linting:
+  The utility supports linting for two types of Salesforce Lightning components:
+
+  * LWC and Aura components.
+    LWC Components (.html): Linting is applied to Lightning Web Components.
+  * Aura Components (.cmp): Linting is applied to Aura Components.
+
+- Stylelint for CSS Files:
+  Stylelint rules are applied to .css files associated with the components. This ensures consistent styling practices are followed throughout the project.
+
+Follow the below instructions to integrate SLDS Linter into your project.
 
 ---
 
-## **Get Started with SLDS Linter**
-
-First, clone the repository, then run some commands to run SLDS Linter rules on test-repository CSS files.
-
-1. Clone this repository.
-2. Using your favorite code editor, in your project root folder, run these commands.
-
-  ```
-    npm run install-all
-    npm run build
-  ```
-
 ### Set Up SLDS Linter in Your Component Repository
 
-Now you’re ready to set up and run SLDS Linter in your project.
-
-If you’re uplifting your SLDS 1 code to SLDS 2 and you’re working in a sandbox or scratch org, run an npm init first. If you’re working in production org code, you can skip this step.
+To install the SLDS Linter Utility in your project, you can use npm:
 
   ```
-    npm init
     npm install @salesforce-ux/slds-linter --save-dev
   ```
-To include linting capabilities in your project, add these scripts in your package.json, or modify them.
+
+### Command-Line Interface (CLI)
+
+To see what all options does slds-linter provide please run `slds-linter --help` which gives the below output.
 
   ```
-  "scripts": {
+  slds-linter [command]
 
-   "lint:styles": "stylelint ./**/*.css --config=.stylelintrc.yml",
-   "lint:components": "eslint **/*.{html,cmp} --ext .html,.cmp --config=.eslintrc.yml",
-   "lint": "npm run lint:components; npm run lint:styles",
-   "fix": "stylelint **/*.css -c .stylelintrc.yml --fix ",
-   "report": "node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js force-app/ -c .stylelintrc.yml",
-   "setup-lint": "node ./node_modules/@salesforce-ux/slds-linter/build/setup.js"
-  }
+Commands:
+  slds-linter lint             Run both ESLint and Stylelint
+  slds-linter lint:styles      Run only Stylelint
+  slds-linter lint:components  Run only ESLint
+  slds-linter fix              Fix auto-fixable issues
+  slds-linter report           Generate a linting report
+
+Options:
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
   ```
 
--	lint: Runs the Stylelint rules on your CSS files and outputs issues.
--	fix: Attempts to automatically fix violations.
--	report: Generates a SARIF report for static analysis.
--	setup-lint: This would configure .eslintrc.yml and .stylelintrc.yml
+-	slds-linter lint -  Runs the ESlint and Stylelint rules on your HTML/CSS/CMP files and outputs issues.
+-	slds-linter lint:styles - Runs the Stylelint rules on your CSS files and outputs issues.
+-	slds-linter lint:components -  Runs the ESlint rules on your HTML/CMP files and outputs issues.
+-	slds-linter fix: Attempts to automatically fix violations.
+-	slds-linter report: Generates a SARIF report for static analysis.
 
 
-To match the directories that you validate in your project, update the file paths in the src//*.css directory.
+1. Run `slds-linter lint` to see the lint output on terminal. For specific files, you can go ahead with either `slds-linter lint:styles` for lint errors within css files or `slds-linter lint:components` for lint errors within html/cmp files.
+2. To run SLDS Linter, in Terminal, run `slds-linter report` to generate a Sarif report in the project root directory. It will be named as `slds-linter-report.sarif`
+3. Open the generated Sarif file.
+4. Make a note of how many components SLDS Linter has identified that you must update.
+5. Run `slds-linter fix` to automatically fix validation errors in bulk.
 
-4. Run `npm run setup-lint` to set up all the configuration files.
-5. To run SLDS Linter, in Terminal, run `npm run report` to generate a Sarif report in the `reports` folder of your project root directory.
-5. Open the generated Sarif file.
-6. Make a note of how many components SLDS Linter has identified that you must update.
-7. Run `npm run fix` to automatically fix validation errors in bulk.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+For any questions or issues, feel free to reach out to the maintainers or open an issue in the repository.
