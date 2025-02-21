@@ -1,4 +1,5 @@
 import * as esbuild from 'esbuild';
+import { esbuildPluginFilePathExtensions } from "esbuild-plugin-file-path-extensions";
 import { series, watch } from 'gulp';
 import { task } from "gulp-execa";
 import { rimraf } from 'rimraf';
@@ -16,16 +17,25 @@ function cleanDirs(){
   * */ 
 const compileTs = async ()=>{
   await esbuild.build({
-    entryPoints: ["./src/index.ts"],
+    entryPoints: ["./src/**/*.ts"],
     bundle:true,
     outdir:"build",
     platform: "node",
     format:"esm",
-    packages:'external'
+    packages:'external',
+    plugins:[esbuildPluginFilePathExtensions({
+      esmExtension:"js"
+    })]
   })
 };
 
-export const build = series(cleanDirs, compileTs);
+/**
+  * ESBuild bydefault won't generate definition file. There are multiple ways 
+  * to generate definition files. But we are reliying on tsc for now
+  * */ 
+const generateDefinitions = task('tsc --project tsconfig.json');
+
+export const build = series(cleanDirs, compileTs, generateDefinitions);
 
 const watchChanges = ()=>{
   watch(["./src/**/*.ts"], function(cb) {

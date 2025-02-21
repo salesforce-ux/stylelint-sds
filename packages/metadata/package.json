@@ -16,7 +16,6 @@
   },
   "scripts": {
     "build":"gulp build",
-    "prepare": "gulp build",
     "prepublishOnly": "clean-pkg-json"    
   },
 
