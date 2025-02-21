@@ -1,18 +1,17 @@
 {
-  // Change this to match your project
-  "include": ["build/**/*"],
   "compilerOptions": {
-    // Tells TypeScript to read JS files, as
-    // normally they are ignored as source files
-    "allowJs": true,
-    // Generate d.ts files
+    "rootDir": "./src",
+    "outDir": "build",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "declaration": true,
-    // This compiler run should
-    // only output d.ts files
+    "noEmitOnError": true,
+    "esModuleInterop": true,
     "emitDeclarationOnly": true,
-    // go to js file when using IDE functions like
-    // "Go to Definition" in VSCode
-    "declarationMap": false,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["./src/**/*.ts"]
 }

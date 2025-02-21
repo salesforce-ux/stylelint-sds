@@ -28,6 +28,7 @@
     "clean-pkg-json": "^1.2.0",
     "gulp-execa": "^8.0.0",
     "prettier": "^3.4.2",
-    "esbuild": "^0.25.0"
+    "esbuild": "^0.25.0",
+    "esbuild-plugin-file-path-extensions":"^2.1.4"
   }
 }

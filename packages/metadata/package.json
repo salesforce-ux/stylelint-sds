@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "files": [
     "./build/**",
+    "./resources/**",
     "README.md"
   ],
   "type": "module",
@@ -14,10 +15,9 @@
     "url": "https://github.com/salesforce-ux/stylelint-sds"
   },
   "scripts": {
-    "gen:value2Hooks": "gulp value2HooksMappings",
     "build":"gulp build",
-    "prepublishOnly": "clean-pkg-json",
-    "gen:defs":"tsc ./build/*.js --declaration --allowJs --emitDeclarationOnly --outDir ./build"
+    "prepare": "gulp build",
+    "prepublishOnly": "clean-pkg-json"    
   },
 
   "devDependencies": {
