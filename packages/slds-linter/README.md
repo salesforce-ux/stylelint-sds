@@ -47,15 +47,15 @@ Options:
   --help     Show help                                                 [boolean]
   ```
 
--	npx @salesforce-ux/slds-linter lint -  Runs the ESlint and Stylelint rules on your HTML/CSS/CMP files and outputs issues.
--	npx @salesforce-ux/slds-linter lint:styles - Runs the Stylelint rules on your CSS files and outputs issues.
--	npx @salesforce-ux/slds-linter lint:components -  Runs the ESlint rules on your HTML/CMP files and outputs issues.
--	npx @salesforce-ux/slds-linter fix: Attempts to automatically fix violations.
--	npx @salesforce-ux/slds-linter report: Generates a SARIF report for static analysis.
+-	`npx @salesforce-ux/slds-linter lint`-  Runs the ESlint and Stylelint rules on your HTML/CSS/CMP files and outputs issues.
+-	`npx @salesforce-ux/slds-linter lint:styles` - Runs the Stylelint rules on your CSS files and outputs issues.
+-	`npx @salesforce-ux/slds-linter lint:components` -  Runs the ESlint rules on your HTML/CMP files and outputs issues.
+-	`npx @salesforce-ux/slds-linter fix`: Attempts to automatically fix violations.
+-	`npx @salesforce-ux/slds-linter report`: Generates a SARIF report for static analysis.
 
 
 1. Run `npx @salesforce-ux/slds-linter lint` to see the lint output on terminal. For specific files, you can go ahead with either `npx @salesforce-ux/slds-linter lint:styles` for lint errors within css files or `npx @salesforce-ux/slds-linter lint:components` for lint errors within html/cmp files.
-2. To run SLDS Linter, in Terminal, run `npx @salesforce-ux/slds-linter report` to generate a Sarif report in the project root directory. It will be named as `slds-linter-report.sarif`
+2. To run SLDS Linter, in Terminal, run `npx @salesforce-ux/slds-linter report` to generate a Sarif report in the project root directory. It will be named as `slds-linter-report.sarif`.
 3. Open the generated Sarif file.
 4. Make a note of how many components SLDS Linter has identified that you must update.
 5. Run `npx @salesforce-ux/slds-linter fix` to automatically fix validation errors in bulk.
