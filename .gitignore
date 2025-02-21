@@ -9,3 +9,4 @@ packages/**/*.tgz
 .npmrc
 .sldslinter/
 slds-linter-report.sarif
+packages/slds-linter/dist
