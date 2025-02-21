@@ -12,7 +12,9 @@ const stylelintConfigPath = fileURLToPath(await import.meta.resolve('@salesforce
 const reportExecuterPath = fileURLToPath(await import.meta.resolve('@salesforce-ux/stylelint-plugin-slds/build/report.js'));
 
 // ✅ Define CLI Commands using `yargs`
-yargs(hideBin(process.argv))
+const yargsInst = yargs(hideBin(process.argv))
+    .scriptName("")
+    .usage("npx @salesforce-ux/slds-linter [command] [options]")
     .command(
         'lint',
         'Run both ESLint and Stylelint',
@@ -113,5 +115,6 @@ yargs(hideBin(process.argv))
             }
         }
     )
-    .help()
-    .argv;
+    .help();
+
+yargsInst.showHelp();
