@@ -5,6 +5,7 @@ import { Logger } from '../utils/logger';
 import { FileScanner } from '../services/file-scanner';
 import { StyleFilePatterns, ComponentFilePatterns } from '../services/file-patterns';
 import { LintRunner } from '../services/lint-runner';
+import { DEFAULT_ESLINT_CONFIG_PATH, DEFAULT_STYLELINT_CONFIG_PATH } from '../services/config.resolver';
 
 export function registerLintCommand(program: Command): void {
   program
@@ -13,8 +14,8 @@ export function registerLintCommand(program: Command): void {
     .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
     .option('-o, --output <path>', 'Output directory for reports (defaults to current directory)')
     .option('--fix', 'Automatically fix problems')
-    .option('--config-style <path>', 'Path to stylelint config file')
-    .option('--config-eslint <path>', 'Path to eslint config file')
+    .option('--config-style <path>', 'Path to stylelint config file', DEFAULT_STYLELINT_CONFIG_PATH)
+    .option('--config-eslint <path>', 'Path to eslint config file', DEFAULT_ESLINT_CONFIG_PATH)
     .action(async (options: CliOptions) => {
       try {
         Logger.info('Starting full linting process...');

@@ -5,6 +5,7 @@ import { Logger } from '../utils/logger';
 import { FileScanner } from '../services/file-scanner';
 import { ComponentFilePatterns } from '../services/file-patterns';
 import { LintRunner } from '../services/lint-runner';
+import { DEFAULT_ESLINT_CONFIG_PATH } from '../services/config.resolver';
 
 export function registerLintComponentsCommand(program: Command): void {
   program
@@ -13,7 +14,7 @@ export function registerLintComponentsCommand(program: Command): void {
     .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
     .option('-o, --output <path>', 'Output directory for reports (defaults to current directory)')
     .option('--fix', 'Automatically fix problems')
-    .option('--config <path>', 'Path to eslint config file')
+    .option('--config <path>', 'Path to eslint config file', DEFAULT_ESLINT_CONFIG_PATH)
     .action(async (options: CliOptions) => {
       try {
         Logger.info('Starting component files linting...');
