@@ -7,6 +7,7 @@ import { FileScanner } from '../services/file-scanner';
 import { StyleFilePatterns, ComponentFilePatterns } from '../services/file-patterns';
 import { LintRunner } from '../services/lint-runner';
 import { ReportGenerator } from '../services/report-generator';
+import { DEFAULT_ESLINT_CONFIG_PATH, DEFAULT_STYLELINT_CONFIG_PATH, ESLINT_VERSION, LINTER_CLI_VERSION, STYLELINT_VERSION } from '../services/config.resolver';
 
 export function registerReportCommand(program: Command): void {
   program
@@ -14,8 +15,8 @@ export function registerReportCommand(program: Command): void {
     .description('Generate SARIF report from linting results')
     .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
     .option('-o, --output <path>', 'Output directory for reports (defaults to current directory)')
-    .option('--config-style <path>', 'Path to stylelint config file')
-    .option('--config-eslint <path>', 'Path to eslint config file')
+    .option('--config-style <path>', 'Path to stylelint config file', DEFAULT_STYLELINT_CONFIG_PATH)
+    .option('--config-eslint <path>', 'Path to eslint config file', DEFAULT_ESLINT_CONFIG_PATH)
     .action(async (options: CliOptions) => {
       try {
         Logger.info('Starting report generation...');
@@ -48,7 +49,7 @@ export function registerReportCommand(program: Command): void {
         await ReportGenerator.generateSarifReport(styleResults, {
           outputPath: styleReportPath,
           toolName: 'stylelint',
-          toolVersion: require('stylelint/package.json').version
+          toolVersion: STYLELINT_VERSION
         });
 
         // Generate component report
@@ -56,7 +57,7 @@ export function registerReportCommand(program: Command): void {
         await ReportGenerator.generateSarifReport(componentResults, {
           outputPath: componentReportPath,
           toolName: 'eslint',
-          toolVersion: require('eslint/package.json').version
+          toolVersion: ESLINT_VERSION
         });
 
         // Generate combined report
@@ -64,7 +65,7 @@ export function registerReportCommand(program: Command): void {
         await ReportGenerator.generateSarifReport([...styleResults, ...componentResults], {
           outputPath: combinedReportPath,
           toolName: 'linting-cli',
-          toolVersion: require('../../package.json').version
+          toolVersion: LINTER_CLI_VERSION
         });
 
         Logger.success('Report generation completed');

@@ -1,18 +1,19 @@
 import path from 'path';
 import { FileScanner, ScanOptions } from '../file-scanner';
 import { StyleFilePatterns } from '../file-patterns';
+import {mkdir, writeFile, rm} from "fs/promises";
 
 describe('FileScanner', () => {
-  const testDir = path.join(__dirname, 'fixtures');
+  const testDir = path.join(import.meta.dirname , 'fixtures');
 
   beforeAll(async () => {
     // Create test directory and files for testing
-    await require('fs').promises.mkdir(testDir, { recursive: true });
-    await require('fs').promises.writeFile(
+    await mkdir(testDir, { recursive: true });
+    await writeFile(
       path.join(testDir, 'test.css'),
       'body { color: red; }'
     );
-    await require('fs').promises.writeFile(
+    await writeFile(
       path.join(testDir, 'test.scss'),
       '$color: red;'
     );
@@ -20,7 +21,7 @@ describe('FileScanner', () => {
 
   afterAll(async () => {
     // Clean up test files
-    await require('fs').promises.rm(testDir, { recursive: true });
+    await rm(testDir, { recursive: true });
   });
 
   it('should scan and batch files correctly', async () => {

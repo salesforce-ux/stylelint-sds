@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import { Logger } from '../utils/logger';
 import { LintResult } from '../types';
 import { SarifBuilder, SarifRunBuilder, SarifResultBuilder, SarifRuleBuilder } from 'node-sarif-builder';
+import {getRuleDescription} from "./config.resolver";
 
 export interface ReportOptions {
   outputPath: string;
@@ -74,10 +75,11 @@ export class ReportGenerator {
       // Process errors
       for (const error of result.errors) {
         if (!rules.has(error.ruleId)) {
+          
           rules.set(error.ruleId, {
             id: error.ruleId,
             shortDescription: {
-              text: error.message
+              text: getRuleDescription(error.ruleId)
             },
             helpUri: error.ruleId.startsWith('slds/') 
               ? `https://github.com/salesforce/slds-linting-plugin/blob/main/docs/rules/${error.ruleId.replace('slds/', '')}.md`
@@ -91,11 +93,11 @@ export class ReportGenerator {
 
       // Process warnings
       for (const warning of result.warnings) {
-        if (!rules.has(warning.ruleId)) {
+        if (!rules.has(warning.ruleId)) {          
           rules.set(warning.ruleId, {
             id: warning.ruleId,
             shortDescription: {
-              text: warning.message
+              text: getRuleDescription(warning.ruleId)
             },
             helpUri: warning.ruleId.startsWith('slds/') 
               ? `https://github.com/salesforce/slds-linting-plugin/blob/main/docs/rules/${warning.ruleId.replace('slds/', '')}.md`

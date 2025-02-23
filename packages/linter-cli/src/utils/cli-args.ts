@@ -1,5 +1,6 @@
 import { CliOptions } from '../types';
 import path from 'path';
+import { accessSync } from 'fs';
 
 export function validateAndNormalizePath(inputPath?: string): string {
   if (!inputPath) {
@@ -10,7 +11,7 @@ export function validateAndNormalizePath(inputPath?: string): string {
   
   try {
     // Check if path exists and is accessible
-    require('fs').accessSync(normalizedPath);
+    accessSync(normalizedPath);
     return normalizedPath;
   } catch (error) {
     throw new Error(`Invalid path: ${inputPath}`);

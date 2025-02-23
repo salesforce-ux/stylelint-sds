@@ -21,7 +21,7 @@ export class LintRunner {
   ): Promise<LintResult[]> {
     try {
       const workerScript = path.resolve(
-        __dirname,
+        import.meta.dirname ,
         '../workers',
         workerType === 'style' ? 'stylelint.worker.js' : 'eslint.worker.js'
       );
