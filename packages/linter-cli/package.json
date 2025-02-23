@@ -1,0 +1,55 @@
+{
+  "name": "@salesforce-ux/linter-cli",
+  "version": "1.0.0",
+  "description": "A CLI tool for linting styles and components",
+  "keywords": [
+    "lint",
+    "eslint",
+    "stylelint",
+    "cli",
+    "sarif",
+    "parallel",
+    "performance"
+  ],
+  "author": "UXF Tooling Team",
+  "type": "module",
+  "main": "dist/index.js",
+  "files": [
+    "dist/**",
+    "README.md"
+  ],
+  "bin": {
+    "linting-cli": "./dist/index.js"
+  },
+  "scripts": {
+    "prepublishOnly": "clean-pkg-json",
+    "build": "gulp build",
+    "dev": "gulp dev",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "chalk": "^4.1.2",
+    "commander": "^13.1.0",
+    "eslint": "^8.0.0",
+    "glob": "^11.0.0",
+    "node-sarif-builder": "^3.2.0",
+    "stylelint": "^16.10.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "@types/jest":"^29.5.14",
+    "ts-jest":"^29.2.5"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/linting-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/linting-cli/issues"
+  },
+  "homepage": "https://github.com/yourusername/linting-cli#readme"  
+}

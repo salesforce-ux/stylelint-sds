@@ -1,11 +1,38 @@
-package-lock.json
-scripts/reports/
+# Dependencies
 node_modules/
-.codegenie
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Build output
 dist/
-*.tgz
 build/
-packages/**/*.tgz
-.npmrc
+coverage/
 .sldslinter/
-slds-linter-report.sarif
+*.sarif
+*.tgz
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+.codegenie
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Test output
+junit.xml
+test-results/
+
+# Logs
+logs/
+*.log
+
+# Publish config
+.npmrc
