@@ -12,7 +12,6 @@ export function registerLintComponentsCommand(program: Command): void {
     .command('lint:components')
     .description('Run eslint on all markup files')
     .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
-    .option('-o, --output <path>', 'Output directory for reports (defaults to current directory)')
     .option('--fix', 'Automatically fix problems')
     .option('--config <path>', 'Path to eslint config file', DEFAULT_ESLINT_CONFIG_PATH)
     .action(async (options: CliOptions) => {
