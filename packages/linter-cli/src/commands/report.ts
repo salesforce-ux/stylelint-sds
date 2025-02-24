@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import path from 'path';
+import ora from 'ora';
 import { CliOptions } from '../types';
 import { normalizeCliOptions } from '../utils/cli-args';
 import { Logger } from '../utils/logger';
@@ -18,12 +19,12 @@ export function registerReportCommand(program: Command): void {
     .option('--config-style <path>', 'Path to stylelint config file', DEFAULT_STYLELINT_CONFIG_PATH)
     .option('--config-eslint <path>', 'Path to eslint config file', DEFAULT_ESLINT_CONFIG_PATH)
     .action(async (options: CliOptions) => {
-      try {
-        Logger.info('Starting report generation...');
+      const spinner = ora('Starting report generation...').start();
+      try {        
         const normalizedOptions = normalizeCliOptions(options);
         
-        // Run style linting
-        Logger.info('Running style linting...');
+        // Run styles linting
+        spinner.text = 'Running styles linting...';
         const styleFileBatches = await FileScanner.scanFiles(normalizedOptions.directory, {
           patterns: StyleFilePatterns,
           batchSize: 100
@@ -33,8 +34,8 @@ export function registerReportCommand(program: Command): void {
           configPath: options.configStyle
         });
         
-        // Run component linting
-        Logger.info('Running component linting...');
+        // Run components linting
+        spinner.text = 'Running components linting...';
         const componentFileBatches = await FileScanner.scanFiles(normalizedOptions.directory, {
           patterns: ComponentFilePatterns,
           batchSize: 100
@@ -44,33 +45,39 @@ export function registerReportCommand(program: Command): void {
           configPath: options.configEslint
         });
 
-        // Generate style report
+        /* 
+         // TODO: Enable only if dedicated report per linter is needed
+         // Generate styles report
         const styleReportPath = path.join(normalizedOptions.output, 'stylelint-report.sarif');
         await ReportGenerator.generateSarifReport(styleResults, {
           outputPath: styleReportPath,
           toolName: 'stylelint',
           toolVersion: STYLELINT_VERSION
-        });
+        }); */
 
-        // Generate component report
+        /* 
+        // TODO: Enable only if dedicated report per linter is needed
+        // Generate components report
         const componentReportPath = path.join(normalizedOptions.output, 'eslint-report.sarif');
         await ReportGenerator.generateSarifReport(componentResults, {
           outputPath: componentReportPath,
           toolName: 'eslint',
           toolVersion: ESLINT_VERSION
-        });
+        }); */
 
         // Generate combined report
-        const combinedReportPath = path.join(normalizedOptions.output, 'combined-report.sarif');
+        spinner.text = 'Generating combined report...';
+        const combinedReportPath = path.join(normalizedOptions.output, 'slds-linter.sarif');
         await ReportGenerator.generateSarifReport([...styleResults, ...componentResults], {
           outputPath: combinedReportPath,
-          toolName: 'linting-cli',
+          toolName: 'slds-linter-cli',
           toolVersion: LINTER_CLI_VERSION
         });
 
-        Logger.success('Report generation completed');
+        spinner.succeed('Report generation completed');
         process.exit(0);
       } catch (error: any) {
+        spinner?.fail('Report generation failed');
         Logger.error(`Failed to generate report: ${error.message}`);
         process.exit(1);
       }
