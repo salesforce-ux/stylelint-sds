@@ -1,6 +1,6 @@
 {
   "name": "stylelint-sds",
-  "version": "1.0.1",
+  "version": "0.0.0-DEVELOPMENT.0",
   "private": true,
   "workspaces": [
     "packages/metadata",
@@ -23,6 +23,7 @@
     "@types/node": "^20.11.19",
     "@types/eslint": "^8.0.0",
     "husky": "^9.1.7",
+    "lerna":"^8.2.0",
     "lint-staged": "^15.3.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
