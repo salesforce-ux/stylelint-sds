@@ -15,7 +15,8 @@
     "test": "npm run test --workspaces",
     "clean": "npm run clean --workspaces",
     "fix": "stylelint packages/test-repository/force-app/main/default/lwc/myComponent/test.css --fix",
-    "report": "node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js -d packages/test-repository"
+    "report": "node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js -d packages/test-repository",
+    "publish-all": "node scripts/publish.js"
   },
   "devDependencies": {
     "rimraf": "^6.0.1",    

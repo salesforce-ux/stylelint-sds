@@ -97,7 +97,10 @@ export = {
               messageId: "ensureSizeAttribute",
               fix(fixer) {
                 //return fixer.insertTextAfter(node, ' size="large"');
-                return fixer.insertTextAfterRange([variantAttr.range[1], variantAttr.range[1]], ' size="large"')
+                if(variantAttr)
+                {
+                  return fixer.insertTextAfterRange([variantAttr?.range[1], variantAttr?.range[1]], ' size="large"')
+                }
               },
             });
           }
@@ -168,7 +171,10 @@ export = {
               messageId: "ensureSizeAttribute",
               fix(fixer) {
                 //return fixer.insertTextAfter(node, ' size="large"');
-                return fixer.insertTextAfterRange([variantAttr.range[1], variantAttr.range[1]], 'size="large"')
+                if(variantAttr)
+                {
+                  return fixer.insertTextAfterRange([variantAttr.range[1], variantAttr.range[1]], 'size="large"')
+                }
               },
             });
           }

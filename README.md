@@ -1,53 +1,63 @@
-# Stylelint for SDS
+# SLDS Linter
 
-The SLDS Linter plug-in is a customizable linting tool specifically built for Salesforce Lightning Design System (SLDS) 2. SLDS Linter was built on top of ESLint and StyleLint, two widely used linters in modern front-end development. Use SLDS Linter to automatically find potential style problems and wrong patterns in your design code.
+## Overview
 
-## How to get started with this
+SLDS Linter provides custom linting rules specifically built for Salesforce Lightning Design System 2 (SLDS 2 beta). SLDS Linter is designed to uplift your Cascading Style Sheet (CSS), Lightning Web Component (LWC), and Aura component files to SLDS 2 and to conform to SLDS best practices. SLDS Linter rules allow you to maintain consistent styling and identify common issues when working with Lightning components. 
 
-- Clone this repository
-- On the root folder, run the below commands
+## Features
+
+* Component Linting:
+  The utility supports linting for two types of Salesforce Lightning components:
+
+  * LWC and Aura components.
+    LWC Components (.html): Linting is applied to Lightning Web Components.
+  * Aura Components (.cmp): Linting is applied to Aura Components.
+
+- Stylelint for CSS Files:
+  Stylelint rules are applied to .css files associated with the components. This ensures consistent styling practices are followed throughout the project.
+
+Follow the below instructions to integrate SLDS Linter into your project.
+
+---
+
+### Set Up SLDS Linter in Your Component Repository
+
+To install the SLDS Linter Utility in your project, you can use npm:
+
   ```
-    npm run install-all
-    npm run build
+    npm install @salesforce-ux/slds-linter --save-dev
   ```
-- The above commands would setup the packages to run the stylelint rules on `test-repository` .css files.
 
-## stylelint-plugin-slds
+### Command-Line Interface (CLI)
 
-This package contains all the rules we need for SDS.
+To see what all options does slds-linter provide please run `npx @salesforce-ux/slds-linter --help` which gives the below output.
 
-## test-repository
+  ```
+Usage:  npx @salesforce-ux/slds-linter [command]
 
-This packages is used for testing all the rules added to `stylelint-plugin-slds` and `.stylelintrc.yml`
+Commands:
+  lint             Run both ESLint and Stylelint
+  lint:styles      Run only Stylelint
+  lint:components  Run only ESLint
+  fix              Fix auto-fixable issues
+  report           Generate a linting report
 
-## Other useful commands
+Options:
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
+  ```
 
-### Generate .sarif report
+-	`npx @salesforce-ux/slds-linter lint` -  Runs the ESlint and Stylelint rules on your HTML/CSS/CMP files and outputs issues.
+-	`npx @salesforce-ux/slds-linter lint:styles` - Runs the Stylelint rules on your CSS files and outputs issues.
+-	`npx @salesforce-ux/slds-linter lint:components` -  Runs the ESlint rules on your HTML/CMP files and outputs issues.
+-	`npx @salesforce-ux/slds-linter fix`: Attempts to automatically fix violations.
+-	`npx @salesforce-ux/slds-linter report`: Generates a SARIF report for static analysis.
 
-To generate a .sarif report of validation issues, use the below commands
 
-```
-npm run report
-```
+1. Run `npx @salesforce-ux/slds-linter lint` to see the lint output on terminal. For specific files, you can go ahead with either `npx @salesforce-ux/slds-linter lint:styles` for lint errors within css files or `npx @salesforce-ux/slds-linter lint:components` for lint errors within html/cmp files.
+2. To run SLDS Linter, in Terminal, run `npx @salesforce-ux/slds-linter report` to generate a Sarif report in the project root directory. It will be named as `slds-linter-report.sarif`.
+3. Open the generated Sarif file.
+4. Make a note of how many components SLDS Linter has identified that you must update.
+5. Run `npx @salesforce-ux/slds-linter fix` to automatically fix validation errors in bulk.
 
-The above command runs on predefined stylelintrc.yml and lint *.css available in test-repository.
-
-### Auto fix validation errors.
-
-You can auto fix all the errors at once in a given css file or all the css files using the below command
-
-```
-npm run fix
-```
-
-### Publishing the packages to npm
-
-Go to the respective folder for which you want to publish new npm package.
-
-```
-npm version patch
-npm run build
-npm publish
-
-```
-Note: You should have permissions to publish packages to `@salesforce-ux` npm org.
+For any questions or issues, feel free to reach out to the maintainers or open an issue in the repository.
