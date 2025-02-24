@@ -3,6 +3,8 @@ import fs from 'fs/promises';
 import { Logger } from '../utils/logger';
 import { LintResult } from '../types';
 import { SarifBuilder, SarifRunBuilder, SarifResultBuilder, SarifRuleBuilder } from 'node-sarif-builder';
+import { createWriteStream } from 'fs';
+import { JsonStreamStringify } from 'json-stream-stringify';
 import {getRuleDescription} from "./config.resolver";
 
 export interface ReportOptions {
@@ -49,14 +51,23 @@ export class ReportGenerator {
       builder.addRun(runBuilder);
 
       // Generate the report
-      const sarifReport = builder.buildSarifJsonString({ indent: true });
+      const sarifReport = builder.buildSarifOutput();
       
       // Ensure output directory exists
       const outputDir = path.dirname(options.outputPath);
       await fs.mkdir(outputDir, { recursive: true });
+
+      // Use JsonStreamStringify to write large JSON efficiently
+      const writeStream = createWriteStream(options.outputPath);
+      const jsonStream = new JsonStreamStringify(sarifReport, null, 2); // pretty print with 2 spaces
       
       // Write the report
-      await fs.writeFile(options.outputPath, sarifReport);
+      await new Promise<void>((resolve, reject) => {
+        jsonStream
+          .pipe(writeStream)
+          .on('finish', resolve)
+          .on('error', reject);
+      });
 
       Logger.success(`SARIF report generated: ${options.outputPath}`);
     } catch (error: any) {
