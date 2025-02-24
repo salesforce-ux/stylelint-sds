@@ -19,7 +19,7 @@
     "README.md"
   ],
   "bin": {
-    "linting-cli": "./dist/index.js"
+    "slds-linter": "./dist/index.js"
   },
   "scripts": {
     "prepublishOnly": "clean-pkg-json",
