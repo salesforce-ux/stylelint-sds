@@ -23,8 +23,8 @@
   },
   "type": "module",
   "dependencies": {
-    "@salesforce-ux/eslint-plugin-slds": "^0.0.12-alpha",
-    "@salesforce-ux/stylelint-plugin-slds": "^0.0.12-alpha",
+    "@salesforce-ux/eslint-plugin-slds": "^0.0.13",
+    "@salesforce-ux/stylelint-plugin-slds": "^0.0.13",
     "chalk": "^5.3.0",
     "yargs": "^17.7.2"
   },
