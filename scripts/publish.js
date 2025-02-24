@@ -193,7 +193,7 @@ async function publishPackage(packageName, version) {
 
     console.log(`Publishing ${packageName}...`);
     // Check in console that you're logged in npm. Please run npm whoami to check you're logged in/
-    // runCommand('npm publish --access=restricted --dry-run', packageDir);
+    runCommand('npm publish --access=public', packageDir);
 
     console.log(`Package ${packageName} published successfully!`);
   } catch (error) {
@@ -215,7 +215,7 @@ async function publishPackages() {
   try {
     const githubToken = process.env.GH_TOKEN;
     if (!githubToken) {
-      throw new Error("Github Token is missing!");
+      // throw new Error("Github Token is missing!");
       // process.exit();
     }
     const versionEslint = await promptVersion("eslint");
