@@ -13,13 +13,13 @@
   ],
   "author": "UXF Tooling Team",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "files": [
-    "dist/**",
+    "build/**",
     "README.md"
   ],
   "bin": {
-    "slds-linter": "./dist/index.js"
+    "linter-cli": "./build/index.js"
   },
   "scripts": {
     "prepublishOnly": "clean-pkg-json",
@@ -29,23 +29,23 @@
     "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
-    "@salesforce-ux/stylelint-plugin-slds":"*",
-    "@salesforce-ux/eslint-plugin-slds":"*",
+    "@salesforce-ux/eslint-plugin-slds": "*",
+    "@salesforce-ux/stylelint-plugin-slds": "*",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "chalk": "^4.1.2",
     "commander": "^13.1.0",
     "eslint": "^8.0.0",
     "glob": "^11.0.0",
-    "node-sarif-builder": "^3.2.0",
-    "stylelint": "^16.10.0",
     "json-stream-stringify": "^3.1.6",
-    "ora": "^5.4.1"
+    "node-sarif-builder": "^3.2.0",
+    "ora": "^5.4.1",
+    "stylelint": "^16.10.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "jest": "^29.7.0",
-    "@types/jest":"^29.5.14",
-    "ts-jest":"^29.2.5"
+    "ts-jest": "^29.2.5"
   },
   "license": "ISC",
   "repository": {
@@ -55,5 +55,5 @@
   "bugs": {
     "url": "https://github.com/yourusername/linting-cli/issues"
   },
-  "homepage": "https://github.com/yourusername/linting-cli#readme"  
+  "homepage": "https://github.com/yourusername/linting-cli#readme"
 }
