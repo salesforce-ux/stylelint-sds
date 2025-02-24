@@ -156,14 +156,14 @@ async function promptVersion(packageName) {
   }
 }
 
-function updateDependenciesInLinter(versionEslint, versionStylelint) {
+function updateDependenciesInLinter(versionLinter) {
   try {
     const packagePath = path.join(packageDirs.linter.path, "package.json");
 
     linterPackage.default.dependencies["@salesforce-ux/eslint-plugin-slds"] =
-      `^${versionEslint}`;
+      `^${versionLinter}`;
     linterPackage.default.dependencies["@salesforce-ux/stylelint-plugin-slds"] =
-      `^${versionStylelint}`;
+      `^${versionLinter}`;
 
     fs.writeFileSync(
       packagePath,
@@ -181,6 +181,19 @@ function buildPackage(packageDir) {
     runCommand("npm run build", packageDir);
   } catch (error) {
     console.error(chalk.red("Error in building package", error.message));
+    process.exit();
+  }
+}
+
+function commitAndPushChanges(versionLinter) {
+  try {
+    console.log(chalk.green(`Push verison changes to repo`));
+    runCommand(`git checkout -b release/${versionLinter}`);
+    runCommand("git add .");
+    runCommand(`git commit -m "chore(release): release ${versionLinter}"`);
+    runCommand(`git push origin release/${versionLinter}`);
+  } catch (error) {
+    console.error(chalk.red("Error in pushing the changes", error.message));
   }
 }
 
@@ -194,12 +207,16 @@ async function publishPackage(packageName, version) {
 
     buildPackage(packageDir);
 
+    if (packageName === "linter") {
+      commitAndPushChanges(version);
+    }
+
     console.log(chalk.green(`Publishing ${packageName}...`));
 
     const tags= (version.includes("alpha")? "--tag alpha": version.includes("beta")? "--tag beta": "")
     // Check in console that you're logged in npm. Please run npm whoami to check you're logged in/
     //console.log(`npm publish --access=public ${tags}`, packageDir);
-    runCommand(`npm publish --access=public ${tags}`, packageDir);
+    // runCommand(`npm publish --access=public ${tags}`, packageDir);
 
     console.log(chalk.green(`Package ${packageName} published successfully!`));
   } catch (error) {
@@ -207,9 +224,9 @@ async function publishPackage(packageName, version) {
   }
 }
 
-async function publishLinter(versionEslint, versionStylelint, versionLinter) {
+async function publishLinter(versionLinter) {
   try {
-    updateDependenciesInLinter(versionEslint, versionStylelint);
+    updateDependenciesInLinter(versionLinter);
 
     await publishPackage("linter", versionLinter);
   } catch (error) {
@@ -233,7 +250,7 @@ async function publishPackages() {
 
     await Promise.all(publishTasks);
 
-    await publishLinter(versionLinter, versionLinter, versionLinter);
+    await publishLinter(versionLinter);
 
     console.log(chalk.green("All packages published successfully!"));
 
