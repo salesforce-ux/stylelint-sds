@@ -1,42 +1,42 @@
 {
-    "name": "@salesforce-ux/slds-linter",
-    "version": "0.0.11",
-    "description": "SLDS Linter with both stylelint and eslint together",
-    "main": "index.mjs",
-    "bin": {
-        "slds-linter": "./bin/slds-linter.js"
-    },
-    "workspaces": [
-        "packages/*"
-    ],
-    "access": "public",
-    "files": [
-        "build/",
-        "bin/",
-        "README.md"
-    ],
-    "scripts": {
-        "build": "rollup --config rollup.config.js",
-        "clean": "rm -rf build package-lock.json",
-        "test": "echo 'Not implemented!'",
-        "setup-lint": "node ./build/setup.js"
-    },
-    "type": "module",
-    "dependencies": {
-        "@salesforce-ux/eslint-plugin-slds": "0.0.11",
-        "@salesforce-ux/stylelint-plugin-slds": "0.0.11",
-        "chalk": "^5.3.0",
-        "yargs": "^17.7.2"
-    },
-    "keywords": [
-        "eslint SDS",
-        "stylelint SDS",
-        "salesforce",
-        "sds linter"
-    ],
-    "author": "Kishore Nemalipuri",
-    "license": "MIT",
-    "devDependencies": {
-        "@rollup/plugin-typescript": "^12.1.2"
-    }
+  "name": "@salesforce-ux/slds-linter",
+  "version": "0.0.12-alpha",
+  "description": "SLDS Linter with both stylelint and eslint together",
+  "main": "index.mjs",
+  "bin": {
+    "slds-linter": "./bin/slds-linter.js"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "access": "public",
+  "files": [
+    "build/",
+    "bin/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rollup --config rollup.config.js",
+    "clean": "rm -rf build package-lock.json",
+    "test": "echo 'Not implemented!'",
+    "setup-lint": "node ./build/setup.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@salesforce-ux/eslint-plugin-slds": "^0.0.12-alpha",
+    "@salesforce-ux/stylelint-plugin-slds": "^0.0.12-alpha",
+    "chalk": "^5.3.0",
+    "yargs": "^17.7.2"
+  },
+  "keywords": [
+    "eslint SDS",
+    "stylelint SDS",
+    "salesforce",
+    "sds linter"
+  ],
+  "author": "Kishore Nemalipuri",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.2"
+  }
 }
