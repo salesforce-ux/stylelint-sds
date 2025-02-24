@@ -12,7 +12,6 @@ export function registerLintStylesCommand(program: Command): void {
     .command('lint:styles')
     .description('Run stylelint on all style files')
     .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
-    .option('-o, --output <path>', 'Output directory for reports (defaults to current directory)')
     .option('--fix', 'Automatically fix problems')
     .option('--config <path>', 'Path to stylelint config file', DEFAULT_STYLELINT_CONFIG_PATH)
     .action(async (options: CliOptions) => {

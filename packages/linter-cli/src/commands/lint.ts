@@ -11,8 +11,7 @@ export function registerLintCommand(program: Command): void {
   program
     .command('lint')
     .description('Run both style and component linting')
-    .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
-    .option('-o, --output <path>', 'Output directory for reports (defaults to current directory)')
+    .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')    
     .option('--fix', 'Automatically fix problems')
     .option('--config-style <path>', 'Path to stylelint config file', DEFAULT_STYLELINT_CONFIG_PATH)
     .option('--config-eslint <path>', 'Path to eslint config file', DEFAULT_ESLINT_CONFIG_PATH)
