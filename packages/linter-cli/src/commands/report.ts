@@ -67,7 +67,7 @@ export function registerReportCommand(program: Command): void {
 
         // Generate combined report
         spinner.text = 'Generating combined report...';
-        const combinedReportPath = path.join(normalizedOptions.output, 'slds-linter.sarif');
+        const combinedReportPath = path.join(normalizedOptions.output, 'slds-linter-report.sarif');
         await ReportGenerator.generateSarifReport([...styleResults, ...componentResults], {
           outputPath: combinedReportPath,
           toolName: 'slds-linter-cli',
