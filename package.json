@@ -3,7 +3,10 @@
   "version": "1.0.1",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/metadata",
+    "packages/eslint-plugin-slds",
+    "packages/stylelint-plugin-slds",
+    "packages/linter-cli"
   ],
   "packageManager": "yarn@1.22.22",
   "scripts": {
