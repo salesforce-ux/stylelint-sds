@@ -37,8 +37,6 @@ overrides:
       #  - severity: warning
       slds/enforce-sds-to-slds-hooks:
         - severity: warning
-      slds/enforce-wcag-rules:
-        - severity: warning
       slds/reduce-annotations:
         - severity: warning
         

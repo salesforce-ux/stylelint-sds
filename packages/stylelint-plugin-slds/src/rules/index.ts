@@ -14,7 +14,6 @@ import noDeprecatedSLDS2Classes from './no-deprecated-slds2-classes';
 import noCalcFunction from './no-calc-function';
 import noHardcodedValuesSlds2 from './no-hardcoded-values-slds2';
 import enforceSdsToSldsHooks from './enforce-sds-to-slds-hooks';
-import enforceWcagRules from './enforce-wcag-rules';
 import reduceAnnotations from './reduce-annotations';
 export default [
   enforceSdsToSldsHooks,
@@ -33,6 +32,5 @@ export default [
   enforceBemUsage,
   noSldsPrivateVar,
   noImportantTag,
-  enforceWcagRules,
   reduceAnnotations
 ];
