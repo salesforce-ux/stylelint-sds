@@ -55,7 +55,8 @@ export class BatchProcessor {
           activeWorkers.size < maxWorkers &&
           currentBatchIndex < batches.length
         ) {
-          const batch = batches[currentBatchIndex++];
+          const batchIndex = currentBatchIndex++;
+          const batch = batches[batchIndex];
           const worker = this.createWorker(
             workerScript,
             { files: batch, config: taskConfig },
@@ -68,7 +69,7 @@ export class BatchProcessor {
             .on('message', (result: BatchResult) => {
               results.push(result);
               activeWorkers.delete(worker);
-              Logger.debug(`Completed batch ${currentBatchIndex} of ${batches.length}`);
+              Logger.debug(`Completed batch ${batchIndex} of ${batches.length}`);
             })
             .on('error', (error) => {
               results.push({
@@ -77,7 +78,7 @@ export class BatchProcessor {
                 results: []
               });
               activeWorkers.delete(worker);
-              Logger.error(`Worker error in batch ${currentBatchIndex}: ${error.message}`);
+              Logger.error(`Worker error in batch ${batchIndex}: ${error.message}`);
             })
             .on('exit', (code) => {
               if (code !== 0) {

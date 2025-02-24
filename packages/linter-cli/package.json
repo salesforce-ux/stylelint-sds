@@ -39,7 +39,8 @@
     "glob": "^11.0.0",
     "node-sarif-builder": "^3.2.0",
     "stylelint": "^16.10.0",
-    "json-stream-stringify": "^3.1.6"
+    "json-stream-stringify": "^3.1.6",
+    "ora": "^5.4.1"
   },
   "devDependencies": {
     "jest": "^29.7.0",
