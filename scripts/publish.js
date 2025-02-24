@@ -199,7 +199,7 @@ async function publishPackage(packageName, version) {
     const tags= (version.includes("alpha")? "--tag alpha": version.includes("beta")? "--tag beta": "")
     // Check in console that you're logged in npm. Please run npm whoami to check you're logged in/
     //console.log(`npm publish --access=public ${tags}`, packageDir);
-    runCommand('npm publish --access=public' + '', packageDir);
+    runCommand(`npm publish --access=public ${tags}`, packageDir);
 
     console.log(chalk.green(`Package ${packageName} published successfully!`));
   } catch (error) {
