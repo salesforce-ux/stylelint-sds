@@ -25,6 +25,7 @@ export function normalizeCliOptions(options: CliOptions): Required<CliOptions> {
     fix: options.fix || false,
     config: options.config || '',
     configStyle: options.configStyle || '',
-    configEslint: options.configEslint || ''
+    configEslint: options.configEslint || '',
+    editor: options.editor || 'vscode'
   };
 } 

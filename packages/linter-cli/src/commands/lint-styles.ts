@@ -1,5 +1,8 @@
 import { Command } from 'commander';
+import chalk from 'chalk';
+import path from 'path';
 import { CliOptions } from '../types';
+import { getEditorLink, createClickableLineCol } from '../utils/editorLinkUtil';
 import { normalizeCliOptions } from '../utils/cli-args';
 import { Logger } from '../utils/logger';
 import { FileScanner } from '../services/file-scanner';
@@ -14,33 +17,80 @@ export function registerLintStylesCommand(program: Command): void {
     .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
     .option('--fix', 'Automatically fix problems')
     .option('--config <path>', 'Path to stylelint config file', DEFAULT_STYLELINT_CONFIG_PATH)
+    .option('--editor <editor>', 'Editor to open files with (vscode, atom, sublime). Defaults to vscode', 'vscode')
     .action(async (options: CliOptions) => {
+      const startTime = Date.now();
       try {
-        Logger.info('Starting style files linting...');
+        Logger.info(chalk.blue('Starting linting of style files...'));
         const normalizedOptions = normalizeCliOptions(options);
-        
+
+        Logger.info(chalk.blue('Scanning for style files...'));
         const fileBatches = await FileScanner.scanFiles(normalizedOptions.directory, {
           patterns: StyleFilePatterns,
-          batchSize: 100
+          batchSize: 100,
         });
-        
-        Logger.info(`Found ${fileBatches.reduce((sum, batch) => sum + batch.length, 0)} files to lint`);
-        
+        const totalFiles = fileBatches.reduce((sum, batch) => sum + batch.length, 0);
+        Logger.info(chalk.blue(`Scanned ${totalFiles} file(s).`));
+
+        Logger.info(chalk.blue('Running stylelint...'));
         const results = await LintRunner.runLinting(fileBatches, 'style', {
           fix: options.fix,
-          configPath: options.config
+          configPath: options.config,
         });
-        
+
+        // Print detailed lint results only for files with issues
+        results.forEach(result => {
+          const hasErrors = result.errors?.length > 0;
+          const hasWarnings = result.warnings?.length > 0;
+          if (!hasErrors && !hasWarnings) return;
+
+          const absolutePath = result.filePath || '';
+          const relativeFile = path.relative(process.cwd(), absolutePath) || 'Unknown file';
+          Logger.info(`\n${chalk.bold(relativeFile)}`);
+
+          if (hasErrors) {
+            result.errors?.forEach(err => {
+              if (err.line && err.column && absolutePath) {
+                const lineCol = `${err.line}:${err.column}`;
+                const clickable = createClickableLineCol(lineCol, absolutePath, err.line, err.column, normalizedOptions.editor);
+                const ruleId = err.ruleId ? chalk.dim(err.ruleId) : '';
+                Logger.error(`  ${clickable}  ${err.message}  ${ruleId}`);
+              } else {
+                Logger.error(`  ${chalk.red('Error:')} ${err.message}`);
+              }
+            });
+          }
+
+          if (hasWarnings) {
+            result.warnings?.forEach(warn => {
+              if (warn.line && warn.column && absolutePath) {
+                const lineCol = `${warn.line}:${warn.column}`;
+                const clickable = createClickableLineCol(lineCol, absolutePath, warn.line, warn.column, normalizedOptions.editor);
+                const ruleId = warn.ruleId ? chalk.dim(warn.ruleId) : '';
+                Logger.warning(`  ${clickable}  ${warn.message}  ${ruleId}`);
+              } else {
+                Logger.warning(`  ${chalk.yellow('Warning:')} ${warn.message}`);
+              }
+            });
+          }
+        });
+
         const errorCount = results.reduce((sum, r) => sum + r.errors.length, 0);
         const warningCount = results.reduce((sum, r) => sum + r.warnings.length, 0);
-        
-        Logger.info(`Found ${errorCount} errors and ${warningCount} warnings`);
-        
-        Logger.success('Style files linting completed');
+
+        Logger.info(
+          chalk.blue(
+            `\nSummary: Processed ${totalFiles} file(s) with ${chalk.red(
+              errorCount.toString()
+            )} error(s) and ${chalk.yellow(warningCount.toString())} warning(s).`
+          )
+        );
+        const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
+        Logger.success(chalk.green(`Style files linting completed in ${elapsedTime} seconds.`));
         process.exit(errorCount > 0 ? 1 : 0);
       } catch (error: any) {
-        Logger.error(`Failed to lint style files: ${error.message}`);
+        Logger.error(chalk.red(`Error during linting: ${error.message}`));
         process.exit(1);
       }
     });
-} 
+}
