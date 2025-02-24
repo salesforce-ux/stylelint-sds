@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import path from 'path';
 import { CliOptions } from '../types';
 import { getEditorLink, createClickableLineCol } from '../utils/editorLinkUtil';
+import { printLintResults } from '../utils/lintResultsUtil';
 import { normalizeCliOptions } from '../utils/cli-args';
 import { Logger } from '../utils/logger';
 import { FileScanner } from '../services/file-scanner';
@@ -81,28 +82,7 @@ export function registerLintCommand(program: Command): void {
         });
 
         // Print component lint issues (only for files with issues)
-        componentResults.forEach(result => {
-          const hasErrors = result.errors?.length > 0;
-          const hasWarnings = result.warnings?.length > 0;
-          if (!hasErrors && !hasWarnings) return;
-
-          const absolutePath = result.filePath || '';
-          const relativeFile = path.relative(process.cwd(), absolutePath) || 'Unknown file';
-          Logger.info(`\n${chalk.bold(relativeFile)}`);
-
-          result.errors?.forEach(err => {
-            const lineCol = `${err.line}:${err.column}`;
-            const clickable = createClickableLineCol(lineCol, absolutePath, err.line, err.column, normalizedOptions.editor);
-            const ruleId = err.ruleId ? chalk.dim(err.ruleId) : '';
-            Logger.error(`  ${clickable}  ${err.message}  ${ruleId}`);
-          });
-          result.warnings?.forEach(warn => {
-            const lineCol = `${warn.line}:${warn.column}`;
-            const clickable = createClickableLineCol(lineCol, absolutePath, warn.line, warn.column, normalizedOptions.editor);
-            const ruleId = warn.ruleId ? chalk.dim(warn.ruleId) : '';
-            Logger.warning(`  ${clickable}  ${warn.message}  ${ruleId}`);
-          });
-        });
+        printLintResults(componentResults, normalizedOptions.editor);
 
         const componentErrorCount = componentResults.reduce((sum, r) => sum + r.errors.length, 0);
         const componentWarningCount = componentResults.reduce((sum, r) => sum + r.warnings.length, 0);

@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import path from 'path';
 import { CliOptions } from '../types';
+import { printLintResults } from '../utils/lintResultsUtil';
 import { getEditorLink, createClickableLineCol } from '../utils/editorLinkUtil';
 import { normalizeCliOptions } from '../utils/cli-args';
 import { Logger } from '../utils/logger';
@@ -39,42 +40,7 @@ export function registerLintComponentsCommand(program: Command): void {
         });
 
         // Print results only for files with issues
-        results.forEach(result => {
-          const hasErrors = result.errors?.length > 0;
-          const hasWarnings = result.warnings?.length > 0;
-          if (!hasErrors && !hasWarnings) return;
-
-          const absolutePath = result.filePath || '';
-          const relativeFile = path.relative(process.cwd(), absolutePath) || 'Unknown file';
-          // Print file name with a blank line before for spacing
-          Logger.info(`\n${chalk.bold(relativeFile)}`);
-
-          if (hasErrors) {
-            result.errors.forEach(error => {
-              if (error.line && error.column && absolutePath) {
-                const lineCol = `${error.line}:${error.column}`;
-                const clickable = createClickableLineCol(lineCol, absolutePath, error.line, error.column, normalizedOptions.editor);
-                const ruleId = error.ruleId ? chalk.dim(error.ruleId) : '';
-                Logger.error(`  ${clickable}  ${error.message}  ${ruleId}`);
-              } else {
-                Logger.error(`  ${chalk.red('Error:')} ${error.message}`);
-              }
-            });
-          }
-
-          if (hasWarnings) {
-            result.warnings.forEach(warning => {
-              if (warning.line && warning.column && absolutePath) {
-                const lineCol = `${warning.line}:${warning.column}`;
-                const clickable = createClickableLineCol(lineCol, absolutePath, warning.line, warning.column, normalizedOptions.editor);
-                const ruleId = warning.ruleId ? chalk.dim(warning.ruleId) : '';
-                Logger.warning(`  ${clickable}  ${warning.message}  ${ruleId}`);
-              } else {
-                Logger.warning(`  ${chalk.yellow('Warning:')} ${warning.message}`);
-              }
-            });
-          }
-        });
+        printLintResults(results, normalizedOptions.editor);
 
         const errorCount = results.reduce((sum, r) => sum + r.errors.length, 0);
         const warningCount = results.reduce((sum, r) => sum + r.warnings.length, 0);

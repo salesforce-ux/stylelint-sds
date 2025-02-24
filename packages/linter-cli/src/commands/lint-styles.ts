@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import path from 'path';
 import { CliOptions } from '../types';
+import { printLintResults } from '../utils/lintResultsUtil';
 import { getEditorLink, createClickableLineCol } from '../utils/editorLinkUtil';
 import { normalizeCliOptions } from '../utils/cli-args';
 import { Logger } from '../utils/logger';
@@ -39,41 +40,7 @@ export function registerLintStylesCommand(program: Command): void {
         });
 
         // Print detailed lint results only for files with issues
-        results.forEach(result => {
-          const hasErrors = result.errors?.length > 0;
-          const hasWarnings = result.warnings?.length > 0;
-          if (!hasErrors && !hasWarnings) return;
-
-          const absolutePath = result.filePath || '';
-          const relativeFile = path.relative(process.cwd(), absolutePath) || 'Unknown file';
-          Logger.info(`\n${chalk.bold(relativeFile)}`);
-
-          if (hasErrors) {
-            result.errors?.forEach(err => {
-              if (err.line && err.column && absolutePath) {
-                const lineCol = `${err.line}:${err.column}`;
-                const clickable = createClickableLineCol(lineCol, absolutePath, err.line, err.column, normalizedOptions.editor);
-                const ruleId = err.ruleId ? chalk.dim(err.ruleId) : '';
-                Logger.error(`  ${clickable}  ${err.message}  ${ruleId}`);
-              } else {
-                Logger.error(`  ${chalk.red('Error:')} ${err.message}`);
-              }
-            });
-          }
-
-          if (hasWarnings) {
-            result.warnings?.forEach(warn => {
-              if (warn.line && warn.column && absolutePath) {
-                const lineCol = `${warn.line}:${warn.column}`;
-                const clickable = createClickableLineCol(lineCol, absolutePath, warn.line, warn.column, normalizedOptions.editor);
-                const ruleId = warn.ruleId ? chalk.dim(warn.ruleId) : '';
-                Logger.warning(`  ${clickable}  ${warn.message}  ${ruleId}`);
-              } else {
-                Logger.warning(`  ${chalk.yellow('Warning:')} ${warn.message}`);
-              }
-            });
-          }
-        });
+        printLintResults(results, normalizedOptions.editor);
 
         const errorCount = results.reduce((sum, r) => sum + r.errors.length, 0);
         const warningCount = results.reduce((sum, r) => sum + r.warnings.length, 0);
