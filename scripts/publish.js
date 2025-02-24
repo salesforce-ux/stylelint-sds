@@ -32,7 +32,7 @@ const rl = readline.createInterface({
 async function promptGHRelease() {
   return new Promise((resolve) => {
     rl.question(
-      chalk.cyan("Please enter your repo package version for gh release: "),
+      chalk.cyan("Enter your package version for the GitHub release: "),
       (version) => {
         resolve(version);
       }
@@ -187,7 +187,7 @@ function buildPackage(packageDir) {
 
 function commitAndPushChanges(versionLinter) {
   try {
-    console.log(chalk.green(`Push verison changes to repo`));
+    console.log(chalk.green(`Push version changes to repo`));
     runCommand(`git checkout -b release/${versionLinter}`);
     runCommand("git add .");
     runCommand(`git commit -m "chore(release): release ${versionLinter}"`);
@@ -213,10 +213,10 @@ async function publishPackage(packageName, version) {
 
     console.log(chalk.green(`Publishing ${packageName}...`));
 
-    const tags= (version.includes("alpha")? "--tag alpha": version.includes("beta")? "--tag beta": "")
+    const tags= (version.includes("alpha")? "--tag alpha": version.includes("beta")? "--tag beta": "");
+
     // Check in console that you're logged in npm. Please run npm whoami to check you're logged in/
-    //console.log(`npm publish --access=public ${tags}`, packageDir);
-    // runCommand(`npm publish --access=public ${tags}`, packageDir);
+    runCommand(`npm publish --access=public ${tags}`, packageDir);
 
     console.log(chalk.green(`Package ${packageName} published successfully!`));
   } catch (error) {
@@ -226,9 +226,10 @@ async function publishPackage(packageName, version) {
 
 async function publishLinter(versionLinter) {
   try {
-    updateDependenciesInLinter(versionLinter);
 
+    updateDependenciesInLinter(versionLinter);
     await publishPackage("linter", versionLinter);
+
   } catch (error) {
     console.error(chalk.red("Error in Publishing Linter", error.message));
   }
@@ -260,7 +261,7 @@ async function publishPackages() {
 
     //Create a github release
     // console.log("Creating github release...");
-    //     await createGitHubRelease(tgzPath);
+    // await createGitHubRelease(tgzPath);
   } catch (error) {
     console.error(chalk.red("Error in publishing packages", error.message));
   } finally {
