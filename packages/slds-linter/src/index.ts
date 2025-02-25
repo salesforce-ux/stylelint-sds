@@ -20,7 +20,7 @@ process.on('uncaughtException', (error) => {
 const program = new Command();
 
 program
-  .name('linting-cli')
+  .name('npx @salesforce-ux/slds-linter@latest')
   .description('A CLI tool for linting styles and components')
   .version('1.0.0');
 
