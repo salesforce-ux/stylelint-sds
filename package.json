@@ -10,6 +10,9 @@
     "packages/slds-linter"
   ],
   "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=v20.18.3"
+  },
   "scripts": {
     "install-all": "npm install --workspaces",
     "build": "npm run build --workspaces",
