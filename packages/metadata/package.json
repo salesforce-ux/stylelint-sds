@@ -1,6 +1,6 @@
 {
   "name": "@salesforce-ux/metadata-slds",
-  "version": "0.0.0",
+  "version": "0.0.12-alpha.0",
   "files": [
     "./build/**",
     "./resources/**",
@@ -15,10 +15,9 @@
     "url": "https://github.com/salesforce-ux/stylelint-sds"
   },
   "scripts": {
-    "build":"gulp build",
-    "prepublishOnly": "clean-pkg-json"    
+    "build": "gulp build",
+    "prepublishOnly": "clean-pkg-json"
   },
-
   "devDependencies": {
     "change-case": "^5.4.4"
   }
