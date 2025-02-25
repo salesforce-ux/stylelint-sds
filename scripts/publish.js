@@ -20,7 +20,7 @@ const packageDirs = {
     version: stylelintPackage.default.version,
   },
   linter: {
-    path: path.resolve("packages/linter-cli"),
+    path: path.resolve("packages/slds-linter"),
     version: linterPackage.default.version,
   },
   metadata: {
@@ -91,7 +91,7 @@ function packPackage(packageLinter, versionLinter) {
 
   const tgzFilePath = path.resolve(
     packageLinter,
-    `salesforce-ux-linter-cli-${versionLinter}.tgz`
+    `salesforce-ux-slds-linter-${versionLinter}.tgz`
   );
   return tgzFilePath;
 }
@@ -256,7 +256,7 @@ async function publishPackage(packageName, version) {
       ? "--tag alpha"
       : version.includes("beta")
         ? "--tag beta"
-        : "";
+        : "--tag latest";
 
     // Check in console that you're logged in npm. Please run npm whoami to check you're logged in/
     // runCommand(`npm publish --access=public ${tags}`, packageDir);
