@@ -22,7 +22,8 @@ const program = new Command();
 program
   .name('npx @salesforce-ux/slds-linter@latest')
   .description('A CLI tool for linting styles and components')
-  .version('1.0.0');
+  .version('1.0.0')
+  .showHelpAfterError();
 
 registerLintStylesCommand(program);
 registerLintComponentsCommand(program);
