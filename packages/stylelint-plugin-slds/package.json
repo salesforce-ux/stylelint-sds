@@ -1,11 +1,11 @@
 {
   "name": "@salesforce-ux/stylelint-plugin-slds",
-  "version": "0.0.11",
+  "version": "0.0.12-alpha.0",
   "type": "module",
   "main": "build/index.js",
   "files": [
     "build/*",
-    "README.md", 
+    "README.md",
     "RULES.MD",
     ".stylelintrc.yml"
   ],
@@ -16,19 +16,19 @@
     "dev": "gulp dev"
   },
   "dependencies": {
-    "chroma-js": "^3.1.2",    
+    "chroma-js": "^3.1.2",
     "postcss-selector-parser": "^7.1.0",
     "postcss-value-parser": "^4.2.0",
     "postcss": "^8.4.47",
     "stylelint": "^16.10.0",
-    "@salesforce-ux/metadata-slds":"*"
+    "@salesforce-ux/metadata-slds": "0.0.12-alpha.0"
   },
   "devDependencies": {
     "@types/mocha": "10.0.6",
     "@types/postcss-plugins": "1.13.2",
     "stylelint-sarif-formatter": "^1.0.7",
     "chai": "^5.1.2",
-    "mocha": "^10.8.2"    
+    "mocha": "^10.8.2"
   },
   "keywords": [],
   "author": "UXF Tooling Team",
