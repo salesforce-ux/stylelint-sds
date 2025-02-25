@@ -66,6 +66,7 @@ help [command]             display help for command
 | `--config-eslint <path>` | Path to eslint config file', DEFAULT_ESLINT_CONFIG_PATH                      | lint                                       |
 | `--editor <editor>`      | Editor to open files with (e.g., vscode, atom, sublime). Defaults to vscode | lint,lint:styles, lint:components          |
 
+
 These options can also be visualised by using `--help` with each command. For example: Running `slds-linter lint --help` will give the options which can be used along with `lint`.
 
 #### Detailed Steps
