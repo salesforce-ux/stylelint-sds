@@ -11,7 +11,7 @@ import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
-import {valueToStylinghookSldsplus} from "@salesforce-ux/matadata-slds";
+import {valueToStylinghookSldsplus} from "@salesforce-ux/metadata-slds";
 
 // Define the structure of a hook
 interface Hook {

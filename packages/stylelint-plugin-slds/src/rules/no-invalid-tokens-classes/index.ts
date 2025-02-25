@@ -1,4 +1,4 @@
-import { tokenMapping } from "@salesforce-ux/matadata-slds";
+import { tokenMapping } from "@salesforce-ux/metadata-slds";
 import { Root } from 'postcss';
 import valueParser from 'postcss-value-parser';
 import stylelint, { PostcssResult, Rule, RuleContext, RuleSeverity } from 'stylelint';

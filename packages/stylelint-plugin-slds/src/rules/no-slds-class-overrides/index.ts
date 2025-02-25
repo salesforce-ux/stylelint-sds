@@ -1,7 +1,7 @@
 import { Root } from 'postcss';
 import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 
-import { sldsClasses } from "@salesforce-ux/matadata-slds";
+import { sldsClasses } from "@salesforce-ux/metadata-slds";
 import ruleMetadata from '../../utils/rulesMetadata';
 import { getClassNodesFromSelector } from '../../utils/selector-utils';
 import replacePlaceholders from '../../utils/util';

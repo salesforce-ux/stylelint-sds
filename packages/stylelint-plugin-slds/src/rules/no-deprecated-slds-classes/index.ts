@@ -1,4 +1,4 @@
-import { deprecatedClasses } from "@salesforce-ux/matadata-slds";
+import { deprecatedClasses } from "@salesforce-ux/metadata-slds";
 import { Root } from 'postcss';
 import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import ruleMetadata from '../../utils/rulesMetadata';

@@ -21,7 +21,7 @@
     "postcss-value-parser": "^4.2.0",
     "postcss": "^8.4.47",
     "stylelint": "^16.10.0",
-    "@salesforce-ux/matadata-slds":"*"
+    "@salesforce-ux/metadata-slds":"*"
   },
   "devDependencies": {
     "@types/mocha": "10.0.6",

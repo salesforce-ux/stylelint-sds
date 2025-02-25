@@ -1,5 +1,5 @@
 {
-  "name": "@salesforce-ux/matadata-slds",
+  "name": "@salesforce-ux/metadata-slds",
   "version": "0.0.0",
   "files": [
     "./build/**",

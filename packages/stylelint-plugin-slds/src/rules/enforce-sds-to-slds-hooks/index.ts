@@ -1,4 +1,4 @@
-import { globalSharedHooksMetadata } from "@salesforce-ux/matadata-slds";
+import { globalSharedHooksMetadata } from "@salesforce-ux/metadata-slds";
 import { Root } from 'postcss';
 import valueParser from 'postcss-value-parser';
 import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';

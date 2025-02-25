@@ -5,7 +5,7 @@ import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
-import {deprecatedHooks} from "@salesforce-ux/matadata-slds";
+import {deprecatedHooks} from "@salesforce-ux/metadata-slds";
 
 const ruleName: string = 'slds/no-deprecated-slds-hooks';
 

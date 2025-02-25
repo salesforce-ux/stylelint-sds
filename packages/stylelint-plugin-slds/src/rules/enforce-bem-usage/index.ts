@@ -1,4 +1,4 @@
-import { bemNaming as bemMappings } from "@salesforce-ux/matadata-slds";
+import { bemNaming as bemMappings } from "@salesforce-ux/metadata-slds";
 import { Root } from 'postcss';
 import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import { getClassNodesFromSelector } from '../../utils/selector-utils';

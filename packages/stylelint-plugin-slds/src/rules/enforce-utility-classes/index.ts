@@ -7,7 +7,7 @@ import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin }: typeof stylelint = stylelint;
-import {utilities as predefinedClasses} from "@salesforce-ux/matadata-slds";
+import {utilities as predefinedClasses} from "@salesforce-ux/metadata-slds";
 
 const ruleName:string = 'slds/enforce-utility-classes';
 

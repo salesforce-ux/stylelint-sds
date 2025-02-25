@@ -1,4 +1,4 @@
-import { valueToStylinghookSlds } from "@salesforce-ux/matadata-slds";
+import { valueToStylinghookSlds } from "@salesforce-ux/metadata-slds";
 import { Root } from 'postcss';
 import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import {
