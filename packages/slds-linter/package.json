@@ -1,7 +1,7 @@
 {
-  "name": "@salesforce-ux/linter-cli",
+  "name": "@salesforce-ux/slds-linter",
   "version": "1.0.0",
-  "description": "A CLI tool for linting styles and components",
+  "description": "SLDS CLI tool for linting styles and components",
   "keywords": [
     "lint",
     "eslint",
@@ -19,7 +19,7 @@
     "README.md"
   ],
   "bin": {
-    "linter-cli": "./build/index.js"
+    "slds-linter": "./build/index.js"
   },
   "scripts": {
     "prepublishOnly": "clean-pkg-json",

@@ -7,7 +7,7 @@ import chalk from "chalk";
 //importing package.json of packages
 import * as eslintPackage from "../packages/eslint-plugin-slds/package.json" with { type: "json" };
 import * as stylelintPackage from "../packages/stylelint-plugin-slds/package.json" with { type: "json" };
-import * as linterPackage from "../packages/linter-cli/package.json" with { type: "json" };
+import * as linterPackage from "../packages/slds-linter/package.json" with { type: "json" };
 import * as metadataPackage from "../packages/metadata/package.json" with { type: "json" };
 
 const packageDirs = {
