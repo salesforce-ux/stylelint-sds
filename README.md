@@ -24,7 +24,7 @@ Follow the below instructions to integrate SLDS Linter into your project.
 
 ### Pre-requisites
 
-Please ensure that the Node.js version is set to v23.0.0 or higher as a prerequisite.
+Please ensure that the Node.js version is set to v23.1.0 or higher as a prerequisite.
 
 ### Command-Line Interface (CLI)
 
@@ -65,6 +65,8 @@ help [command]             display help for command
 | `--config-style <path>`  | PPath to stylelint config file', DEFAULT_STYLELINT_CONFIG_PATH               | lint                                       |
 | `--config-eslint <path>` | Path to eslint config file', DEFAULT_ESLINT_CONFIG_PATH                      | lint                                       |
 | `--editor <editor>`      | Editor to open files with (e.g., vscode, atom, sublime). Defaults to vscode | lint,lint:styles, lint:components          |
+
+These options can also be visualised by using `--help` with each command. For example: Running `slds-linter lint --help` will give the options which can be used along with `lint`.
 
 #### Detailed Steps
 
