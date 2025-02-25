@@ -19,9 +19,6 @@ overrides:
       slds/no-hardcoded-values-slds2:
         - true
         - severity: warning
-      slds/enforce-utility-classes:
-        - true
-        - severity: warning
       slds/no-invalid-tokens-classes:
         - true
         - severity: error
@@ -35,12 +32,6 @@ overrides:
         - true
         - severity: warning
       slds/no-deprecated-slds-hooks:
-        - true
-        - severity: warning
-      slds/no-lwc-custom-properties:
-        - true
-        - severity: warning
-      slds/no-sds-custom-properties:
         - true
         - severity: warning
       slds/no-slds-private-var:

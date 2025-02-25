@@ -24,7 +24,7 @@ Follow the below instructions to integrate SLDS Linter into your project.
 
 ### Pre-requisites
 
-Please ensure that the Node.js version is set to v23.1.0 or higher as a prerequisite.
+Please ensure that the Node.js version is set to v20.18.3 or higher as a prerequisite.
 
 ### Command-Line Interface (CLI)
 

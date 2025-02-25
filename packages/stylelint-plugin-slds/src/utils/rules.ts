@@ -65,15 +65,6 @@ const rulesMetadata = {
       "The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with the '${newValue}' styling hook and set the fallback to '${oldValue}'. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n",
     ruleDesc: 'Replace deprecated --lwc tokens with the latest sdls tokens.',
   },
-  'slds/enforce-utility-classes': {
-    name: 'slds/enforce-utility-classes',// UTILITY_CLASS
-    severityLevel: 'warning',
-    warningMsg:
-      'Instead of declaring the property, consider placing a helper class on your element:\n${table}',
-    errorMsg:
-      'Instead of declaring the property, consider placing a helper class on your element:\n${table}',
-    ruleDesc: 'Instead of custom css declaration, consider leveraging SLDS classes',
-  },
   
   // Needs CX review
   'slds/enforce-sds-to-slds-hooks': {
@@ -84,16 +75,6 @@ const rulesMetadata = {
     errorMsg:
       'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}".',
     ruleDesc: 'Convert --sds to --slds hooks as much as possible',
-  },
-  // Needs CX review
-  'slds/no-deprecated-slds2-classes': {
-    name: 'slds/no-deprecated-slds2-classes',
-    severityLevel: 'warning',
-    warningMsg:
-      'Selector: "${selector}" is no longer available in SLDS2. Please update to a supported selector.',
-    errorMsg:
-      'Selector: "${selector}" is no longer available in SLDS2. Please update to a supported selector.',
-    ruleDesc: 'We’ve found code that’s not currently compatible with the Cosmos.',
   },
 
   // New rules
@@ -133,28 +114,6 @@ const rulesMetadata = {
     errorMsg:
       'Unexpected \"--_slds- private variable usage\" within selector "${prop}".',
     ruleDesc: 'Do not use \"--_slds- private variable\"',
-  },
-
-
- // Needs CX review
-  // --sds-abc
-  'slds/no-sds-custom-properties': {
-    name: 'slds/no-sds-custom-properties',
-    severityLevel: 'warning',
-    warningMsg:
-      '"${prop}" is currently deprecated in the Cosmos.',
-    errorMsg:
-      '"${prop}" is currently deprecated in the Cosmos.',
-    ruleDesc: 'Do not use deprecated --sds custom properties.',
-  },
-  'slds/no-lwc-custom-properties': {
-    name: 'slds/no-lwc-custom-properties',
-    severityLevel: 'warning',
-    warningMsg:
-      'Unexpected "--lwc custom property" within selector "${prop}". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-plugin-slds/src/rules/no-lwc-custom-properties/README.md',
-    errorMsg:
-      'Unexpected "--lwc custom property" within selector "${prop}". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-plugin-slds/src/rules/no-lwc-custom-properties/README.md',
-    ruleDesc: 'Do not use deprecated --lwc custom properties.',
   },
   'slds/no-deprecated-slds-hooks': {
     name: 'slds/no-deprecated-slds-hooks',

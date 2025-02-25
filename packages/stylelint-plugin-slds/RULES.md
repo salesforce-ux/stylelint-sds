@@ -149,13 +149,6 @@ lightning-tabset {
    display: none;
 }
 
-## no custome --lwc properties
-
-/* slds-css/no-lwc-custom-properties */
-:where(html){
-    --lwc-brandPrimary: var(--slds-g-color-brand-base-60) !important;
-}
-
 ## Enforce BEM Usage
    Not sure on how to guide customers here, we have two rules here.
    1. BEM rule
