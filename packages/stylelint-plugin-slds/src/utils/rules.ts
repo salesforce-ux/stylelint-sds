@@ -57,7 +57,6 @@ const rulesMetadata = {
     ruleDesc: 'Please update to a design token or class with corresponding value'
   },
 
-  // Do we need this?  // this is covered in invalid/deprecated/wcag rules.
   'slds/lwc-to-slds-token': {
     name: 'slds/lwc-to-slds-token',
     severityLevel: 'warning',
@@ -106,15 +105,6 @@ const rulesMetadata = {
     errorMsg:
       'Consider removing "${oldValue}", or updating to a design token with a corresponding value. To avoid breaking changes, replace it with "${newValue}" styling hook. Set the fallback to "${oldValue}". For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n',
     ruleDesc: 'Please update to a design token or class with corresponding value',
-  },
-  'slds/enforce-wcag-rules': {
-    name: 'slds/enforce-wcag-rules',
-    severityLevel: 'warning',
-    warningMsg:
-      'Consider replacing "${oldValue}" with a similar color "${newValue}" styling hook to provide better color contrast',
-    errorMsg:
-      'Consider replacing "${oldValue}" with a similar color "${newValue}" styling hook to provide better color contrast',
-    ruleDesc: 'Please evaluate if using styling hook provides better color contrast experience',
   },
   'slds/reduce-annotations': {
     name: 'slds/no-annotation-rule',
