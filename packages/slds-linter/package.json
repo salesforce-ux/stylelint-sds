@@ -1,42 +1,59 @@
 {
   "name": "@salesforce-ux/slds-linter",
-  "version": "0.0.12-alpha",
-  "description": "SLDS Linter with both stylelint and eslint together",
-  "main": "index.mjs",
-  "bin": {
-    "slds-linter": "./bin/slds-linter.js"
-  },
-  "workspaces": [
-    "packages/*"
+  "version": "0.0.12-alpha.0",
+  "description": "SLDS CLI tool for linting styles and components",
+  "keywords": [
+    "lint",
+    "eslint",
+    "stylelint",
+    "cli",
+    "sarif",
+    "parallel",
+    "performance"
   ],
-  "access": "public",
+  "author": "UXF Tooling Team",
+  "type": "module",
+  "main": "build/index.js",
   "files": [
-    "build/",
-    "bin/",
+    "build/**",
     "README.md"
   ],
+  "bin": {
+    "slds-linter": "./build/index.js"
+  },
   "scripts": {
-    "build": "rollup --config rollup.config.js",
-    "clean": "rm -rf build package-lock.json",
-    "test": "echo 'Not implemented!'",
-    "setup-lint": "node ./build/setup.js"
+    "prepublishOnly": "clean-pkg-json",
+    "build": "gulp build",
+    "dev": "gulp dev",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts"
   },
-  "type": "module",
   "dependencies": {
-    "@salesforce-ux/eslint-plugin-slds": "^0.0.12-alpha",
-    "@salesforce-ux/stylelint-plugin-slds": "^0.0.12-alpha",
-    "chalk": "^5.3.0",
-    "yargs": "^17.7.2"
+    "@salesforce-ux/eslint-plugin-slds": "0.0.12-alpha.0",
+    "@salesforce-ux/stylelint-plugin-slds": "0.0.12-alpha.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "chalk": "^4.1.2",
+    "commander": "^13.1.0",
+    "eslint": "^8.0.0",
+    "glob": "^11.0.0",
+    "json-stream-stringify": "^3.1.6",
+    "node-sarif-builder": "^3.2.0",
+    "ora": "^5.4.1",
+    "stylelint": "^16.10.0"
   },
-  "keywords": [
-    "eslint SDS",
-    "stylelint SDS",
-    "salesforce",
-    "sds linter"
-  ],
-  "author": "Kishore Nemalipuri",
-  "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-typescript": "^12.1.2"
-  }
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/linting-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/linting-cli/issues"
+  },
+  "homepage": "https://github.com/yourusername/linting-cli#readme"
 }

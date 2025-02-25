@@ -1,12 +1,10 @@
 import { Root } from 'postcss';
-import stylelint, { Rule, PostcssResult } from 'stylelint';
+import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 
-import { Options } from './option.interface';
+import { sldsClasses } from "@salesforce-ux/metadata-slds";
 import ruleMetadata from '../../utils/rulesMetadata';
-import replacePlaceholders from '../../utils/util';
 import { getClassNodesFromSelector } from '../../utils/selector-utils';
-import { metadataFileUrl } from '../../utils/metaDataFileUrl';
-import { readFileSync } from 'fs';
+import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
 const ruleName: string = 'slds/no-slds-class-overrides';
@@ -18,18 +16,13 @@ const {
   ruleDesc = 'No description provided',
 } = ruleMetadata(ruleName) || {};
 
-const tokenMappingPath = metadataFileUrl('./public/metadata/slds_classes.json');
-const sldsClasses = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
 const sldsSet = new Set(sldsClasses);
 
-function rule(primaryOptions: Options) {
+function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    const severity =
-      result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
 
     root.walkRules((rule) => {
       const classNodes = getClassNodesFromSelector(rule.selector);
-
       const offsetIndex = rule.toString().indexOf(rule.selector);
       classNodes.forEach((classNode) => {
         if (!classNode.value.startsWith('slds-')) {

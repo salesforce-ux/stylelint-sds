@@ -1,9 +1,7 @@
+import { lwcToSlds } from "@salesforce-ux/metadata-slds";
 import { Root } from 'postcss';
-import stylelint, { PostcssResult, Rule, RuleContext } from 'stylelint';
 import valueParser from 'postcss-value-parser';
-import { readFileSync } from 'fs';
-import { Options } from './option.interface';
-import { metadataFileUrl } from '../../utils/metaDataFileUrl';
+import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 
@@ -31,29 +29,19 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
     `The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with '${newValue}'. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n`,
 });
 
-const tokenMappingPath = metadataFileUrl('./public/metadata/lwcToSlds.json');
-const lwcToSLDS = JSON.parse(readFileSync(tokenMappingPath, 'utf8'));
-
-// Validate options for the rule
-function validateOptions(result: PostcssResult, options: Options) {
-  return stylelint.utils.validateOptions(result, ruleName, {
-    actual: options,
-    possible: {}, // Customize as needed
-  });
-}
 
 function shouldIgnoreDetection(lwcToken: string) {
   // Ignore if entry not found in the list or the token is marked to use further
   return (
     !lwcToken.startsWith('--lwc-') ||
-    !(lwcToken in lwcToSLDS) ||
-    lwcToSLDS[lwcToken] === 'Continue to use'
+    !(lwcToken in lwcToSlds) ||
+    lwcToSlds[lwcToken] === 'Continue to use'
   );
 }
 
 function getRecommendation(lwcToken: string, reportProps: any) {
   const oldValue = lwcToken;
-  const recommendation = lwcToSLDS[oldValue];
+  const recommendation = lwcToSlds[oldValue];
   const hasRecommendation = recommendation && recommendation !== '--';
   if (!hasRecommendation) {
     // Found a deprecated token but don't have any alternate recommendation then just report user to follow docs
@@ -200,18 +188,9 @@ function detectLeftSide(decl, basicReportProps, autoFixEnabled) {
 }
 
 // Define the main rule logic
-function rule(
-  primaryOptions: Options,
-  secondaryOptions: Options,
-  context: RuleContext
-) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    if (!validateOptions(result, primaryOptions)) {
-      return;
-    }
-
-    const severity =
-      result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
+    
     const autoFixEnabled = result.stylelint.config.fix;
     root.walkDecls((node) => {
       const basicReportProps = {

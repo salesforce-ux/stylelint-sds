@@ -1,11 +1,9 @@
+import { globalSharedHooksMetadata } from "@salesforce-ux/metadata-slds";
 import { Root } from 'postcss';
-import stylelint, { Rule, RuleContext, PostcssResult } from 'stylelint';
-import { Options } from './option.interface';
+import valueParser from 'postcss-value-parser';
+import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
-import valueParser from 'postcss-value-parser';
-import { readFileSync } from 'fs';
-import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
@@ -16,16 +14,7 @@ const ruleInfo = ruleMetadata(ruleName);
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 // data
-const globalSharedHooksPath = metadataFileUrl('./public/metadata/globalSharedHooks.metadata.json');
-const globalSharedHooks = JSON.parse(readFileSync(globalSharedHooksPath, 'utf8'));
-const allSldsHooks = [].concat(Object.keys(globalSharedHooks.global), Object.keys(globalSharedHooks.shared));
-
-function validateOptions(result: PostcssResult, options: Options): boolean {
-  return utils.validateOptions(result, ruleName, {
-    actual: options,
-    possible: {}, // Customize if additional options are added
-  });
-}
+const allSldsHooks = [].concat(Object.keys(globalSharedHooksMetadata.global), Object.keys(globalSharedHooksMetadata.shared));
 
 const toSldsToken = (sdsToken: string) => sdsToken.replace('--sds-', '--slds-')
 
@@ -100,17 +89,9 @@ function detectLeftSide(decl, basicReportProps, autoFixEnabled) {
     }
 }
 
-function rule(
-  primaryOptions: Options,
-  secondaryOptions: Options,
-  context: RuleContext
-) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}) {
   return (root: Root, result: PostcssResult) => {
-    if (!validateOptions(result, primaryOptions)) {
-      return;
-    }
 
-    const severity = result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
     const autoFixEnabled = result.stylelint.config.fix;
 
     root.walkDecls((decl) => {

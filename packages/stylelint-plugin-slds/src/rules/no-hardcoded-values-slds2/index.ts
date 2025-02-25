@@ -1,5 +1,5 @@
 import fs from 'fs/promises'; // Use promises to read the file asynchronously
-import stylelint, { Rule, PostcssResult } from 'stylelint';
+import stylelint, { Rule, PostcssResult, RuleSeverity } from 'stylelint';
 import generateTable from '../../utils/generateTable';
 import {
   findClosestColorHook,
@@ -11,6 +11,7 @@ import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
+import {valueToStylinghookSldsplus} from "@salesforce-ux/metadata-slds";
 
 // Define the structure of a hook
 interface Hook {
@@ -43,11 +44,11 @@ const isHardCodedDensifyValue = (cssValue: string): boolean => {
 };
 
 // Load and parse the JSON file
-const loadStylinghooksData = async (): Promise<StylinghookData> => {
+/* const loadStylinghooksData = async (): Promise<StylinghookData> => {
   const jsonFilePath = metadataFileUrl('public/metadata/valueToStylinghook.sldsplus.json');
   const jsonData = await fs.readFile(jsonFilePath, 'utf8');
   return JSON.parse(jsonData) as StylinghookData; // Cast the parsed data to StylinghookData type
-};
+}; */
 
 /**
  * Check if any of the hook properties match the provided cssProperty using wildcard matching.
@@ -92,16 +93,10 @@ const findExactMatchStylingHook = (
   );
 };
 
-function validateOptions(result: PostcssResult, options: any): boolean {
-  return utils.validateOptions(result, ruleName, {
-    actual: options,
-    possible: {}, // Customize as needed
-  });
-}
 
-function rule(primaryOptions?: any) {
+function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
   return async (root: Root, result: PostcssResult) => {
-    const supportedStylinghooks = await loadStylinghooksData(); // Await the loading of color data
+    const supportedStylinghooks = valueToStylinghookSldsplus; //await loadStylinghooksData(); // Await the loading of color data
 
     root.walkDecls((decl) => {
       const cssProperty = decl.prop.toLowerCase();
@@ -129,9 +124,7 @@ function rule(primaryOptions?: any) {
       const value = decl.value;
       const index = decl.toString().indexOf(decl.value); // Start index of the value
       const endIndex = index + decl.value.length;
-      const severity =
-                    result.stylelint.config.rules[ruleName]?.[1] || severityLevel; // Default to "error"
-
+      
       // For color changes
       if (
         matchesCssProperty(colorProperties, cssProperty) &&

@@ -1,11 +1,15 @@
 {
   "name": "stylelint-sds",
-  "version": "1.0.1",
+  "version": "0.0.0-DEVELOPMENT.0",
   "private": true,
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/metadata",
+    "packages/eslint-plugin-slds",
+    "packages/stylelint-plugin-slds",
+    "packages/slds-linter"
   ],
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "install-all": "npm install --workspaces",
     "build": "npm run build --workspaces",
@@ -13,9 +17,26 @@
     "clean": "npm run clean --workspaces",
     "fix": "stylelint packages/test-repository/force-app/main/default/lwc/myComponent/test.css --fix",
     "report": "node node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js -d packages/test-repository",
-    "publish-all": "node scripts/publish.js"
+    "publish-all": "node scripts/release.js"
   },
   "devDependencies": {
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",    
+    "@types/node": "^20.11.19",
+    "@types/eslint": "^8.0.0",
+    "husky": "^9.1.7",
+    "lerna":"^8.2.0",
+    "lint-staged": "^15.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "glob": "^11.0.1",
+    "gulp": "^5.0.0",
+    "gulp-clean-dir": "^1.0.2",
+    "clean-pkg-json": "^1.2.0",
+    "gulp-execa": "^8.0.0",
+    "prettier": "^3.4.2",
+    "esbuild": "^0.25.0",
+    "esbuild-plugin-file-path-extensions":"^2.1.4",
+    "prompts":"^2.4.2",
+    "semver":"^7.7.1"
   }
 }
