@@ -1,5 +1,4 @@
-// utils/nodeVersionUtil.js
-
+import semver from 'semver';
 import { Logger } from './logger'; // Ensure this path is correct
 
 export const REQUIRED_NODE_VERSION = '20.18.3';
@@ -10,14 +9,7 @@ export const REQUIRED_NODE_VERSION = '20.18.3';
  * @returns {boolean} - Returns true if the current version is valid.
  */
 export function checkNodeVersion(requiredVersion) {
-  const semver = requiredVersion.split('.').map(Number);
-  const currentVersion = process.version.slice(1).split('.').map(Number);
-
-  for (let i = 0; i < semver.length; i++) {
-    if (currentVersion[i] > semver[i]) return true;
-    if (currentVersion[i] < semver[i]) return false;
-  }
-  return true; // Exact match
+  return semver.gte(process.version, requiredVersion);
 }
 
 /**
