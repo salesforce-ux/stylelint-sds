@@ -44,5 +44,8 @@
   },
   "lint-staged": {
     "*.ts": "prettier --write"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }
