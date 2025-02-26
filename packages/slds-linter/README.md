@@ -48,7 +48,7 @@ For the first time, it will ask to install the package. Please reply with `y` as
 ```
 Usage: npx @salesforce-ux/slds-linter@latest [options] [command]
 
-SLDS CLI tool for linting styles and components
+SLDS Linter CLI tool for linting styles and components
 
 Options:
   -V, --version              output the version number
@@ -59,6 +59,7 @@ Commands:
   lint:components [options]  Run eslint on all markup files
   lint [options]             Run both style and component linting
   report [options]           Generate SARIF report from linting results
+  emit [options]             Emits the configuration files used by slds-linter cli
   help [command]             display help for command
 ```
 
@@ -67,6 +68,7 @@ Commands:
 - `npx @salesforce-ux/slds-linter lint:components` - Runs the ESlint rules on your HTML/CMP files and outputs issues.
 - `npx @salesforce-ux/slds-linter fix`: Attempts to automatically fix violations.
 - `npx @salesforce-ux/slds-linter report`: Generates a SARIF report for static analysis.
+- `npx @salesforce-ux/slds-linter emit`: Generates ESLint and Stylelint configuration files in the root directory. These configuration files are then utilized by the respective extensions to enable the display of squiggly lines over errors and warnings in the code, helping to easily identify and resolve issues.
 
 #### Options available with each command
 
