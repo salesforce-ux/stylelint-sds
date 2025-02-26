@@ -37,8 +37,8 @@ export function registerLintComponentsCommand(program: Command): void {
 
         Logger.info(chalk.blue('Running linting...'));
         const results = await LintRunner.runLinting(fileBatches, 'component', {
-          fix: options.fix,
-          configPath: options.config,
+          fix: normalizedOptions.fix,
+          configPath: normalizedOptions.config,
         });
 
         // Print results only for files with issues
