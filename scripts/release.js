@@ -108,7 +108,7 @@ async function publishPackages(workspaceInfo, version, releaseType) {
       sldsLinterTarball = execSync(`cd ${pkgPath} && npm pack`).toString().trim();
       console.log(chalk.blue(`Generated tarball: ${sldsLinterTarball}`));
     }
-    execSync(`cd ${pkgPath} && npm publish --tag ${tag} --access public`);
+    execSync(`cd ${pkgPath} && NPM_TOKEN=$NPM_TOKEN npm publish --tag ${tag} --access public`);
     console.log(chalk.green(`Published ${pkgName}@${version}`));
   }
 
