@@ -14,7 +14,7 @@
     "node": ">=20.18.3"
   },
   "scripts": {
-    "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install dependencies')\"",
+    "preinstall": "./scripts/validate-setup.sh",
     "test": "yarn workspaces run test",
     "build":"yarn workspaces run build",
     "release": "node scripts/release.js"
