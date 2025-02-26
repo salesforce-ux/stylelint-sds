@@ -6,6 +6,10 @@ import { registerLintComponentsCommand } from './commands/lint-components';
 import { registerLintCommand } from './commands/lint';
 import { registerReportCommand } from './commands/report';
 import { Logger } from './utils/logger';
+import { validateNodeVersion } from './utils/nodeVersionUtil';
+
+// Validate Node.js version before proceeding
+validateNodeVersion();
 
 process.on('unhandledRejection', (error) => {
   Logger.error(`Unhandled rejection: ${error}`);
