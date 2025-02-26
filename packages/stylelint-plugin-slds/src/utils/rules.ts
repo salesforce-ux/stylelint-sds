@@ -65,15 +65,6 @@ const rulesMetadata = {
       "The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with the '${newValue}' styling hook and set the fallback to '${oldValue}'. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n",
     ruleDesc: 'Replace deprecated --lwc tokens with the latest sdls tokens.',
   },
-  'slds/enforce-utility-classes': {
-    name: 'slds/enforce-utility-classes',// UTILITY_CLASS
-    severityLevel: 'warning',
-    warningMsg:
-      'Instead of declaring the property, consider placing a helper class on your element:\n${table}',
-    errorMsg:
-      'Instead of declaring the property, consider placing a helper class on your element:\n${table}',
-    ruleDesc: 'Instead of custom css declaration, consider leveraging SLDS classes',
-  },
   
   // Needs CX review
   'slds/enforce-sds-to-slds-hooks': {
@@ -137,25 +128,6 @@ const rulesMetadata = {
 
 
  // Needs CX review
-  // --sds-abc
-  'slds/no-sds-custom-properties': {
-    name: 'slds/no-sds-custom-properties',
-    severityLevel: 'warning',
-    warningMsg:
-      '"${prop}" is currently deprecated in the Cosmos.',
-    errorMsg:
-      '"${prop}" is currently deprecated in the Cosmos.',
-    ruleDesc: 'Do not use deprecated --sds custom properties.',
-  },
-  'slds/no-lwc-custom-properties': {
-    name: 'slds/no-lwc-custom-properties',
-    severityLevel: 'warning',
-    warningMsg:
-      'Unexpected "--lwc custom property" within selector "${prop}". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-plugin-slds/src/rules/no-lwc-custom-properties/README.md',
-    errorMsg:
-      'Unexpected "--lwc custom property" within selector "${prop}". Replace with "slds" or "dxp" equivalents. See https://github.com/salesforce-ux/stylelint-sds/blob/main/packages/stylelint-plugin-slds/src/rules/no-lwc-custom-properties/README.md',
-    ruleDesc: 'Do not use deprecated --lwc custom properties.',
-  },
   'slds/no-deprecated-slds-hooks': {
     name: 'slds/no-deprecated-slds-hooks',
     severityLevel: 'warning',
