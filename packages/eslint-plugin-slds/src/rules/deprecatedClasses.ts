@@ -1,5 +1,5 @@
 /**
- * Ideally we should be loading this from @salesforce-ux/metadata-slds package. But the esling package in CJS and Metadata package is ESM.
+ * Ideally we should be loading this from @salesforce-ux/metadata-slds package. But the eslint package in CJS and Metadata package is ESM.
  * TODO: should avoid referencing this file.
  */
 export const deprecatedClasses =[
