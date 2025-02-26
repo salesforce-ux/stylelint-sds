@@ -4,6 +4,7 @@ import path from 'path';
 import prompts from 'prompts';
 import semver from 'semver';
 import { fileURLToPath } from 'url';
+import chalk from 'chalk'; 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
@@ -65,28 +66,88 @@ async function updatePackageVersions(version, workspaceInfo) {
 }
 
 async function gitOperations(version) {
-  const branchName = `release/${version}`;
-  
-  execSync(`git checkout -b ${branchName}`);
+  const currentBranch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+  const releaseBranch = `release/${version}`;
+
+  execSync(`git checkout -b ${releaseBranch}`);
   execSync('git add .');
   execSync(`git commit -m "Release ${version}"`);
+  execSync(`git push origin ${releaseBranch}`);
+
+  // Create PR from release branch to current branch
+  const prUrl = execSync(`gh pr create --base ${currentBranch} --head ${releaseBranch} --title "Release ${version}" --body "Automated release PR"`).toString().trim();
+  console.log(chalk.green(`Created PR: ${prUrl}`));
+
+  // Auto-merge the PR
+  execSync(`gh pr merge ${prUrl} --merge --delete-branch`);
+  console.log(chalk.green(`Merged PR: ${prUrl}`));
+
+  // Switch back to the current branch
+  execSync(`git checkout ${currentBranch}`);
+
+  // Create and push tag
   execSync(`git tag ${version}`);
-  execSync(`git push origin ${branchName}`);
   execSync(`git push origin ${version}`);
 }
 
 async function publishPackages(workspaceInfo, version, releaseType) {
   const tag = releaseType === 'final' ? 'latest' : releaseType;
-  
+  let sldsLinterTarball = '';
+
   for (const [pkgName, info] of Object.entries(workspaceInfo)) {
     const pkgPath = path.join(ROOT_DIR, info.location);
+    if (pkgName.match(/slds-linter/)) {
+      // Generate tarball for slds-linter
+      sldsLinterTarball = execSync(`cd ${pkgPath} && npm pack`).toString().trim();
+      console.log(chalk.blue(`Generated tarball: ${sldsLinterTarball}`));
+    }
     execSync(`cd ${pkgPath} && npm publish --tag ${tag} --access public`);
-    console.log(`Published ${pkgName}@${version}`);
+    console.log(chalk.green(`Published ${pkgName}@${version}`));
+  }
+
+  return sldsLinterTarball;
+}
+
+async function createGitHubRelease(version, tarballPath) {
+  const releaseNotes = `Release ${version}`;
+  execSync(`gh release create ${version} ${tarballPath} --title "Release ${version}" --notes "${releaseNotes}"`);
+  console.log(chalk.green(`Created GitHub release: ${version}`));
+}
+
+async function checkWorkingDirectory() {
+  try {
+    // Check if the working directory is clean
+    execSync('git diff --quiet HEAD');
+
+    // Check if the local branch is up to date with the remote
+    execSync('git fetch');
+    const localCommit = execSync('git rev-parse HEAD').toString().trim();
+    const remoteCommit = execSync('git rev-parse @{u}').toString().trim();
+    if (localCommit !== remoteCommit) {
+      throw new Error('Local branch is not up to date with remote');
+    }
+
+    // Check for staged/unstaged changes
+    const status = execSync('git status --porcelain').toString();
+    if (status.length > 0) {
+      throw new Error('There are staged or unstaged changes');
+    }
+
+    // Check if gh is installed and authenticated
+    execSync('gh --version');
+    execSync('gh auth status');
+
+    console.log(chalk.green('Pre-release checks passed successfully.'));
+  } catch (error) {
+    throw new Error(`Pre-release check failed: ${error.message}`);
   }
 }
 
 async function main() {
   try {
+    // Perform pre-release checks
+    await checkWorkingDirectory();
+    
     // Get workspace information
     const workspaceInfo = await getWorkspaceInfo();
     
@@ -122,13 +183,18 @@ async function main() {
     // Git operations
     await gitOperations(finalVersion);
 
-    // Publish packages
-    await publishPackages(workspaceInfo, finalVersion, releaseType);
+    // Publish packages and get slds-linter tarball path
+    const sldsLinterTarball = await publishPackages(workspaceInfo, finalVersion, releaseType);
 
-    console.log(`\nRelease ${finalVersion} completed successfully!`);
+    // Create GitHub release with slds-linter tarball as asset
+    if (sldsLinterTarball) {
+      await createGitHubRelease(finalVersion, sldsLinterTarball);
+    }
+
+    console.log(chalk.green(`\nRelease ${finalVersion} completed successfully!`));
     
   } catch (error) {
-    console.error('Error:', error.message);
+    console.error(chalk.red('Error:'), chalk.red(error.message));
     process.exit(1);
   }
 }
