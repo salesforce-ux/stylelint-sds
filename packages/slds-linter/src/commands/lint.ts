@@ -39,8 +39,8 @@ export function registerLintCommand(program: Command): void {
         Logger.info(chalk.blue(`Found ${totalStyleFiles} style file(s). Running stylelint...\n`));
 
         const styleResults = await LintRunner.runLinting(styleFileBatches, 'style', {
-          fix: options.fix,
-          configPath: options.configStyle,
+          fix: normalizedOptions.fix,
+          configPath: normalizedOptions.configStyle,
         });
 
         // Print style lint issues (only for files with issues)
@@ -80,8 +80,8 @@ export function registerLintCommand(program: Command): void {
         Logger.info(chalk.blue(`Found ${totalComponentFiles} component file(s). Running eslint...\n`));
 
         const componentResults = await LintRunner.runLinting(componentFileBatches, 'component', {
-          fix: options.fix,
-          configPath: options.configEslint,
+          fix: normalizedOptions.fix,
+          configPath: normalizedOptions.configEslint,
         });
 
         // Print component lint issues (only for files with issues)

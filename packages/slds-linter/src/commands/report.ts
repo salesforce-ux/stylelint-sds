@@ -34,7 +34,7 @@ export function registerReportCommand(program: Command): void {
         });
         
         const styleResults = await LintRunner.runLinting(styleFileBatches, 'style', {
-          configPath: options.configStyle
+          configPath: normalizedOptions.configStyle
         });
 
         // Run components linting
@@ -45,7 +45,7 @@ export function registerReportCommand(program: Command): void {
         });
         
         const componentResults = await LintRunner.runLinting(componentFileBatches, 'component', {
-          configPath: options.configEslint
+          configPath: normalizedOptions.configEslint
         });
 
         /* 
