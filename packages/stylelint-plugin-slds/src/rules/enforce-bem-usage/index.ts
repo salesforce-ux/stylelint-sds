@@ -23,7 +23,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 });
 
 
-function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return (root: Root, result: PostcssResult) => {
     root.walkRules((rule) => {
       let fixOffset = 0; // aggregate position change if using auto-fix, tracked at the rule level

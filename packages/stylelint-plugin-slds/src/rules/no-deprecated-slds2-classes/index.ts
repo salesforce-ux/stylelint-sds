@@ -27,7 +27,7 @@ const deprecatedSelectors = JSON.parse(
   readFileSync(deprecatedSelectorsPath, 'utf8')
 ).bem.css.deprecated.selectors; */
 
-function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return (root: Root, result: PostcssResult) => {
     root.walkRules((rule) => {
       // Check if the selector matches any deprecated selectors

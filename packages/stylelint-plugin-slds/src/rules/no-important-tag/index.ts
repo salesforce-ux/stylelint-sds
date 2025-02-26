@@ -9,7 +9,7 @@ const ruleName: string = 'slds/no-important-tag';
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 
-function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return (root: Root, result: PostcssResult) => {
     root.walkDecls((decl) => {
       if (decl.important) {
