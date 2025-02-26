@@ -22,9 +22,9 @@ overrides:
       # slds/no-invalid-tokens-classes:
       #   - true
       #   - severity: error
-      slds/lwc-to-slds-token:
-        - true
-        - severity: warning
+      # slds/lwc-to-slds-token: ## Cannot be public as the data is not final. 
+      #   - true
+      #   - severity: warning
       # slds/enforce-bem-usage:
       #   - true
       #   - severity: warning
