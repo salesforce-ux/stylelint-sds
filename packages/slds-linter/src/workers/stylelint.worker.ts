@@ -24,6 +24,7 @@ class StylelintWorker extends BaseWorker<WorkerConfig, WorkerResult> {
         warnings: fileResult.warnings.map(warning => ({
           line: warning.line,
           column: warning.column,
+          endColumn: warning.endColumn,
           message: warning.text,
           ruleId: warning.rule
         })),

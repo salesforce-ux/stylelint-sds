@@ -89,7 +89,7 @@ function detectLeftSide(decl, basicReportProps, autoFixEnabled) {
     }
 }
 
-function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return (root: Root, result: PostcssResult) => {
 
     const autoFixEnabled = result.stylelint.config.fix;

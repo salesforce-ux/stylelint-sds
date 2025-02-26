@@ -7,6 +7,7 @@ import { registerLintCommand } from './commands/lint';
 import { registerReportCommand } from './commands/report';
 import { Logger } from './utils/logger';
 import { validateNodeVersion } from './utils/nodeVersionUtil';
+import pkg from '../package.json' with {type:"json"};
 
 // Validate Node.js version before proceeding
 validateNodeVersion();
@@ -25,8 +26,8 @@ const program = new Command();
 
 program
   .name('npx @salesforce-ux/slds-linter@latest')
-  .description('A CLI tool for linting styles and components')
-  .version('1.0.0')
+  .description(pkg.description)
+  .version(pkg.version)
   .showHelpAfterError();
 
 registerLintStylesCommand(program);

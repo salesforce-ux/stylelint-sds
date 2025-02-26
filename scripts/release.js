@@ -10,10 +10,17 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 async function getWorkspaceInfo() {
-  const output = execSync('yarn workspaces info --json').toString();
-  // Remove the first and last lines that yarn adds
-  const jsonStr = output.split('\n').slice(1, -2).join('\n');
-  return JSON.parse(jsonStr);
+  console.log(chalk.blue("Checking workspace information..."));
+  try{
+    const output = execSync('yarn workspaces info --json').toString();
+    const matches = output.trim().replace(/\n/g, '').match(/\{(.*)\}/);
+    if(!matches || !matches.length)  {
+      throw new Error(output);
+    }
+    return JSON.parse(matches[0]);
+  } catch (error) {
+    throw new Error(`Failed to parse workspace info: ${error.message}`);
+  }
 }
 
 async function validateVersion(version) {

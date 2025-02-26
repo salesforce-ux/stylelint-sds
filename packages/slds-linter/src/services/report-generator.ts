@@ -133,6 +133,7 @@ export class ReportGenerator {
   ): void {
     // Add errors
     for (const error of lintResult.errors) {
+
       const resultBuilder = new SarifResultBuilder().initSimple({
         ruleId: error.ruleId,
         level: 'error',
@@ -141,7 +142,7 @@ export class ReportGenerator {
         startLine: error.line,
         startColumn: error.column,
         endLine: error.line,
-        endColumn: error.column + 1
+        endColumn: error.endColumn
       });
       runBuilder.addResult(resultBuilder);
     }
@@ -156,7 +157,7 @@ export class ReportGenerator {
         startLine: warning.line,
         startColumn: warning.column,
         endLine: warning.line,
-        endColumn: warning.column + 1
+        endColumn: warning.endColumn
       });
       runBuilder.addResult(resultBuilder);
     }

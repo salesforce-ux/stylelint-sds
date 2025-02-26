@@ -17,13 +17,15 @@ export function registerLintStylesCommand(program: Command): void {
     .description('Run stylelint on all style files')
     .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
     .option('--fix', 'Automatically fix problems')
-    .option('--config <path>', 'Path to stylelint config file', DEFAULT_STYLELINT_CONFIG_PATH)
+    .option('--config <path>', 'Path to stylelint config file')
     .option('--editor <editor>', 'Editor to open files with (vscode, atom, sublime). Defaults to vscode', 'vscode')
     .action(async (options: CliOptions) => {
       const startTime = Date.now();
       try {
         Logger.info(chalk.blue('Starting linting of style files...'));
-        const normalizedOptions = normalizeCliOptions(options);
+        const normalizedOptions = normalizeCliOptions(options, {
+          configStyle: DEFAULT_STYLELINT_CONFIG_PATH
+        });
 
         Logger.info(chalk.blue('Scanning for style files...'));
         const fileBatches = await FileScanner.scanFiles(normalizedOptions.directory, {

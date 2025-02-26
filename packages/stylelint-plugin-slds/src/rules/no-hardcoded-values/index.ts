@@ -92,7 +92,7 @@ const findExactMatchStylingHook = (
   );
 };
 
-function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return async (root: Root, result: PostcssResult) => {
     const supportedStylinghooks = valueToStylinghookSlds; //await loadStylinghooksData(); // Await the loading of color data
 

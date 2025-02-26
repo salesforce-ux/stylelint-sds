@@ -18,7 +18,7 @@ const {
 
 const sldsSet = new Set(sldsClasses);
 
-function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return (root: Root, result: PostcssResult) => {
 
     root.walkRules((rule) => {

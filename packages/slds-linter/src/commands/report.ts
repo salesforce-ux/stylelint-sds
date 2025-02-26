@@ -16,12 +16,15 @@ export function registerReportCommand(program: Command): void {
     .description('Generate SARIF report from linting results')
     .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
     .option('-o, --output <path>', 'Output directory for reports (defaults to current directory)')
-    .option('--config-style <path>', 'Path to stylelint config file', DEFAULT_STYLELINT_CONFIG_PATH)
-    .option('--config-eslint <path>', 'Path to eslint config file', DEFAULT_ESLINT_CONFIG_PATH)
+    .option('--config-style <path>', 'Path to stylelint config file')
+    .option('--config-eslint <path>', 'Path to eslint config file')
     .action(async (options: CliOptions) => {
       const spinner = ora('Starting report generation...').start();
       try {        
-        const normalizedOptions = normalizeCliOptions(options);
+        const normalizedOptions = normalizeCliOptions(options, {
+          configStyle: DEFAULT_STYLELINT_CONFIG_PATH,
+          configEslint: DEFAULT_ESLINT_CONFIG_PATH
+        });
         
         // Run styles linting
         spinner.text = 'Running styles linting...';
@@ -33,7 +36,7 @@ export function registerReportCommand(program: Command): void {
         const styleResults = await LintRunner.runLinting(styleFileBatches, 'style', {
           configPath: options.configStyle
         });
-        
+
         // Run components linting
         spinner.text = 'Running components linting...';
         const componentFileBatches = await FileScanner.scanFiles(normalizedOptions.directory, {

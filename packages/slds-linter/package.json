@@ -1,6 +1,6 @@
 {
   "name": "@salesforce-ux/slds-linter",
-  "version": "0.0.12-alpha.0",
+  "version": "0.0.12-alpha.2",
   "description": "SLDS CLI tool for linting styles and components",
   "keywords": [
     "lint",
@@ -25,12 +25,12 @@
     "prepublishOnly": "clean-pkg-json",
     "build": "gulp build",
     "dev": "gulp dev",
-    "test": "jest",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest",
     "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
-    "@salesforce-ux/eslint-plugin-slds": "0.0.12-alpha.0",
-    "@salesforce-ux/stylelint-plugin-slds": "0.0.12-alpha.0",
+    "@salesforce-ux/eslint-plugin-slds": "0.0.12-alpha.2",
+    "@salesforce-ux/stylelint-plugin-slds": "0.0.12-alpha.2",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "chalk": "^4.1.2",

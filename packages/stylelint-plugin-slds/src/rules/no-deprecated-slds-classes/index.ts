@@ -33,7 +33,7 @@ const defaultDeprecatedClasses = new Set(
 const classRegex = /\.[\w-]+/g;
 
 
-function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return (root: Root, result: PostcssResult) => {
     
     const deprecatedClassesSet = new Set(deprecatedClasses);

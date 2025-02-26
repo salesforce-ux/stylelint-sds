@@ -26,7 +26,7 @@ const tokenMappingPath = metadataFileUrl(
 const deprecatedHooks = JSON.parse(readFileSync(tokenMappingPath, 'utf8')); */
 
 
-function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return (root: Root, result: PostcssResult) => {
     root.walkDecls((decl) => {
       const parsedPropertyValue = decl.prop;

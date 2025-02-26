@@ -1,5 +1,5 @@
 const { RuleTester } = require("eslint"); // Import RuleTester
-const rule = require("../../src/rules/no-deprecated-slds-classes"); // Import the rule
+const rule = require("../../src/rules/no-deprecated-slds2-classes"); // Import the rule
 const path = require("path");
 const fs = require("fs");
 
