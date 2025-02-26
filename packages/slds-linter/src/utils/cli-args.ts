@@ -18,14 +18,15 @@ export function validateAndNormalizePath(inputPath?: string): string {
   }
 }
 
-export function normalizeCliOptions(options: CliOptions): Required<CliOptions> {
+export function normalizeCliOptions(options: CliOptions, defultOptions:Partial<CliOptions> = {}): Required<CliOptions> {
   return {
+    fix: false,
+    editor: 'vscode',
+    config:'',
+    configStyle:'',
+    configEslint:'',
+    ...defultOptions,
     directory: validateAndNormalizePath(options.directory),
-    output: validateAndNormalizePath(options.output),
-    fix: options.fix || false,
-    config: options.config || '',
-    configStyle: options.configStyle || '',
-    configEslint: options.configEslint || '',
-    editor: options.editor || 'vscode'
+    output: validateAndNormalizePath(options.output)
   };
 } 

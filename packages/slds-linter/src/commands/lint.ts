@@ -17,14 +17,17 @@ export function registerLintCommand(program: Command): void {
     .description('Run both style and component linting')
     .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
     .option('--fix', 'Automatically fix problems')
-    .option('--config-style <path>', 'Path to stylelint config file', DEFAULT_STYLELINT_CONFIG_PATH)
-    .option('--config-eslint <path>', 'Path to eslint config file', DEFAULT_ESLINT_CONFIG_PATH)
+    .option('--config-style <path>', 'Path to stylelint config file')
+    .option('--config-eslint <path>', 'Path to eslint config file')
     .option('--editor <editor>', 'Editor to open files with (e.g., vscode, atom, sublime). Defaults to vscode', 'vscode')
     .action(async (options: CliOptions) => {
       const startTime = Date.now();
       try {
         Logger.info(chalk.blue('Starting full linting process...'));
-        const normalizedOptions = normalizeCliOptions(options);
+        const normalizedOptions = normalizeCliOptions(options, {
+          configStyle: DEFAULT_STYLELINT_CONFIG_PATH,
+          configEslint: DEFAULT_ESLINT_CONFIG_PATH
+        });
 
         // 1) STYLE LINT
         Logger.info(chalk.blue('\nScanning style files...'));
