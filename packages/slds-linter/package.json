@@ -1,7 +1,7 @@
 {
   "name": "@salesforce-ux/slds-linter",
   "version": "0.0.13-alpha.0",
-  "description": "SLDS CLI tool for linting styles and components",
+  "description": "SLDS Linter CLI tool for linting styles and components",
   "keywords": [
     "lint",
     "eslint",
