@@ -68,7 +68,7 @@ Commands:
 - `npx @salesforce-ux/slds-linter lint:components` - Runs the ESlint rules on your HTML/CMP files and outputs issues.
 - `npx @salesforce-ux/slds-linter fix`: Attempts to automatically fix violations.
 - `npx @salesforce-ux/slds-linter report`: Generates a SARIF report for static analysis.
-- `npx @salesforce-ux/slds-linter emit`: Generates ESLint and Stylelint configuration files in the root directory. These configuration files are then utilized by the respective extensions to enable the display of squiggly lines over errors and warnings in the code, helping to easily identify and resolve issues.
+- `npx @salesforce-ux/slds-linter emit`: Generates ESLint and Stylelint configuration files in the root directory. 
 
 #### Options available with each command
 
@@ -92,6 +92,7 @@ These options can also be visualised by using `--help` with each command. For ex
 4. Open the generated Sarif file.
 5. Make a note of how many components SLDS Linter has identified that you must update.
 6. Run `npx @salesforce-ux/slds-linter fix` to automatically fix validation errors in bulk.
+7. Run `npx @salesforce-ux/slds-linter emit` to generate ESLint and Stylelint configuration files in the root directory. These configuration files are then utilized by the respective extensions to enable the display of squiggly lines over errors and warnings in the code, helping to easily identify and resolve issues. Please ensure ESLint and Stylelint extensions are enabled.
 
 #### Troubleshooting SARIF Viewer Navigation
 If the SARIF viewer is not automatically navigating you to the line of code when you click on an error/warning, follow these steps:
