@@ -25,9 +25,6 @@ overrides:
       slds/lwc-to-slds-token:
         - true
         - severity: warning
-      slds/enforce-bem-usage:
-        - true
-        - severity: warning
       slds/no-deprecated-slds-classes:
         - true
         - severity: warning
