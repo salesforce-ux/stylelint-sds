@@ -116,9 +116,10 @@ async function publishPackages(workspaceInfo, version, releaseType) {
   return sldsLinterTarball;
 }
 
-async function createGitHubRelease(version, tarballPath) {
+async function createGitHubRelease(version, tarballPath, releaseType) {
   const releaseNotes = `Release ${version}`;
-  execSync(`gh release create ${version} ${tarballPath} --title "Release ${version}" --notes "${releaseNotes}"`);
+  const releaseSuffix = releaseType !=="final"?" --prerelease":"";  
+  execSync(`gh release create ${version} ${tarballPath} --title "Release ${version}" --notes "${releaseNotes}"${releaseSuffix}`);
   console.log(chalk.green(`Created GitHub release: ${version}`));
 }
 
@@ -196,7 +197,7 @@ async function main() {
 
     // Create GitHub release with slds-linter tarball as asset
     if (sldsLinterTarball) {
-      await createGitHubRelease(finalVersion, sldsLinterTarball);
+      await createGitHubRelease(finalVersion, sldsLinterTarball, releaseType);
     }
 
     console.log(chalk.green(`\nRelease ${finalVersion} completed successfully!`));
