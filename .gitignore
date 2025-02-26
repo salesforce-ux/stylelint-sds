@@ -19,7 +19,6 @@ coverage/
 *.swp
 *.swo
 .DS_Store
-.codegenie
 
 # Environment variables
 .env
@@ -36,3 +35,8 @@ logs/
 
 # Publish config
 .npmrc
+
+# sfdx codegenie
+.sfdx
+.codegenie
+
