@@ -2,9 +2,12 @@ import path from 'path';
 import { FileScanner, ScanOptions } from '../file-scanner';
 import { StyleFilePatterns } from '../file-patterns';
 import {mkdir, writeFile, rm} from "fs/promises";
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 describe('FileScanner', () => {
-  const testDir = path.join(import.meta.dirname , 'fixtures');
+  const testDir = path.join(__dirname , 'fixtures');
 
   beforeAll(async () => {
     // Create test directory and files for testing
