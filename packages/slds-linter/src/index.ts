@@ -8,7 +8,7 @@ import { registerReportCommand } from './commands/report';
 import { registerEmitCommand } from './commands/emit';
 import { Logger } from './utils/logger';
 import { validateNodeVersion } from './utils/nodeVersionUtil';
-import pkg from '../package.json' with {type:"json"};
+//import pkg from '../package.json' with {type:"json"};
 
 // Validate Node.js version before proceeding
 validateNodeVersion();
@@ -27,8 +27,9 @@ const program = new Command();
 
 program
   .name('npx @salesforce-ux/slds-linter@latest')
-  .description(pkg.description)
-  .version(pkg.version)
+  // TODO: emable -V and description later
+  //.description(pkg.description)
+  //.version(pkg.version)
   .showHelpAfterError();
 
 registerLintStylesCommand(program);
