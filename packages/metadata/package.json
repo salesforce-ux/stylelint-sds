@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build": "gulp build",
+    "test": "echo \"not implemented\"",
     "prepublishOnly": "clean-pkg-json"
   },
   "devDependencies": {
