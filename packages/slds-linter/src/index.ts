@@ -6,6 +6,7 @@ import { registerLintComponentsCommand } from './commands/lint-components';
 import { registerLintCommand } from './commands/lint';
 import { registerReportCommand } from './commands/report';
 import { Logger } from './utils/logger';
+import pkg from '../package.json' with {type:"json"};
 
 process.on('unhandledRejection', (error) => {
   Logger.error(`Unhandled rejection: ${error}`);
@@ -21,8 +22,8 @@ const program = new Command();
 
 program
   .name('npx @salesforce-ux/slds-linter@latest')
-  .description('A CLI tool for linting styles and components')
-  .version('1.0.0')
+  .description(pkg.description)
+  .version(pkg.version)
   .showHelpAfterError();
 
 registerLintStylesCommand(program);
