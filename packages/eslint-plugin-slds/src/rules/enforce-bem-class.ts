@@ -57,8 +57,6 @@ export = {
 
             // Check whether a fixed class is available
             const newValue = bemMapping[className];
-            console.log(`Found a new value: ${newValue}`);
-
             context.report({
               node,
               loc: { start: startLoc, end: endLoc },
@@ -68,7 +66,6 @@ export = {
               messageId: "wrongClassName",
               fix(fixer) {
                 if (newValue) {
-                  console.log(`---> Inside fixing`);
                   const newClassValue = classAttr.value.value.replace(
                     className,
                     newValue
