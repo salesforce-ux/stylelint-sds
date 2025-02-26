@@ -16,7 +16,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 
 
 
-function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return (root: Root, result: PostcssResult) => {
     root.walkDecls((decl) => {
       if (decl.prop.startsWith('--_slds-')) {

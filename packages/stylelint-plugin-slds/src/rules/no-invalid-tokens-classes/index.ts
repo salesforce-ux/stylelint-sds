@@ -23,7 +23,7 @@ const messages = utils.ruleMessages(ruleName, {
 const tokenMapping = JSON.parse(readFileSync(tokenMappingPath, 'utf8')); */
 
 
-function rule(primaryOptions: boolean, {severity=severityLevel as RuleSeverity}, context: RuleContext) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}, context: RuleContext) {
   return (root: Root, result: PostcssResult) => {
     root.walkDecls((decl) => {
       const parsedValue = valueParser(decl.value);

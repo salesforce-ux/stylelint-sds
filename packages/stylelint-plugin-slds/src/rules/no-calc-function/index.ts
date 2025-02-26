@@ -15,7 +15,7 @@ const messages = utils.ruleMessages(ruleName, {
     replacePlaceholders(errorMsg,{property}),
 });
 
-function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}) {
+function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return (root: Root, result: PostcssResult) => {
     root.walkDecls((decl) => {
       if (decl.value.includes('calc(')) {
