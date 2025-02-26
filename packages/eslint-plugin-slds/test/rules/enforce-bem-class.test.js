@@ -30,6 +30,7 @@ ruleTester.run("enforce-bem-class", rule, {
           column: 13,
         },
       ],
+      //output: `<div class="block__element--modifier"></div>`, // Expected fix (if mapping exists)
     },
     {
       code: `<div class="Block--modifier"></div>`, // Invalid: Uppercase letters
@@ -40,6 +41,7 @@ ruleTester.run("enforce-bem-class", rule, {
           column: 13,
         },
       ],
+      //output: `<div class="block--modifier"></div>`, // Expected fix (converted to lowercase)
     },
     {
       code: `<div class="block__element--"></div>`, // Invalid: Ends with `--`
@@ -50,16 +52,34 @@ ruleTester.run("enforce-bem-class", rule, {
           column: 13,
         },
       ],
+      //output: `<div class="block__element"></div>`, // Expected fix (removes trailing `--`)
     },
     {
-      code: `<div class="block block_element block__element--modifier"></div>`, // Invalid: `block_element` not in BEM
+      code: `<div class="block block_element slds-border_left"></div>`, // Invalid: `block_element` not in BEM
       errors: [
         {
           message: "The class 'block_element' does not follow BEM naming convention.",
           line: 1,
           column: 19,
         },
+        {
+          message: "The class 'slds-border_left' does not follow BEM naming convention.",
+          line: 1,
+          column: 33,
+        }
       ],
+      output: `<div class="block block_element slds-border--left"></div>`, // Expected fix (replaces `block_element`)
+    },
+    {
+      code: `<div class="slds-p-right_xxx-small"></div>`, // Invalid: Missing block name
+      errors: [
+        {
+          message: "The class 'slds-p-right_xxx-small' does not follow BEM naming convention.",
+          line: 1,
+          column: 13,
+        },
+      ],
+      output: `<div class="slds-p-right--xxx-small"></div>`, // Expected fix (if mapping exists)
     },
   ],
 });
