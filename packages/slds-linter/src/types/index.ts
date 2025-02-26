@@ -13,6 +13,7 @@ export interface LintResult {
   errors: Array<{
     line: number;
     column: number;
+    endColumn: number;
     message: string;
     ruleId: string;
     severity: number;
@@ -20,6 +21,7 @@ export interface LintResult {
   warnings: Array<{
     line: number;
     column: number;
+    endColumn: number;
     message: string;
     ruleId: string;
     severity: number;
@@ -39,12 +41,14 @@ export interface WorkerResult {
   warnings?: Array<{
     line: number;
     column: number;
+    endColumn: number;
     message: string;
     ruleId: string;
   }>;
   errors?: Array<{
     line: number;
     column: number;
+    endColumn: number;
     message: string;
     ruleId: string;
   }>;

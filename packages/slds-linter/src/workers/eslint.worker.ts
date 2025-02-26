@@ -23,7 +23,6 @@ class ESLintWorker extends BaseWorker<WorkerConfig, WorkerResult> {
       if (this.task.config.fix && fileResult.output) {
         await ESLint.outputFixes(results);
       }
-
       return {
         file: filePath,
         warnings: fileResult.messages
@@ -31,6 +30,7 @@ class ESLintWorker extends BaseWorker<WorkerConfig, WorkerResult> {
           .map(warning => ({
             line: warning.line,
             column: warning.column,
+            endColumn: warning.endColumn,
             message: warning.message,
             ruleId: warning.ruleId || 'unknown'
           })),
@@ -39,6 +39,7 @@ class ESLintWorker extends BaseWorker<WorkerConfig, WorkerResult> {
           .map(error => ({
             line: error.line,
             column: error.column,
+            endColumn: error.endColumn,
             message: error.message,
             ruleId: error.ruleId || 'unknown'
           }))

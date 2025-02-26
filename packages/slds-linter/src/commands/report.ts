@@ -33,7 +33,7 @@ export function registerReportCommand(program: Command): void {
         const styleResults = await LintRunner.runLinting(styleFileBatches, 'style', {
           configPath: options.configStyle
         });
-        
+
         // Run components linting
         spinner.text = 'Running components linting...';
         const componentFileBatches = await FileScanner.scanFiles(normalizedOptions.directory, {
