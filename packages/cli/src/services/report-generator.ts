@@ -37,7 +37,6 @@ export class ReportGenerator {
         const ruleBuilder = new SarifRuleBuilder().initSimple({
           ruleId: rule.id,
           shortDescriptionText: rule.shortDescription?.text,
-          helpUri: rule.helpUri
         });
         runBuilder.addRule(ruleBuilder);
       }
@@ -92,9 +91,6 @@ export class ReportGenerator {
             shortDescription: {
               text: getRuleDescription(error.ruleId)
             },
-            helpUri: error.ruleId.startsWith('slds/') 
-              ? `https://github.com/salesforce/slds-linting-plugin/blob/main/docs/rules/${error.ruleId.replace('slds/', '')}.md`
-              : `https://stylelint.io/user-guide/rules/${error.ruleId}`,
             properties: {
               category: 'Style'
             }
@@ -110,9 +106,6 @@ export class ReportGenerator {
             shortDescription: {
               text: getRuleDescription(warning.ruleId)
             },
-            helpUri: warning.ruleId.startsWith('slds/') 
-              ? `https://github.com/salesforce/slds-linting-plugin/blob/main/docs/rules/${warning.ruleId.replace('slds/', '')}.md`
-              : `https://stylelint.io/user-guide/rules/${warning.ruleId}`,
             properties: {
               category: 'Style'
             }
