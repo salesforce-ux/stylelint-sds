@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import path from 'path';
 import { createClickableLineCol } from './editorLinkUtil';
 import { Logger } from '../utils/logger';
+import { LintResult } from '../types';
 
 /**
  * Prints detailed lint results for each file that has issues.
@@ -11,7 +12,7 @@ import { Logger } from '../utils/logger';
  * @param results - Array of lint results.
  * @param editor - The chosen editor for clickable links (e.g., "vscode", "atom", "sublime").
  */
-export function printLintResults(results: any[], editor: string): void {
+export function printLintResults(results: LintResult[], editor: string): void {
   results.forEach(result => {
     const hasErrors = result.errors && result.errors.length > 0;
     const hasWarnings = result.warnings && result.warnings.length > 0;
