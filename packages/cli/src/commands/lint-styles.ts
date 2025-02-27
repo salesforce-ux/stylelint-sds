@@ -35,7 +35,7 @@ export function registerLintStylesCommand(program: Command): void {
         const totalFiles = fileBatches.reduce((sum, batch) => sum + batch.length, 0);
         Logger.info(chalk.blue(`Scanned ${totalFiles} file(s).`));
 
-        Logger.info(chalk.blue('Running stylelint...'));
+        Logger.info(chalk.blue(`Running stylelint${normalizedOptions.fix?' with autofix':''}...`));
         const results = await LintRunner.runLinting(fileBatches, 'style', {
           fix: normalizedOptions.fix,
           configPath: normalizedOptions.config,

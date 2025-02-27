@@ -23,7 +23,7 @@ export function registerLintCommand(program: Command): void {
     .action(async (options: CliOptions) => {
       const startTime = Date.now();
       try {
-        Logger.info(chalk.blue('Starting full linting process...'));
+        Logger.info(chalk.blue('Starting lint process...'));
         const normalizedOptions = normalizeCliOptions(options, {
           configStyle: DEFAULT_STYLELINT_CONFIG_PATH,
           configEslint: DEFAULT_ESLINT_CONFIG_PATH
@@ -38,34 +38,14 @@ export function registerLintCommand(program: Command): void {
         const totalStyleFiles = styleFileBatches.reduce((sum, batch) => sum + batch.length, 0);
         Logger.info(chalk.blue(`Found ${totalStyleFiles} style file(s). Running stylelint...\n`));
 
+        Logger.info(chalk.blue(`Running stylelint${normalizedOptions.fix?' with autofix':''}...`));
         const styleResults = await LintRunner.runLinting(styleFileBatches, 'style', {
           fix: normalizedOptions.fix,
           configPath: normalizedOptions.configStyle,
         });
 
-        // Print style lint issues (only for files with issues)
-        styleResults.forEach(result => {
-          const hasErrors = result.errors?.length > 0;
-          const hasWarnings = result.warnings?.length > 0;
-          if (!hasErrors && !hasWarnings) return;
-
-          const absolutePath = result.filePath || '';
-          const relativeFile = path.relative(process.cwd(), absolutePath) || 'Unknown file';
-          Logger.info(`\n${chalk.bold(relativeFile)}`);
-
-          result.errors?.forEach(err => {
-            const lineCol = `${err.line}:${err.column}`;
-            const clickable = createClickableLineCol(lineCol, absolutePath, err.line, err.column, normalizedOptions.editor);
-            const ruleId = err.ruleId ? chalk.dim(err.ruleId) : '';
-            Logger.error(`  ${clickable}  ${err.message}  ${ruleId}`);
-          });
-          result.warnings?.forEach(warn => {
-            const lineCol = `${warn.line}:${warn.column}`;
-            const clickable = createClickableLineCol(lineCol, absolutePath, warn.line, warn.column, normalizedOptions.editor);
-            const ruleId = warn.ruleId ? chalk.dim(warn.ruleId) : '';
-            Logger.warning(`  ${clickable}  ${warn.message}  ${ruleId}`);
-          });
-        });
+        // Print detailed lint results only for files with issues
+        printLintResults(styleResults, normalizedOptions.editor);
 
         const styleErrorCount = styleResults.reduce((sum, r) => sum + r.errors.length, 0);
         const styleWarningCount = styleResults.reduce((sum, r) => sum + r.warnings.length, 0);
@@ -79,6 +59,7 @@ export function registerLintCommand(program: Command): void {
         const totalComponentFiles = componentFileBatches.reduce((sum, batch) => sum + batch.length, 0);
         Logger.info(chalk.blue(`Found ${totalComponentFiles} component file(s). Running eslint...\n`));
 
+        Logger.info(chalk.blue(`Running linting${normalizedOptions.fix?' with autofix':''}...`));
         const componentResults = await LintRunner.runLinting(componentFileBatches, 'component', {
           fix: normalizedOptions.fix,
           configPath: normalizedOptions.configEslint,
