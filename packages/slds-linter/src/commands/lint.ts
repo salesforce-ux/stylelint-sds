@@ -39,7 +39,7 @@ export function registerLintCommand(program: Command): void {
         Logger.info(chalk.blue(`Found ${totalStyleFiles} style file(s). Running stylelint...\n`));
 
         const styleResults = await LintRunner.runLinting(styleFileBatches, 'style', {
-          fix: normalizedOptions.fix,
+          fix: Boolean(normalizedOptions.fix),
           configPath: normalizedOptions.configStyle,
         });
 
@@ -80,7 +80,7 @@ export function registerLintCommand(program: Command): void {
         Logger.info(chalk.blue(`Found ${totalComponentFiles} component file(s). Running eslint...\n`));
 
         const componentResults = await LintRunner.runLinting(componentFileBatches, 'component', {
-          fix: normalizedOptions.fix,
+          fix: Boolean(normalizedOptions.fix),
           configPath: normalizedOptions.configEslint,
         });
 

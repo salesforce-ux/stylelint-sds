@@ -37,7 +37,7 @@ export function registerLintStylesCommand(program: Command): void {
 
         Logger.info(chalk.blue('Running stylelint...'));
         const results = await LintRunner.runLinting(fileBatches, 'style', {
-          fix: normalizedOptions.fix,
+          fix: Boolean(normalizedOptions.fix),
           configPath: normalizedOptions.config,
         });
 
