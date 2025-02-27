@@ -31,12 +31,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/salesforce-ux/stylelint-sds.git"
+    "url": "git+https://github.com/salesforce-ux/slds-linter.git"
   },
   "bugs": {
-    "url": "https://github.com/salesforce-ux/stylelint-sds/issues"
+    "url": "https://github.com/salesforce-ux/slds-linter/issues"
   },
-  "homepage": "https://github.com/salesforce-ux/stylelint-sds#slds-linter",
+  "homepage": "https://github.com/salesforce-ux/slds-linter#slds-linter",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   }

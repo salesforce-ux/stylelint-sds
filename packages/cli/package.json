@@ -3,15 +3,11 @@
   "version": "0.0.13-alpha.1",
   "description": "SLDS Linter CLI tool for linting styles and components",
   "keywords": [
-    "lint",
-    "eslint",
-    "stylelint",
-    "cli",
-    "sarif",
-    "parallel",
-    "performance",
-    "lightning-design-system",
-    "slds2"
+    "lightning design system linter",
+    "SLDS Linter",
+    "SLDS2 Linter",
+    "SLDS Stylelint",
+    "SLDS ESLint"
   ],
   "author": "UXF Tooling Team",
   "type": "module",
@@ -53,12 +49,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/salesforce-ux/stylelint-sds.git"
+    "url": "git+https://github.com/salesforce-ux/slds-linter.git"
   },
   "bugs": {
-    "url": "https://github.com/salesforce-ux/stylelint-sds/issues"
+    "url": "https://github.com/salesforce-ux/slds-linter/issues"
   },
-  "homepage": "https://github.com/salesforce-ux/stylelint-sds/tree/main/packages/cli#slds-linter",
+  "homepage": "https://github.com/salesforce-ux/slds-linter/tree/main/packages/cli#slds-linter",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   }
