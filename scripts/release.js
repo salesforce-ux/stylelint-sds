@@ -8,6 +8,7 @@ import chalk from 'chalk';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
+const isDryRun = process.env.SLDS_DRY_RUN || false;
 
 async function getWorkspaceInfo() {
   console.log(chalk.blue("Checking workspace information..."));
@@ -109,7 +110,7 @@ async function publishPackages(workspaceInfo, version, releaseType) {
       console.log(chalk.blue(`Generated tarball: ${sldsLinterTarball}`));
       sldsLinterTarball = path.join(pkgPath, sldsLinterTarball);
     }
-    execSync(`cd ${pkgPath} && NPM_TOKEN=${process.env.NPM_TOKEN} npm publish --tag ${tag} --access public`);
+    execSync(`cd ${pkgPath} && NPM_TOKEN=${process.env.NPM_TOKEN} npm publish --tag ${tag} --access public ${isDryRun?'--dry-run':''}`);
     console.log(chalk.green(`Published ${pkgName}@${version}`));
   }
 
@@ -154,6 +155,7 @@ async function checkWorkingDirectory() {
 
 async function main() {
   try {
+
     // Perform pre-release checks
     await checkWorkingDirectory();
     
@@ -189,15 +191,23 @@ async function main() {
     // Update all package versions
     await updatePackageVersions(finalVersion, workspaceInfo);
 
-    // Git operations
-    await gitOperations(finalVersion);
+    if(isDryRun){
+      console.log(chalk.yellow('Dry run. Skipping git operations'));
+    } else {
+      // Git operations
+      await gitOperations(finalVersion);
+    }
 
     // Publish packages and get slds-linter tarball path
     const sldsLinterTarball = await publishPackages(workspaceInfo, finalVersion, releaseType);
 
     // Create GitHub release with slds-linter tarball as asset
     if (sldsLinterTarball) {
-      await createGitHubRelease(finalVersion, sldsLinterTarball, releaseType);
+      if(isDryRun){
+        console.log(chalk.yellow('Skipping GitHub release creation due to dry run'));
+      } else {
+        await createGitHubRelease(finalVersion, sldsLinterTarball, releaseType);
+      }
     }
 
     console.log(chalk.green(`\nRelease ${finalVersion} completed successfully!`));

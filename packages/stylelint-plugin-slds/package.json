@@ -35,7 +35,7 @@
   "license": "ISC",
   "description": "Stylelint rules for Salesforce Design Systems",
   "repository": {
-    "url": "https://github.com/salesforce-ux/stylelint-sds"
+    "url": "https://github.com/salesforce-ux/slds-linter"
   },
   "husky": {
     "hooks": {
