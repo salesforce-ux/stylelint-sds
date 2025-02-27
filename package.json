@@ -1,5 +1,5 @@
 {
-  "name": "stylelint-sds",
+  "name": "slds-linter",
   "version": "0.0.0-DEVELOPMENT.0",
   "private": true,
   "type": "module",
@@ -7,7 +7,7 @@
     "packages/metadata",
     "packages/eslint-plugin-slds",
     "packages/stylelint-plugin-slds",
-    "packages/slds-linter"
+    "packages/cli"
   ],
   "packageManager": "yarn@1.22.22",
   "engines": {
