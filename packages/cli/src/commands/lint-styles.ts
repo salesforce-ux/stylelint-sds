@@ -38,7 +38,7 @@ export function registerLintStylesCommand(program: Command): void {
         Logger.info(chalk.blue('Running stylelint...'));
         const results = await LintRunner.runLinting(fileBatches, 'style', {
           fix: normalizedOptions.fix,
-          configPath: normalizedOptions.config,
+          configPath: normalizedOptions.configStyle,
         });
 
         // Print detailed lint results only for files with issues
