@@ -8,12 +8,9 @@
   ],
   "type": "module",
   "main": "build/index.js",
-  "description": "This package contains metdata required to validate and autofix by linter",
+  "description": "This package contains metdata required to validate and autofix by SLDS Linter",
   "author": "UXF Tooling Team",
   "license": "ISC",
-  "repository": {
-    "url": "https://github.com/salesforce-ux/stylelint-sds"
-  },
   "scripts": {
     "build": "gulp build",
     "test": "echo \"not implemented\"",
@@ -22,6 +19,14 @@
   "devDependencies": {
     "change-case": "^5.4.4"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salesforce-ux/stylelint-sds.git"
+  },
+  "bugs": {
+    "url": "https://github.com/salesforce-ux/stylelint-sds/issues"
+  },
+  "homepage": "https://github.com/salesforce-ux/stylelint-sds#slds-linter",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   }

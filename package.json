@@ -16,11 +16,11 @@
   "scripts": {
     "preinstall": "./scripts/validate-setup.sh",
     "test": "yarn workspaces run test",
-    "build":"yarn workspaces run build",
+    "build": "yarn workspaces run build",
     "release": "node scripts/release.js"
   },
   "devDependencies": {
-    "rimraf": "^6.0.1",    
+    "rimraf": "^6.0.1",
     "@types/node": "^20.11.19",
     "@types/eslint": "^8.0.0",
     "husky": "^9.1.7",
@@ -34,8 +34,19 @@
     "gulp-execa": "^8.0.0",
     "prettier": "^3.4.2",
     "esbuild": "^0.25.0",
-    "esbuild-plugin-file-path-extensions":"^2.1.4",
-    "prompts":"^2.4.2",
-    "semver":"^7.7.1"
+    "esbuild-plugin-file-path-extensions": "^2.1.4",
+    "prompts": "^2.4.2",
+    "semver": "^7.7.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salesforce-ux/stylelint-sds.git"
+  },
+  "bugs": {
+    "url": "https://github.com/salesforce-ux/stylelint-sds/issues"
+  },
+  "homepage": "https://github.com/salesforce-ux/stylelint-sds#slds-linter",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }

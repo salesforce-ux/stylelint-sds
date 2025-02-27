@@ -13,10 +13,12 @@
     "test": "jest",
     "prepublishOnly": "clean-pkg-json"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "eslint", "eslint-plugin", "lightning-design-system", "slds2"
+  ],
+  "author": "UXF Tooling Team",
   "license": "ISC",
-  "description": "",
+  "description": "ESLint plugin provides custom linting rules specifically built for Salesforce Lightning Design System 2 (SLDS 2 beta)",
   "dependencies": {
     "@html-eslint/eslint-plugin": "^0.34.0",
     "@html-eslint/parser": "^0.34.0",
@@ -27,6 +29,14 @@
     "@types/jest": "^29.5.14",
     "ts-jest": "^29.2.5"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salesforce-ux/stylelint-sds.git"
+  },
+  "bugs": {
+    "url": "https://github.com/salesforce-ux/stylelint-sds/issues"
+  },
+  "homepage": "https://github.com/salesforce-ux/stylelint-sds#slds-linter",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   }

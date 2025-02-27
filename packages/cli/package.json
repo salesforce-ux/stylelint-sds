@@ -9,7 +9,9 @@
     "cli",
     "sarif",
     "parallel",
-    "performance"
+    "performance",
+    "lightning-design-system",
+    "slds2"
   ],
   "author": "UXF Tooling Team",
   "type": "module",
@@ -51,12 +53,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/linting-cli.git"
+    "url": "git+https://github.com/salesforce-ux/stylelint-sds.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/linting-cli/issues"
+    "url": "https://github.com/salesforce-ux/stylelint-sds/issues"
   },
-  "homepage": "https://github.com/yourusername/linting-cli#readme",
+  "homepage": "https://github.com/salesforce-ux/stylelint-sds/tree/main/packages/cli#slds-linter",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   }
