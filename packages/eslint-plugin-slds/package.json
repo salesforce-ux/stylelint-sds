@@ -1,6 +1,6 @@
 {
   "name": "@salesforce-ux/eslint-plugin-slds",
-  "version": "0.0.13-alpha.1",
+  "version": "0.1.0",
   "main": "build/index.js",
   "files": [
     "build/*",
@@ -14,7 +14,10 @@
     "prepublishOnly": "clean-pkg-json"
   },
   "keywords": [
-    "eslint", "eslint-plugin", "lightning-design-system", "slds2"
+    "eslint",
+    "eslint-plugin",
+    "lightning-design-system",
+    "slds2"
   ],
   "author": "UXF Tooling Team",
   "license": "ISC",
