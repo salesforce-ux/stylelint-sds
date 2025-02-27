@@ -18,6 +18,11 @@ export function registerLintCommand(program: Command): void {
     .option('--editor <editor>', 'Editor to open files with (e.g., vscode, atom, sublime). Defaults to vscode', 'vscode')
     .action(async (fileOrDir: string | undefined, options: CliOptions) => {
       const startTime = Date.now();
+      let styleErrorCount = 0, 
+        componentErrorCount = 0, 
+        styleWarningCount = 0, 
+        componentWarningCount = 0;
+        
       try {
         Logger.info(chalk.blue('Starting full linting process...'));
         const normalizedOptions = normalizeCliOptions(options, {
@@ -33,9 +38,12 @@ export function registerLintCommand(program: Command): void {
         if (styleFileBatches.length > 0) {
           Logger.info(chalk.blue("\nRunning stylelint...\n"));
           const styleResults = await LintRunner.runLinting(styleFileBatches, "style", {
-            fix: options.fix,
-            configPath: options.configStyle,
+            fix: normalizedOptions.fix,
+            configPath: normalizedOptions.configStyle,
           });
+
+          styleErrorCount = styleResults.reduce((sum, r) => sum + r.errors.length, 0);
+          styleWarningCount = styleResults.reduce((sum, r) => sum + r.warnings.length, 0);
 
           // Print Stylelint results
           printLintResults(styleResults, normalizedOptions.editor);
@@ -45,19 +53,25 @@ export function registerLintCommand(program: Command): void {
         if (componentFileBatches.length > 0) {
           Logger.info(chalk.blue("\nRunning ESLint...\n"));
           const componentResults = await LintRunner.runLinting(componentFileBatches, "component", {
-            fix: options.fix,
-            configPath: options.configEslint,
+            fix: normalizedOptions.fix,
+            configPath: normalizedOptions.configEslint,
           });
+
+          componentErrorCount = componentResults.reduce((sum, r) => sum + r.errors.length, 0);
+          componentWarningCount = componentResults.reduce((sum, r) => sum + r.warnings.length, 0);
 
           // Print ESLint results
           printLintResults(componentResults, normalizedOptions.editor);
         }
 
         // Final summary
-        const totalErrors = styleFileBatches.reduce((sum, batch) => sum + batch.length, 0) +
-                            componentFileBatches.reduce((sum, batch) => sum + batch.length, 0);
+        const totalErrors = styleErrorCount + componentErrorCount;
+        const totalWarnings = styleWarningCount + componentWarningCount;
+        Logger.info(
+          `\n${chalk.red(`${totalErrors} error${totalErrors !== 1 ? 's' : ''}`)}` +
+          `  ${chalk.yellow(`${totalWarnings} warning${totalWarnings !== 1 ? 's' : ''}`)}`
+        );
 
-        Logger.info(`\n${chalk.red(`${totalErrors} error${totalErrors !== 1 ? "s" : ""}`)}`);
         const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
         Logger.success(chalk.green(`\nFull linting completed in ${elapsedTime} seconds.`));
         process.exit(totalErrors > 0 ? 1 : 0);

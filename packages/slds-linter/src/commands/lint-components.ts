@@ -36,10 +36,10 @@ export function registerLintComponentsCommand(program: Command): void {
         const totalFiles = componentFileBatches.reduce((sum, batch) => sum + batch.length, 0);
         Logger.info(chalk.blue(`Scanning completed: Found ${totalFiles} component file(s).`));
 
-        Logger.info(chalk.blue("Running eslint..."));
+        Logger.info(chalk.blue("Running linting..."));
         const results = await LintRunner.runLinting(componentFileBatches, "component", {
-          fix: options.fix,
-          configPath: options.config,
+          fix: normalizedOptions.fix,
+          configPath: normalizedOptions.config,
         });
 
         // Print detailed lint results only for files with issues
