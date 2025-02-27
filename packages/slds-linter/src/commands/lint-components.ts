@@ -1,47 +1,48 @@
-import { Command } from 'commander';
-import chalk from 'chalk';
-import path from 'path';
-import { CliOptions } from '../types';
-import { printLintResults } from '../utils/lintResultsUtil';
-import { getEditorLink, createClickableLineCol } from '../utils/editorLinkUtil';
-import { normalizeCliOptions } from '../utils/cli-args';
-import { Logger } from '../utils/logger';
-import { FileScanner } from '../services/file-scanner';
-import { ComponentFilePatterns } from '../services/file-patterns';
-import { LintRunner } from '../services/lint-runner';
-import { DEFAULT_ESLINT_CONFIG_PATH } from '../services/config.resolver';
+import { Command } from "commander";
+import chalk from "chalk";
+import { CliOptions } from "../types";
+import { printLintResults } from "../utils/lintResultsUtil";
+import { normalizeCliOptions } from "../utils/cli-args";
+import { Logger } from "../utils/logger";
+import { LintRunner } from "../services/lint-runner";
+import { DEFAULT_ESLINT_CONFIG_PATH } from "../services/config.resolver";
+import { getFileOrDirectoryBatches } from "../utils/fileUtil"; // ✅ Import the new utility function
 
 export function registerLintComponentsCommand(program: Command): void {
   program
-    .command('lint:components')
+    .command("lint:components [fileOrDir]")
     .description('Run eslint on all markup files')
     .option('-d, --directory <path>', 'Target directory to scan (defaults to current directory)')
     .option('--fix', 'Automatically fix problems')
     .option('--config <path>', 'Path to eslint config file')
     .option('--editor <editor>', 'Editor to open files with (vscode, atom, sublime). Defaults to vscode', 'vscode')
-    .action(async (options: CliOptions) => {
+    .action(async (fileOrDir: string | undefined, options: CliOptions) => {
       const startTime = Date.now();
       try {
         Logger.info(chalk.blue('Starting linting of component files...'));
         const normalizedOptions = normalizeCliOptions(options, {
           config: DEFAULT_ESLINT_CONFIG_PATH
         });
+        const targetPath = options.directory || fileOrDir || process.cwd();
 
-        Logger.info(chalk.blue('Scanning for files...'));
-        const fileBatches = await FileScanner.scanFiles(normalizedOptions.directory, {
-          patterns: ComponentFilePatterns,
-          batchSize: 100,
+        // ✅ Use the new utility function
+        const { componentFileBatches } = await getFileOrDirectoryBatches(targetPath);
+
+        if (componentFileBatches.length === 0) {
+          Logger.warning(chalk.yellow("No valid component files found to lint."));
+          return;
+        }
+
+        const totalFiles = componentFileBatches.reduce((sum, batch) => sum + batch.length, 0);
+        Logger.info(chalk.blue(`Scanning completed: Found ${totalFiles} component file(s).`));
+
+        Logger.info(chalk.blue("Running eslint..."));
+        const results = await LintRunner.runLinting(componentFileBatches, "component", {
+          fix: options.fix,
+          configPath: options.config,
         });
-        const totalFiles = fileBatches.reduce((sum, batch) => sum + batch.length, 0);
-        Logger.info(chalk.blue(`Scanned ${totalFiles} file(s).`));
 
-        Logger.info(chalk.blue('Running linting...'));
-        const results = await LintRunner.runLinting(fileBatches, 'component', {
-          fix: normalizedOptions.fix,
-          configPath: normalizedOptions.config,
-        });
-
-        // Print results only for files with issues
+        // Print detailed lint results only for files with issues
         printLintResults(results, normalizedOptions.editor);
 
         const errorCount = results.reduce((sum, r) => sum + r.errors.length, 0);
