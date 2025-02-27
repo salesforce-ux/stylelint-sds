@@ -24,7 +24,7 @@ export function registerLintStylesCommand(program: Command): void {
       try {
         Logger.info(chalk.blue('Starting linting of style files...'));
         const normalizedOptions = normalizeCliOptions(options, {
-          configStyle: DEFAULT_STYLELINT_CONFIG_PATH
+          config: DEFAULT_STYLELINT_CONFIG_PATH
         });
 
         Logger.info(chalk.blue('Scanning for style files...'));
