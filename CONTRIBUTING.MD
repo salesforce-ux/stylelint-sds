@@ -65,10 +65,10 @@ SLDS Linter CLI tool works best with the [Active LTS](https://nodejs.org/en/abou
 ### Development Steps
 - Run `yarn` to install all the dependencies.
 - Run `yarn build` to build all the workspaces.
-- Run `cd packages/slds-linter` to change the directory to slds-linter.
+- Run `cd packages/cli` to change the directory to slds-linter.
 - Run `npm link .` to create a symbolic link to the current local package, allowing you to use it globally or in other projects without needing to publish it.
 - Run `cd ../..` to change to the root directory.
-- Run the slds-linter commands to lint the files in `demo`. Please see [Command-Line Interface(CLI)](https://github.com/salesforce-ux/stylelint-sds/tree/main/packages/slds-linter#command-line-interface-cli) for more details.
+- Run the slds-linter commands to lint the files in `demo`. Please see [Command-Line Interface(CLI)](https://github.com/salesforce-ux/slds-linter/tree/main/packages/slds-linter#command-line-interface-cli) for more details.
 - Locally, the command `npx @salesforce-ux/slds-linter` can be used interchangeably with `slds-linter`. For instance, `npx @salesforce-ux/slds-linter --help` can be executed as `slds-linter --help`, and this applies to all other commands as well.
 
 ### Merging Pull Requests

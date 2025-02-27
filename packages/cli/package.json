@@ -1,15 +1,13 @@
 {
   "name": "@salesforce-ux/slds-linter",
-  "version": "0.0.13-alpha.0",
+  "version": "0.0.13-alpha.1",
   "description": "SLDS Linter CLI tool for linting styles and components",
   "keywords": [
-    "lint",
-    "eslint",
-    "stylelint",
-    "cli",
-    "sarif",
-    "parallel",
-    "performance"
+    "lightning design system linter",
+    "SLDS Linter",
+    "SLDS2 Linter",
+    "SLDS Stylelint",
+    "SLDS ESLint"
   ],
   "author": "UXF Tooling Team",
   "type": "module",
@@ -29,8 +27,8 @@
     "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
-    "@salesforce-ux/eslint-plugin-slds": "0.0.13-alpha.0",
-    "@salesforce-ux/stylelint-plugin-slds": "0.0.13-alpha.0",
+    "@salesforce-ux/eslint-plugin-slds": "0.0.13-alpha.1",
+    "@salesforce-ux/stylelint-plugin-slds": "0.0.13-alpha.1",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "chalk": "^4.1.2",
@@ -51,12 +49,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/linting-cli.git"
+    "url": "git+https://github.com/salesforce-ux/slds-linter.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/linting-cli/issues"
+    "url": "https://github.com/salesforce-ux/slds-linter/issues"
   },
-  "homepage": "https://github.com/yourusername/linting-cli#readme",
+  "homepage": "https://github.com/salesforce-ux/slds-linter/tree/main/packages/cli#slds-linter",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   }
