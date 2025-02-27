@@ -26,6 +26,7 @@ export function normalizeCliOptions(options: CliOptions, defultOptions:Partial<C
     configStyle:'',
     configEslint:'',
     ...defultOptions,
+    ...options,
     directory: validateAndNormalizePath(options.directory),
     output: validateAndNormalizePath(options.output)
   };

@@ -8,7 +8,6 @@ import { registerReportCommand } from './commands/report';
 import { registerEmitCommand } from './commands/emit';
 import { Logger } from './utils/logger';
 import { validateNodeVersion } from './utils/nodeVersionUtil';
-import { version } from 'os';
 
 // Validate Node.js version before proceeding
 validateNodeVersion();
