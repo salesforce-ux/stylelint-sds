@@ -7,6 +7,17 @@ import { Logger } from '../utils/logger';
 import { LintResult } from '../types';
 
 /**
+ * 
+ * @param id - Rule id
+ * @returns updated Rule id without the namespace @salesforce-ux
+ */
+export function replaceNamespaceinRules(id: string) {
+  return id.includes("@salesforce-ux/")
+    ? id.replace("@salesforce-ux/", "")
+    : id;
+}
+
+/**
  * Prints detailed lint results for each file that has issues.
  *
  * @param results - Array of lint results.
@@ -28,7 +39,7 @@ export function printLintResults(results: LintResult[], editor: string): void {
         if (error.line && error.column && absolutePath) {
           const lineCol = `${error.line}:${error.column}`;
           const clickable = createClickableLineCol(lineCol, absolutePath, error.line, error.column, editor);
-          const ruleId = error.ruleId ? chalk.dim(error.ruleId) : '';
+          const ruleId = error.ruleId ? chalk.dim(replaceNamespaceinRules(error.ruleId)) : '';
           Logger.error(`  ${clickable}  ${error.message}  ${ruleId}`);
         } else {
           Logger.error(`  ${chalk.red('Error:')} ${error.message}`);
@@ -41,7 +52,7 @@ export function printLintResults(results: LintResult[], editor: string): void {
         if (warn.line && warn.column && absolutePath) {
           const lineCol = `${warn.line}:${warn.column}`;
           const clickable = createClickableLineCol(lineCol, absolutePath, warn.line, warn.column, editor);
-          const ruleId = warn.ruleId ? chalk.dim(warn.ruleId) : '';
+          const ruleId = warn.ruleId ? chalk.dim(replaceNamespaceinRules(warn.ruleId)) : '';
           Logger.warning(`  ${clickable}  ${warn.message}  ${ruleId}`);
         } else {
           Logger.warning(`  ${chalk.yellow('Warning:')} ${warn.message}`);

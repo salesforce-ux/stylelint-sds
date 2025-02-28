@@ -26,7 +26,7 @@ interface StylinghookData {
   };
 }
 
-const ruleName:string = 'slds/no-hardcoded-values-slds2';
+const ruleName:string = 'slds/no-hardcoded-slds2-values';
 
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 

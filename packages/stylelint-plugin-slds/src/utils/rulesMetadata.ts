@@ -56,5 +56,5 @@ export default function ruleMetadata(ruleId: string) {
 // const ruleManager = RuleManager.getInstance();
 
 // console.log(ruleManager.getSeverity("enforce-bem-usage")); // ✅ Output: "error"
-// console.log(ruleManager.getWarningMsg("no-hardcoded-values")); // ✅ Output: Corresponding warning message
+// console.log(ruleManager.getWarningMsg("no-hardcoded-slds1-values")); // ✅ Output: Corresponding warning message
 

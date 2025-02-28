@@ -3,8 +3,8 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 
 const { lint }: typeof stylelint = stylelint;
 
-describe('do-not-use-calc-function', () => {
-  const ruleName = 'slds/do-not-use-calc-function';
+describe('no-calc-function', () => {
+  const ruleName = 'slds/no-calc-function';
 
   const testCases = [
     {

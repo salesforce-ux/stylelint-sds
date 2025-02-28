@@ -7,7 +7,7 @@ import replacePlaceholders from '../../utils/util';
 
 const { createPlugin }: typeof stylelint = stylelint;
 
-const ruleName: string = 'slds/lwc-to-slds-token';
+const ruleName: string = 'slds/lwc-token-to-slds-hook';
 
 const {
   severityLevel = 'error',

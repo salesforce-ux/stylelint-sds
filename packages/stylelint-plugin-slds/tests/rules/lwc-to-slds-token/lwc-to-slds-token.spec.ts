@@ -54,7 +54,7 @@ const getRandomValue = (prop: string) => {
 };
 
 const testStyleLintRule = async (inputCss: string) => {
-  const ruleName = 'slds/lwc-to-slds-token';
+  const ruleName = 'slds/lwc-token-to-slds-hook';
   const linterResult: LinterResult = await lint({
     code: inputCss,
     config: {
@@ -79,7 +79,7 @@ const createTest = ({ description, inputCss, expectedMessage }, index) => {
   });
 };
 
-describe('lwc-to-slds-token', () => {
+describe('lwc-token-to-slds-hook', () => {
   const OnRightSideTestCases = [];
 
   //Right side use text cases

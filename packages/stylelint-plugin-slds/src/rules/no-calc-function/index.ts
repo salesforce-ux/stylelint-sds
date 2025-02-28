@@ -5,7 +5,7 @@ import replacePlaceholders from '../../utils/util';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
 
-const ruleName:string = 'slds/do-not-use-calc-function';
+const ruleName:string = 'slds/no-calc-function';
 
 
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
