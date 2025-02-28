@@ -45,7 +45,7 @@ describe('ESLint Rules Implementation', () => {
     expect(index.rules['enforce-bem-class']).toBe(enforceBemClassRule);
   });
 
-  test('no-deprecated-slds-classes rule should be implemented', () => {
+  test('no-deprecated-slds2-classes rule should be implemented', () => {
     expect(index.rules['no-deprecated-slds2-classes']).toBe(noDeprecatedSldsClassesRule);
   });
 });

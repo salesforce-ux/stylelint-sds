@@ -11,7 +11,7 @@ describe('slds/no-unsupported-slds2-hooks', () => {
   expectedMessages.forEach((message, index) => {
     it(`should report deprecated hooks for test case #${index}`, async () => {
       const linterResult: LinterResult = await lint({
-        files: './tests/providers/no-deprecated-slds-hooks.css',
+        files: './tests/providers/no-unsupported-slds2-hooks.css',
         config: {
           plugins: ['./src/index.ts'], // Path to the plugin
           rules: {

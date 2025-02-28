@@ -7,7 +7,7 @@ This package contains metdata required to validate and autofix by linter
 |`resources/deprecatedClasses.json`|Used by no-deprecated-slds-classes rule|
 |`resources/deprecatedHooks.json`|Used by no-unsupported-slds2-hooks rule|
 |`resources/globalSharedHooks.metadata.json`|Used to generate json file to suggest style hook for hardcoded values, and enforce-sds-to-slds-hooks rule|
-|`resources/lwcToSLDS.json`|Used by lwc-to-slds rule|
+|`resources/lwcToSLDS.json`|Used by lwc-token-to-slds-hook rule|
 |`resources/sldsPlus.metadata.json`|Not in use|
 |`resources/slds_classes.json`|Not in use|
 |`resources/tokenMapping.json`|Used by no-deprecated-token-function-usage rule to upgrade Aura tokens to SLDS tokens|
