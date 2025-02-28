@@ -37,9 +37,9 @@ overrides:
       slds/no-slds-private-var:
         - true
         - severity: warning
-      # slds/do-not-use-calc-function:
-      #   - null
-      #   - severity: warning
+      slds/do-not-use-calc-function:
+        - null
+        - severity: warning
       slds/enforce-sds-to-slds-hooks:
         - true
         - severity: warning
