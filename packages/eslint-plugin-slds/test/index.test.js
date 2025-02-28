@@ -13,7 +13,7 @@ describe('ESLint Plugin Rules', () => {
         expect(typeof index.rules['enforce-bem-class']).toBe('object');
     });
     
-    test('should define no-deprecated-slds-classes rule', () => {
+    test('should define no-deprecated-slds2-classes rule', () => {
     expect(index.rules).toHaveProperty('no-deprecated-slds2-classes');
     expect(typeof index.rules['no-deprecated-slds2-classes']).toBe('object');
     });
@@ -45,7 +45,7 @@ describe('ESLint Rules Implementation', () => {
     expect(index.rules['enforce-bem-class']).toBe(enforceBemClassRule);
   });
 
-  test('no-deprecated-slds-classes rule should be implemented', () => {
+  test('no-deprecated-slds2-classes rule should be implemented', () => {
     expect(index.rules['no-deprecated-slds2-classes']).toBe(noDeprecatedSldsClassesRule);
   });
 });

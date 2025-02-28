@@ -1,15 +1,17 @@
-import { valueToStylinghookSlds } from "@salesforce-ux/metadata-slds";
-import { Root } from 'postcss';
-import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
+import fs from 'fs/promises'; // Use promises to read the file asynchronously
+import stylelint, { Rule, PostcssResult, RuleSeverity } from 'stylelint';
+import generateTable from '../../utils/generateTable';
 import {
-  convertToHex,
   findClosestColorHook,
+  convertToHex,
   isHardCodedColor,
 } from '../../utils/color-lib-utils';
-import generateTable from '../../utils/generateTable';
+import { Root } from 'postcss';
+import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
+import {valueToStylinghookSldsplus} from "@salesforce-ux/metadata-slds";
 
 // Define the structure of a hook
 interface Hook {
@@ -24,7 +26,7 @@ interface StylinghookData {
   };
 }
 
-const ruleName:string = 'slds/no-hardcoded-values';
+const ruleName:string = 'slds/no-hardcoded-slds2-values';
 
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
@@ -32,7 +34,7 @@ const messages = utils.ruleMessages(ruleName, {
   rejected: (oldValue: string, newValue: string) =>
     replacePlaceholders(errorMsg, { oldValue, newValue} ),
   suggested: (color: string) =>
-    `The "${color}" static value has no replacement styling hook.`,  //TODO: Messaging.
+    `The "${color}" static value has no replacement styling hook.`,
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {
@@ -43,8 +45,7 @@ const isHardCodedDensifyValue = (cssValue: string): boolean => {
 
 // Load and parse the JSON file
 /* const loadStylinghooksData = async (): Promise<StylinghookData> => {
-  const jsonFilePath = metadataFileUrl('public/metadata/valueToStylinghook.slds.json');
-  
+  const jsonFilePath = metadataFileUrl('public/metadata/valueToStylinghook.sldsplus.json');
   const jsonData = await fs.readFile(jsonFilePath, 'utf8');
   return JSON.parse(jsonData) as StylinghookData; // Cast the parsed data to StylinghookData type
 }; */
@@ -92,12 +93,12 @@ const findExactMatchStylingHook = (
   );
 };
 
+
 function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
   return async (root: Root, result: PostcssResult) => {
-    const supportedStylinghooks = valueToStylinghookSlds; //await loadStylinghooksData(); // Await the loading of color data
+    const supportedStylinghooks = valueToStylinghookSldsplus; //await loadStylinghooksData(); // Await the loading of color data
 
     root.walkDecls((decl) => {
-      
       const cssProperty = decl.prop.toLowerCase();
       const colorProperties = [
         'color',
@@ -123,7 +124,7 @@ function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity
       const value = decl.value;
       const index = decl.toString().indexOf(decl.value); // Start index of the value
       const endIndex = index + decl.value.length;
-
+      
       // For color changes
       if (
         matchesCssProperty(colorProperties, cssProperty) &&

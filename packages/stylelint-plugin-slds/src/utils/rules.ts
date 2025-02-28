@@ -11,8 +11,8 @@ const rulesMetadata = {
   },
 
   // Checked
-  'slds/no-hardcoded-values': {
-    name: 'slds/no-hardcoded-values', //DESIGN_TOKEN - Design Token
+  'slds/no-hardcoded-slds1-values': {
+    name: 'slds/no-hardcoded-slds1-values', //DESIGN_TOKEN - Design Token
     severityLevel: 'warning',
     //suggestedMsg: `The "${color}" static value has no replacement styling hook.` //TODO: How to handle this scenario.
     warningMsg:
@@ -21,8 +21,8 @@ const rulesMetadata = {
       'Consider replacing the static value for "${oldValue}" with a design token: "${newValue}"',
     ruleDesc: 'Please consider using Design Token instead of static value',
   },
-  'slds/no-hardcoded-values-slds2': {
-    name: 'slds/no-hardcoded-values-slds2',
+  'slds/no-hardcoded-slds2-values': {
+    name: 'slds/no-hardcoded-slds2-values',
     severityLevel: 'warning',
     warningMsg:
       'Consider replacing the static value for "${oldValue}" with a design token: "${newValue}"',
@@ -46,8 +46,8 @@ const rulesMetadata = {
   
 
   // CHECKED --- TODO:Kishore do we still need this?
-  'slds/no-invalid-tokens-classes': {   
-    name: 'slds/no-invalid-tokens-classes',
+  'slds/no-deprecated-token-function-usage': {   
+    name: 'slds/no-deprecated-token-function-usage',
     severityLevel: 'warning',
     //deprecatedMsg: "Aura tokens are deprecated. Please migrate to SLDS Design Tokens.",
     warningMsg:
@@ -57,8 +57,8 @@ const rulesMetadata = {
     ruleDesc: 'Please update to a design token or class with corresponding value'
   },
 
-  'slds/lwc-to-slds-token': {
-    name: 'slds/lwc-to-slds-token',
+  'slds/lwc-token-to-slds-hook': {
+    name: 'slds/lwc-token-to-slds-hook',
     severityLevel: 'warning',
     warningMsg: "The '${oldValue}' is currently deprecated.",
     errorMsg:
@@ -128,8 +128,8 @@ const rulesMetadata = {
 
 
  // Needs CX review
-  'slds/no-deprecated-slds-hooks': {
-    name: 'slds/no-deprecated-slds-hooks',
+  'slds/no-unsupported-slds2-hooks': {
+    name: 'slds/no-unsupported-slds2-hooks',
     severityLevel: 'warning',
     warningMsg:
       'The hook "${token}" is deprecated and will not work in SLDS2. Please remove or replace it.',
@@ -147,8 +147,8 @@ const rulesMetadata = {
   },
 
   // Needs CX review
-  'slds/do-not-use-calc-function': {
-    name: 'slds/do-not-use-calc-function',
+  'slds/no-calc-function': {
+    name: 'slds/no-calc-function',
     severityLevel: 'warning',
     warningMsg:
       'The use of "calc()" in the property "${property}" is not allowed.',
