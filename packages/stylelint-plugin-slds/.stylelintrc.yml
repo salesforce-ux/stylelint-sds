@@ -13,13 +13,13 @@ overrides:
       slds/no-important-tag:
         - true
         - severity: warning
-      # slds/no-hardcoded-slds1-values:
+      # slds/no-hardcoded-values-slds1:
       #   - null
       #   - severity: error
-      slds/no-hardcoded-slds2-values:
+      slds/no-hardcoded-values-slds2:
         - true
         - severity: warning
-      # slds/no-deprecated-token-function-usage:
+      # slds/no-invalid-tokens-classes:
       #   - true
       #   - severity: error
       # slds/lwc-token-to-slds-hook: ## Cannot be public as the data is not final. 
@@ -43,7 +43,7 @@ overrides:
       slds/reduce-annotations:
         - true
         - severity: warning
-      slds/no-unsupported-slds2-hooks:
+      slds/no-unsupported-hooks-slds2:
         - true
         - severity: warning
 

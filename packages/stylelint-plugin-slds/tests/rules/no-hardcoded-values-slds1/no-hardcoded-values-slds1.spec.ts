@@ -3,8 +3,8 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 
 const { lint }: typeof stylelint = stylelint;
 
-describe('no-hardcoded-slds1-values', () => {
-  const ruleName = 'slds/no-hardcoded-slds1-values';
+describe('no-hardcoded-values-slds1', () => {
+  const ruleName = 'slds/no-hardcoded-values-slds1';
 
   const testCases = [
     {

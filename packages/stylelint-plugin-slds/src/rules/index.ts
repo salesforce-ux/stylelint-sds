@@ -1,28 +1,28 @@
 import noDeprecatedSldsClasses from './no-deprecated-slds-classes';
-import noUnsupportedSlds2Hooks from './no-unsupported-slds2-hooks';
-import noHardcodedSlds1Values from './no-hardcoded-slds1-values';
+import noUnsupportedHooksSlds2 from './no-unsupported-hooks-slds2';
+import noHardcodedValuesSlds1 from './no-hardcoded-values-slds1';
 import noImportantTag from './no-important-tag';
 import noSldsClassOverrides from './no-slds-class-overrides';
 import noSldsPrivateVar from './no-slds-private-var';
 import lwcTokenToSldsHook from './lwc-token-to-slds-hook';
-import noDeprecatedTokenFunctionUsage from './no-deprecated-token-function-usage';
+import noInvalidTokensClasses from './no-invalid-tokens-classes';
 import enforceBemUsage from './enforce-bem-usage';
 import noDeprecatedSLDS2Classes from './no-deprecated-slds2-classes';
 import noCalcFunction from './no-calc-function';
-import noHardcodedSlds2Values from './no-hardcoded-slds2-values';
+import noHardcodedValuesSlds2 from './no-hardcoded-values-slds2';
 import enforceSdsToSldsHooks from './enforce-sds-to-slds-hooks';
 import reduceAnnotations from './reduce-annotations';
 export default [
   enforceSdsToSldsHooks,
   noDeprecatedSldsClasses,
-  noUnsupportedSlds2Hooks,
+  noUnsupportedHooksSlds2,
   lwcTokenToSldsHook,
   noCalcFunction,
-  noHardcodedSlds1Values,
+  noHardcodedValuesSlds1,
   noSldsClassOverrides,
-  noHardcodedSlds2Values,
+  noHardcodedValuesSlds2,
   noDeprecatedSLDS2Classes,
-  noDeprecatedTokenFunctionUsage,
+  noInvalidTokensClasses,
   enforceBemUsage,
   noSldsPrivateVar,
   noImportantTag,

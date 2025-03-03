@@ -7,14 +7,14 @@ import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
 import {deprecatedHooks} from "@salesforce-ux/metadata-slds";
 
-const ruleName: string = 'slds/no-unsupported-slds2-hooks';
+const ruleName: string = 'slds/no-unsupported-hooks-slds2';
 
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 const messages = utils.ruleMessages(ruleName, {
   deprecated: (token: string) => replacePlaceholders(warningMsg, { token }),
-  replaced: (oldToken: string, newToken: string) =>
+  replaced: (oldStylingHook: string, newStylingHook: string) =>
     // Replace deprecated hook "${oldToken}" with "${newToken}"
-    replacePlaceholders(errorMsg, { oldToken, newToken }),
+    replacePlaceholders(errorMsg, { oldStylingHook, newStylingHook }),
 });
 
 // Read the deprecated tokens file

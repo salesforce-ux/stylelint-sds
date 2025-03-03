@@ -5,7 +5,7 @@ export = {
   meta: {
     type: "problem", // The rule type
     docs: {
-      description: "Enforce consistent class naming using BEM convention",
+      description: "Replace BEM double-dash syntax in class names with single underscore syntax.",
       category: "Stylistic Issues",
       recommended: true,
     },
@@ -22,7 +22,7 @@ export = {
     ],
     messages: {
       wrongClassName:
-        "The class '{{actual}}' does not follow BEM naming convention.",
+        "The '{{actual}}' class doesn’t follow the correct BEM naming convention.",
     },
   },
 

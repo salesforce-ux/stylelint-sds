@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import stylelint from 'stylelint';
 import path from 'path';
 
-const ruleName = 'slds/no-deprecated-token-function-usage';
+const ruleName = 'slds/no-invalid-tokens-classes';
 const config = {
   plugins: ['./src/index.ts'],
   rules: {
@@ -17,7 +17,7 @@ const mockTokenMapping = {
   brandSecondary: '--lwc-brandSecondary',
 };
 
-describe('no-deprecated-token-function-usage Stylelint Rule', () => {
+describe('no-invalid-tokens-classes Stylelint Rule', () => {
   it('should flag deprecated Aura tokens and suggest replacements', async () => {
     const result = await stylelint.lint({
       code: `

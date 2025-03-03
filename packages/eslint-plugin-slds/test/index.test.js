@@ -1,10 +1,10 @@
 const index = require('../src/index');
 const { ESLint } = require('eslint');
 const enforceBemClassRule = require('../src/rules/enforce-bem-class');
-const noDeprecatedSldsClassesRule = require('../src/rules/no-deprecated-slds2-classes');
+const noDeprecatedSldsClassesRule = require('../src/rules/no-deprecated-classes-slds2');
 
 jest.mock('../src/rules/enforce-bem-class', () => jest.fn());
-jest.mock('../src/rules/no-deprecated-slds2-classes', () => jest.fn());
+jest.mock('../src/rules/no-deprecated-classes-slds2', () => jest.fn());
 
 
 describe('ESLint Plugin Rules', () => {
@@ -13,9 +13,9 @@ describe('ESLint Plugin Rules', () => {
         expect(typeof index.rules['enforce-bem-class']).toBe('object');
     });
     
-    test('should define no-deprecated-slds2-classes rule', () => {
-    expect(index.rules).toHaveProperty('no-deprecated-slds2-classes');
-    expect(typeof index.rules['no-deprecated-slds2-classes']).toBe('object');
+    test('should define no-deprecated-classes-slds2 rule', () => {
+    expect(index.rules).toHaveProperty('no-deprecated-classes-slds2');
+    expect(typeof index.rules['no-deprecated-classes-slds2']).toBe('object');
     });
 });
 
@@ -36,7 +36,7 @@ describe('ESLint Plugin Configurations', () => {
     test('should define recommended configuration with rules', () => {
       expect(index.configs.recommended).toHaveProperty('rules');
       expect(index.configs.recommended.rules).toHaveProperty('slds/enforce-bem-class', 'error');
-      expect(index.configs.recommended.rules).toHaveProperty('slds/no-deprecated-slds2-classes', 'error');
+      expect(index.configs.recommended.rules).toHaveProperty('slds/no-deprecated-classes-slds2', 'error');
     });
 });
 
@@ -45,7 +45,7 @@ describe('ESLint Rules Implementation', () => {
     expect(index.rules['enforce-bem-class']).toBe(enforceBemClassRule);
   });
 
-  test('no-deprecated-slds2-classes rule should be implemented', () => {
-    expect(index.rules['no-deprecated-slds2-classes']).toBe(noDeprecatedSldsClassesRule);
+  test('no-deprecated-classes-slds2 rule should be implemented', () => {
+    expect(index.rules['no-deprecated-classes-slds2']).toBe(noDeprecatedSldsClassesRule);
   });
 });

@@ -6,13 +6,13 @@ export = {
   meta: {
     type: "problem", // The rule type
     docs: {
-      description: "Disallow usage of deprecated CSS classes",
+      description: "Replace classes that aren’t available with SLDS 2 classes. See lightningdesignsystem.com for more info.",
       category: "Best Practices",
       recommended: true,
     },
     schema: [], // No additional options needed
     messages: {
-      deprecatedClass: "The class '{{className}}' is deprecated and should not be used.",
+      deprecatedClass: "The class '{{className}}' isn't available in SLDS 2. Update it to a class supported in SLDS 2. See lightningdesignsystem.com for more information.",
     },
   },
 

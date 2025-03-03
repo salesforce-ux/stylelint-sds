@@ -6,7 +6,7 @@ import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 
 const { utils, createPlugin }: typeof stylelint = stylelint;
-const ruleName: string = 'slds/no-deprecated-token-function-usage';
+const ruleName: string = 'slds/no-invalid-tokens-classes';
 
 
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};

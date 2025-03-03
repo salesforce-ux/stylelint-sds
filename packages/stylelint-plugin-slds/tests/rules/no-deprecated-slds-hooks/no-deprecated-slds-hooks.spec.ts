@@ -3,19 +3,19 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 
 const { lint } = stylelint;
 
-describe('slds/no-unsupported-slds2-hooks', () => {
+describe('slds/no-unsupported-hooks-slds2', () => {
   const expectedMessages = [
-    'Replace deprecated hook "--slds-c-breadcrumbs-spacing-inline-start" with "--slds-c-breadcrumbs-spacing-inlinestart" (slds/no-unsupported-slds2-hooks)',
+    'Replace deprecated hook "--slds-c-breadcrumbs-spacing-inline-start" with "--slds-c-breadcrumbs-spacing-inlinestart" (slds/no-unsupported-hooks-slds2)',
   ];
 
   expectedMessages.forEach((message, index) => {
     it(`should report deprecated hooks for test case #${index}`, async () => {
       const linterResult: LinterResult = await lint({
-        files: './tests/providers/no-unsupported-slds2-hooks.css',
+        files: './tests/providers/no-unsupported-hooks-slds2.css',
         config: {
           plugins: ['./src/index.ts'], // Path to the plugin
           rules: {
-            'slds/no-unsupported-slds2-hooks': true, // Enable the rule
+            'slds/no-unsupported-hooks-slds2': true, // Enable the rule
           },
         },
       } as LinterOptions);

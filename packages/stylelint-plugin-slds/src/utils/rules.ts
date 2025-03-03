@@ -4,31 +4,33 @@ const rulesMetadata = {
     name: 'slds/enforce-bem-usage', // BEM - Double Dash to BEM Notation
     severityLevel: 'warning',
     warningMsg:
-      'Consider updating "${oldValue}" to new naming convention "${newValue}"',
+      'The ${oldValue} class doesn’t follow the correct BEM naming convention. Update it to ${newValue}',
     errorMsg:
-      'Consider updating "${oldValue}" to new naming convention "${newValue}"',
-    ruleDesc: 'Please replace double dashes syntax with equivalent BEM syntax',
+      '${oldValue} has been retired. Update it to the new name  ${newValue}',
+    ruleDesc: 'Replace BEM double-dash syntax in class names with single underscore syntax.',
   },
 
   // Checked
-  'slds/no-hardcoded-slds1-values': {
-    name: 'slds/no-hardcoded-slds1-values', //DESIGN_TOKEN - Design Token
+  'slds/no-hardcoded-values-slds1': {
+    name: 'slds/no-hardcoded-values-slds1', //DESIGN_TOKEN - Design Token
     severityLevel: 'warning',
-    //suggestedMsg: `The "${color}" static value has no replacement styling hook.` //TODO: How to handle this scenario.
+    //suggestedMsg: `There’s no replacement styling hook for the "${oldValue}" static value. Remove the static value.` //TODO: How to handle this scenario.
     warningMsg:
-      'Consider replacing the static value for "${oldValue}" with a design token: "${newValue}"',
+      'Replace the "${oldValue}" static value with an SLDS 1 styling hook: ${newValue}.',
     errorMsg:
-      'Consider replacing the static value for "${oldValue}" with a design token: "${newValue}"',
-    ruleDesc: 'Please consider using Design Token instead of static value',
+      'Replace the "${color}" static value with an SLDS 1 design token: ${designToken}.', //Needs to be reviewed.In progress comments.
+    ruleDesc: 'Replace static values with SLDS 1 design tokens. For more information, look up design tokens on lightningdesignsystem.com.',
   },
-  'slds/no-hardcoded-slds2-values': {
-    name: 'slds/no-hardcoded-slds2-values',
+  'slds/no-hardcoded-values-slds2': {
+    name: 'slds/no-hardcoded-values-slds2',
     severityLevel: 'warning',
+    // suggestedMsg:
+    //   'There’s no replacement SLDS 2 styling hook for the "${oldValue}" static value. Remove the static value.',
     warningMsg:
-      'Consider replacing the static value for "${oldValue}" with a design token: "${newValue}"',
+      'Consider replacing the "${oldValue}" static value with an SLDS 2 styling hook that has a similar value: "${newValue}"',
     errorMsg:
-      'Consider replacing the static value for "${oldValue}" with a design token: "${newValue}"',
-    ruleDesc: 'Please consider using Design Token instead of static value'
+      'Consider replacing the "${oldValue}" static value with an SLDS 2 styling hook that has a similar value: "${newValue}"',
+    ruleDesc: 'Replace static values with SLDS 2 styling hooks. For more information, look up design tokens on lightningdesignsystem.com.'
   },
 
 
@@ -40,41 +42,41 @@ const rulesMetadata = {
       'Overriding  "${selector}" isn’t supported. To differentiate SLDS and custom classes, create a CSS class in your namespace. Examples: myapp-input, myapp-button',
     errorMsg:
       'Overriding  "${selector}" isn’t supported. To differentiate SLDS and custom classes, create a CSS class in your namespace. Examples: myapp-input, myapp-button',
-    ruleDesc: 'Please creates a new CSS Class instead of overriding SLDS definition'
+    ruleDesc: 'Create new custom CSS classes instead of overriding SLDS selectors. For more information, see the Lightning Web Components Developer Guide.'
   },
 
   
 
   // CHECKED --- TODO:Kishore do we still need this?
-  'slds/no-deprecated-token-function-usage': {   
-    name: 'slds/no-deprecated-token-function-usage',
+  'slds/no-invalid-tokens-classes': {   
+    name: 'slds/no-invalid-tokens-classes',
     severityLevel: 'warning',
     //deprecatedMsg: "Aura tokens are deprecated. Please migrate to SLDS Design Tokens.",
     warningMsg:
-      'Consider removing "${oldValue}", or updating to a design token with a corresponding value. To avoid breaking changes, replace it with "${newValue}" styling hook. Set the fallback to "${oldValue}". For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n',
+      'Consider removing "${oldValue}" or replacing it with "${newValue}". Set the fallback to "${oldValue}". For more info, see Styling Hooks on lightningdesignsystem.com.',
     errorMsg:
-      'Consider removing "${oldValue}", or updating to a design token with a corresponding value. To avoid breaking changes, replace it with "${newValue}" styling hook. Set the fallback to "${oldValue}". For more info, read Design Tokens on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n',
-    ruleDesc: 'Please update to a design token or class with corresponding value'
+      'Consider removing "${oldValue}" or replacing it with "${newValue}". Set the fallback to "${oldValue}". For more info, see Styling Hooks on lightningdesignsystem.com.',
+    ruleDesc: 'Update outdated design tokens to SLDS 2 styling hooks with similar values. For more information, see Styling Hooks on lightningdesignsystem.com.'
   },
 
   'slds/lwc-token-to-slds-hook': {
     name: 'slds/lwc-token-to-slds-hook',
     severityLevel: 'warning',
-    warningMsg: "The '${oldValue}' is currently deprecated.",
+    warningMsg: "'${oldValue}' design token is deprecated in SLDS 1 and is not present in SLDS 2.",
     errorMsg:
-      "The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with the '${newValue}' styling hook and set the fallback to '${oldValue}'. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n",
-    ruleDesc: 'Replace deprecated --lwc tokens with the latest sdls tokens.',
+      "The '${oldValue}' design token is deprecated. Replace it with the SLDS 2 '${newValue}' styling hook and set the fallback to '${oldValue}'. For more info, see Global Styling Hooks on lightningdesignsystem.com.",
+    ruleDesc: 'Replace the deprecated --lwc tokens with the latest --slds tokens. See lightningdesignsystem.com for more info.',
   },
   
-  // Needs CX review
+
   'slds/enforce-sds-to-slds-hooks': {
     name: 'slds/enforce-sds-to-slds-hooks',
     severityLevel: 'warning',
     warningMsg:
-      'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}".',
+      'Replace "${fullMatch}" with "${suggestedMatch}" styling hook.',
     errorMsg:
-      'The "${fullMatch}" styling hook is replaced by "${suggestedMatch}".',
-    ruleDesc: 'Convert --sds to --slds hooks as much as possible',
+      'Replace "${fullMatch}" with "${suggestedMatch}" styling hook.',
+    ruleDesc: 'Convert your existing --sds styling hooks to --slds styling hooks. See lightningdesignsystem.com for more info.',
   },
   // Needs CX review
   'slds/no-deprecated-slds2-classes': {
@@ -101,10 +103,10 @@ const rulesMetadata = {
     name: 'slds/no-annotation-rule',
     severityLevel: 'warning',
     warningMsg:
-      'Consider filing a new issue on our salesforce-ux/design-system open source GitHub repo to address your use case.',
+      'Something’s gone wrong. Report your issue on our salesforce-ux/design-system open source GitHub repo for help.', //Need review
     errorMsg:
-      'Consider filing a new issue on our salesforce-ux/design-system open source GitHub repo to address your use case.',
-    ruleDesc: 'Please visit your annotations to determine if they are necessary',
+      'Something’s gone wrong. Report your issue on our salesforce-ux/design-system open source GitHub repo for help.', //Need review
+    ruleDesc: 'Review your annotations and remove them if they’re no longer needed.',
   },
 
 
@@ -120,21 +122,21 @@ const rulesMetadata = {
     name: 'slds/no-slds-private-var',
     severityLevel: 'warning',
     warningMsg:
-      'Unexpected \"--_slds- private variable usage\" within selector "${prop}".',
+      'To follow SLDS best practices, remove the --_slds- private variable within selector ${prop}. For more information, look up private CSS in lightningdesignsystem.com.',
     errorMsg:
-      'Unexpected \"--_slds- private variable usage\" within selector "${prop}".',
-    ruleDesc: 'Do not use \"--_slds- private variable\"',
+      'To follow SLDS best practices, remove the --_slds- private variable within selector ${prop}. For more information, look up private CSS in lightningdesignsystem.com.',
+    ruleDesc: 'To follow SLDS best practices, don’t use  --_slds- private variables.',
   },
 
 
  // Needs CX review
-  'slds/no-unsupported-slds2-hooks': {
-    name: 'slds/no-unsupported-slds2-hooks',
+  'slds/no-unsupported-hooks-slds2': {
+    name: 'slds/no-unsupported-hooks-slds2',
     severityLevel: 'warning',
     warningMsg:
-      'The hook "${token}" is deprecated and will not work in SLDS2. Please remove or replace it.',
-    errorMsg: 'Replace deprecated hook "${oldToken}" with "${newToken}"',
-    ruleDesc: 'Please replace the deprecated hook with a modern equivalent',
+      'The "${token}" styling hook isn’t present in SLDS 2 and there\'s no equivalent replacement. Remove it or replace it with a styling hook with a similar effect.',
+    errorMsg: 'Replace deprecated "${oldStylingHook}" styling hook with "${newStylingHook}".',
+    ruleDesc: 'Replace deprecated --slds styling hooks. See lightningdesignsystem.com for more info.',
   },
   'slds/no-deprecated-slds-classes': {
     name: 'slds/no-deprecated-slds-classes',
@@ -151,10 +153,10 @@ const rulesMetadata = {
     name: 'slds/no-calc-function',
     severityLevel: 'warning',
     warningMsg:
-      'The use of "calc()" in the property "${property}" is not allowed.',
+      'Don’t use the calc() function in the property "${property}".',
     errorMsg:
-      'The use of "calc()" in the property "${property}" is not allowed.',
-    ruleDesc: 'Avoid using calc functions as much as possible.',
+      'Don’t use the calc() function in the property "${property}".',
+    ruleDesc: 'Avoid using calc() functions.',
   }
 } as const; // Ensures it's a readonly object
 
