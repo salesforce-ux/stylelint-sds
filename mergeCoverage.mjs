@@ -77,6 +77,9 @@ Object.values(mergedCoverage).forEach((fileCoverage) => {
 
     summary.Branches.covered += Object.values(fileCoverage.b).flat().filter(count => count > 0).length;
     summary.Branches.total += Object.keys(fileCoverage.b).length;
+
+    summary.Lines.covered += Object.values(fileCoverage.l || fileCoverage.s).filter(count => count > 0).length;
+    summary.Lines.total += Object.keys(fileCoverage.l || fileCoverage.s).length;
 });
 
 // Display results
