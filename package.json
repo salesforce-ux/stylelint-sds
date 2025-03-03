@@ -14,6 +14,7 @@
     "node": ">=20.18.3"
   },
   "scripts": {
+    "prepare": "husky install",
     "preinstall": "./scripts/validate-setup.sh",
     "test": "yarn workspaces run test",
     "build": "yarn workspaces run build",
@@ -32,7 +33,7 @@
     "gulp": "^5.0.0",
     "gulp-clean-dir": "^1.0.2",
     "gulp-execa": "^8.0.0",
-    "husky": "^9.1.7",
+    "husky": "^8.0.0",
     "lint-staged": "^15.3.0",
     "prettier": "^3.4.2",
     "prompts": "^2.4.2",
