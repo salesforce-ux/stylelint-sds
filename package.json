@@ -13,11 +13,6 @@
   "engines": {
     "node": ">=20.18.3"
   },
-  "nyc": {
-    "exclude": [
-      "**/build/**"
-    ]
-  },
   "scripts": {
     "preinstall": "./scripts/validate-setup.sh",
     "test": "yarn workspaces run test",
@@ -38,8 +33,6 @@
     "gulp-clean-dir": "^1.0.2",
     "gulp-execa": "^8.0.0",
     "husky": "^9.1.7",
-    "istanbul-reports": "^3.1.7",
-    "jest-html-reporter": "^4.0.1",
     "lint-staged": "^15.3.0",
     "nyc": "^17.1.0",
     "prettier": "^3.4.2",

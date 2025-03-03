@@ -1,15 +1,6 @@
 export default {
-    projects: ['<rootDir>/packages/*'],
-    collectCoverage: true,
-    coverageDirectory: '<rootDir>/coverage',
-    coverageReporters: ['json', 'html'],
-    reporters: [
-      'default',
-      ['jest-html-reporter', {
-        outputPath: '<rootDir>/test-report.html',
-        includeFailureMsg: true,
-        includeConsoleLog: true,
-      }],
-    ],
-  };
+  collectCoverage: true,
+  coverageDirectory: "coverage",
+  coverageReporters: ["json", "lcov", "text", "clover"],
+};
   
