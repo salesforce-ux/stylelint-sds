@@ -28,7 +28,7 @@ export = {
 
   create(context) {
     const pattern =
-      /^(?:[a-z0-9]+(?:-[a-z0-9]+)*)(__[a-z0-9]+(?:-[a-z0-9]+)*)?(--[a-z0-9]+(?:-[a-z0-9]+)*)?$/;
+   /^([a-z]+|[a-z]+-[a-z]+|slds-[a-z0-9]+(-[a-z0-9]+)*(--[a-z0-9]+(-[a-z0-9]+)*)?(__[a-z0-9]+)?)$/;
 
     const checkNaming = (name) => pattern.test(name);
 
