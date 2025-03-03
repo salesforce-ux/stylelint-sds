@@ -5,7 +5,7 @@ const { lint } = stylelint;
 
 describe('slds/no-unsupported-hooks-slds2', () => {
   const expectedMessages = [
-    'Replace deprecated hook "--slds-c-breadcrumbs-spacing-inline-start" with "--slds-c-breadcrumbs-spacing-inlinestart" (slds/no-unsupported-hooks-slds2)',
+    'Replace deprecated "--slds-c-breadcrumbs-spacing-inline-start" styling hook with "--slds-c-breadcrumbs-spacing-inlinestart". (slds/no-unsupported-hooks-slds2)',
   ];
 
   expectedMessages.forEach((message, index) => {

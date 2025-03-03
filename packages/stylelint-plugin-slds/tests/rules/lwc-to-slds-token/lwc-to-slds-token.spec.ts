@@ -3,11 +3,11 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 const { lint }: typeof stylelint = stylelint;
 
 const errorWithStyleHooks = (oldValue, newValue) =>
-  `The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with the '${newValue}' styling hook and set the fallback to '${oldValue}'. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n`;
+  `The '${oldValue}' design token is deprecated. Replace it with the SLDS 2 '${newValue}' styling hook and set the fallback to '${oldValue}'. For more info, see Global Styling Hooks on lightningdesignsystem.com.`;
 const errorWithNoRecommendation = (oldValue) =>
   `The '${oldValue}' design token is deprecated. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.`;
 const errorWithRawValue = (oldValue, newValue) =>
-  `The '${oldValue}' design token is deprecated. To avoid breaking changes, replace it with '${newValue}'. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.\n\nOld Value: ${oldValue}\nNew Value: ${newValue}\n`;
+  `The '${oldValue}' design token is deprecated. Replace it with the SLDS 2 '${newValue}' styling hook and set the fallback to '${oldValue}'. For more info, see Global Styling Hooks on lightningdesignsystem.com.`;
 
 const LWC_TOKEN_MAPPINGS = {
   '--lwc-brandDark': '--slds-g-color-accent-dark-1',

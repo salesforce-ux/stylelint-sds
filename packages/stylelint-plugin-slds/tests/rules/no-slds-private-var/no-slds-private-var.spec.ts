@@ -7,7 +7,7 @@ describe('no-slds-private-var', () => {
   const testCases = [
     {
       message:
-        'Unexpected "--_slds- private variable usage" within selector "--_slds-deprecated-var". (slds/no-slds-private-var)',
+        'To follow SLDS best practices, remove the --_slds- private variable within selector --_slds-deprecated-var. For more information, look up private CSS in lightningdesignsystem.com. (slds/no-slds-private-var)',
       code: `
         .example {
           --_slds-deprecated-var: #fff;
@@ -15,7 +15,7 @@ describe('no-slds-private-var', () => {
       `,
       ruleName: 'slds/no-slds-private-var',
       expectedMessages: [
-        'Unexpected "--_slds- private variable usage" within selector "--_slds-deprecated-var". (slds/no-slds-private-var)',
+        'To follow SLDS best practices, remove the --_slds- private variable within selector --_slds-deprecated-var. For more information, look up private CSS in lightningdesignsystem.com. (slds/no-slds-private-var)',
       ],
     },
     {
