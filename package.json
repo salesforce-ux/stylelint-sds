@@ -23,8 +23,8 @@
     "test": "yarn workspaces run test",
     "build": "yarn workspaces run build",
     "release": "node scripts/release.js",
-    "coverage": "jest --coverage",
-    "merge-coverage": "node merge-coverage.js",
+    "merge-coverage": "node mergeCoverage.mjs",
+    "coverage": "yarn test --coverage",
     "report": "npm run coverage && npm run merge-coverage"
   },
   "devDependencies": {

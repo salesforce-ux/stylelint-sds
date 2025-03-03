@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     projects: ['<rootDir>/packages/*'],
     collectCoverage: true,
     coverageDirectory: '<rootDir>/coverage',
@@ -12,3 +12,4 @@ module.exports = {
       }],
     ],
   };
+  
