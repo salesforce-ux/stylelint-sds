@@ -5,8 +5,8 @@ import rulesData from './rules';
 export interface Rule {
   name: string;
   severityLevel: string;
-  warningMsg: string;
-  errorMsg: string;
+  warningMsg?: string;
+  errorMsg?: string;
   ruleDesc: string;
 }
 

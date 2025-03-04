@@ -63,7 +63,7 @@ ruleTester.run("enforce-bem-class", rule, {
           column: 19,
         },
         {
-          message: "The 'slds-border_left' class doesn’t follow the correct BEM naming convention.",
+          message: "slds-border_left has been retired. Update it to the new name slds-border--left.",
           line: 1,
           column: 33,
         }
@@ -74,7 +74,7 @@ ruleTester.run("enforce-bem-class", rule, {
       code: `<div class="slds-p-right_xxx-small"></div>`, // Invalid: Missing block name
       errors: [
         {
-          message: "The 'slds-p-right_xxx-small' class doesn’t follow the correct BEM naming convention.",
+          message: "slds-p-right_xxx-small has been retired. Update it to the new name slds-p-right--xxx-small.",
           line: 1,
           column: 13,
         },

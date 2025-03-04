@@ -5,8 +5,6 @@ export = {
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Ensure SLDS modal compliance by enforcing correct button and icon attributes.",
       category: "Best Practices",
       recommended: true,
     },

@@ -6,13 +6,12 @@ export = {
   meta: {
     type: "problem", // The rule type
     docs: {
-      description: "Replace classes that aren’t available with SLDS 2 classes. See lightningdesignsystem.com for more info.",
       category: "Best Practices",
       recommended: true,
     },
     schema: [], // No additional options needed
     messages: {
-      deprecatedClass: "The class '{{className}}' isn't available in SLDS 2. Update it to a class supported in SLDS 2. See lightningdesignsystem.com for more information.",
+      errorMsg: "The class '{{className}}' isn't available in SLDS 2. Update it to a class supported in SLDS 2. See lightningdesignsystem.com for more information.",
     },
   },
 
@@ -49,7 +48,7 @@ export = {
               data: {
                 className,
               },
-              messageId: "deprecatedClass",
+              messageId: "errorMsg",
             });
           }
         });
