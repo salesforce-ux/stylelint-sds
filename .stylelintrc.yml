@@ -1,0 +1,56 @@
+plugins:
+  - '@salesforce-ux/stylelint-plugin-slds'
+
+overrides:
+  - files:
+      - '**/*.css'
+      - '**/*.scss'
+    customSyntax: 'postcss'
+    rules:
+      slds/no-slds-class-overrides:
+        - true
+        - severity: warning
+      slds/no-important-tag:
+        - true
+        - severity: warning
+      slds/no-hardcoded-values:
+        - null
+        - severity: error
+      slds/no-hardcoded-values-slds2:
+        - true
+        - severity: warning
+      # slds/no-invalid-tokens-classes:
+      #   - true
+      #   - severity: error
+      # slds/lwc-to-slds-token: ## Cannot be public as the data is not final. 
+      #   - true
+      #   - severity: warning
+      # slds/enforce-bem-usage:
+      #   - true
+      #   - severity: warning
+      # slds/no-deprecated-slds-classes:
+      #   - true
+      #   - severity: warning
+      slds/no-deprecated-slds-hooks:
+        - true
+        - severity: warning
+      slds/no-slds-private-var:
+        - true
+        - severity: warning
+      slds/do-not-use-calc-function:
+        - null
+        - severity: warning
+      slds/enforce-sds-to-slds-hooks:
+        - true
+        - severity: warning
+      slds/reduce-annotations:
+        - true
+        - severity: warning
+
+    sourceMap:
+      - false
+
+  - files:
+      - '**/*.html'
+    customSyntax: 'postcss-html'
+    rules: {}

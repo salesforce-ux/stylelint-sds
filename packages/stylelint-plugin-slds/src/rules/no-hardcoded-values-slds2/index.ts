@@ -12,6 +12,7 @@ import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;
 import {valueToStylinghookSldsplus} from "@salesforce-ux/metadata-slds";
+import { addSuggestions } from '../../utils/addSuggestions';
 
 // Define the structure of a hook
 interface Hook {
@@ -137,19 +138,21 @@ function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity
             supportedStylinghooks,
             cssProperty
           );
+
+          const suggestions = closestHooks.map(hook => hook.name);
           if (closestHooks.length > 0) {
             utils.report({
-              message: messages.rejected(value, generateTable(closestHooks)),
+              message: addSuggestions((messages.rejected(value, generateTable(closestHooks))), suggestions),
               node: decl,
               index,
               endIndex,
               result,
               ruleName,
-              severity
+              severity,
             });
           } else {
             utils.report({
-              message: messages.suggested(value),
+              message: addSuggestions(messages.suggested(value), value),
               node: decl,
               index,
               endIndex,
@@ -168,9 +171,10 @@ function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity
           supportedStylinghooks,
           cssProperty
         );
+        const suggestions = closestHooks.map(hook => hook.name);
         if (closestHooks.length > 0) {
           utils.report({
-            message: messages.rejected(value, generateTable(closestHooks)),
+            message: addSuggestions((messages.rejected(value, generateTable(closestHooks))), suggestions),
             node: decl,
             index,
             endIndex,
@@ -180,7 +184,7 @@ function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity
           });
         } else {
           utils.report({
-            message: messages.suggested(value),
+            message: addSuggestions(messages.suggested(value), value),
             node: decl,
             index,
             endIndex,
