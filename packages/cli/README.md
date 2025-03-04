@@ -66,7 +66,7 @@ Commands:
 - `npx @salesforce-ux/slds-linter lint` - Runs the ESlint and Stylelint rules on your HTML/CSS/CMP files and outputs issues.
 - `npx @salesforce-ux/slds-linter lint:styles` - Runs the Stylelint rules on your CSS files and outputs issues.
 - `npx @salesforce-ux/slds-linter lint:components` - Runs the ESlint rules on your HTML/CMP files and outputs issues.
-- `npx @salesforce-ux/slds-linter fix`: Attempts to automatically fix violations.
+- `npx @salesforce-ux/slds-linter lint --fix`: Attempts to automatically fix violations.
 - `npx @salesforce-ux/slds-linter report`: Generates a SARIF report for static analysis.
 - `npx @salesforce-ux/slds-linter emit`: Emits the configuration files used by slds-linter cli (defaults to current directory). 
 
@@ -82,7 +82,7 @@ Commands:
 | `--config-eslint <path>` | Path to eslint config file'                    | lint                                       |
 | `--editor <editor>`      | Editor to open files with (e.g., vscode, atom, sublime). Defaults to vscode | lint,lint:styles, lint:components          |
 
-These options can also be visualised by using `--help` with each command. For example: Running `slds-linter lint --help` will give the options which can be used along with `lint`.
+These options can also be visualised by using `--help` with each command. For example: Running `npx @salesforce-ux/slds-linter lint --help` will give the options which can be used along with `lint`.
 
 #### Detailed Steps
 
@@ -91,7 +91,7 @@ These options can also be visualised by using `--help` with each command. For ex
 3. To run SLDS Linter, in Terminal, run `npx @salesforce-ux/slds-linter report` to generate a Sarif report in the project root directory. To run it on a different directory, use `-d` to run the report on that directory. For output, `-o` can be used to specify a different output folder for the genreated sarif. It will be named as `slds-linter-report.sarif`.
 4. Open the generated Sarif file.
 5. Make a note of how many components SLDS Linter has identified that you must update.
-6. Run `npx @salesforce-ux/slds-linter fix` to automatically fix validation errors in bulk.
+6. Run `npx @salesforce-ux/slds-linter lint --fix` to automatically fix validation errors in bulk.
 7. Run `npx @salesforce-ux/slds-linter emit` to emit the configuration files used by slds-linter cli, defaults to current working directory. These configuration files will be discovered by VSCode ESLint/Stylelint extensions to display squiggly lines in css/html files when opened in editor. Please ensure ESLint and Stylelint extensions are enabled.
 
 #### Troubleshooting SARIF Viewer Navigation
