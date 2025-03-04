@@ -34,7 +34,7 @@ const messages = utils.ruleMessages(ruleName, {
   rejected: (oldValue: string, newValue: string) =>
     replacePlaceholders(warningMsg, { oldValue, newValue} ),
   suggested: (color: string) =>
-    `The ${color} static value has no replacement styling hook.`,
+    `There’s no replacement SLDS 2 styling hook for the ${color} static value. Remove the static value.`,
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {
