@@ -1,4 +1,4 @@
-import { lwcToSlds } from "@salesforce-ux/metadata-slds";
+import { lwcToSlds } from '@salesforce-ux/metadata-slds';
 import { Root } from 'postcss';
 import valueParser from 'postcss-value-parser';
 import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
@@ -26,10 +26,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
   //Need review
   errorWithNoRecommendation: (oldValue) =>
     `The '${oldValue}' design token is deprecated. For more info, see the New Global Styling Hook Guidance on lightningdesignsystem.com.`,
-  errorWithRawValue: (oldValue, newValue) =>
-    `The '${oldValue}' design token is deprecated. Replace it with the SLDS 2 '${newValue}' styling hook and set the fallback to '${oldValue}'. For more info, see Global Styling Hooks on lightningdesignsystem.com.`,
 });
-
 
 function shouldIgnoreDetection(lwcToken: string) {
   // Ignore if entry not found in the list or the token is marked to use further
@@ -119,7 +116,7 @@ function detectRightSide(decl, basicReportProps, autoFixEnabled) {
       // add recommendation with fallback
       proposedFix = `var(${recommendation}, ${decl.value})`;
     } else {
-      message = messages.errorWithRawValue(oldValue, recommendation);
+      message = messages.errorWithStyleHooks(oldValue, recommendation);
       // for any raw values, color-mix, calc
       proposedFix = recommendation;
     }
@@ -133,7 +130,6 @@ function detectRightSide(decl, basicReportProps, autoFixEnabled) {
     if (autoFixEnabled && canFix) {
       decl.value = proposedFix;
     }
-    
   });
 }
 
@@ -189,9 +185,11 @@ function detectLeftSide(decl, basicReportProps, autoFixEnabled) {
 }
 
 // Define the main rule logic
-function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
+function rule(
+  primaryOptions: boolean,
+  { severity = severityLevel as RuleSeverity } = {}
+) {
   return (root: Root, result: PostcssResult) => {
-    
     const autoFixEnabled = result.stylelint.config.fix;
     root.walkDecls((node) => {
       const basicReportProps = {

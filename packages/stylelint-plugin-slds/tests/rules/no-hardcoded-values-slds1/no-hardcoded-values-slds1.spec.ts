@@ -16,7 +16,7 @@ describe('no-hardcoded-values-slds1', () => {
         }
       `,
       expectedMessage:
-        'Replace the "#ff0000" static value with an SLDS 1 design token: --slds-g-color-error-1.',
+        'Replace the #ff0000 static value with an SLDS 1 design token: --slds-g-color-error-1.',
       expectedReplacement: '--slds-g-color-error-1',
     },
     {
@@ -28,7 +28,7 @@ describe('no-hardcoded-values-slds1', () => {
         }
       `,
       expectedMessage:
-        'Replace the "16px" static value with an SLDS 1 design token: --slds-g-font-scale-2.',
+        'Replace the 16px static value with an SLDS 1 design token: --slds-g-font-scale-2.',
     },
     {
       description:
@@ -39,7 +39,7 @@ describe('no-hardcoded-values-slds1', () => {
         }
       `,
       expectedMessage:
-        'Replace the "#123456" static value with an SLDS 1 design token: ',
+        'Replace the #123456 static value with an SLDS 1 design token: ',
       expectedReplacement: '--slds-g-color-accent-container-3',
     },
     {
@@ -61,7 +61,7 @@ describe('no-hardcoded-values-slds1', () => {
       `,
       //expectedMessage: null, // No warning expected
       expectedMessage:
-        'There’s no replacement styling hook for the "20px" static value. Remove the static value.',
+        'There’s no replacement styling hook for the 20px static value. Remove the static value.',
     },
   ];
 

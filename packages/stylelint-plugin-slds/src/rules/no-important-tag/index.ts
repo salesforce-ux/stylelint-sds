@@ -17,7 +17,7 @@ function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity
         const endIndex = index + '!important'.length;          
 
         utils.report({
-          message: errorMsg,
+          message: warningMsg,
           node: decl,
           index,
           endIndex,

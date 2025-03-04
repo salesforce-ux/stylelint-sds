@@ -32,9 +32,9 @@ const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No 
 
 const messages = utils.ruleMessages(ruleName, {
   rejected: (oldValue: string, newValue: string) =>
-    replacePlaceholders(errorMsg, { oldValue, newValue} ),
+    replacePlaceholders(warningMsg, { oldValue, newValue} ),
   suggested: (color: string) =>
-    `The "${color}" static value has no replacement styling hook.`,
+    `The ${color} static value has no replacement styling hook.`,
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {

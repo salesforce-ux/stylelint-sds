@@ -17,7 +17,7 @@ describe('slds/enforce-sds-to-slds-hooks', () => {
           background-color: var(--slds-g-color-surface-1);
         }
       `,
-      expectedMessage: 'Replace "--sds-g-color-surface-1" with "--slds-g-color-surface-1" styling hook.'
+      expectedMessage: "Replace --sds-g-color-surface-1 with --slds-g-color-surface-1 styling hook."
     },{
       description: '#Right Side: Should ignore custom created',
       input: `
@@ -42,7 +42,7 @@ describe('slds/enforce-sds-to-slds-hooks', () => {
           --slds-s-input-color-background: #000;
         }
       `,
-      expectedMessage: 'Replace "--sds-s-input-color-background" with "--slds-s-input-color-background" styling hook.'
+      expectedMessage: "Replace --sds-s-input-color-background with --slds-s-input-color-background styling hook."
     }, {
       description: '#Left Side: should ignore custom created hook',
       input: `

@@ -25,7 +25,7 @@ ruleTester.run("enforce-bem-class", rule, {
       code: `<div class="block__element_modifier"></div>`, // Invalid: underscore instead of double underscore
       errors: [
         {
-          message: "The 'block__element_modifier' class doesn’t follow the correct BEM naming convention.",
+          message: "The block__element_modifier class doesn’t follow the correct BEM naming convention.",
           line: 1,
           column: 13,
         },
@@ -36,7 +36,7 @@ ruleTester.run("enforce-bem-class", rule, {
       code: `<div class="Block--modifier"></div>`, // Invalid: Uppercase letters
       errors: [
         {
-          message: "The 'Block--modifier' class doesn’t follow the correct BEM naming convention.",
+          message: "The Block--modifier class doesn’t follow the correct BEM naming convention.",
           line: 1,
           column: 13,
         },
@@ -47,7 +47,7 @@ ruleTester.run("enforce-bem-class", rule, {
       code: `<div class="block__element--"></div>`, // Invalid: Ends with `--`
       errors: [
         {
-          message: "The 'block__element--' class doesn’t follow the correct BEM naming convention.",
+          message: "The block__element-- class doesn’t follow the correct BEM naming convention.",
           line: 1,
           column: 13,
         },
@@ -58,7 +58,7 @@ ruleTester.run("enforce-bem-class", rule, {
       code: `<div class="block block_element slds-border_left"></div>`, // Invalid: `block_element` not in BEM
       errors: [
         {
-          message: "The 'block_element' class doesn’t follow the correct BEM naming convention.",
+          message: "The block_element class doesn’t follow the correct BEM naming convention.",
           line: 1,
           column: 19,
         },

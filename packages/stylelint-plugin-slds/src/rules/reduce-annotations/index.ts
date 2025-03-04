@@ -6,7 +6,7 @@ const { utils, createPlugin } = stylelint;
 const ruleName = 'slds/reduce-annotations';
 
 // Fetch metadata
-const { severityLevel = 'warning' } = ruleMetadata(ruleName) || {};
+const { severityLevel = 'warning', warningMsg = '' } = ruleMetadata(ruleName) || {};
 const annotationList = [
   "@sldsValidatorAllow",
   "@sldsValidatorIgnore",
@@ -19,7 +19,7 @@ const rule = (primaryOptions, { severity = severityLevel as RuleSeverity } = {})
     root.walkComments((comment) => {
       if (annotationList.some(annotation => comment.text.trim().includes(annotation))) {
         utils.report({
-          message: `Avoid using '${comment.text.trim()}'. This is a temporary bypass and should be removed in the future.`,
+          message: warningMsg,
           node: comment,
           result,
           ruleName,

@@ -16,7 +16,7 @@ describe('no-hardcoded-values-slds2', () => {
         }
       `,
       expectedMessage:
-      'Consider replacing the "#ff0000" static value with an SLDS 2 styling hook that has a similar value: "--slds-g-color-on-error-2"'
+      "Consider replacing the #ff0000 static value with an SLDS 2 styling hook that has a similar value: --slds-g-color-on-error-2"
     },
     {
       description:
@@ -27,7 +27,7 @@ describe('no-hardcoded-values-slds2', () => {
         }
       `,
       expectedMessage:
-      'Consider replacing the "16px" static value with an SLDS 2 styling hook that has a similar value: "--slds-g-font-scale-2"'
+      "Consider replacing the 16px static value with an SLDS 2 styling hook that has a similar value: --slds-g-font-scale-2"
     },
     {
       description:
@@ -37,13 +37,13 @@ describe('no-hardcoded-values-slds2', () => {
           background-color: #123456;
         }
       `,
-      expectedMessage:`Consider replacing the "#123456" static value with an SLDS 2 styling hook that has a similar value: "
+      expectedMessage:`Consider replacing the #123456 static value with an SLDS 2 styling hook that has a similar value: 
 1. --slds-g-color-surface-inverse-1 
 2. --slds-g-color-surface-container-inverse-1 
 3. --slds-g-color-surface-inverse-2 
 4. --slds-g-color-surface-container-inverse-2 
 5. --slds-g-color-accent-container-1 
-"`,
+`,
     },
     {
       description:

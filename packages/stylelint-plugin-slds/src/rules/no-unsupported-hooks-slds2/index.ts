@@ -13,8 +13,8 @@ const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No 
 const messages = utils.ruleMessages(ruleName, {
   deprecated: (token: string) => replacePlaceholders(warningMsg, { token }),
   replaced: (oldStylingHook: string, newStylingHook: string) =>
-    // Replace deprecated hook "${oldToken}" with "${newToken}"
-    replacePlaceholders(errorMsg, { oldStylingHook, newStylingHook }),
+    // Replace deprecated hook ${oldToken} with ${newToken}
+    replacePlaceholders(warningMsg, { oldStylingHook, newStylingHook }),
 });
 
 function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
@@ -28,7 +28,7 @@ function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity
           const endIndex = index + decl.prop.length;
           
           utils.report({
-            message: messages.replaced(parsedPropertyValue, proposedNewValue),
+            message: messages.deprecated(parsedPropertyValue),
             node: decl,
             index,
             endIndex,

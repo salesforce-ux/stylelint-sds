@@ -21,7 +21,7 @@ export = {
     ],
     messages: {
       errorMsg:
-        "The '{{actual}}' class doesn’t follow the correct BEM naming convention.",
+        "The {{actual}} class doesn’t follow the correct BEM naming convention.",
       suggestedMsg:
         "{{actual}} has been retired. Update it to the new name {{newValue}}.",
     },

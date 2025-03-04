@@ -7,7 +7,7 @@ describe('reduce-annotations', () => {
   const testCases = [
     {
       message:
-        "Avoid using '@sldsValidatorAllow'. This is a temporary bypass and should be removed in the future.",
+        "Remove this annotation and update the code to SLDS best practices. For help, file an issue at https://github.com/salesforce-ux/slds-linter/",
       code: `
         /* @sldsValidatorAllow */
         .my-class {
@@ -16,12 +16,12 @@ describe('reduce-annotations', () => {
       `,
       ruleName: 'slds/reduce-annotations',
       expectedMessages: [
-        "Avoid using '@sldsValidatorAllow'. This is a temporary bypass and should be removed in the future. (slds/reduce-annotations)"
+        "Remove this annotation and update the code to SLDS best practices. For help, file an issue at https://github.com/salesforce-ux/slds-linter/"
       ],
     },
     {
       message:
-        "Avoid using '@sldsValidatorIgnore'. This is a temporary bypass and should be removed in the future.",
+        "Remove this annotation and update the code to SLDS best practices. For help, file an issue at https://github.com/salesforce-ux/slds-linter/",
       code: `
         /* @sldsValidatorIgnore */
         .another-class {
@@ -30,12 +30,12 @@ describe('reduce-annotations', () => {
       `,
       ruleName: 'slds/reduce-annotations',
       expectedMessages: [
-        "Avoid using '@sldsValidatorIgnore'. This is a temporary bypass and should be removed in the future. (slds/reduce-annotations)"
+       "Remove this annotation and update the code to SLDS best practices. For help, file an issue at https://github.com/salesforce-ux/slds-linter/"
       ],
     },
     {
       message:
-        "Avoid using '@sldsValidatorIgnoreNextLine'. This is a temporary bypass and should be removed in the future.",
+        "Remove this annotation and update the code to SLDS best practices. For help, file an issue at https://github.com/salesforce-ux/slds-linter/",
       code: `
         /* @sldsValidatorIgnoreNextLine */
         .another-class {
@@ -44,7 +44,7 @@ describe('reduce-annotations', () => {
       `,
       ruleName: 'slds/reduce-annotations',
       expectedMessages: [
-        "Avoid using '@sldsValidatorIgnoreNextLine'. This is a temporary bypass and should be removed in the future. (slds/reduce-annotations)"
+        "Remove this annotation and update the code to SLDS best practices. For help, file an issue at https://github.com/salesforce-ux/slds-linter/"
       ],
     },
     {
@@ -59,7 +59,7 @@ describe('reduce-annotations', () => {
     },
     {
       message:
-        "Avoid using '@sldsValidatorAllow'. This is a temporary bypass and should be removed in the future.",
+        "Remove this annotation and update the code to SLDS best practices. For help, file an issue at https://github.com/salesforce-ux/slds-linter/",
       code: `
         /* @sldsValidatorAllow */
         /* @sldsValidatorIgnore */
@@ -69,8 +69,8 @@ describe('reduce-annotations', () => {
       `,
       ruleName: 'slds/reduce-annotations',
       expectedMessages: [
-        "Avoid using '@sldsValidatorAllow'. This is a temporary bypass and should be removed in the future. (slds/reduce-annotations)",
-        "Avoid using '@sldsValidatorIgnore'. This is a temporary bypass and should be removed in the future. (slds/reduce-annotations)"
+        "Remove this annotation and update the code to SLDS best practices. For help, file an issue at https://github.com/salesforce-ux/slds-linter/",
+        "Remove this annotation and update the code to SLDS best practices. For help, file an issue at https://github.com/salesforce-ux/slds-linter/"
       ],
     },
     {

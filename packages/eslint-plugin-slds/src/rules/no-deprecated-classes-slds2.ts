@@ -11,7 +11,7 @@ export = {
     },
     schema: [], // No additional options needed
     messages: {
-      errorMsg: "The class '{{className}}' isn't available in SLDS 2. Update it to a class supported in SLDS 2. See lightningdesignsystem.com for more information.",
+      errorMsg: "The class {{className}} isn't available in SLDS 2. Update it to a class supported in SLDS 2. See lightningdesignsystem.com for more information.",
     },
   },
 

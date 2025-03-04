@@ -32,7 +32,7 @@ const messages = utils.ruleMessages(ruleName, {
   rejected: (color: string, designToken: string) =>
     replacePlaceholders(errorMsg, { color, designToken} ),
   suggested: (color: string) =>
-    `There’s no replacement styling hook for the "${color}" static value. Remove the static value.`,  //TODO: Messaging.
+    `There’s no replacement styling hook for the ${color} static value. Remove the static value.`,  //TODO: Messaging.
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {
