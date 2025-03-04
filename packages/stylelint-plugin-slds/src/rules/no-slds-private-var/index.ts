@@ -11,7 +11,7 @@ const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No 
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
   expected: (prop: string) =>
-    replacePlaceholders(errorMsg,{prop}),
+    replacePlaceholders(warningMsg,{prop}),
 });
 
 

@@ -5,7 +5,6 @@ export = {
   meta: {
     type: "problem", // The rule type
     docs: {
-      description: "Enforce consistent class naming using BEM convention",
       category: "Stylistic Issues",
       recommended: true,
     },
@@ -21,8 +20,10 @@ export = {
       },
     ],
     messages: {
-      wrongClassName:
-        "The class '{{actual}}' does not follow BEM naming convention.",
+      errorMsg:
+        "The {{actual}} class doesn’t follow the correct BEM naming convention.",
+      suggestedMsg:
+        "{{actual}} has been retired. Update it to the new name {{newValue}}.",
     },
   },
 
@@ -62,8 +63,9 @@ export = {
               loc: { start: startLoc, end: endLoc },
               data: {
                 actual: className,
+                newValue
               },
-              messageId: "wrongClassName",
+              messageId: newValue? "suggestedMsg": "errorMsg",
               fix(fixer) {
                 if (newValue) {
                   const newClassValue = classAttr.value.value.replace(

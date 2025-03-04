@@ -12,9 +12,9 @@ const ruleName: string = 'slds/no-invalid-tokens-classes';
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 const messages = utils.ruleMessages(ruleName, {
-  deprecatedMsg: 'Aura tokens are deprecated. Please migrate to SLDS Design Tokens.',
+  deprecatedMsg: "Update outdated design tokens to SLDS 2 styling hooks with similar values. For more information, see Styling Hooks on lightningdesignsystem.com.", //no deprecatedMsg avalaible in doc
   replaced: (oldValue: string, newValue: string) =>
-    replacePlaceholders(errorMsg, { oldValue, newValue }),
+    replacePlaceholders(warningMsg, { oldValue, newValue }),
 });
 
 // Load token mapping file

@@ -3,8 +3,8 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 
 const { lint }: typeof stylelint = stylelint;
 
-describe('no-hardcoded-values', () => {
-  const ruleName = 'slds/no-hardcoded-values';
+describe('no-hardcoded-values-slds1', () => {
+  const ruleName = 'slds/no-hardcoded-values-slds1';
 
   const testCases = [
     {
@@ -16,7 +16,7 @@ describe('no-hardcoded-values', () => {
         }
       `,
       expectedMessage:
-        'Consider replacing the static value for "#ff0000" with a design token: "--slds-g-color-error-1"',
+        'Replace the #ff0000 static value with an SLDS 1 design token: --slds-g-color-error-1.',
       expectedReplacement: '--slds-g-color-error-1',
     },
     {
@@ -28,7 +28,7 @@ describe('no-hardcoded-values', () => {
         }
       `,
       expectedMessage:
-        'Consider replacing the static value for "16px" with a design token: "--slds-g-font-scale-2"',
+        'Replace the 16px static value with an SLDS 1 design token: --slds-g-font-scale-2.',
     },
     {
       description:
@@ -39,7 +39,7 @@ describe('no-hardcoded-values', () => {
         }
       `,
       expectedMessage:
-        'Consider replacing the static value for "#123456" with a design token: ',
+        'Replace the #123456 static value with an SLDS 1 design token: ',
       expectedReplacement: '--slds-g-color-accent-container-3',
     },
     {
@@ -61,7 +61,7 @@ describe('no-hardcoded-values', () => {
       `,
       //expectedMessage: null, // No warning expected
       expectedMessage:
-        'The "20px" static value has no replacement styling hook.',
+        'There’s no replacement styling hook for the 20px static value. Remove the static value.',
     },
   ];
 

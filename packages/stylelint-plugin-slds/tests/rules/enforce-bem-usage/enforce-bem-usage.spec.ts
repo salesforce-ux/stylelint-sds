@@ -18,7 +18,7 @@ describe('enforce-bem-usage', () => {
         }
       `,
       messages: [
-        "Consider updating \"slds-text-heading_large\" to new naming convention \"slds-text-heading--large\" (slds/enforce-bem-usage)",
+        "slds-text-heading_large has been retired. Update it to the new name slds-text-heading--large (slds/enforce-bem-usage)",
       ],
       messagePositions: [[1, 24]],
     },
@@ -37,8 +37,8 @@ describe('enforce-bem-usage', () => {
         }
       `,
       messages: [
-        "Consider updating \"slds-dl_horizontal__label\" to new naming convention \"slds-dl--horizontal__label\" (slds/enforce-bem-usage)",
-        "Consider updating \"slds-dl_horizontal__detail\" to new naming convention \"slds-dl--horizontal__detail\" (slds/enforce-bem-usage)",
+        "slds-dl_horizontal__label has been retired. Update it to the new name slds-dl--horizontal__label (slds/enforce-bem-usage)",
+        "slds-dl_horizontal__detail has been retired. Update it to the new name slds-dl--horizontal__detail (slds/enforce-bem-usage)",
       ],
       messagePositions: [
         [1, 26],
@@ -58,7 +58,7 @@ describe('enforce-bem-usage', () => {
         }
       `,
       messages: [
-        "Consider updating \"slds-dl_horizontal__label\" to new naming convention \"slds-dl--horizontal__label\" (slds/enforce-bem-usage)",
+        "slds-dl_horizontal__label has been retired. Update it to the new name slds-dl--horizontal__label (slds/enforce-bem-usage)",
       ],
       messagePositions: [[1, 26]],
     },
@@ -75,7 +75,7 @@ describe('enforce-bem-usage', () => {
         }
       `,
       messages: [
-        "Consider updating \"slds-dl_horizontal__label\" to new naming convention \"slds-dl--horizontal__label\" (slds/enforce-bem-usage)",
+        "slds-dl_horizontal__label has been retired. Update it to the new name slds-dl--horizontal__label (slds/enforce-bem-usage)",
       ],
       messagePositions: [[4, 29]],
     },
@@ -92,7 +92,7 @@ describe('enforce-bem-usage', () => {
         }
       `,
       messages: [
-        "Consider updating \"slds-dl_horizontal__label\" to new naming convention \"slds-dl--horizontal__label\" (slds/enforce-bem-usage)",
+        "slds-dl_horizontal__label has been retired. Update it to the new name slds-dl--horizontal__label (slds/enforce-bem-usage)",
       ],
       messagePositions: [[1, 26]],
     },
@@ -109,7 +109,7 @@ describe('enforce-bem-usage', () => {
         }
       `,
       messages: [
-        "Consider updating \"slds-dl_horizontal__label\" to new naming convention \"slds-dl--horizontal__label\" (slds/enforce-bem-usage)",
+        "slds-dl_horizontal__label has been retired. Update it to the new name slds-dl--horizontal__label (slds/enforce-bem-usage)",
       ],
       messagePositions: [[1, 26]],
     },
@@ -126,9 +126,9 @@ describe('enforce-bem-usage', () => {
 .slds-dl--horizontal__label {}
       `,
       messages: [
-        "Consider updating \"slds-dl_horizontal__label\" to new naming convention \"slds-dl--horizontal__label\" (slds/enforce-bem-usage)",
-        "Consider updating \"slds-dl_horizontal__detail\" to new naming convention \"slds-dl--horizontal__detail\" (slds/enforce-bem-usage)",
-        "Consider updating \"slds-dl_horizontal__label\" to new naming convention \"slds-dl--horizontal__label\" (slds/enforce-bem-usage)",
+        "slds-dl_horizontal__label has been retired. Update it to the new name slds-dl--horizontal__label (slds/enforce-bem-usage)",
+        "slds-dl_horizontal__detail has been retired. Update it to the new name slds-dl--horizontal__detail (slds/enforce-bem-usage)",
+        "slds-dl_horizontal__label has been retired. Update it to the new name slds-dl--horizontal__label (slds/enforce-bem-usage)",
       ],
       messagePositions: [
         [1, 26],

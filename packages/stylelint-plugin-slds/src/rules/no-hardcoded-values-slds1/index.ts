@@ -24,15 +24,15 @@ interface StylinghookData {
   };
 }
 
-const ruleName:string = 'slds/no-hardcoded-values';
+const ruleName:string = 'slds/no-hardcoded-values-slds1';
 
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: (oldValue: string, newValue: string) =>
-    replacePlaceholders(errorMsg, { oldValue, newValue} ),
+  rejected: (color: string, designToken: string) =>
+    replacePlaceholders(errorMsg, { color, designToken} ),
   suggested: (color: string) =>
-    `The "${color}" static value has no replacement styling hook.`,  //TODO: Messaging.
+    `There’s no replacement styling hook for the ${color} static value. Remove the static value.`,  //TODO: Messaging.
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {

@@ -2,7 +2,7 @@
 export = {
     rules: {
         "enforce-bem-class": require('./rules/enforce-bem-class'),
-        "no-deprecated-slds2-classes": require('./rules/no-deprecated-slds2-classes'),
+        "no-deprecated-classes-slds2": require('./rules/no-deprecated-classes-slds2'),
         "modal-close-button-issue": require('./rules/modal-close-button-issue')
     },
     configs: {
@@ -11,7 +11,7 @@ export = {
             plugins: ["slds"],  
             rules: {
                 "slds/enforce-bem-class": "error", 
-                "slds/no-deprecated-slds2-classes": "error",
+                "slds/no-deprecated-classes-slds2": "error",
                 "slds/modal-close-button-issue": "error"
             },
         },

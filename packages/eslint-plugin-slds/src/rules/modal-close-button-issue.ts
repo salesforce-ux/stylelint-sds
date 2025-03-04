@@ -5,8 +5,6 @@ export = {
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Ensure SLDS modal compliance by enforcing correct button and icon attributes.",
       category: "Best Practices",
       recommended: true,
     },
@@ -14,15 +12,15 @@ export = {
     schema: [],
     messages: {
       removeClass:
-        "Remove the class 'slds-button_icon-inverse' from SLDS Modal blueprints.",
+        "Remove the slds-button_icon-inverse class from the modal close button in components that use the SLDS modal blueprint.",
       changeVariant:
-        "Change 'variant' attribute from 'bare-inverse' to 'bare' in <lightning-button-icon> or <lightning-icon>.",
+        "Change the variant attribute value from bare-inverse to bare in <lightning-button-icon> or <lightning-icon>.",
       removeVariant:
-        "Remove 'variant' attribute completely in <lightning-icon> inside <button>.",
+        "Remove the variant attribute from the <lightning-icon> component inside the <button> element.",
       ensureButtonClasses:
-        "Ensure 'slds-button' and 'slds-button_icon' are in the class attribute of <button> or <lightning-button-icon>.",
+        "Add or move slds-button and slds-button_icon to the class attribute of the <button> element or <lightning-button-icon> component.",
       ensureSizeAttribute:
-        "Ensure 'size' attribute is set to 'large' in <lightning-icon> or <lightning-button-icon> for correct icon sizing.",
+        "To size icons properly, set the size attribute ‌to large in the <lightning-icon> and <lightning-button-icon> components.",
     },
   },
 

@@ -25,7 +25,7 @@ ruleTester.run("enforce-bem-class", rule, {
       code: `<div class="block__element_modifier"></div>`, // Invalid: underscore instead of double underscore
       errors: [
         {
-          message: "The class 'block__element_modifier' does not follow BEM naming convention.",
+          message: "The block__element_modifier class doesn’t follow the correct BEM naming convention.",
           line: 1,
           column: 13,
         },
@@ -36,7 +36,7 @@ ruleTester.run("enforce-bem-class", rule, {
       code: `<div class="Block--modifier"></div>`, // Invalid: Uppercase letters
       errors: [
         {
-          message: "The class 'Block--modifier' does not follow BEM naming convention.",
+          message: "The Block--modifier class doesn’t follow the correct BEM naming convention.",
           line: 1,
           column: 13,
         },
@@ -47,7 +47,7 @@ ruleTester.run("enforce-bem-class", rule, {
       code: `<div class="block__element--"></div>`, // Invalid: Ends with `--`
       errors: [
         {
-          message: "The class 'block__element--' does not follow BEM naming convention.",
+          message: "The block__element-- class doesn’t follow the correct BEM naming convention.",
           line: 1,
           column: 13,
         },
@@ -58,12 +58,12 @@ ruleTester.run("enforce-bem-class", rule, {
       code: `<div class="block block_element slds-border_left"></div>`, // Invalid: `block_element` not in BEM
       errors: [
         {
-          message: "The class 'block_element' does not follow BEM naming convention.",
+          message: "The block_element class doesn’t follow the correct BEM naming convention.",
           line: 1,
           column: 19,
         },
         {
-          message: "The class 'slds-border_left' does not follow BEM naming convention.",
+          message: "slds-border_left has been retired. Update it to the new name slds-border--left.",
           line: 1,
           column: 33,
         }
@@ -74,7 +74,7 @@ ruleTester.run("enforce-bem-class", rule, {
       code: `<div class="slds-p-right_xxx-small"></div>`, // Invalid: Missing block name
       errors: [
         {
-          message: "The class 'slds-p-right_xxx-small' does not follow BEM naming convention.",
+          message: "slds-p-right_xxx-small has been retired. Update it to the new name slds-p-right--xxx-small.",
           line: 1,
           column: 13,
         },

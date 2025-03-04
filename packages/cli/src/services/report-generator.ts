@@ -6,6 +6,7 @@ import { SarifBuilder, SarifRunBuilder, SarifResultBuilder, SarifRuleBuilder } f
 import { createWriteStream } from 'fs';
 import { JsonStreamStringify } from 'json-stream-stringify';
 import {getRuleDescription} from "./config.resolver";
+import { replaceNamespaceinRules } from '../utils/lintResultsUtil';
 
 export interface ReportOptions {
   outputPath: string;
@@ -35,7 +36,7 @@ export class ReportGenerator {
       const rules = this.extractRules(results);
       for (const rule of rules) {
         const ruleBuilder = new SarifRuleBuilder().initSimple({
-          ruleId: rule.id,
+          ruleId: replaceNamespaceinRules(rule.id),
           shortDescriptionText: rule.shortDescription?.text,
         });
         runBuilder.addRule(ruleBuilder);
@@ -87,9 +88,9 @@ export class ReportGenerator {
         if (!rules.has(error.ruleId)) {
           
           rules.set(error.ruleId, {
-            id: error.ruleId,
+            id: replaceNamespaceinRules(error.ruleId),
             shortDescription: {
-              text: getRuleDescription(error.ruleId)
+              text: getRuleDescription(replaceNamespaceinRules(error.ruleId))
             },
             properties: {
               category: 'Style'
@@ -102,9 +103,9 @@ export class ReportGenerator {
       for (const warning of result.warnings) {
         if (!rules.has(warning.ruleId)) {          
           rules.set(warning.ruleId, {
-            id: warning.ruleId,
+            id: replaceNamespaceinRules(warning.ruleId),
             shortDescription: {
-              text: getRuleDescription(warning.ruleId)
+              text: getRuleDescription(replaceNamespaceinRules(warning.ruleId))
             },
             properties: {
               category: 'Style'
@@ -128,7 +129,7 @@ export class ReportGenerator {
     for (const error of lintResult.errors) {
 
       const resultBuilder = new SarifResultBuilder().initSimple({
-        ruleId: error.ruleId,
+        ruleId: replaceNamespaceinRules(error.ruleId),
         level: 'error',
         messageText: error.message,
         fileUri: lintResult.filePath,
@@ -143,7 +144,7 @@ export class ReportGenerator {
     // Add warnings
     for (const warning of lintResult.warnings) {
       const resultBuilder = new SarifResultBuilder().initSimple({
-        ruleId: warning.ruleId,
+        ruleId: replaceNamespaceinRules(warning.ruleId),
         level: 'warning',
         messageText: warning.message,
         fileUri: lintResult.filePath,

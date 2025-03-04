@@ -3,8 +3,8 @@ import stylelint, { LinterResult, LinterOptions } from 'stylelint';
 
 const { lint }: typeof stylelint = stylelint;
 
-describe('do-not-use-calc-function', () => {
-  const ruleName = 'slds/do-not-use-calc-function';
+describe('no-calc-function', () => {
+  const ruleName = 'slds/no-calc-function';
 
   const testCases = [
     {
@@ -15,7 +15,7 @@ describe('do-not-use-calc-function', () => {
         }
       `,
       expectedMessage:
-        'The use of "calc()" in the property "width" is not allowed.',
+        'Don’t use the calc() function in the property width.',
     },
     {
       description: 'Fixes calc() usage by removing it from the width property',
@@ -25,7 +25,7 @@ describe('do-not-use-calc-function', () => {
         }
       `,
       expectedMessage:
-        'The use of "calc()" in the property "width" is not allowed.',
+        'Don’t use the calc() function in the property width.',
       fix: true,
       expectedOutput: `
         .example {
@@ -58,7 +58,7 @@ describe('do-not-use-calc-function', () => {
         }
       `,
       expectedMessage:
-        'The use of "calc()" in the property "width" is not allowed.',
+        'Don’t use the calc() function in the property width.',
     },
   ];
 

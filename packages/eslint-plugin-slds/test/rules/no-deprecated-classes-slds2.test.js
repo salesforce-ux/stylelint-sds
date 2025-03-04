@@ -1,5 +1,5 @@
 const { RuleTester } = require("eslint"); // Import RuleTester
-const rule = require("../../src/rules/no-deprecated-slds2-classes"); // Import the rule
+const rule = require("../../src/rules/no-deprecated-classes-slds2"); // Import the rule
 const path = require("path");
 const fs = require("fs");
 
@@ -30,7 +30,7 @@ ruleTester.run("no-deprecated-classes", rule, {
       code: `<div class="slds-align-content-center"></div>`, // Single deprecated class
       errors: [
         {
-          message: "The class 'slds-align-content-center' is deprecated and should not be used.",
+          message: "The class slds-align-content-center isn't available in SLDS 2. Update it to a class supported in SLDS 2. See lightningdesignsystem.com for more information.",
           line: 1,
           column: 13,
         },
@@ -40,12 +40,12 @@ ruleTester.run("no-deprecated-classes", rule, {
       code: `<div class="slds-app-launcher__tile-body_small slds-app-launcher__tile-figure_small"></div>`, // Multiple deprecated classes
       errors: [
         {
-          message: "The class 'slds-app-launcher__tile-body_small' is deprecated and should not be used.",
+          message: "The class slds-app-launcher__tile-body_small isn't available in SLDS 2. Update it to a class supported in SLDS 2. See lightningdesignsystem.com for more information.",
           line: 1,
           column: 13,
         },
         {
-          message: "The class 'slds-app-launcher__tile-figure_small' is deprecated and should not be used.",
+          message: "The class slds-app-launcher__tile-figure_small isn't available in SLDS 2. Update it to a class supported in SLDS 2. See lightningdesignsystem.com for more information.",
           line: 1,
           column: 48,
         },
