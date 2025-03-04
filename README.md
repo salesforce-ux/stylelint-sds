@@ -76,7 +76,7 @@ In your project root directory, follow these steps.
 6. To produce a SARIF report in your project root directory and specify an output directory, run  `npx @salesforce-ux/slds-linter report -o [output directory]`. The output file is named as `slds-linter-report.sarif`.
 7. Open the generated `.sarif` report file.
 8. Make a note of how many components SLDS Linter has identified that you must update.
-9. (Optional) To automatically fix validation errors in bulk, run `npx @salesforce-ux/slds-linter fix`.
+9. (Optional) To automatically fix validation errors in bulk, run the `lint` command with the `fix` option, `npx @salesforce-ux/slds-linter lint --fix`.
 7. (Optional) To emit the configuration files used by `slds-linter`, run `npx @salesforce-ux/slds-linter emit` in your component source directory. Note that this command defaults to current working directory. These configuration files are discovered by your VS Code ESLint and Stylelint extensions to display squiggly lines in CSS and HTML files when opened in your code editor. 
 
 
@@ -85,7 +85,7 @@ In your project root directory, follow these steps.
 If the SARIF viewer doesn’t automatically go to the line of code when you click on an error or warning, follow these steps.
 
 1. In the SARIF viewer pop-up window, click Locate.
-2. In the VS Code file explorer or code editor, locate the file.
+2. In the file explorer or code editor, locate the file.
 3. Click on the errors in the SARIF viewer, and it navigates directly to the relevant line of code.
 
 
@@ -111,7 +111,7 @@ These options are available on SLDS Linter commands.
 | `--config-eslint <path>` | Path to eslint config file'                    | `lint`                                       |
 | `--editor <editor>`      | Editor to open files with (e.g., vscode, atom, sublime). Defaults to vscode | `lint`, `lint:styles`, `lint:components`          |
 
-To view help for these options, add `--help` to each command. For example, run `slds-linter lint --help` to see which options you can use with `lint`.
+To view help for these options, add `--help` to each command. For example, run `npx @salesforce-ux/slds-linter lint --help` to see which options you can use with `lint`.
 
 
 ## Extensions
