@@ -1,7 +1,9 @@
 import semver from 'semver';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { Logger } from './logger'; // Ensure this path is correct
 
-export const REQUIRED_NODE_VERSION = '20.18.3';
+export const REQUIRED_NODE_VERSION = '18.20.0';
 
 /**
  * Checks if the current Node.js version meets the required version.
@@ -23,3 +25,20 @@ export function validateNodeVersion() {
     process.exit(1);
   }
 }
+
+/**
+ * Util to resolve dirName from import meta compatible with node v18
+ * Letst version of node have import.meta.dirname
+ * @param importMeta 
+ * @returns 
+ */
+export function resolveDirName(importMeta:ImportMeta){
+  if("dirname" in importMeta){
+    return importMeta.dirname;
+  }
+  return dirname(fileURLToPath((importMeta as ImportMeta).url));
+}
+
+export function resolvePath(specifier:string, parentURL = import.meta.url) {
+  return new URL(specifier, parentURL).href;
+};

@@ -2,6 +2,7 @@ import path from 'path';
 import { BatchProcessor, BatchResult } from './batch-processor';
 import { WorkerConfig, WorkerResult, LintResult } from '../types';
 import { Logger } from '../utils/logger';
+import { resolveDirName } from '../utils/nodeVersionUtil';
 
 export interface LintOptions {
   fix?: boolean;
@@ -21,7 +22,7 @@ export class LintRunner {
   ): Promise<LintResult[]> {
     try {
       const workerScript = path.resolve(
-        import.meta.dirname ,
+        resolveDirName(import.meta) ,
         '../workers',
         workerType === 'style' ? 'stylelint.worker.js' : 'eslint.worker.js'
       );

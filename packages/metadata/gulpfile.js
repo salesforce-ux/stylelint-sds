@@ -55,6 +55,7 @@ async function generateBundle() {
     platform: "node",
     format:"esm",
     packages:'external',
+    sourcemap:true,
     plugins:[esbuildPluginFilePathExtensions({
       esmExtension:"js"
     })]
