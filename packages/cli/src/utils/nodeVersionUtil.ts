@@ -3,7 +3,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { Logger } from './logger'; // Ensure this path is correct
 
-export const REQUIRED_NODE_VERSION = '18.20.0';
+export const REQUIRED_NODE_VERSION = "^18.20.0 || >=20.10.0";
 
 /**
  * Checks if the current Node.js version meets the required version.
@@ -11,7 +11,7 @@ export const REQUIRED_NODE_VERSION = '18.20.0';
  * @returns {boolean} - Returns true if the current version is valid.
  */
 export function checkNodeVersion(requiredVersion) {
-  return semver.gte(process.version, requiredVersion);
+  return semver.satisfies(process.version, requiredVersion);
 }
 
 /**
@@ -19,9 +19,15 @@ export function checkNodeVersion(requiredVersion) {
  */
 export function validateNodeVersion() {
   if (!checkNodeVersion(REQUIRED_NODE_VERSION)) {
-    Logger.error(
-      `Node.js version ${process.version} is not supported. Please upgrade to ${REQUIRED_NODE_VERSION} or later.`
-    );
+    if(checkNodeVersion("<=^18.x")){
+      Logger.error(
+        `Node.js version ${process.version} is not supported. Please upgrade to v18.20.0 or later.`
+      );
+    } else if(checkNodeVersion("^20.x") || checkNodeVersion("^19.x")){
+      Logger.error(
+        `Node.js version ${process.version} is not supported. Please upgrade to v20.10.0 or later.`
+      );
+    }    
     process.exit(1);
   }
 }
