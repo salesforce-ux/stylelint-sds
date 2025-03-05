@@ -16,7 +16,7 @@ describe('no-hardcoded-values-slds1', () => {
         }
       `,
       expectedMessage:
-        'Replace the #ff0000 static value with an SLDS 1 design token: --slds-g-color-error-1.',
+        'Replace the #ff0000 static value with an SLDS 1 styling hook: --slds-g-color-error-1.',
       expectedReplacement: '--slds-g-color-error-1',
     },
     {
@@ -28,7 +28,7 @@ describe('no-hardcoded-values-slds1', () => {
         }
       `,
       expectedMessage:
-        'Replace the 16px static value with an SLDS 1 design token: --slds-g-font-scale-2.',
+        'Replace the 16px static value with an SLDS 1 styling hook: --slds-g-font-scale-2.',
     },
     {
       description:
@@ -39,8 +39,7 @@ describe('no-hardcoded-values-slds1', () => {
         }
       `,
       expectedMessage:
-        'Replace the #123456 static value with an SLDS 1 design token: ',
-      expectedReplacement: '--slds-g-color-accent-container-3',
+      'Replace the #123456 static value with an SLDS 1 styling hook: \n1. --slds-g-color-accent-container-3 \n2. --slds-g-color-surface-inverse-1 \n3. --slds-g-color-surface-container-inverse-1 \n4. --slds-g-color-surface-inverse-2 \n5. --slds-g-color-surface-container-inverse-2 \n. (slds/no-hardcoded-values-slds1)'
     },
     {
       description:
