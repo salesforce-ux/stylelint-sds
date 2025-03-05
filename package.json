@@ -40,11 +40,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn report"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/salesforce-ux/slds-linter.git"
