@@ -23,6 +23,7 @@ const compileTs = async ()=>{
     platform: "node",
     format:"esm",
     packages:'external',
+    sourcemap:true,
     plugins:[esbuildPluginFilePathExtensions({
       esmExtension:"js"
     })]

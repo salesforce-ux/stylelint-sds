@@ -1,72 +1,46 @@
 {
     "version": "0.2.0",
     "configurations": [
-          {
-            "name": "Run Stylelint on CSS",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "/Users/lnemalipuri/.volta/bin/npx",
-            "runtimeArgs": [
-              "stylelint",
-              "force-app/main/default/lwc/myComponent/test.css",
-              "--config=packages/test-repository/.stylelintrc.yml"
-            ],
-            "cwd": "${workspaceFolder}",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
-          },
-          {
-            "name": "Run Eslint on HTML",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "/Users/lnemalipuri/.volta/bin/npx",
-            "runtimeArgs": [
-              "eslint",
-              "force-app/main/default/lwc/myComponent/myComponent.html"
-            ],
-            "cwd": "${workspaceFolder}",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
-          },
-          {
-            "name": "Auto fix using Stylelint",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "/Users/lnemalipuri/.volta/bin/npx",
-            "runtimeArgs": [
-              "stylelint",
-              "force-app/main/default/lwc/myComponent/test.css",
-              "--fix"
-            ],
-            "cwd": "${workspaceFolder}",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
-          },
-          {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug Jest Tests",
-            "runtimeExecutable": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-            "runtimeArgs": ["--runInBand"],
-            "cwd": "${workspaceFolder}",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "env": {
-              "NODE_ENV": "test"
-            }
-          },
-          {
-            "type": "node",
-            "request": "launch",
-            "name": "Run report",
-            "runtimeExecutable": "node",
-            "args": [
-              "${workspaceFolder}/node_modules/@salesforce-ux/stylelint-plugin-slds/build/report.js",
-              "-d", "packages/test-repository"
-            ],
-            "cwd": "${workspaceFolder}",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
-          }
+      {
+        "name": "Run CLI Lint:Styles",
+        "request": "launch",
+        "runtimeExecutable": "${env:HOME}/.nvm/versions/node/v18.20.6/bin/node",
+        "runtimeArgs": [
+          "${workspaceFolder}/packages/cli/build/index.js",
+          "lint:styles"
+        ],
+        "console": "integratedTerminal",
+        "skipFiles": [
+          "<node_internals>/**"
+        ],
+        "type": "node"
+      },
+      {
+        "name": "Run CLI Lint:Components",
+        "request": "launch",
+        "runtimeExecutable": "${env:HOME}/.nvm/versions/node/v18.20.6/bin/node",
+        "runtimeArgs": [
+          "${workspaceFolder}/packages/cli/build/index.js",
+          "lint:components"
+        ],
+        "console": "integratedTerminal",
+        "skipFiles": [
+          "<node_internals>/**"
+        ],
+        "type": "node"
+      },{
+        "name": "Run CLI Report",
+        "request": "launch",
+        "runtimeExecutable": "${env:HOME}/.nvm/versions/node/v18.20.6/bin/node",
+        "runtimeArgs": [
+          "${workspaceFolder}/packages/cli/build/index.js",
+          "report"
+        ],
+        "console": "integratedTerminal",
+        "skipFiles": [
+          "<node_internals>/**"
+        ],
+        "type": "node"
+      }      
     ]
   }
