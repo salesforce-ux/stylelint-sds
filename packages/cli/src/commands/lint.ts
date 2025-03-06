@@ -9,6 +9,7 @@ import { StyleFilePatterns, ComponentFilePatterns } from '../services/file-patte
 import { LintRunner } from '../services/lint-runner';
 import { DEFAULT_ESLINT_CONFIG_PATH, DEFAULT_STYLELINT_CONFIG_PATH } from '../services/config.resolver';
 import { loadPersonaConfig } from '../services/config-loader';
+import { loadStoredPersona } from '../services/persona-loader';
 
 export function registerLintCommand(program: Command): void {
   program
@@ -18,7 +19,7 @@ export function registerLintCommand(program: Command): void {
     .option('--fix', 'Automatically fix problems')
     .option('--config-style <path>', 'Path to stylelint config file')
     .option('--config-eslint <path>', 'Path to eslint config file')
-    .option('--persona <persona>', 'Specify a persona for linting rules')
+    // .option('--persona <persona>', 'Specify a persona for linting rules')
     .option('--editor <editor>', 'Editor to open files with (e.g., vscode, atom, sublime). Defaults to vscode', 'vscode')
     .action(async (options: CliOptions) => {
       const startTime = Date.now();
@@ -31,11 +32,15 @@ export function registerLintCommand(program: Command): void {
         });
 
         // ✅ Load persona-based config
-        let personaConfig;
-        if (normalizedOptions.persona) {
-          Logger.info(chalk.blue(`🔹 Applying persona-based linting for: ${options.persona}`));
-          personaConfig = loadPersonaConfig(options.persona);
-        }
+        // let personaConfig;
+        // if (normalizedOptions.persona) {
+        //   Logger.info(chalk.blue(`🔹 Applying persona-based linting for: ${options.persona}`));
+        //   personaConfig = loadPersonaConfig(options.persona);
+        // }
+
+        const persona = loadStoredPersona();
+        Logger.info(`🔹 Using persona: ${persona}`);
+        const personaConfig = loadPersonaConfig(persona);
 
         // 1) STYLE LINT
         Logger.info(chalk.blue('\nScanning style files...'));
