@@ -1,9 +1,10 @@
 import semver from 'semver';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import {resolve} from 'import-meta-resolve'; // This package is a ponyfill for import.meta.resolve Node 16-20
 import { Logger } from './logger'; // Ensure this path is correct
 
-export const REQUIRED_NODE_VERSION = '18.20.0';
+export const REQUIRED_NODE_VERSION = ">=18.4.0";
 
 /**
  * Checks if the current Node.js version meets the required version.
@@ -11,7 +12,7 @@ export const REQUIRED_NODE_VERSION = '18.20.0';
  * @returns {boolean} - Returns true if the current version is valid.
  */
 export function checkNodeVersion(requiredVersion) {
-  return semver.gte(process.version, requiredVersion);
+  return semver.satisfies(process.version, requiredVersion);
 }
 
 /**
@@ -19,10 +20,12 @@ export function checkNodeVersion(requiredVersion) {
  */
 export function validateNodeVersion() {
   if (!checkNodeVersion(REQUIRED_NODE_VERSION)) {
-    Logger.error(
-      `Node.js version ${process.version} is not supported. Please upgrade to ${REQUIRED_NODE_VERSION} or later.`
-    );
-    process.exit(1);
+    if(checkNodeVersion("<18.4.x")){
+      Logger.warning(
+        `SLDS Linter CLI works best with Node.js version v18.4.0 or later. 
+        We recommend using the latest [Active LTS](https://nodejs.org/en/about/previous-releases) version of Node.js.`
+      );
+    }
   }
 }
 
@@ -39,6 +42,12 @@ export function resolveDirName(importMeta:ImportMeta){
   return dirname(fileURLToPath((importMeta as ImportMeta).url));
 }
 
-export function resolvePath(specifier:string, parentURL = import.meta.url) {
-  return new URL(specifier, parentURL).href;
+export function resolvePath(specifier:string, importMeta:ImportMeta) {
+  let fileUrl = ''
+  if("resolve" in importMeta){
+    fileUrl = importMeta.resolve(specifier);    
+  } else {
+    fileUrl = resolve(specifier, (importMeta as ImportMeta).url)//new URL(specifier, (importMeta as ImportMeta).url).href;
+  }
+  return fileURLToPath(fileUrl);
 };

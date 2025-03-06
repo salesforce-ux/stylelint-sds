@@ -41,7 +41,7 @@ const rulesMetadata = {
     warningMsg:
       "Replace the ${oldValue} static value with an SLDS 1 styling hook: ${newValue}.",
     errorMsg:
-      "Replace the ${color} static value with an SLDS 1 design token: ${designToken}.", //Needs to be reviewed.In progress comments.
+      "Replace the ${color} static value with an SLDS 1 styling hook: ${stylingHook}.",
     ruleDesc:
       "Replace static values with SLDS 1 design tokens. For more information, look up design tokens on lightningdesignsystem.com.",
   },
@@ -72,8 +72,8 @@ const rulesMetadata = {
   },
 
   // CHECKED --- TODO:Kishore do we still need this?
-  "slds/no-invalid-tokens-classes": {
-    name: "slds/no-invalid-tokens-classes",
+  "slds/no-deprecated-tokens-slds1": {
+    name: "slds/no-deprecated-tokens-slds1",
     severityLevel: "warning",
     //deprecatedMsg: "Aura tokens are deprecated. Please migrate to SLDS Design Tokens.",
     warningMsg:

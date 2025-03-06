@@ -19,7 +19,7 @@
     "test": "yarn workspaces run test",
     "build": "yarn workspaces run build",
     "release": "node scripts/release.js",
-    "coverage": "yarn test --coverage && node mergeCoverage.mjs"
+    "coverage": "yarn test --coverage && node ./scripts/mergeCoverage.mjs"
   },
   "devDependencies": {
     "@types/eslint": "^8.0.0",
