@@ -1,21 +1,83 @@
 {
   "frontend": {
-    "plugins": ["@salesforce-ux/stylelint-plugin-slds"],
-    "rules": {
-      "slds/no-slds-class-overrides": "warning"
+    "style": {
+      "plugins": ["@salesforce-ux/stylelint-plugin-slds"],
+      "rules": {
+        "slds/no-slds-class-overrides": ["error"],
+        "slds/enforce-bem-usage": ["error"]
+      }
+    },
+    "eslint": {
+      "root": true,
+      "env": {
+        "es2021": true,
+        "node": true
+      },
+      "parser": "@html-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+      },
+      "ignorePatterns": ["node_modules/"],
+      "extends": ["eslint:recommended"],
+      "rules": {
+        "no-console": "error"
+      },
+      "overrides": [
+        {
+          "files": ["*.html", "*.cmp"],
+          "parser": "@html-eslint/parser",
+          "plugins": [
+            "@html-eslint",
+            "@salesforce-ux/slds"
+          ],
+          "rules": {
+            "@salesforce-ux/slds/enforce-bem-class": "error",
+            "@salesforce-ux/slds/no-deprecated-classes-slds2": "error",
+            "@salesforce-ux/slds/modal-close-button-issue": "error"
+          }
+        }
+      ]
     }
   },
   "backend": {
-    "plugins": ["@salesforce-ux/stylelint-plugin-slds"],
-    "rules": {
-      "slds/no-hardcoded-values-slds2": "warning"
-    }
-  },
-  "fullstack": {
-    "plugins": ["@salesforce-ux/stylelint-plugin-slds"],
-    "rules": {
-      "slds/no-slds-class-overrides": "warning",
-      "slds/no-hardcoded-values-slds2": "warning"
+    "style": {
+      "plugins": ["@salesforce-ux/stylelint-plugin-slds"],
+      "rules": {
+        "slds/no-hardcoded-values-slds2": ["warning"]
+      }
+    },
+    "eslint": {
+      "root": true,
+      "env": {
+        "es2021": true,
+        "node": true
+      },
+      "parser": "@html-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+      },
+      "ignorePatterns": ["node_modules/"],
+      "extends": ["eslint:recommended"],
+      "rules": {
+        "no-console": "off"
+      },
+      "overrides": [
+        {
+          "files": ["*.html", "*.cmp"],
+          "parser": "@html-eslint/parser",
+          "plugins": [
+            "@html-eslint",
+            "@salesforce-ux/slds"
+          ],
+          "rules": {
+            "@salesforce-ux/slds/enforce-bem-class": "error",
+            "@salesforce-ux/slds/no-deprecated-classes-slds2": "error",
+            "@salesforce-ux/slds/modal-close-button-issue": "error"
+          }
+        }
+      ]
     }
   }
 }
