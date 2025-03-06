@@ -1,0 +1,21 @@
+{
+  "frontend": {
+    "plugins": ["@salesforce-ux/stylelint-plugin-slds"],
+    "rules": {
+      "slds/no-slds-class-overrides": "warning"
+    }
+  },
+  "backend": {
+    "plugins": ["@salesforce-ux/stylelint-plugin-slds"],
+    "rules": {
+      "slds/no-hardcoded-values-slds2": "warning"
+    }
+  },
+  "fullstack": {
+    "plugins": ["@salesforce-ux/stylelint-plugin-slds"],
+    "rules": {
+      "slds/no-slds-class-overrides": "warning",
+      "slds/no-hardcoded-values-slds2": "warning"
+    }
+  }
+}
