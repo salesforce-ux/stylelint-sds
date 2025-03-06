@@ -26,7 +26,7 @@ async function generateTokensDataFile() {
       const importName = camelCase(fileNameParts.name);
       const importPath = relative("./src", filePath);
       namedExports.push(importName);
-      return `const ${importName} = require("${importPath}");`;
+      return `const ${importName} = require("${JSON.stringify(importPath)}");`;
     })
     .join("\n");
 

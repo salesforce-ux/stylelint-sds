@@ -3,7 +3,6 @@
   "version": "0.1.2",
   "files": [
     "./build/**",
-    "./resources/**",
     "README.md"
   ],
   "type": "module",

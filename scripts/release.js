@@ -221,7 +221,7 @@ async function main() {
     }
 
     console.log(chalk.blue("Building workspcae..."));
-    await execSync("yarn build");
+    await execSync("CLI_BUILD_MODE=release yarn build");
 
     console.log(chalk.blue("Publish packages and get slds-linter tarball path"));
     const sldsLinterTarball = await publishPackages(workspaceInfo, finalVersion, releaseType);
