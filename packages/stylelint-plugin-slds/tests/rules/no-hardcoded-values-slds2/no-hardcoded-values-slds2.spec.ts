@@ -19,6 +19,15 @@ describe('no-hardcoded-values-slds2', () => {
       "Consider replacing the #ff0000 static value with an SLDS 2 styling hook that has a similar value: --slds-g-color-on-error-2"
     },
     {
+      description: 'Does not report for 0 as a value',
+      inputCss: `
+        .example {
+          width: 0;
+        }
+      `,
+      expectedMessage: null,
+    },
+    {
       description:
         'Reports warning for hardcoded font size with replacement hook',
       inputCss: `
