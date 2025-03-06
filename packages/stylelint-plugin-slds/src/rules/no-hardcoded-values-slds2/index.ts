@@ -39,7 +39,7 @@ const messages = utils.ruleMessages(ruleName, {
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {
   // Regular expression to match number, number with px, or number with rem
-  const regex = /^\d+(\.\d+)?(px|rem)?$/;
+  const regex = /^(?!0)\d+(\.(?!0)\d)?(px|rem)?$/;
   return regex.test(cssValue);
 };
 
