@@ -1,4 +1,4 @@
-import { valueToStylinghookSlds } from "@salesforce-ux/metadata-slds";
+import { valueToStylinghookSlds } from '@salesforce-ux/metadata-slds';
 import { Root } from 'postcss';
 import stylelint, { PostcssResult, Rule, RuleSeverity } from 'stylelint';
 import {
@@ -24,20 +24,25 @@ interface StylinghookData {
   };
 }
 
-const ruleName:string = 'slds/no-hardcoded-values-slds1';
+const ruleName: string = 'slds/no-hardcoded-values-slds1';
 
-const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
+const {
+  severityLevel = 'error',
+  warningMsg = '',
+  errorMsg = '',
+  ruleDesc = 'No description provided',
+} = ruleMetadata(ruleName) || {};
 
 const messages = utils.ruleMessages(ruleName, {
   rejected: (color: string, stylingHook: string) =>
-    replacePlaceholders(errorMsg, { color, stylingHook} ),
+    replacePlaceholders(errorMsg, { color, stylingHook }),
   suggested: (oldValue: string) =>
     `There’s no replacement styling hook for the ${oldValue} static value. Remove the static value.`,
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {
   // Regular expression to match number, number with px, or number with rem
-  const regex = /^\d+(\.\d+)?(px|rem)?$/;
+  const regex = /\b(?!0px\b)\d+px\b|\b\d+rem\b/g;
   return regex.test(cssValue);
 };
 
@@ -92,12 +97,47 @@ const findExactMatchStylingHook = (
   );
 };
 
-function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity}={}) {
+const reportIssue = ({
+  value,
+  decl,
+  index,
+  endIndex,
+  closestHooks,
+  result,
+  ruleName,
+  severity,
+}) => {
+  if (closestHooks.length > 0) {
+    utils.report({
+      message: messages.rejected(value, generateTable(closestHooks)),
+      node: decl,
+      index,
+      endIndex,
+      result,
+      ruleName,
+      severity,
+    });
+  } else {
+    utils.report({
+      message: messages.suggested(value),
+      node: decl,
+      index,
+      endIndex,
+      result,
+      ruleName,
+      severity,
+    });
+  }
+};
+
+function rule(
+  primaryOptions: boolean,
+  { severity = severityLevel as RuleSeverity } = {}
+) {
   return async (root: Root, result: PostcssResult) => {
     const supportedStylinghooks = valueToStylinghookSlds; //await loadStylinghooksData(); // Await the loading of color data
 
     root.walkDecls((decl) => {
-      
       const cssProperty = decl.prop.toLowerCase();
       const colorProperties = [
         'color',
@@ -124,71 +164,127 @@ function rule(primaryOptions: boolean, {severity = severityLevel as RuleSeverity
       const index = decl.toString().indexOf(decl.value); // Start index of the value
       const endIndex = index + decl.value.length;
 
-      // For color changes
-      if (
-        matchesCssProperty(colorProperties, cssProperty) &&
-        isHardCodedColor(value)
-      ) {
-        const hexValue = convertToHex(value);
-        if (hexValue) {
-          const closestHooks = findClosestColorHook(
-            hexValue,
-            supportedStylinghooks,
-            cssProperty
-          );
-          if (closestHooks.length > 0) {
-            utils.report({
-              message: messages.rejected(value, generateTable(closestHooks)),
-              node: decl,
-              index,
-              endIndex,
-              result,
-              ruleName,
-              severity
-            });
-          } else {
-            utils.report({
-              message: messages.suggested(value),
-              node: decl,
-              index,
-              endIndex,
-              result,
-              ruleName,
-              severity
-            });
-          }
-        }
-      } else if (
-        matchesCssProperty(densificationProperties, cssProperty) &&
-        isHardCodedDensifyValue(value)
-      ) {
+      const handleBoxShadow = ({
+        decl,
+        supportedStylinghooks,
+        result,
+        ruleName,
+        severity,
+      }) => {
+        const value = decl.value;
+        const index = decl.toString().indexOf(value);
+        const endIndex = index + value.length;
         const closestHooks = findExactMatchStylingHook(
           value,
           supportedStylinghooks,
-          cssProperty
+          'box-shadow'
         );
-        if (closestHooks.length > 0) {
-          utils.report({
-            message: messages.rejected(value, generateTable(closestHooks)),
-            node: decl,
-            index,
-            endIndex,
+        reportIssue({
+          value,
+          decl,
+          index,
+          endIndex,
+          closestHooks,
+          result,
+          ruleName,
+          severity,
+        });
+      };
+
+      const handleOtherProperties = ({
+        decl,
+        cssProperty,
+        supportedStylinghooks,
+        result,
+        ruleName,
+        severity,
+      }) => {
+        const values = decl.value.split(' ');
+        values.forEach((value) => {
+          const index = decl.toString().indexOf(value);
+          const endIndex = index + value.length;
+
+          if (
+            matchesCssProperty(colorProperties, cssProperty) &&
+            isHardCodedColor(value)
+          ) {
+            const hexValue = convertToHex(value);
+            if (hexValue) {
+              const closestHooks = findClosestColorHook(
+                hexValue,
+                supportedStylinghooks,
+                cssProperty
+              );
+              reportIssue({
+                value,
+                decl,
+                index,
+                endIndex,
+                closestHooks,
+                result,
+                ruleName,
+                severity,
+              });
+            }
+          } else if (
+            matchesCssProperty(densificationProperties, cssProperty) &&
+            isHardCodedDensifyValue(value)
+          ) {
+            const closestHooks = findExactMatchStylingHook(
+              value,
+              supportedStylinghooks,
+              cssProperty
+            );
+            reportIssue({
+              value,
+              decl,
+              index,
+              endIndex,
+              closestHooks,
+              result,
+              ruleName,
+              severity,
+            });
+          }
+        });
+      };
+
+      const lintCSSProperty = ({
+        decl,
+        cssProperty,
+        supportedStylinghooks,
+        result,
+        ruleName,
+        severity,
+      }) => {
+        if (cssProperty === 'box-shadow') {
+          handleBoxShadow({
+            decl,
+            supportedStylinghooks,
             result,
             ruleName,
-            severity
+            severity,
           });
         } else {
-          utils.report({
-            message: messages.suggested(value),
-            node: decl,
-            index,
-            endIndex,
+          handleOtherProperties({
+            decl,
+            cssProperty,
+            supportedStylinghooks,
             result,
             ruleName,
-            severity
+            severity,
           });
         }
-      }
+      };
+
+      lintCSSProperty({
+        decl,
+        cssProperty,
+        supportedStylinghooks,
+        result,
+        ruleName,
+        severity,
+      });
     });
   };
 }
