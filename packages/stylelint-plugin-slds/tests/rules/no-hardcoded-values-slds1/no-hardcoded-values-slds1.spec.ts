@@ -29,6 +29,33 @@ describe('no-hardcoded-values-slds1', () => {
       expectedMessage: null,
     },
     {
+      description: 'Reports warning for hardcoded color value with replacement hook',
+      inputCss: `
+        .example {
+          font-size: 0.875rem;
+        }
+      `,
+      expectedMessage: 'Replace the 0.875rem static value with an SLDS 1 styling hook: --slds-g-font-scale-1.',
+    },
+    {
+      description: 'Reports warning for hardcoded color value with replacement hook',
+      inputCss: `
+        .example {
+          padding: 0 12px;
+        }
+      `,
+      expectedMessage: null,
+    },
+    {
+      description: 'Reports warning for hardcoded color value with replacement hook',
+      inputCss: `
+        .example {
+          margin: 0 0 10px 10px;
+        }
+      `,
+      expectedMessage: null,
+    },
+    {
       description:
         'Reports warning for hardcoded font size with replacement hook',
       inputCss: `
