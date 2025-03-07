@@ -21,7 +21,8 @@
   },
   "scripts": {
     "prepublishOnly": "clean-pkg-json",
-    "build": "gulp build",
+    "copy-config": "cp -r src/config build/",
+    "build": "gulp build && npm run copy-config",
     "dev": "gulp dev",
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest",
     "lint": "eslint src/**/*.ts"

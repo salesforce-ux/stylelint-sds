@@ -25,6 +25,7 @@ export function normalizeCliOptions(options: CliOptions, defultOptions:Partial<C
     config:'',
     configStyle:'',
     configEslint:'',
+    persona: options.persona || '',
     ...defultOptions,
     ...options,
     directory: validateAndNormalizePath(options.directory),
