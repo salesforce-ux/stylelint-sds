@@ -1,10 +1,16 @@
 {
-  "frontend": {
+  "base": {
     "style": {
       "plugins": ["@salesforce-ux/stylelint-plugin-slds"],
       "rules": {
-        "slds/no-slds-class-overrides": ["error"],
-        "slds/enforce-bem-usage": ["error"]
+        "slds/no-slds-private-var": "warning",
+        "slds/no-slds-class-overrides": "warning",
+        "slds/no-invalid-tokens-classes": "warning",
+        "slds/no-hardcoded-values-slds1": "warning",
+        "slds/no-deprecated-slds2-classes": "warning",
+        "slds/no-unsupported-hooks-slds2": "warning",
+        "slds/enforce-sds-to-slds-hooks": "warning",
+        "slds/enforce-bem-usage": "warning"
       }
     },
     "eslint": {
@@ -20,64 +26,44 @@
       },
       "ignorePatterns": ["node_modules/"],
       "extends": ["eslint:recommended"],
-      "rules": {
-        "no-console": "error"
-      },
-      "overrides": [
-        {
-          "files": ["*.html", "*.cmp"],
-          "parser": "@html-eslint/parser",
-          "plugins": [
-            "@html-eslint",
-            "@salesforce-ux/slds"
-          ],
-          "rules": {
-            "@salesforce-ux/slds/enforce-bem-class": "off",
-            "@salesforce-ux/slds/no-deprecated-classes-slds2": "error",
-            "@salesforce-ux/slds/modal-close-button-issue": "off"
-          }
-        }
-      ]
+      "rules": {},
+      "overrides": []
     }
   },
-  "backend": {
-    "style": {
-      "plugins": ["@salesforce-ux/stylelint-plugin-slds"],
-      "rules": {
-        "slds/no-hardcoded-values-slds2": ["warning"]
+  "personas": {
+    "internal": {
+      "style": {
+        "rules": {
+          "slds/no-lwc-custom-properties": "off",
+          "slds/no-important-tag": "off",
+          "slds/no-hardcoded-values-slds2": "off",
+          "slds/no-deprecated-slds-classes": "off",
+          "slds/no-calc-function": "off",
+          "slds/lwc-token-to-slds-hook": "warning"
+        }
+      },
+      "eslint": {
+        "rules": {
+          "annotations": "off"
+        }
       }
     },
-    "eslint": {
-      "root": true,
-      "env": {
-        "es2021": true,
-        "node": true
-      },
-      "parser": "@html-eslint/parser",
-      "parserOptions": {
-        "ecmaVersion": 2021,
-        "sourceType": "module"
-      },
-      "ignorePatterns": ["node_modules/"],
-      "extends": ["eslint:recommended"],
-      "rules": {
-        "no-console": "off"
-      },
-      "overrides": [
-        {
-          "files": ["*.html", "*.cmp"],
-          "parser": "@html-eslint/parser",
-          "plugins": [
-            "@html-eslint",
-            "@salesforce-ux/slds"
-          ],
-          "rules": {
-            "@salesforce-ux/slds/enforce-bem-class": "error",
-            "@salesforce-ux/slds/no-deprecated-classes-slds2": "off",
-            "@salesforce-ux/slds/modal-close-button-issue": "off"
-          }
+    "external": {
+      "style": {
+        "rules": {
+          "slds/no-lwc-custom-properties": "warning",
+          "slds/no-important-tag": "off",
+          "slds/no-hardcoded-values-slds2": "warning",
+          "slds/no-deprecated-slds-classes": "warning",
+          "slds/no-calc-function": "off",
+          "slds/lwc-to-slds-token": "off"
         }
-      ]
+      },
+      "eslint": {
+        "rules": {
+          "annotations": "off"
+        }
+      }
     }
   }
 }

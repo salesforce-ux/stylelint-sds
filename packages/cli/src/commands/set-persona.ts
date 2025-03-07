@@ -9,7 +9,7 @@ export function registerSetPersonaCommand(program: Command): void {
     .command('set-persona <persona>')
     .description('Set your default persona for SLDS-Linter')
     .action((persona: string) => {
-      const validPersonas = ['frontend', 'backend', 'fullstack'];
+      const validPersonas = ['internal', 'external'];
 
       if (!validPersonas.includes(persona)) {
         console.error(`❌ Invalid persona. Choose from: ${validPersonas.join(', ')}`);
