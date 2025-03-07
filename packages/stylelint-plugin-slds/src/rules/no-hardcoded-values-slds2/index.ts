@@ -1,4 +1,3 @@
-import fs from 'fs/promises'; // Use promises to read the file asynchronously
 import stylelint, { Rule, PostcssResult, RuleSeverity } from 'stylelint';
 import generateTable from '../../utils/generateTable';
 import {
@@ -7,7 +6,6 @@ import {
   isHardCodedColor,
 } from '../../utils/color-lib-utils';
 import { Root } from 'postcss';
-import { metadataFileUrl } from '../../utils/metaDataFileUrl';
 import ruleMetadata from '../../utils/rulesMetadata';
 import replacePlaceholders from '../../utils/util';
 const { utils, createPlugin } = stylelint;

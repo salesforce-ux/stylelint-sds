@@ -29,31 +29,49 @@ describe('no-hardcoded-values-slds1', () => {
       expectedMessage: null,
     },
     {
-      description: 'Reports warning for hardcoded color value with replacement hook',
+      description: 'Does not report for 0px as a value',
+      inputCss: `
+        .example {
+          width: 0px;
+        }
+      `,
+      expectedMessage: null,
+    },
+    {
+      description: 'Does not report for 0.0 as a value',
+      inputCss: `
+        .example {
+          width: 0.0;
+        }
+      `,
+      expectedMessage: null,
+    },
+    {
+      description: 'Reports warning for hardcoded font-size value with replacement hook',
       inputCss: `
         .example {
           font-size: 0.875rem;
         }
       `,
-      expectedMessage: 'Replace the 0.875rem static value with an SLDS 1 styling hook: --slds-g-font-scale-1.',
+      expectedMessage: "Replace the 0.875rem static value with an SLDS 1 styling hook: --slds-g-font-scale-1. (slds/no-hardcoded-values-slds1)",
     },
     {
-      description: 'Reports warning for hardcoded color value with replacement hook',
+      description: 'Reports 1rem warning for hardcoded padding value with replacement hook',
       inputCss: `
         .example {
-          padding: 0 12px;
+          padding: 0 1rem;
         }
       `,
-      expectedMessage: null,
+      expectedMessage: "Replace the 1rem static value with an SLDS 1 styling hook: --slds-g-spacing-4. (slds/no-hardcoded-values-slds1)"
     },
     {
-      description: 'Reports warning for hardcoded color value with replacement hook',
+      description: 'Reports warning for hardcoded box-shadow value with replacement hook',
       inputCss: `
         .example {
-          margin: 0 0 10px 10px;
+          box-shadow: 0 2px 8px -2px #18181814, 0 8px 12px -2px #18181828;
         }
       `,
-      expectedMessage: null,
+      expectedMessage: "Replace the 0 2px 8px -2px #18181814, 0 8px 12px -2px #18181828 static value with an SLDS 1 styling hook: --slds-g-shadow-2. (slds/no-hardcoded-values-slds1)"
     },
     {
       description:
@@ -119,7 +137,6 @@ describe('no-hardcoded-values-slds1', () => {
         const messages = linterResult.results[0].warnings.map(
           (warning) => warning.text
         );
-
         if (expectedMessage) {
           expect(messages[0]).to.include(expectedMessage);
         } else {

@@ -24,6 +24,10 @@
 }
 
 .test-cls2 {
+  width: 0.000;
+}
+
+.test-cls2 {
   padding: 0 1rem;
 }
 
@@ -33,6 +37,10 @@
 
 .test-cls2 {
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.08) inset, 0px 0.5px 2px 0px rgba(0, 0, 0, 0.35) inset, 0px 1px 0px 0px rgba(0, 0, 0, 0.15) inset, 0 0 0 2px var(--slds-g-color-surface-1), 0 0 0 4px var(—slds-g-color-brand-base-15);
+}
+
+.test-cls2 {
+  box-shadow: 0 2px 8px -2px #18181814, 0 8px 12px -2px #18181828;
 }
 
 /* For text truncation with ellipsis
