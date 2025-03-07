@@ -19,19 +19,13 @@ export = {
         additionalProperties: false,
       },
     ],
-    messages: {
-      errorMsg:
-        "The {{actual}} class doesn’t follow the correct BEM naming convention.",
+    messages: {      
       suggestedMsg:
         "{{actual}} has been retired. Update it to the new name {{newValue}}.",
     },
   },
 
-  create(context) {
-    const pattern =
-      /^(?:[a-z0-9]+(?:-[a-z0-9]+)*)(__[a-z0-9]+(?:-[a-z0-9]+)*)?(--[a-z0-9]+(?:-[a-z0-9]+)*)?$/;
-
-    const checkNaming = (name) => pattern.test(name);
+  create(context) {  
 
     function check(node) {
       if (isAttributesEmpty(node)) {
@@ -41,7 +35,7 @@ export = {
       if (classAttr && classAttr.value) {
         const classNames = classAttr.value.value.split(/\s+/);
         classNames.forEach((className) => {
-          if (className && !checkNaming(className)) {
+          if (className && className in bemMapping) {
             // Find the exact location of the problematic class name
             const classNameStart = classAttr.value.value.indexOf(className) + 7; // 7 here is for `class= "`
             const classNameEnd = classNameStart + className.length;
@@ -65,7 +59,7 @@ export = {
                 actual: className,
                 newValue
               },
-              messageId: newValue? "suggestedMsg": "errorMsg",
+              messageId: "suggestedMsg",
               fix(fixer) {
                 if (newValue) {
                   const newClassValue = classAttr.value.value.replace(

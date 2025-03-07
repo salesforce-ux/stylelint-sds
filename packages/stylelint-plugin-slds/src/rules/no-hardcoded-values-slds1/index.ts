@@ -29,10 +29,10 @@ const ruleName:string = 'slds/no-hardcoded-values-slds1';
 const { severityLevel = 'error', warningMsg = '', errorMsg = '', ruleDesc = 'No description provided' } = ruleMetadata(ruleName) || {};
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: (color: string, designToken: string) =>
-    replacePlaceholders(errorMsg, { color, designToken} ),
-  suggested: (color: string) =>
-    `There’s no replacement styling hook for the ${color} static value. Remove the static value.`,  //TODO: Messaging.
+  rejected: (color: string, stylingHook: string) =>
+    replacePlaceholders(errorMsg, { color, stylingHook} ),
+  suggested: (oldValue: string) =>
+    `There’s no replacement styling hook for the ${oldValue} static value. Remove the static value.`,
 });
 
 const isHardCodedDensifyValue = (cssValue: string): boolean => {

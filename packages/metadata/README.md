@@ -10,6 +10,6 @@ This package contains metdata required to validate and autofix by linter
 |`resources/lwcToSLDS.json`|Used by lwc-token-to-slds-hook rule|
 |`resources/sldsPlus.metadata.json`|Not in use|
 |`resources/slds_classes.json`|Not in use|
-|`resources/tokenMapping.json`|Used by no-invalid-tokens-classes rule to upgrade Aura tokens to SLDS tokens|
+|`resources/tokenMapping.json`|Used by no-deprecated-tokens-slds1 rule to upgrade Aura tokens to SLDS tokens|
 |`resources/valueToStylinghook.slds.json`|Used by no-hardcoded-values-slds1 rule to suggest style hook for hardcoded values|
 |`resources/valueToStylinghook.sldsplus.json`|Used by no-hardcoded-values-slds2 rule to suggest style hook for hardcoded values|

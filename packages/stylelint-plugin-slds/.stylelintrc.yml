@@ -19,7 +19,7 @@ overrides:
       slds/no-hardcoded-values-slds2:
         - true
         - severity: warning
-      # slds/no-invalid-tokens-classes:
+      # slds/no-deprecated-tokens-slds1:
       #   - true
       #   - severity: error
       # slds/lwc-token-to-slds-hook: ## Cannot be public as the data is not final. 
